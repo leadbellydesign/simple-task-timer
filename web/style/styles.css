@@ -1,50 +1,71 @@
-noscript, #out-of-date {    
-    display: inline-block;
-    padding: 5px;
-
-    border: 1px solid red;
-    border-radius: 5px;
-    
-    font-weight: bold;
-    background-color: #FFFFCC;
+/* Page Layout */
+body {
+    background-color: #F4F4F4;
+    font-family: sans-serif;
 }
 
-#out-of-date, #loading, #js, #task-list {
-    display: none;
+header, footer {
+    text-align: center;
+}
+
+#out-of-date, #notice, #loading, #tasks, #task-list, #nothing { display: none; }
+
+/* Header */
+h1, h2 { margin: 0; }
+h1 { font-size: 32px; }
+h2 { font-size: 16px; font-weight: normal; }
+
+/* Notes */
+.note {
+    margin: 10px auto 0px auto;
+    padding: 5px;
+    width: 60%;
+    
+    background-color: #D7F0D7;
+    
+    border: 1px solid #C8E1C8;
+    border-radius: 5px;
+}
+
+#close-notice {
+    float: right;
+}
+
+/* Task List */
+section#tasks {
+    margin: 10px auto 0px auto;
+    padding: 5px;
+    width: 60%;
+    
+    background-color: white;
+    text-align: center;
+    
+    border: 1px solid #E9E9E9;
+    border-radius: 5px;
+}
+
+#new-task {
+    margin-top: 20px;
 }
 
 #no-tasks {
     font-weight: bold;
-}
-
-#notice {
-    display: inline-block;
-    padding: 5px;
-    margin: 10px;
-    
-    border: 1px solid blue;
-    border-radius: 5px;
-    
-    background-color: #99CCFF;
-}
-
-#list-container {
-    margin-top: 40px;
-    margin-bottom: 25px;
+    font-size: 24px;
 }
 
 #task-list {
+    margin: 0 auto;
     border-spacing: 0px 3px;
 }
 
-td.text {
-    border-radius: 5px 0px 0px 5px;
-}
+tr.running { background-color: #D5F0F0; }
+tr.done { background-color: #D7F0D7; }
 
-td.options {
-    border-radius: 0px 5px 5px 0px;
-}
+td.text { border-radius: 5px 0px 0px 5px; }
+td.options { border-radius: 0px 5px 5px 0px; }
 
-#template {
-    display: none;
-}
+th.text { width: 30%; }
+th.options { width: 20%; }
+th.current { width: 15%; }
+th.goal { width: 15%; }
+th.progress { width: 20%; }

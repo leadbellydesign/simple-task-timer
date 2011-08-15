@@ -10,50 +10,67 @@
     <script type="text/javascript" src="scripts/script.js"></script>
 </head>
 <body>
+     <img src="style/ajax-loader.gif" alt="Loading..." id="loading" />
+     
+    <header>
+        <h1>Task Timer</h1>
+        <h2>Use this tool to keep track of time that you spend on work, studies, or any other type of task.</h2>
+    </header>
+    
     <noscript>
         <strong>Enable JavaScript, fool!</strong><br />
         This web application wouldn't even begin to function without it.
     </noscript>
     
-    <div id="out-of-date">
-        It appears that you are using an out-of-date browser that doesn't support localStorage or native JSON.<br />
-        Please upgrade to a newer browser, or switch.<br />
-        I recommend <a href="http://chrome.google.com/">Google Chrome</a>, <a href="http://www.opera.com/">Opera</a>, or 
-        <a href="http://www.firefox.com/">Firefox</a>.
-    </div>
+    <section id="out-of-date" class="note">
+        <p>
+            It appears that you are using an out-of-date browser that doesn't support localStorage or native JSON.<br />
+            Please upgrade to a newer browser, or switch.<br />
+            I recommend <a href="http://chrome.google.com/">Chrome</a>, <a href="http://www.opera.com/">Opera</a>, or 
+            <a href="http://www.firefox.com/">Firefox</a>.
+        </p>
+    </section>
     
-    <div id="js">
-        <h1>Task Timer <img src="style/ajax-loader.gif" alt="Loading..." id="loading" /></h1>
-        <strong>Use this tool to keep track of time that you spend on work, studies, or any other type of task.</strong><br />
+    <section id="notice" class="note">
+        <button id="close-notice">Close</button>
         
-        <div id="notice">
+        <p>
             Note: This only saves locally, on your computer, in your browser.<br />
             The data will be gone if you clear the data, or you move to a different computer/device.
-            <button id="close-notice">Close</button>
-        </div>
-        
-        <div id="list-container">
-            <span id="no-tasks">You haven't created any tasks yet!</span>
+        </p>
+    </section>
+    
+    <section id="tasks">
+        <span id="no-tasks">You haven't created any tasks yet!</span>
             
-            <table id="task-list">
-                <thead>
-                    <tr>
-                        <th class="text">Task</th>
-                        <th class="current">Time Spent</th>
-                        <th class="goal">Goal</th>
-                        <th class="progress">Progress</th>
-                        <th class="options">Options</th>
-                     </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-        <div id="new-task">
-            <input type="text" id="new-txt" placeholder="Task Name" title="Task Name" disabled />
-            <input type="number" id="new-goal" value="4" min="1" max="80" size="3" title="Goal Time" disabled />
-            <button id="new-btn" disabled>Add Task</button>
-        </div>
+        <table id="task-list">
+            <thead>
+                <tr>
+                    <th class="text">Task</th>
+                    <th class="current">Time Spent</th>
+                    <th class="goal">Goal</th>
+                    <th class="progress">Progress</th>
+                    <th class="options">Options</th>
+                 </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
         
+        <table id="new-task">
+            <tr>
+                <td>Name</td>
+                <td>Goal (in hours)</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><input type="text" id="new-txt" class="field" placeholder="Task Name" title="Task Name" disabled /></td>
+                <td><input type="number" id="new-goal" class="field" value="4" min="1" max="80" size="8" title="Goal Time" disabled /></td>
+                <td><button id="new-btn" class="field" disabled>Add Task</button></td>
+            </tr>
+        </table>
+    </section>
+    
+    <section id="nothing">
         <table id="template">
             <tr id="row-template" style="display: none;">
                 <td class="text">Task</td>
@@ -66,8 +83,13 @@
                 </td>
             </tr>
         </table>
-        
-        <audio src="Deneb.ogg" id="sound" preload></audio>
-    </div>
+    </section>
+    
+    <audio src="Deneb.ogg" id="sound" preload></audio>
+    
+    <footer>
+        Created by <a href="http://gawdl3y.com/">Schuyler Cebulskie</a> | 
+        <a href="http://code.google.com/p/simple-task-timer/issues/list">Report a bug</a>
+    </footer>
 </body>
 </html>

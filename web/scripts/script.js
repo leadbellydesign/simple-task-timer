@@ -21,13 +21,13 @@ $(document).ready(function() {
         }
     }
     
-    // Hide the notice if they've previously hidden it
-    if(localStorage['notice-closed']) {
-        $('#notice').hide();
+    // Show the notice if they haven't hidden it
+    if(!localStorage['notice-closed']) {
+        $('#notice').show();
     }
     
     // Enable the add task fields
-    $('#new-task').children().removeAttr('disabled');
+    $('.field').removeAttr('disabled');
     
     // Start the update timer
     update_time();
@@ -83,7 +83,7 @@ $(document).ready(function() {
     });
     
     save();
-    $('#js').fadeIn(2000);
+    $('#tasks').show();
 });
 
 
@@ -151,11 +151,11 @@ function toggle_task(task) {
     if(task_running[task]) {
         task_running[task] = false;
         $('#task-'+ task +' button.toggle').text('Start');
-        $('#task-'+ task).css({'background-color': 'white'});
+        $('#task-'+ task).removeAttr('class');
     } else {
         task_running[task] = true;
         $('#task-'+ task +' button.toggle').text('Stop');
-        $('#task-'+ task).css({'background-color': '#99CCFF'});
+        $('#task-'+ task).attr('class', 'running');
     }
 }
 
@@ -177,7 +177,7 @@ function list_task(task, anim) {
     // Disable the toggle button if task is at its goal, and change the bg colour
     if(tasks[task].current >= tasks[task].goal - 0.00015) {
         $('#task-'+ task +' button.toggle').attr('disabled', 'disabled');
-        $('#task-'+ task).css({'background-color': '#CCFFCC'});
+        $('#task-'+ task).attr('class', 'done');
     }
     
     // Option Buttons
@@ -218,7 +218,7 @@ function update_time() {
                 tasks[i].current = tasks[i].goal;
                 toggle_task(i);
                 $('#task-'+ i +' button.toggle').attr('disabled', 'disabled');
-                $('#task-'+ i).css({'background-color': '#CCFFCC'});
+                $('#task-'+ i).attr('class', 'done');
                 
                 document.getElementById('sound').play();
             }
