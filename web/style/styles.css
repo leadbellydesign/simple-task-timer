@@ -9,6 +9,7 @@ header, footer {
 }
 
 #out-of-date, #notice, #loading, #tasks, #task-list, #nothing { display: none; }
+#loading { float: left; }
 
 /* Header */
 h1, h2 { margin: 0; }
