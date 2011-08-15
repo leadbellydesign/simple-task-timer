@@ -173,6 +173,7 @@ function list_task(task, anim) {
     $('#task-'+ task +' td.goal').text(tasks[task].goal.toString() + (tasks[task].goal > 1 ? ' Hours' : ' Hour'));
     $('#task-'+ task +' button.toggle').text(task_running[task] ? 'Stop' : 'Start');
     $('#task-'+ task +' progress').val(progress).text(progress.toString() +'%');
+    if(task_running[task]) $('#task-'+ task).attr('class', 'running');
     
     // Disable the toggle button if task is at its goal, and change the bg colour
     if(tasks[task].current >= tasks[task].goal - 0.00015) {
