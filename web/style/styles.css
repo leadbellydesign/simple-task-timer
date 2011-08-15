@@ -1,0 +1,50 @@
+noscript, #out-of-date {    
+    display: inline-block;
+    padding: 5px;
+
+    border: 1px solid red;
+    border-radius: 5px;
+    
+    font-weight: bold;
+    background-color: #FFFFCC;
+}
+
+#out-of-date, #loading, #js, #task-list {
+    display: none;
+}
+
+#no-tasks {
+    font-weight: bold;
+}
+
+#notice {
+    display: inline-block;
+    padding: 5px;
+    margin: 10px;
+    
+    border: 1px solid blue;
+    border-radius: 5px;
+    
+    background-color: #99CCFF;
+}
+
+#list-container {
+    margin-top: 40px;
+    margin-bottom: 25px;
+}
+
+#task-list {
+    border-spacing: 0px 3px;
+}
+
+td.text {
+    border-radius: 5px 0px 0px 5px;
+}
+
+td.options {
+    border-radius: 0px 5px 5px 0px;
+}
+
+#template {
+    display: none;
+}
