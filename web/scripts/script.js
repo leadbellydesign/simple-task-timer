@@ -87,6 +87,7 @@ $(document).ready(function() {
     
     // User clicked the cancel button in the options modal
     $('#close-modal').click(function() {
+        Load();
         $('#modal-contents').animate({'width': '0px'}).animate({'height': '0px'}, 400, function() {
             $('.modal').fadeOut(); $('#modal-contents').hide(); 
         });
@@ -118,7 +119,7 @@ $(document).ready(function() {
 // Load the settings
 function Load() {
     // Set default settings if they don't exist
-    if(typeof localStorage['hide-notice'] === 'undefined' || typeof localStorage['update-time']) {
+    if(typeof localStorage['hide-notice'] === 'undefined' || typeof localStorage['update-time'] === 'undefined') {
         localStorage['hide-notice'] = 'false';
         localStorage['play-sound'] = 'true';
         localStorage['confirm-delete'] = 'true';
