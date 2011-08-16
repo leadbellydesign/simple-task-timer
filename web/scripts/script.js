@@ -96,8 +96,11 @@ $(document).ready(function() {
     // User clicked the save button in the options modal
     $('#save-settings').click(function() {
         localStorage['hide-notice'] = $('#hide-notice').is(':checked');
-        localStorage['play-sound'] = $('#play-sound').is(':checked');
         localStorage['confirm-delete'] = $('#confirm-delete').is(':checked');
+        localStorage['play-sound'] = $('#play-sound').is(':checked');
+        
+        localStorage['sound-type'] = $('#sound-type').val();
+        localStorage['custom-sound'] = $('#custom-sound').val();
         
         if(parseInt($('#update-time').val()) > 0 && parseInt($('#update-time').val()) < 60) {
             localStorage['update-time'] = parseInt($('#update-time').val());
@@ -108,6 +111,25 @@ $(document).ready(function() {
         
         Load();
         $('#close-modal').click();
+    });
+    
+    // User changed the play sound checkbox
+    $('#play-sound').change(function() {
+        if($('#play-sound').is(':checked')) {
+            $('#sound-type').removeAttr('disabled');
+            if($('#sound-type').val() === '2') $('#custom-sound').removeAttr('disabled');
+        } else {
+            $('#sound-type, #custom-sound').attr('disabled', 'disabled');
+        }
+    });
+    
+    // User changed the sound type dropdown
+    $('#sound-type').change(function() {
+        if($('#sound-type').val() === '2') {
+            $('#custom-sound').removeAttr('disabled');
+        } else {
+            $('#custom-sound').attr('disabled', 'disabled');
+        }
     });
     
     save();
@@ -121,15 +143,51 @@ function Load() {
     // Set default settings if they don't exist
     if(typeof localStorage['hide-notice'] === 'undefined' || typeof localStorage['update-time'] === 'undefined') {
         localStorage['hide-notice'] = 'false';
-        localStorage['play-sound'] = 'true';
         localStorage['confirm-delete'] = 'true';
+        localStorage['play-sound'] = 'true';
+        localStorage['sound-type'] = '1';
+        localStorage['custom-sound'] = '';
         localStorage['update-time'] = '1';
     }
     
-    if(localStorage['hide-notice'] === 'true') { $('#hide-notice').attr('checked', 'checked'); $('#notice').hide(); } else { $('#notice').show(); }
-    if(localStorage['play-sound'] === 'true') { $('#play-sound').attr('checked', 'checked'); }
-    if(localStorage['confirm-delete'] === 'true') { $('#confirm-delete').attr('checked', 'checked'); }
+    $('#sound-type').val(parseInt(localStorage['sound-type']));
+    $('#custom-sound').val(localStorage['custom-sound']);
     $('#update-time').val(localStorage['update-time']);
+    
+    if(localStorage['hide-notice'] === 'true') {
+        $('#hide-notice').attr('checked', 'checked');
+        $('#notice').hide();
+    } else {
+        $('#hide-notice').removeAttr('checked');
+        $('#notice').show();
+    }
+    
+    if(localStorage['confirm-delete'] === 'true') {
+        $('#confirm-delete').attr('checked', 'checked');
+    } else {
+        $('#confirm-delete').removeAttr('checked');
+    }
+    
+    if(localStorage['play-sound'] === 'true') {
+        $('#play-sound').attr('checked', 'checked');
+        $('#sound-type').removeAttr('disabled');
+        if($('#sound-type').val() === '2') {
+            $('#custom-sound').removeAttr('disabled');
+        } else {
+            $('#custom-sound').attr('disabled', 'disabled');
+        }
+    } else {
+        $('#play-sound').removeAttr('checked');
+        $('#sound-type').attr('disabled', 'disabled');
+        $('#custom-sound').attr('disabled', 'disabled');
+    }
+    
+    // If the user has chosen to use a custom sound, set the audo element's src to the custom sound path
+    if(localStorage['sound-type'] === '2') {
+        $('#sound').attr('src', 'file://'+ localStorage['custom-sound']);
+    } else {
+        $('#sound').attr('src', 'Deneb.ogg');
+    }
 }
 
 // Save the data in localStorage
