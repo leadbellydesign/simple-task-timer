@@ -1,4 +1,4 @@
-var load, tasks = new Array(), task_count = 0, save_timeout, task_running = new Array();
+var load, tasks = new Array(), task_count = 0, save_timeout, task_running = new Array(), timer;
 
 $(document).ready(function() {
     // Set some variables
@@ -21,13 +21,14 @@ $(document).ready(function() {
         }
     }
     
-    // Show the notice if they haven't hidden it
-    if(!localStorage['notice-closed']) {
-        $('#notice').show();
-    }
+    // Load settings
+    Load();
     
     // Enable the add task fields
     $('.field').removeAttr('disabled');
+    
+    // Set focus on the new task name field
+    setTimeout(function() { $('#new-txt').focus(); }, 100);
     
     // Start the update timer
     update_time();
@@ -36,12 +37,9 @@ $(document).ready(function() {
     
     // User clicked the Close button in the notice
     $('#close-notice').click(function() {
-        var sure = confirm('Are you sure you want to close this notice?\nIt cannot be displayed again.');
-        
-        if(sure) {
-            $('#notice').fadeOut(600);
-            localStorage['notice-closed'] = true;
-        }
+        $('#notice').fadeOut(600);
+        localStorage['hide-notice'] = 'true';
+        $('#hide-notice').attr('checked', 'checked');
     });
     
     // User clicked the Add Task button
@@ -82,11 +80,56 @@ $(document).ready(function() {
         save();
     });
     
+    // User clicked the Options button
+    $('#options').click(function() {
+        $('.modal').fadeIn(400, function() { $('#modal-contents').show().animate({'height': '200px'}).animate({'width': '40%'}); });
+    });
+    
+    // User clicked the cancel button in the options modal
+    $('#close-modal').click(function() {
+        $('#modal-contents').animate({'width': '0px'}).animate({'height': '0px'}, 400, function() {
+            $('.modal').fadeOut(); $('#modal-contents').hide(); 
+        });
+    });
+    
+    // User clicked the save button in the options modal
+    $('#save-settings').click(function() {
+        localStorage['hide-notice'] = $('#hide-notice').is(':checked');
+        localStorage['play-sound'] = $('#play-sound').is(':checked');
+        localStorage['confirm-delete'] = $('#confirm-delete').is(':checked');
+        
+        if(parseInt($('#update-time').val()) > 0 && parseInt($('#update-time').val()) < 60) {
+            localStorage['update-time'] = parseInt($('#update-time').val());
+        }
+        
+        clearTimeout(timer);
+        timer = setTimeout('update_time()', parseInt(localStorage['update-time']) * 1000);
+        
+        Load();
+        $('#close-modal').click();
+    });
+    
     save();
     $('#tasks').show();
 });
 
 
+
+// Load the settings
+function Load() {
+    // Set default settings if they don't exist
+    if(typeof localStorage['hide-notice'] === 'undefined' || typeof localStorage['update-time']) {
+        localStorage['hide-notice'] = 'false';
+        localStorage['play-sound'] = 'true';
+        localStorage['confirm-delete'] = 'true';
+        localStorage['update-time'] = '1';
+    }
+    
+    if(localStorage['hide-notice'] === 'true') { $('#hide-notice').attr('checked', 'checked'); $('#notice').hide(); } else { $('#notice').show(); }
+    if(localStorage['play-sound'] === 'true') { $('#play-sound').attr('checked', 'checked'); }
+    if(localStorage['confirm-delete'] === 'true') { $('#confirm-delete').attr('checked', 'checked'); }
+    $('#update-time').val(localStorage['update-time']);
+}
 
 // Save the data in localStorage
 function save(timeout) {
@@ -111,39 +154,41 @@ function add_task(data) {
 
 // Delete a task
 function delete_task(task) {
-    load.show();
-    $('#new-btn').attr('disabled', 'disabled');
-    $('#task-'+ task +' button').attr('disabled', 'disabled');
-    
-    tasks.splice(task, 1);
-    task_count--;
-    
-    if(task_running[task]) toggle_task(task);
-    task_running.splice(task, 1);
-    
-    save();
-    
-    // Animate accordingly.
-    if(task_count === 0) {
-        $('#task-list').fadeOut(400, function() {
-            $('#task-list tbody').empty();
-            $('#no-tasks').fadeIn();
-            
-            $('#new-btn').removeAttr('disabled');
-        });
-    } else {
-        $('#task-'+ task).fadeOut(400, function() {
-            // Rebuild the task list
-            $('#task-list tbody').empty();
-            for(i = 0; i < task_count; i++) {
-                list_task(i, 0);
-            }
-            
-            $('#new-btn').removeAttr('disabled');
-        });
+    if(localStorage['confirm-delete'] === 'false' || confirm('Are you sure you want to delete task "'+ tasks[task].text +'?')) {
+        load.show();
+        $('#new-btn').attr('disabled', 'disabled');
+        $('#task-'+ task +' button').attr('disabled', 'disabled');
+        
+        tasks.splice(task, 1);
+        task_count--;
+        
+        if(task_running[task]) toggle_task(task);
+        task_running.splice(task, 1);
+        
+        save();
+        
+        // Animate accordingly.
+        if(task_count === 0) {
+            $('#task-list').fadeOut(400, function() {
+                $('#task-list tbody').empty();
+                $('#no-tasks').fadeIn();
+                
+                $('#new-btn').removeAttr('disabled');
+            });
+        } else {
+            $('#task-'+ task).fadeOut(400, function() {
+                // Rebuild the task list
+                $('#task-list tbody').empty();
+                for(i = 0; i < task_count; i++) {
+                    list_task(i, 0);
+                }
+                
+                $('#new-btn').removeAttr('disabled');
+            });
+        }
+        
+        load.hide();
     }
-    
-    load.hide();
 }
 
 // Toggle whether a task is running or not
@@ -212,7 +257,7 @@ function update_time() {
     for(i = 0; i < task_count; i++) {
         if(task_running[i]) {
             // Increment time
-            tasks[i].current += 1 / 3600;
+            tasks[i].current += (1 / 3600) * parseInt(localStorage['update-time']);
             
             // Stop updating this one if it's at the goal, and play the notification sound
             if(tasks[i].current >= tasks[i].goal - 0.00015) {
@@ -221,7 +266,7 @@ function update_time() {
                 $('#task-'+ i +' button.toggle').attr('disabled', 'disabled');
                 $('#task-'+ i).attr('class', 'done');
                 
-                document.getElementById('sound').play();
+                if(localStorage['play-sound'] === 'true') document.getElementById('sound').play();
             }
             
             var progress = Math.floor(tasks[i].current / tasks[i].goal * 100);
@@ -233,7 +278,7 @@ function update_time() {
     }
     
     // Do it again in a second
-    setTimeout('update_time()', 1000);
+    timer = setTimeout('update_time()', parseInt(localStorage['update-time']) * 1000);
 }
 
 // Format the time to the format hh:mm:ss from a decimal

@@ -10,7 +10,10 @@
     <script type="text/javascript" src="scripts/script.js"></script>
 </head>
 <body>
-    <img src="style/ajax-loader.gif" alt="Loading..." id="loading" />
+    <img src="style/ajax-loader.gif" id="loading" width="32" height="32" alt="Loading..." />
+    <button id="options"><img src="style/gear.png" width="25" height="25" alt="Settings" /></button>
+    
+    <audio src="Deneb.ogg" id="sound" preload></audio>
     
     <header>
         <h1>Task Timer</h1>
@@ -85,11 +88,28 @@
         </table>
     </section>
     
-    <audio src="Deneb.ogg" id="sound" preload></audio>
-    
     <footer>
         Created by <a href="http://gawdl3y.com/">Schuyler Cebulskie</a> | 
-        <a href="http://code.google.com/p/simple-task-timer/issues/list">Report a bug</a>
+        <a href="http://code.google.com/p/simple-task-timer/issues/list" target="_blank">Report a bug</a>
     </footer>
+    
+    <div id="modal-overlay" class="modal"></div>
+    <div id="modal" class="modal">
+        <div id="modal-contents">
+            <h1>Settings</h1>
+            <hr />
+            
+            <input type="checkbox" id="hide-notice" /><label for="hide-notice">Hide the notice box</label><br />
+            <input type="checkbox" id="play-sound" /><label for="play-sound">Play a sound when a task reaches its goal</label><br />
+            <input type="checkbox" id="confirm-delete" /><label for="confirm-delete">Ask to confirm when you attempt to delete a task</label><br /><br />
+            
+            <label for="update-time">Update the time of tasks every <input type="number" min="1" max="60" value="1" size="4" id="update-time" /> second(s)</label><br /><br />
+            
+            <div id="modal-buttons">
+                <button id="save-settings">Save</button>
+                <button id="close-modal">Cancel</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
