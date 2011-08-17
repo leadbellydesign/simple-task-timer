@@ -103,7 +103,6 @@ $(document).ready(function() {
         clearTimeout(timer);
         timer = setTimeout('update_time()', parseInt(localStorage['update-time']) * 1000);
         
-        Load();
         $('#close-modal').click();
     });
     
