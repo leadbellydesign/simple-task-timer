@@ -82,12 +82,20 @@ $(document).ready(function() {
     
     // User clicked the Options button
     $('#options').click(function() {
-        $('.modal').fadeIn(400, function() { $('#modal-contents').show().animate({'height': '200px'}).animate({'width': '40%'}); });
+        var height = '200px';
+        var width = '40%';
+        if(navigator.userAgent.match(/Android|iPod|iPhone|webOS|BlackBerry/)) {
+            height = '350px';
+            width = '60%';
+        }
+        
+        $('.modal').fadeIn(400, function() { $('#modal-contents').show().animate({'height': height}).animate({'width': width}); });
     });
     
     // User clicked the cancel button in the options modal
     $('#close-modal').click(function() {
         Load();
+        
         $('#modal-contents').animate({'width': '0px'}).animate({'height': '0px'}, 400, function() {
             $('.modal').fadeOut(); $('#modal-contents').hide(); 
         });
@@ -109,7 +117,6 @@ $(document).ready(function() {
         clearTimeout(timer);
         timer = setTimeout('update_time()', parseInt(localStorage['update-time']) * 1000);
         
-        Load();
         $('#close-modal').click();
     });
     
