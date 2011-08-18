@@ -191,7 +191,7 @@ function Load() {
     
     // If the user has chosen to use a custom sound, set the audo element's src to the custom sound path
     if(localStorage['sound-type'] === '2') {
-        $('#sound').attr('src', 'file://'+ localStorage['custom-sound']);
+        $('#sound').attr('src', localStorage['custom-sound']);
     } else {
         $('#sound').attr('src', 'Deneb.ogg');
     }
