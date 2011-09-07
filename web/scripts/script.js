@@ -83,10 +83,10 @@ $(document).ready(function() {
     // User clicked the Options button
     $('#options').click(function() {
         var height = '200px';
-        var width = '40%';
+        var width = '500px';
         if(navigator.userAgent.match(/Android|iPod|iPhone|webOS|BlackBerry/)) {
             height = '350px';
-            width = '60%';
+            width = '500px';
         }
         
         $('.modal').fadeIn(400, function() { $('#modal-contents').show().animate({'height': height}).animate({'width': width}); });
@@ -220,7 +220,7 @@ function add_task(data) {
 
 // Delete a task
 function delete_task(task) {
-    if(localStorage['confirm-delete'] === 'false' || confirm('Are you sure you want to delete task "'+ tasks[task].text +'?')) {
+    if(localStorage['confirm-delete'] === 'false' || confirm('Are you sure you want to delete task "'+ tasks[task].text +'"?')) {
         load.show();
         $('#new-btn').attr('disabled', 'disabled');
         $('#task-'+ task +' button').attr('disabled', 'disabled');
