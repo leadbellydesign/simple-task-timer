@@ -76,7 +76,7 @@ $(document).ready(function() {
     
     // User clicked the Options button
     $('#options').click(function() {
-        $('.modal').fadeIn(400, function() { $('#modal-contents').show().animate({'height': '200px'}).animate({'width': '40%'}); });
+        $('.modal').fadeIn(400, function() { $('#modal-contents').show().animate({'height': '200px'}).animate({'width': '500px'}); });
     });
     
     // User clicked the cancel button in the options modal
@@ -206,7 +206,7 @@ function add_task(data) {
 
 // Delete a task
 function delete_task(task) {
-    if(localStorage['confirm-delete'] === 'false' || confirm('Are you sure you want to delete task "'+ tasks[task].text +'?')) {
+    if(localStorage['confirm-delete'] === 'false' || confirm('Are you sure you want to delete task "'+ tasks[task].text +'"?')) {
         load.show();
         $('#new-btn').attr('disabled', 'disabled');
         $('#task-'+ task +' button').attr('disabled', 'disabled');
