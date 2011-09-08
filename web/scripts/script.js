@@ -104,7 +104,7 @@ $(document).ready(function() {
     // User clicked the save button in the options modal
     $('#save-settings').click(function() {
         localStorage['hide-notice'] = $('#hide-notice').is(':checked');
-        localStorage['confirm-reset'] = $('#confirm-delete').is(':checked');
+        localStorage['confirm-reset'] = $('#confirm-reset').is(':checked');
         localStorage['confirm-delete'] = $('#confirm-delete').is(':checked');
         
         localStorage['play-sound'] = $('#play-sound').is(':checked');
@@ -224,6 +224,13 @@ function add_task(data) {
     list_task(task_count, (task_count === 0 ? 1 : 2));
     
     task_count++;
+}
+
+// Reset a task
+function reset_task(task) {
+    if(localStorage['confirm-reset'] === 'false' || confirm('Are you sure you want to reset task"'+ tasks[task].text +'"?')) {
+        tasks[task].current = 0;
+    }
 }
 
 // Delete a task
