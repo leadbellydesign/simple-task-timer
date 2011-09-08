@@ -82,7 +82,7 @@ $(document).ready(function() {
     
     // User clicked the Options button
     $('#options').click(function() {
-        var height = '200px';
+        var height = '225px';
         var width = '500px';
         if(navigator.userAgent.match(/Android|iPod|iPhone|webOS|BlackBerry/)) {
             height = '350px';
@@ -228,8 +228,10 @@ function add_task(data) {
 
 // Reset a task
 function reset_task(task) {
-    if(localStorage['confirm-reset'] === 'false' || confirm('Are you sure you want to reset task"'+ tasks[task].text +'"?')) {
+    if(localStorage['confirm-reset'] === 'false' || confirm('Are you sure you want to reset task "'+ tasks[task].text +'"?')) {
         tasks[task].current = 0;
+        $('#task-'+ task +' td.current').text(format_time(tasks[task].current));
+        $('#task-'+ task +' progress').val(progress).text(progress.toString() +'%');
     }
 }
 

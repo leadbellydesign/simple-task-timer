@@ -76,7 +76,7 @@ $(document).ready(function() {
     
     // User clicked the Options button
     $('#options').click(function() {
-        $('.modal').fadeIn(400, function() { $('#modal-contents').show().animate({'height': '200px'}).animate({'width': '500px'}); });
+        $('.modal').fadeIn(400, function() { $('#modal-contents').show().animate({'height': '225px'}).animate({'width': '500px'}); });
     });
     
     // User clicked the cancel button in the options modal
@@ -214,8 +214,10 @@ function add_task(data) {
 
 // Reset a task
 function reset_task(task) {
-    if(localStorage['confirm-reset'] === 'false' || confirm('Are you sure you want to reset task"'+ tasks[task].text +'"?')) {
+    if(localStorage['confirm-reset'] === 'false' || confirm('Are you sure you want to reset task "'+ tasks[task].text +'"?')) {
         tasks[task].current = 0;
+        $('#task-'+ task +' td.current').text(format_time(tasks[task].current));
+        $('#task-'+ task +' progress').val(progress).text(progress.toString() +'%');
     }
 }
 
