@@ -136,15 +136,13 @@ $(document).ready(function() {
 // Load the settings
 function Load() {
     // Set default settings if they don't exist
-    if(typeof localStorage['hide-notice'] === 'undefined' || typeof localStorage['update-time'] === 'undefined') {
-        localStorage['hide-notice'] = 'false';
-        localStorage['confirm-reset'] = 'true';
-        localStorage['confirm-delete'] = 'true';
-        localStorage['play-sound'] = 'true';
-        localStorage['sound-type'] = '1';
-        localStorage['custom-sound'] = '';
-        localStorage['update-time'] = '1';
-    }
+    if(typeof localStorage['hide-notice'] == 'undefined') localStorage['hide-notice'] = 'false';
+    if(typeof localStorage['confirm-reset'] == 'undefined') localStorage['confirm-reset'] = 'true';
+    if(typeof localStorage['confirm-delete'] == 'undefined') localStorage['confirm-delete'] = 'true';
+    if(typeof localStorage['play-sound'] == 'undefined') localStorage['play-sound'] = 'true';
+    if(typeof localStorage['sound-type'] == 'undefined') localStorage['sound-type'] = '1';
+    if(typeof localStorage['custom-sound'] == 'undefined') localStorage['custom-sound'] = '';
+    if(typeof localStorage['update-time'] == 'undefined') localStorage['update-time'] = '1';
     
     $('#sound-type').val(parseInt(localStorage['sound-type']));
     $('#custom-sound').val(localStorage['custom-sound']);
