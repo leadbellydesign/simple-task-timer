@@ -104,9 +104,10 @@ $(document).ready(function() {
     // User clicked the save button in the options modal
     $('#save-settings').click(function() {
         localStorage['hide-notice'] = $('#hide-notice').is(':checked');
+        localStorage['confirm-reset'] = $('#confirm-delete').is(':checked');
         localStorage['confirm-delete'] = $('#confirm-delete').is(':checked');
-        localStorage['play-sound'] = $('#play-sound').is(':checked');
         
+        localStorage['play-sound'] = $('#play-sound').is(':checked');
         localStorage['sound-type'] = $('#sound-type').val();
         localStorage['custom-sound'] = $('#custom-sound').val();
         
@@ -150,6 +151,7 @@ function Load() {
     // Set default settings if they don't exist
     if(typeof localStorage['hide-notice'] === 'undefined' || typeof localStorage['update-time'] === 'undefined') {
         localStorage['hide-notice'] = 'false';
+        localStorage['confirm-reset'] = 'true';
         localStorage['confirm-delete'] = 'true';
         localStorage['play-sound'] = 'true';
         localStorage['sound-type'] = '1';
@@ -167,6 +169,12 @@ function Load() {
     } else {
         $('#hide-notice').removeAttr('checked');
         $('#notice').show();
+    }
+    
+    if(localStorage['confirm-reset'] === 'true') {
+        $('#confirm-reset').attr('checked', 'checked');
+    } else {
+        $('#confirm-reset').removeAttr('checked');
     }
     
     if(localStorage['confirm-delete'] === 'true') {

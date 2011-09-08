@@ -90,9 +90,10 @@ $(document).ready(function() {
     // User clicked the save button in the options modal
     $('#save-settings').click(function() {
         localStorage['hide-notice'] = $('#hide-notice').is(':checked');
+        localStorage['confirm-reset'] = $('#confirm-delete').is(':checked');
         localStorage['confirm-delete'] = $('#confirm-delete').is(':checked');
-        localStorage['play-sound'] = $('#play-sound').is(':checked');
         
+        localStorage['play-sound'] = $('#play-sound').is(':checked');
         localStorage['sound-type'] = $('#sound-type').val();
         localStorage['custom-sound'] = $('#custom-sound').val();
         
@@ -136,6 +137,7 @@ function Load() {
     // Set default settings if they don't exist
     if(typeof localStorage['hide-notice'] === 'undefined' || typeof localStorage['update-time'] === 'undefined') {
         localStorage['hide-notice'] = 'false';
+        localStorage['confirm-reset'] = 'true';
         localStorage['confirm-delete'] = 'true';
         localStorage['play-sound'] = 'true';
         localStorage['sound-type'] = '1';
@@ -153,6 +155,12 @@ function Load() {
     } else {
         $('#hide-notice').removeAttr('checked');
         $('#notice').show();
+    }
+    
+    if(localStorage['confirm-reset'] === 'true') {
+        $('#confirm-reset').attr('checked', 'checked');
+    } else {
+        $('#confirm-reset').removeAttr('checked');
     }
     
     if(localStorage['confirm-delete'] === 'true') {
@@ -243,6 +251,11 @@ function delete_task(task) {
     }
 }
 
+// Reset a task
+function reset_task(task) {
+    tasks[task].current = 0;
+}
+
 // Toggle whether a task is running or not
 function toggle_task(task) {
     if(task_running[task]) {
@@ -281,6 +294,9 @@ function list_task(task, anim) {
     // Option Buttons
     $('#task-'+ task +' button.toggle').attr('name', task).click(function() {
         toggle_task(parseInt(this.name));
+    });
+    $('#task-'+ task +' button.reset').attr('name', task).click(function() {
+        reset_task(parseInt(this.name));
     });
     $('#task-'+ task +' button.delete').attr('name', task).click(function() {
         delete_task(parseInt(this.name));
