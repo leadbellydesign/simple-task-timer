@@ -3,6 +3,7 @@ var load, tasks = new Array(), task_count = 0, save_timeout, task_running = new 
 $(document).ready(function() {
     // Set some variables
     load = $('#loading');
+    if(typeof localStorage['confirm-reset'] === 'undefined') localStorage['confirm-reset'] = 'true';
     
     // Retrieve any tasks they've previously added
     if(localStorage['tasks']) {
