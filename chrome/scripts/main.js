@@ -153,6 +153,18 @@ function Load() {
     if(typeof localStorage['custom-sound'] == 'undefined') localStorage['custom-sound'] = '';
     if(typeof localStorage['update-time'] == 'undefined') localStorage['update-time'] = '1';
     
+    // Convert from the old method of storing times to the new one
+    for(i = 0; i < task_count; i++) {
+        if(typeof tasks[i].current_hours == 'undefined') {
+            tasks[i].current_hours = Math.floor(tasks[i].current);
+            tasks[i].current_mins = Math.floor((tasks[i].current - tasks[i].current_hours) * 60);
+            tasks[i].current_secs = Math.round((tasks[i].current - tasks[i].current_hours - (tasks[i].current_mins / 60)) * 3600);
+            
+            tasks[i].goal_hours = Math.floor(tasks[i].goal);
+            tasks[i].goal_mins = Math.round((tasks[i].goal - tasks[i].goal_hours) * 60);
+        }
+    }
+    
     $('#sound-type').val(parseInt(localStorage['sound-type']));
     $('#custom-sound').val(localStorage['custom-sound']);
     $('#update-time').val(localStorage['update-time']);
@@ -192,18 +204,6 @@ function Load() {
         $('#sound').attr('src', localStorage['custom-sound']);
     } else {
         $('#sound').attr('src', 'Deneb.ogg');
-    }
-    
-    // Convert from the old method of storing times to the new one
-    for(i = 0; i < task_count; i++) {
-        if(typeof tasks[i].current_hours == 'undefined') {
-            tasks[i].current_hours = Math.floor(tasks[i].current);
-            tasks[i].current_mins = Math.floor((tasks[i].current - tasks[i].current_hours) * 60);
-            tasks[i].current_secs = Math.round((tasks[i].current - tasks[i].current_hours - (tasks[i].current_mins / 60)) * 3600);
-            
-            tasks[i].goal_hours = Math.floor(tasks[i].goal);
-            tasks[i].goal_mins = Math.round((tasks[i].goal - tasks[i].goal_hours) * 60);
-        }
     }
 }
 
