@@ -1,7 +1,7 @@
 {
     "name": "Task Timer",
     "description": "A simple tool to help keep track of time spent on tasks such as work, studies, or other things.",
-    "version": "1.1.0",
+    "version": "1.1.2",
     "app": {
       "launch": {
           "local_path": "index.html"
