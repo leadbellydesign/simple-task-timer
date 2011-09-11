@@ -1,9 +1,16 @@
+var version = 1.10;
 var load, tasks = new Array(), task_count = 0, save_timeout, task_running = new Array(), timer;
 
 $(document).ready(function() {
     // Set some variables
     load = $('#loading');
-    if(typeof localStorage['confirm-reset'] == 'undefined') localStorage['confirm-reset'] = 'true';
+    
+    // Check the version, and show the changelog if necessary
+    if(typeof localStorage['old-version'] == 'undefined') localStorage['old-version'] = '0';
+    if(version > parseFloat(localStorage['old-version']) && confirm('Task Timer has been updated!\nWould you like to see the changelog?')) {
+        window.open('changelog.html');
+    }
+    localStorage['old-version'] = version.toString();
     
     // Retrieve any tasks they've previously added
     if(localStorage['tasks']) {
