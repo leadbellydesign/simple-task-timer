@@ -10,7 +10,7 @@ function add_task(data) {
 // Reset a task
 function reset_task(task) {
     if(localStorage['confirm-reset'] == 'false' || confirm('Are you sure you want to reset task "'+ tasks[task].text +'"?')) {
-        tasks[task].current = 0;
+        tasks[task].current_hours = tasks[task].current_mins = tasks[task].current_secs = 0;
         $('#task-'+ task +' td.current').text(format_time(tasks[task].current_hours, tasks[task].current_mins, tasks[task].current_secs));
         $('#task-'+ task +' progress').val(0).text('0%');
         $('#task-'+ task +' button.toggle').removeAttr('disabled');
