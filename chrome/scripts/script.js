@@ -20,7 +20,7 @@ $(document).ready(function() {
     Load();
     
     // Enable the add task fields
-    $('.field').removeAttr('disabled');
+    $('#new-task input, #new-task button').removeAttr('disabled');
     
     // Set focus on the new task name field
     setTimeout(function() { $('#new-txt').focus(); }, 100);
@@ -39,32 +39,23 @@ $(document).ready(function() {
     
     // User clicked the Add Task button
     $('#new-btn').click(function() {
-        var goal = parseFloat($('#new-goal').val());
-        
-        if($('#new-txt').val() !== '' && goal > 0 && goal <= 80) {
-            load.show();
-            
+        if($('#new-txt').val() != '' && (parseInt($('#new-goal-hrs').val()) > 0 || parseInt($('#new-goal-mins').val()) > 0)) {
             add_task({
                 'text': $('#new-txt').val(),
-                'current': 0.0,
-                'goal': goal
+                'current_hours': 0,
+                'current_mins': 0,
+                'current_secs': 0,
+                'goal_hours': parseInt($('#new-goal-hrs').val()),
+                'goal_mins': parseInt($('#new-goal-mins').val())
             });
             save();
             
             $('#new-txt').val('');
-            load.hide();
         }
     });
     
-    // User pressed enter in the task name field
-    $('#new-txt').keypress(function (e) {
-        if(e.keyCode == 13 && !$('#new-btn').attr('disabled')) {
-            $('#new-btn').click();
-        }
-    });
-    
-    // User pressed enter in the task goal field
-    $('#new-goal').keypress(function (e) {
+    // User pressed enter in one of the new task fields
+    $('#new-task input').keypress(function (e) {
         if(e.keyCode == 13 && !$('#new-btn').attr('disabled')) {
             $('#new-btn').click();
         }
@@ -209,14 +200,7 @@ function save(timeout) {
     if(timeout) load.hide();
 }
 
-// Format the time to the format hh:mm:ss from a decimal
-function format_time(decimal) {
-    var hours = Math.floor(decimal);
-    var minutes = Math.floor((decimal - hours) * 60);
-    var seconds = Math.floor((decimal - hours - (minutes / 60)) * 3600)
-    
-    minutes = (minutes < 10 ? '0' : '') + minutes.toString();
-    seconds = (seconds < 10 ? '0' : '') + seconds.toString();
-    
-    return hours.toString() +':'+ minutes +':'+ seconds;
+// Format the time to the format h:mm:ss
+function format_time(hours, mins, secs) {
+    return hours.toString() +':'+ (mins < 10 ? '0' : '') + mins.toString() +':'+ (secs < 10 ? '0' : '') + secs.toString();
 }

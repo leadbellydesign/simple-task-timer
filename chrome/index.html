@@ -54,13 +54,16 @@
         <table id="new-task">
             <tr>
                 <td>Name</td>
-                <td>Goal (in hours)</td>
+                <td>Goal (hours, minutes)</td>
                 <td></td>
             </tr>
             <tr>
-                <td><input type="text" id="new-txt" class="field" placeholder="Task Name" title="Task Name" disabled /></td>
-                <td><input type="number" id="new-goal" class="field" value="4" min="1" max="80" size="8" title="Goal Time" disabled /></td>
-                <td><button id="new-btn" class="field" disabled>Add Task</button></td>
+                <td><input type="text" id="new-txt" placeholder="Task Name" title="Task Name" disabled /></td>
+                <td>
+                    <input type="number" id="new-goal-hrs" value="4" min="0" max="80" size="3" title="Goal Hours" disabled /> :
+                    <input type="number" id="new-goal-mins" value="0" min="0" max="59" size="3" title="Goal Minutes" disabled />
+                </td>
+                <td><button id="new-btn" disabled>Add Task</button></td>
             </tr>
         </table>
     </section>
