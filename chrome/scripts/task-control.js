@@ -126,9 +126,10 @@ function update_time() {
     for(i = 0; i < task_count; i++) {
         if(task_running[i]) {
             // Increment time
-            tasks[i].current_secs++;
-            if(tasks[i].current_secs >= 60) { tasks[i].current_secs = 0; tasks[i].current_mins++; }
-            if(tasks[i].current_mins >= 60) { tasks[i].current_mins = 0; tasks[i].current_hours++; }
+            
+            tasks[i].current_secs += parseInt(localStorage['update-time']);
+            if(tasks[i].current_secs >= 60) { tasks[i].current_secs -= 60; tasks[i].current_mins++; }
+            if(tasks[i].current_mins >= 60) { tasks[i].current_mins -= 60; tasks[i].current_hours++; }
             
             // Stop updating this one if it's at the goal, show a desktop notification, and play the sound
             if(tasks[i].current_hours >= tasks[i].goal_hours && tasks[i].current_mins >= tasks[i].goal_mins) {
