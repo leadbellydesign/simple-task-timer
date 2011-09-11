@@ -3,7 +3,7 @@ var load, tasks = new Array(), task_count = 0, save_timeout, task_running = new 
 $(document).ready(function() {
     // Set some variables
     load = $('#loading');
-    if(typeof localStorage['confirm-reset'] === 'undefined') localStorage['confirm-reset'] = 'true';
+    if(typeof localStorage['confirm-reset'] == 'undefined') localStorage['confirm-reset'] = 'true';
     
     // Retrieve any tasks they've previously added
     if(localStorage['tasks']) {
@@ -77,7 +77,8 @@ $(document).ready(function() {
     
     // User clicked the Options button
     $('#options').click(function() {
-        $('.modal').fadeIn(400, function() { $('#modal-contents').show().animate({'height': '225px'}).animate({'width': '500px'}); });
+        Load();
+        $('.modal').fadeIn(400, function() { $('#modal-contents').show().animate({'height': '240px'}).animate({'width': '500px'}); });
     });
     
     // User clicked the cancel button in the options modal
@@ -90,16 +91,25 @@ $(document).ready(function() {
     
     // User clicked the save button in the options modal
     $('#save-settings').click(function() {
-        localStorage['hide-notice'] = $('#hide-notice').is(':checked');
-        localStorage['confirm-reset'] = $('#confirm-reset').is(':checked');
-        localStorage['confirm-delete'] = $('#confirm-delete').is(':checked');
+        // Save the settings
+        localStorage['hide-notice'] = $('#hide-notice').is(':checked').toString();
+        localStorage['confirm-reset'] = $('#confirm-reset').is(':checked').toString();
+        localStorage['confirm-delete'] = $('#confirm-delete').is(':checked').toString();
         
-        localStorage['play-sound'] = $('#play-sound').is(':checked');
+        localStorage['notify'] = $('#notify').is(':checked').toString();
+        localStorage['play-sound'] = $('#play-sound').is(':checked').toString();
         localStorage['sound-type'] = $('#sound-type').val();
         localStorage['custom-sound'] = $('#custom-sound').val();
         
         if(parseInt($('#update-time').val()) > 0 && parseInt($('#update-time').val()) < 60) {
             localStorage['update-time'] = parseInt($('#update-time').val());
+        }
+        
+        // Check for notification permissions
+        if(localStorage['notify'] == 'true') {
+            webkitNotifications.requestPermission(function() {
+                webkitNotifications.createNotification('/style/images/icon-64.png', 'Desktop Notifications Work!', 'You seeing this means desktop notifications are enabled and working correctly! Woo!').show();
+            });
         }
         
         clearTimeout(timer);
@@ -112,7 +122,7 @@ $(document).ready(function() {
     $('#play-sound').change(function() {
         if($('#play-sound').is(':checked')) {
             $('#sound-type').removeAttr('disabled');
-            if($('#sound-type').val() === '2') $('#custom-sound').removeAttr('disabled');
+            if($('#sound-type').val() == '2') $('#custom-sound').removeAttr('disabled');
         } else {
             $('#sound-type, #custom-sound').attr('disabled', 'disabled');
         }
@@ -120,7 +130,7 @@ $(document).ready(function() {
     
     // User changed the sound type dropdown
     $('#sound-type').change(function() {
-        if($('#sound-type').val() === '2') {
+        if($('#sound-type').val() == '2') {
             $('#custom-sound').removeAttr('disabled');
         } else {
             $('#custom-sound').attr('disabled', 'disabled');
@@ -139,6 +149,7 @@ function Load() {
     if(typeof localStorage['hide-notice'] == 'undefined') localStorage['hide-notice'] = 'false';
     if(typeof localStorage['confirm-reset'] == 'undefined') localStorage['confirm-reset'] = 'true';
     if(typeof localStorage['confirm-delete'] == 'undefined') localStorage['confirm-delete'] = 'true';
+    if(typeof localStorage['notify'] == 'undefined') localStorage['notify'] = 'false';
     if(typeof localStorage['play-sound'] == 'undefined') localStorage['play-sound'] = 'true';
     if(typeof localStorage['sound-type'] == 'undefined') localStorage['sound-type'] = '1';
     if(typeof localStorage['custom-sound'] == 'undefined') localStorage['custom-sound'] = '';
@@ -148,7 +159,7 @@ function Load() {
     $('#custom-sound').val(localStorage['custom-sound']);
     $('#update-time').val(localStorage['update-time']);
     
-    if(localStorage['hide-notice'] === 'true') {
+    if(localStorage['hide-notice'] == 'true') {
         $('#hide-notice').attr('checked', 'checked');
         $('#notice').hide();
     } else {
@@ -156,22 +167,18 @@ function Load() {
         $('#notice').show();
     }
     
-    if(localStorage['confirm-reset'] === 'true') {
-        $('#confirm-reset').attr('checked', 'checked');
-    } else {
-        $('#confirm-reset').removeAttr('checked');
-    }
+    $.each({'confirm-reset': 0, 'confirm-delete': 0, 'notify': 0}, function(i, v) {
+        if(localStorage[i] == 'true') {
+            $('#'+ i).attr('checked', 'checked');
+        } else {
+            $('#'+ i).removeAttr('checked');
+        }
+    });
     
-    if(localStorage['confirm-delete'] === 'true') {
-        $('#confirm-delete').attr('checked', 'checked');
-    } else {
-        $('#confirm-delete').removeAttr('checked');
-    }
-    
-    if(localStorage['play-sound'] === 'true') {
+    if(localStorage['play-sound'] == 'true') {
         $('#play-sound').attr('checked', 'checked');
         $('#sound-type').removeAttr('disabled');
-        if($('#sound-type').val() === '2') {
+        if($('#sound-type').val() == '2') {
             $('#custom-sound').removeAttr('disabled');
         } else {
             $('#custom-sound').attr('disabled', 'disabled');
@@ -183,7 +190,7 @@ function Load() {
     }
     
     // If the user has chosen to use a custom sound, set the audo element's src to the custom sound path
-    if(localStorage['sound-type'] === '2') {
+    if(localStorage['sound-type'] == '2') {
         $('#sound').attr('src', localStorage['custom-sound']);
     } else {
         $('#sound').attr('src', 'Deneb.ogg');
@@ -200,156 +207,6 @@ function save(timeout) {
     
     window.status = 'Saved.';
     if(timeout) load.hide();
-}
-
-// Add a task
-function add_task(data) {
-    tasks[task_count] = data;
-    task_running[task_count] = false;
-    list_task(task_count, (task_count === 0 ? 1 : 2));
-    
-    task_count++;
-}
-
-// Reset a task
-function reset_task(task) {
-    if(localStorage['confirm-reset'] === 'false' || confirm('Are you sure you want to reset task "'+ tasks[task].text +'"?')) {
-        tasks[task].current = 0;
-        $('#task-'+ task +' td.current').text(format_time(tasks[task].current));
-        $('#task-'+ task +' progress').val(progress).text(progress.toString() +'%');
-    }
-}
-
-// Delete a task
-function delete_task(task) {
-    if(localStorage['confirm-delete'] === 'false' || confirm('Are you sure you want to delete task "'+ tasks[task].text +'"?')) {
-        load.show();
-        $('#new-btn').attr('disabled', 'disabled');
-        $('#task-'+ task +' button').attr('disabled', 'disabled');
-        
-        tasks.splice(task, 1);
-        task_count--;
-        
-        if(task_running[task]) toggle_task(task);
-        task_running.splice(task, 1);
-        
-        save();
-        
-        // Animate accordingly.
-        if(task_count === 0) {
-            $('#task-list').fadeOut(400, function() {
-                $('#task-list tbody').empty();
-                $('#no-tasks').fadeIn();
-                
-                $('#new-btn').removeAttr('disabled');
-            });
-        } else {
-            $('#task-'+ task).fadeOut(400, function() {
-                // Rebuild the task list
-                $('#task-list tbody').empty();
-                for(i = 0; i < task_count; i++) {
-                    list_task(i, 0);
-                }
-                
-                $('#new-btn').removeAttr('disabled');
-            });
-        }
-        
-        load.hide();
-    }
-}
-
-// Toggle whether a task is running or not
-function toggle_task(task) {
-    if(task_running[task]) {
-        task_running[task] = false;
-        $('#task-'+ task +' button.toggle').text('Start');
-        $('#task-'+ task).removeAttr('class');
-    } else {
-        task_running[task] = true;
-        $('#task-'+ task +' button.toggle').text('Stop');
-        $('#task-'+ task).attr('class', 'running');
-    }
-}
-
-// Add the task to the list
-function list_task(task, anim) {
-    // Progress done
-    var progress = Math.floor(tasks[task].current / tasks[task].goal * 100);
-    
-    // Create the row
-    $('#row-template').clone().attr('id', 'task-'+ task).appendTo('#task-list tbody');
-    
-    // Text
-    $('#task-'+ task +' td.text').text(tasks[task].text);
-    $('#task-'+ task +' td.current').text(format_time(tasks[task].current));
-    $('#task-'+ task +' td.goal').text(tasks[task].goal.toString() + (tasks[task].goal > 1 ? ' Hours' : ' Hour'));
-    $('#task-'+ task +' button.toggle').text(task_running[task] ? 'Stop' : 'Start');
-    $('#task-'+ task +' progress').val(progress).text(progress.toString() +'%');
-    if(task_running[task]) $('#task-'+ task).attr('class', 'running');
-    
-    // Disable the toggle button if task is at its goal, and change the bg colour
-    if(tasks[task].current >= tasks[task].goal - 0.00015) {
-        $('#task-'+ task +' button.toggle').attr('disabled', 'disabled');
-        $('#task-'+ task).attr('class', 'done');
-    }
-    
-    // Option Buttons
-    $('#task-'+ task +' button.toggle').attr('name', task).click(function() {
-        toggle_task(parseInt(this.name));
-    });
-    $('#task-'+ task +' button.reset').attr('name', task).click(function() {
-        reset_task(parseInt(this.name));
-    });
-    $('#task-'+ task +' button.delete').attr('name', task).click(function() {
-        delete_task(parseInt(this.name));
-    });
-    
-    // Animation
-    if(anim === 0) {
-        // Show instantly
-        $('#no-tasks').hide();
-        $('#task-list').show();
-        $('#task-'+ task).show();
-    } else if(anim === 1) {
-        // Fade all at once
-        $('#task-'+ task).show();
-        $('#no-tasks').fadeOut(400, function() {
-            $('#task-list').fadeIn();
-        });
-    } else {
-        // Fade in
-        $('#task-'+ task).fadeIn();
-    }
-}
-
-// Increase the current time on tasks that are running by a second
-function update_time() {
-    for(i = 0; i < task_count; i++) {
-        if(task_running[i]) {
-            // Increment time
-            tasks[i].current += (1 / 3600) * parseInt(localStorage['update-time']);
-            
-            // Stop updating this one if it's at the goal, and play the notification sound
-            if(tasks[i].current >= tasks[i].goal - 0.00015) {
-                tasks[i].current = tasks[i].goal;
-                toggle_task(i);
-                $('#task-'+ i +' button.toggle').attr('disabled', 'disabled');
-                $('#task-'+ i).attr('class', 'done');
-                
-                if(localStorage['play-sound'] === 'true') document.getElementById('sound').play();
-            }
-            
-            var progress = Math.floor(tasks[i].current / tasks[i].goal * 100);
-            
-            // Update list
-            $('#task-'+ i +' td.current').text(format_time(tasks[i].current));
-            $('#task-'+ i +' progress').val(progress).text(progress.toString() +'%')
-        }
-    }
-    
-    // Do it again in a second
-    timer = setTimeout('update_time()', parseInt(localStorage['update-time']) * 1000);
 }
 
 // Format the time to the format hh:mm:ss from a decimal
