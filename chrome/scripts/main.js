@@ -1,4 +1,4 @@
-var load, tasks = new Array(), task_count = 0, save_timeout, task_running = new Array(), timer;
+var load, tasks = new Array(), task_running = new Array(), task_count = 0, save_timeout, timer;
 
 $(document).ready(function() {
     // Set some variables
@@ -10,7 +10,6 @@ $(document).ready(function() {
         window.open('changelog.html');
     }
     localStorage['old-version'] = chrome.app.getDetails().version;
-    
     
     // Retrieve any tasks they've previously added
     if(localStorage['tasks']) {
@@ -44,6 +43,15 @@ $(document).ready(function() {
     
     // Start the update timer
     update_time();
+    
+    // Add to the launch count, and show a rating reminder if at a multiple of 6
+    localStorage['launches'] = typeof localStorage['launches'] == 'undefined' ? 1 : parseInt(localStorage['launches']) + 1;
+    var launches = parseInt(localStorage['launches']);
+    
+    if(launches % 6 == 0 && typeof localStorage['rated'] == 'undefined' && confirm('Would you like to give this app a rating/review on the Chrome Web Store? It really helps out!')) {
+        localStorage['rated'] = 'true';
+        window.open('https://chrome.google.com/webstore/detail/aomfjmibjhhfdenfkpaodhnlhkolngif');
+    }
     
     
     
