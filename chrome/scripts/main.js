@@ -111,7 +111,7 @@ $(document).ready(function() {
     // User clicked the Options button
     $('#options').click(function() {
         Load();
-        $('.modal').fadeIn(400, function() { $('#modal-contents').show().animate({'height': '260px'}).animate({'width': '500px'}); });
+        $('.modal').fadeIn(400, function() { $('#modal-contents').show().animate({'height': '280px'}).animate({'width': '500px'}); });
     });
     
     // User clicked the cancel button in the options modal
@@ -134,6 +134,7 @@ $(document).ready(function() {
         localStorage['sound-type'] = $('#sound-type').val();
         localStorage['custom-sound'] = $('#custom-sound').val();
         
+        localStorage['only-one'] = $('#only-one').is(':checked').toString();
         localStorage['stop-timer'] = $('#stop-timer').is(':checked').toString();
         
         if(parseInt($('#update-time').val()) > 0 && parseInt($('#update-time').val()) < 60) {
@@ -200,11 +201,12 @@ function Load() {
     if(typeof localStorage['hide-notice'] == 'undefined') localStorage['hide-notice'] = 'false';
     if(typeof localStorage['confirm-reset'] == 'undefined') localStorage['confirm-reset'] = 'true';
     if(typeof localStorage['confirm-delete'] == 'undefined') localStorage['confirm-delete'] = 'true';
-    if(typeof localStorage['stop-timer'] == 'undefined') localStorage['stop-timer'] = 'true';
     if(typeof localStorage['notify'] == 'undefined') localStorage['notify'] = 'false';
     if(typeof localStorage['play-sound'] == 'undefined') localStorage['play-sound'] = 'true';
     if(typeof localStorage['sound-type'] == 'undefined') localStorage['sound-type'] = '1';
     if(typeof localStorage['custom-sound'] == 'undefined') localStorage['custom-sound'] = '';
+    if(typeof localStorage['only-one'] == 'undefined') localStorage['only-one'] = 'false';
+    if(typeof localStorage['stop-timer'] == 'undefined') localStorage['stop-timer'] = 'true';
     if(typeof localStorage['update-time'] == 'undefined') localStorage['update-time'] = '1';
     
     $('#sound-type').val(parseInt(localStorage['sound-type']));
@@ -219,7 +221,7 @@ function Load() {
         $('#notice').show();
     }
     
-    $.each({'confirm-reset': 0, 'confirm-delete': 0, 'stop-timer': 0, 'notify': 0}, function(i, v) {
+    $.each({'confirm-reset': 0, 'confirm-delete': 0, 'stop-timer': 0, 'notify': 0, 'only-one': 0}, function(i, v) {
         if(localStorage[i] == 'true') {
             $('#'+ i).attr('checked', 'checked');
         } else {

@@ -69,6 +69,13 @@ function toggle_task(task) {
             $('#task-'+ task).attr('class', 'done');
         }
     } else {
+        // Disable other tasks if they have it set to allow only one running at a time
+        if(localStorage['only-one'] == 'true') {
+            for(i = 0; i < task_count; i++) {
+                if(task_running[i]) toggle_task(i);
+            }
+        }
+        
         task_running[task] = true;
         $('#task-'+ task +' button.toggle').text('Stop');
         if(!(tasks[task].current_hours >= tasks[task].goal_hours && tasks[task].current_mins >= tasks[task].goal_mins)) {
