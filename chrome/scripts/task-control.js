@@ -65,14 +65,16 @@ function toggle_task(task) {
         $('#task-'+ task +' button.toggle').text('Start');
         if(!(tasks[task].current_hours >= tasks[task].goal_hours && tasks[task].current_mins >= tasks[task].goal_mins)) {
             $('#task-'+ task).removeAttr('class');
-            $('#task-'+ task +' img.running').hide();
+        } else {
+            $('#task-'+ task).attr('class', 'done');
         }
     } else {
         task_running[task] = true;
         $('#task-'+ task +' button.toggle').text('Stop');
         if(!(tasks[task].current_hours >= tasks[task].goal_hours && tasks[task].current_mins >= tasks[task].goal_mins)) {
             $('#task-'+ task).attr('class', 'running');
-            $('#task-'+ task +' img.running').show();
+        } else {
+            $('#task-'+ task).attr('class', 'running done');
         }
     }
 }
@@ -86,18 +88,13 @@ function list_task(task, anim) {
     $('#row-template').clone().attr('id', 'task-'+ task).appendTo('#task-list tbody');
     
     // Text
-    $('#task-'+ task +' span.text').text(tasks[task].text);
+    $('#task-'+ task +' td.text').text(tasks[task].text);
     $('#task-'+ task +' td.current').text(format_time(tasks[task].current_hours, tasks[task].current_mins, tasks[task].current_secs));
     $('#task-'+ task +' td.goal').text(format_time(tasks[task].goal_hours, tasks[task].goal_mins, 0));
     $('#task-'+ task +' button.toggle').text(task_running[task] ? 'Stop' : 'Start');
     $('#task-'+ task +' progress').val(progress).text(progress.toString() +'%');
     
-    if(task_running[task]) {
-        $('#task-'+ task).attr('class', 'running');
-        $('#task-'+ task +' img.running').show();
-    } else {
-        $('#task-'+ task +' img.running').hide();
-    }
+    if(task_running[task]) $('#task-'+ task).attr('class', 'running');
     
     // Option Buttons
     $('#task-'+ task +' button.toggle').attr('name', task).click(function() {
@@ -148,9 +145,10 @@ function update_time() {
                 if(localStorage['stop-timer'] == 'true') {
                     toggle_task(i);
                     $('#task-'+ i +' button.toggle').attr('disabled', 'disabled');
+                    $('#task-'+ i).attr('class', 'done');
+                } else {
+                    $('#task-'+ i).attr('class', 'running done');
                 }
-                
-                $('#task-'+ i).attr('class', 'done');
                 
                 if(!tasks[i].notified) {
                     tasks[i].notified = true;

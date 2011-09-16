@@ -94,6 +94,7 @@ img.running {
 }
 
 tr.running { background-color: #D5F0F0; }
+tr.running td.text { background: url(images/task-running.gif) no-repeat left center; }
 tr.done { background-color: #D7F0D7; }
 
 td.text { border-radius: 5px 0px 0px 5px; }
