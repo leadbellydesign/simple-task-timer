@@ -20,6 +20,31 @@ h1, h2 { margin: 0; }
 h1 { font-size: 32px; font-weight: bold; }
 h2 { font-size: 16px; font-weight: normal; }
 
+/* Alerts */
+#error, #saved {
+    position: fixed;
+    left: 2%;
+    top: 94%;
+    padding: 3px;
+    
+    border: 1px solid;
+    border-radius: 5px;
+    
+    display: none;
+}
+
+#error {
+    color: #D8000C;
+    background-color: #FFBABA;
+    box-shadow: 0 0 15px red; 
+}
+
+#saved {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+    box-shadow: 0 0 15px lime;
+}
+
 /* Notes */
 .note {
     margin: 10px auto 0px auto;
@@ -61,6 +86,11 @@ h2 { font-size: 16px; font-weight: normal; }
 #task-list {
     margin: 0 auto;
     border-spacing: 0px 3px;
+}
+
+img.running {
+    float: left;
+    position: absolute;
 }
 
 tr.running { background-color: #D5F0F0; }

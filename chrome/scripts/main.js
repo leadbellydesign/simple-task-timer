@@ -27,6 +27,15 @@ $(document).ready(function() {
                 tasks[i].goal_mins = Math.round((tasks[i].goal - tasks[i].goal_hours) * 60);
             }
             
+            // Add the notified property to a task if it doesn't exist
+            if(typeof tasks[i].notified == 'undefined') {
+                if(tasks[i].current_hours >= tasks[i].goal_hours && tasks[i].current_mins >= tasks[i].goal_mins) {
+                    tasks[i].notified = true;
+                } else {
+                    tasks[i].notified = false;
+                }
+            }
+            
             list_task(i, 0);
             task_running[i] = false;
         }
@@ -55,6 +64,11 @@ $(document).ready(function() {
     
     
     
+    
+    /*************************************************
+    *************      E V E N T S       *************
+    **************************************************/
+    
     // User clicked the Close button in the notice
     $('#close-notice').click(function() {
         $('#notice').fadeOut(600);
@@ -71,11 +85,14 @@ $(document).ready(function() {
                 'current_mins': 0,
                 'current_secs': 0,
                 'goal_hours': parseInt($('#new-goal-hrs').val()),
-                'goal_mins': parseInt($('#new-goal-mins').val())
+                'goal_mins': parseInt($('#new-goal-mins').val()),
+                'notified': false
             });
             save();
             
             $('#new-txt').val('');
+        } else {
+            $('#error').fadeIn(600).delay(2000).fadeOut(600);
         }
     });
     
@@ -94,7 +111,7 @@ $(document).ready(function() {
     // User clicked the Options button
     $('#options').click(function() {
         Load();
-        $('.modal').fadeIn(400, function() { $('#modal-contents').show().animate({'height': '240px'}).animate({'width': '500px'}); });
+        $('.modal').fadeIn(400, function() { $('#modal-contents').show().animate({'height': '260px'}).animate({'width': '500px'}); });
     });
     
     // User clicked the cancel button in the options modal
@@ -117,6 +134,8 @@ $(document).ready(function() {
         localStorage['sound-type'] = $('#sound-type').val();
         localStorage['custom-sound'] = $('#custom-sound').val();
         
+        localStorage['stop-timer'] = $('#stop-timer').is(':checked').toString();
+        
         if(parseInt($('#update-time').val()) > 0 && parseInt($('#update-time').val()) < 60) {
             localStorage['update-time'] = parseInt($('#update-time').val());
         }
@@ -131,6 +150,22 @@ $(document).ready(function() {
         clearTimeout(timer);
         timer = setTimeout('update_time()', parseInt(localStorage['update-time']) * 1000);
         
+        // Enable/disable start/stop buttons on tasks
+        for(i = 0; i < task_count; i++) {
+            if(localStorage['stop-timer'] == 'true') {
+                if(tasks[i].current_hours >= tasks[i].goal_hours && tasks[i].current_mins >= tasks[i].goal_mins) {
+                    $('#task-'+ i +' button.toggle').attr('disabled', 'disabled');
+                    
+                    if(task_running[i]) {
+                        toggle_task(i);
+                    }
+                }
+            } else {
+                $('#task-'+ i +' button.toggle').removeAttr('disabled');
+            }
+        }
+        
+        $('#saved').fadeIn(600).delay(2000).fadeOut(600);
         $('#close-modal').click();
     });
     
@@ -165,6 +200,7 @@ function Load() {
     if(typeof localStorage['hide-notice'] == 'undefined') localStorage['hide-notice'] = 'false';
     if(typeof localStorage['confirm-reset'] == 'undefined') localStorage['confirm-reset'] = 'true';
     if(typeof localStorage['confirm-delete'] == 'undefined') localStorage['confirm-delete'] = 'true';
+    if(typeof localStorage['stop-timer'] == 'undefined') localStorage['stop-timer'] = 'true';
     if(typeof localStorage['notify'] == 'undefined') localStorage['notify'] = 'false';
     if(typeof localStorage['play-sound'] == 'undefined') localStorage['play-sound'] = 'true';
     if(typeof localStorage['sound-type'] == 'undefined') localStorage['sound-type'] = '1';
@@ -183,7 +219,7 @@ function Load() {
         $('#notice').show();
     }
     
-    $.each({'confirm-reset': 0, 'confirm-delete': 0, 'notify': 0}, function(i, v) {
+    $.each({'confirm-reset': 0, 'confirm-delete': 0, 'stop-timer': 0, 'notify': 0}, function(i, v) {
         if(localStorage[i] == 'true') {
             $('#'+ i).attr('checked', 'checked');
         } else {

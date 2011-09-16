@@ -21,12 +21,12 @@
         <h2>Use this tool to keep track of time that you spend on work, studies, or any other type of task.</h2>
     </header>
     
-    <section id="notice" class="note">
+    <div id="notice" class="note">
         <button id="close-notice">Close</button>
         <p>Note: This only saves locally, on your computer, in your browser.<br />The data will be gone if you clear the data, or you move to a different computer/device.</p>
-    </section>
+    </div>
     
-    <section id="tasks">
+    <div id="tasks">
         <span id="no-tasks">You haven't created any tasks yet!</span>
             
         <table id="task-list">
@@ -57,12 +57,15 @@
                 <td><button id="new-btn" disabled>Add Task</button></td>
             </tr>
         </table>
-    </section>
+    </div>
     
-    <section id="nothing">
+    <div id="nothing">
         <table id="template">
             <tr id="row-template" style="display: none;">
-                <td class="text">Task</td>
+                <td class="text">
+                    <img src="style/images/task-running.gif" class="running" />
+                    <span class="text">Task</span>
+                </td>
                 <td class="current">Time Spent</td>
                 <td class="goal">Goal</td>
                 <td class="progress"><progress max="100" value="0">0%</progress></td>
@@ -73,7 +76,7 @@
                 </td>
             </tr>
         </table>
-    </section>
+    </div>
     
     <footer>
         Created by <a href="http://gawdl3y.com/">Schuyler Cebulskie</a> | 
@@ -99,6 +102,7 @@
             </select>
             <input type="text" id="custom-sound" placeholder="Custom Sound URL" /><br /><br />
             
+            <label><input type="checkbox" id="stop-timer" />Stop a task's timer when it reaches its goal</label><br />
             <label>Update the time of tasks every <input type="number" min="1" max="60" value="1" size="4" id="update-time" /> second(s)</label>
             
             <div id="modal-buttons">
@@ -107,5 +111,8 @@
             </div>
         </div>
     </div>
+    
+    <div id="error">Invalid task name or goal.</div>
+    <div id="saved">Settings saved!</div>
 </body>
 </html>
