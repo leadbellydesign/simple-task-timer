@@ -148,7 +148,7 @@ function update_time() {
             if(tasks[i].current_mins >= 60) { tasks[i].current_mins -= 60; tasks[i].current_hours++; }
             
             // Stop updating this one if it's at the goal, show a desktop notification, and play the sound
-            if(tasks[i].current_hours >= tasks[i].goal_hours && tasks[i].current_mins >= tasks[i].goal_mins && tasks[i].current_secs == 0) {
+            if(tasks[i].current_hours >= tasks[i].goal_hours && tasks[i].current_mins >= tasks[i].goal_mins) {
                 if(localStorage['stop-timer'] == 'true') {
                     toggle_task(i);
                     $('#task-'+ i +' button.toggle').attr('disabled', 'disabled');
