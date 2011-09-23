@@ -114,6 +114,11 @@ function list_task(task, anim) {
         delete_task(parseInt(this.name));
     });
     
+    // In-line editing events
+    $('#task-'+ task +' td.text').dblclick(function() {
+        edit_name(parseInt($(this).parent().attr('id').replace('task-', '')));
+    });
+    
     // Disable the toggle button if task is at its goal, and change the bg colour
     if(tasks[task].current_hours >= tasks[task].goal_hours && tasks[task].current_mins >= tasks[task].goal_mins) {
         if(localStorage['stop-timer'] == 'true') $('#task-'+ task +' button.toggle').attr('disabled', 'disabled');

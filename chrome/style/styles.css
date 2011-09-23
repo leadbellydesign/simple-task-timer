@@ -9,8 +9,12 @@ header, footer {
 }
 
 #notice, #loading, #tasks, #task-list, #nothing, #modal-overlay, #modal { display: none; }
-#loading { float: left; }
 #options { float: right; }
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
 
 /* Global Styles */
 hr { border-color: #E9E9E9; }
