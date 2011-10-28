@@ -29,6 +29,7 @@
     
     <div id="tasks">
         <span id="no-tasks">You haven't created any tasks yet!</span>
+        <span id="edit-tasks">Double-click a task name or goal to edit it.</span>
             
         <table id="task-list">
             <thead>
@@ -47,6 +48,7 @@
             <tr>
                 <td>Name</td>
                 <td>Goal (hours : minutes)</td>
+                <td>Start</td>
                 <td></td>
             </tr>
             <tr>
@@ -55,6 +57,7 @@
                     <input type="number" id="new-goal-hrs" value="4" min="0" max="80" size="3" title="Goal Hours" disabled /> :
                     <input type="number" id="new-goal-mins" value="0" min="0" max="59" size="3" title="Goal Minutes" disabled />
                 </td>
+                <td><input type="checkbox" id="new-start" disabled /></td>
                 <td><button id="new-btn" disabled>Add Task</button></td>
             </tr>
         </table>
@@ -77,14 +80,22 @@
         
         <div id="name-edit-template">
             <input type="text" placeholder="Task Name" />
-            <button>Save</button>
+            <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" /></button>
+            <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" /></button>
+        </div>
+        
+        <div id="goal-edit-template">
+            <input type="number" min="0" max="80" size="3" title="Goal Hours" /> :
+            <input type="number" min="0" max="59" size="3" title="Goal Minutes" /><br />
+            <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" /></button>
+            <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" /></button>
         </div>
     </div>
     
     <footer>
         Created by <a href="http://gawdl3y.com/">Schuyler Cebulskie</a> | 
         <a href="http://code.google.com/p/simple-task-timer/issues/list" target="_blank">Report a bug</a><br />
-        Have an idea? <a href="http://gawdl3y.com/suggest" target="_blank">Tell me</a>. | <a href="changelog.html" target="_blank">Changelog</a>
+        Have an idea? <a href="http://gawdl3y.com/suggest" target="_blank">Tell me</a> | <a href="changelog.html" target="_blank">Changelog</a>
     </footer>
     
     

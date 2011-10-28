@@ -88,6 +88,7 @@ $(document).ready(function() {
                 'goal_mins': parseInt($('#new-goal-mins').val()),
                 'notified': false
             });
+            if($('#new-start').is(':checked')) toggle_task(task_count - 1);
             save();
             
             $('#new-txt').val('');
@@ -151,19 +152,11 @@ $(document).ready(function() {
         clearTimeout(timer);
         timer = setTimeout('update_time()', parseInt(localStorage['update-time']) * 1000);
         
-        // Enable/disable start/stop buttons on tasks
+        // Rebuild task list
+        editing_task = -1;
+        $('#task-list tbody').empty();
         for(i = 0; i < task_count; i++) {
-            if(localStorage['stop-timer'] == 'true') {
-                if(tasks[i].current_hours >= tasks[i].goal_hours && tasks[i].current_mins >= tasks[i].goal_mins) {
-                    $('#task-'+ i +' button.toggle').attr('disabled', 'disabled');
-                    
-                    if(task_running[i]) {
-                        toggle_task(i);
-                    }
-                }
-            } else {
-                $('#task-'+ i +' button.toggle').removeAttr('disabled');
-            }
+            list_task(i, 0);
         }
         
         $('#saved').fadeIn(600).delay(2000).fadeOut(600);

@@ -39,6 +39,7 @@ function delete_task(task) {
             $('#task-list').fadeOut(400, function() {
                 $('#task-list tbody').empty();
                 $('#no-tasks').fadeIn();
+                $('#edit-tasks').fadeOut();
                 
                 $('#new-btn').removeAttr('disabled');
             });
@@ -118,6 +119,9 @@ function list_task(task, anim) {
     $('#task-'+ task +' td.text').dblclick(function() {
         edit_name(parseInt($(this).parent().attr('id').replace('task-', '')));
     });
+    $('#task-'+ task +' td.goal').dblclick(function() {
+        edit_goal(parseInt($(this).parent().attr('id').replace('task-', '')));
+    });
     
     // Disable the toggle button if task is at its goal, and change the bg colour
     if(tasks[task].current_hours >= tasks[task].goal_hours && tasks[task].current_mins >= tasks[task].goal_mins) {
@@ -129,13 +133,12 @@ function list_task(task, anim) {
     if(anim == 0) {
         // Show instantly
         $('#no-tasks').hide();
-        $('#task-list').show();
-        $('#task-'+ task).show();
+        $('#edit-tasks, #task-list, #task-'+ task).show();
     } else if(anim == 1) {
         // Fade all at once
         $('#task-'+ task).show();
         $('#no-tasks').fadeOut(400, function() {
-            $('#task-list').fadeIn();
+            $('#edit-tasks, #task-list').fadeIn();
         });
     } else {
         // Fade in

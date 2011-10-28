@@ -4,9 +4,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
-header, footer {
-    text-align: center;
-}
+header, footer { text-align: center; }
 
 #notice, #loading, #tasks, #task-list, #nothing, #modal-overlay, #modal { display: none; }
 #options { float: right; }
@@ -16,7 +14,11 @@ header, footer {
     left: 0;
 }
 
-/* Global Styles */
+button.save, button.cancel {
+    padding: 1px;
+    margin: 0px;
+}
+
 hr { border-color: #E9E9E9; }
 
 /* Header */
@@ -81,6 +83,8 @@ h2 { font-size: 16px; font-weight: normal; }
 #new-task {
     margin-top: 20px;
 }
+
+#new-start { margin: 0 30px; }
 
 #no-tasks {
     font-weight: bold;
