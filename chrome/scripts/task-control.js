@@ -32,29 +32,32 @@ function delete_task(task) {
         if(task_running[task]) toggle_task(task);
         task_running.splice(task, 1);
         
-        save();
-        
         // Animate accordingly.
         if(task_count == 0) {
-            $('#task-list').fadeOut(400, function() {
-                $('#task-list tbody').empty();
-                $('#no-tasks').fadeIn();
+            setTimeout(function() {
                 $('#edit-tasks').fadeOut();
-                
-                $('#new-btn').removeAttr('disabled');
-            });
+                $('#task-list').fadeOut(400, function() {
+                    $('#task-list tbody').empty();
+                    $('#no-tasks').fadeIn();
+                    
+                    $('#new-btn').removeAttr('disabled');
+                });
+            }, 10);
         } else {
-            $('#task-'+ task).fadeOut(400, function() {
-                // Rebuild the task list
-                $('#task-list tbody').empty();
-                for(i = 0; i < task_count; i++) {
-                    list_task(i, 0);
-                }
-                
-                $('#new-btn').removeAttr('disabled');
-            });
+            setTimeout(function() {
+                $('#task-'+ task).fadeOut(400, function() {
+                    // Rebuild the task list
+                    $('#task-list tbody').empty();
+                    for(i = 0; i < task_count; i++) {
+                        list_task(i, 0);
+                    }
+                    
+                    $('#new-btn').removeAttr('disabled');
+                });
+            }, 10);
         }
         
+        save();
         load.hide();
     }
 }

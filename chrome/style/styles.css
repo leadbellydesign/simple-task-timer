@@ -6,7 +6,7 @@ body {
 
 header, footer { text-align: center; }
 
-#notice, #loading, #tasks, #task-list, #nothing, #modal-overlay, #modal { display: none; }
+#notice, #loading, #tasks, #task-list, #nothing, #modal-overlay, #modal, #edit-tasks { display: none; }
 #options { float: right; }
 #loading {
     position: fixed;
@@ -14,10 +14,8 @@ header, footer { text-align: center; }
     left: 0;
 }
 
-button.save, button.cancel {
-    padding: 1px;
-    margin: 0px;
-}
+button { margin: 0; }
+button.save, button.cancel { padding: 1px; }
 
 hr { border-color: #E9E9E9; }
 
@@ -72,6 +70,7 @@ h2 { font-size: 16px; font-weight: normal; }
     margin: 10px auto 0px auto;
     padding: 5px;
     width: 70%;
+    min-width: 960px;
     
     background-color: white;
     text-align: center;
