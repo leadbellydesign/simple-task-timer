@@ -1,17 +1,12 @@
 /* Page Layout */
-body {
-    background-color: #F4F4F4;
-    font-family: Arial, sans-serif;
-}
-
 header, footer { text-align: center; }
 
 #notice, #loading, #tasks, #task-list, #nothing, #modal-overlay, #modal, #edit-tasks { display: none; }
 #options { float: right; }
 #loading {
     position: fixed;
-    top: 0;
-    left: 0;
+    bottom: 5px;
+    left: 5px;
 }
 
 button { margin: 2px 0px; }
@@ -73,16 +68,8 @@ h2 { font-size: 16px; font-weight: normal; }
 
 /* Task List */
 #tasks {
-    margin: 10px auto 0px auto;
     padding: 5px;
-    width: 70%;
-    min-width: 960px;
-    
-    background-color: white;
     text-align: center;
-    
-    border: 1px solid #E9E9E9;
-    border-radius: 5px;
 }
 
 #new-task {
@@ -99,11 +86,6 @@ h2 { font-size: 16px; font-weight: normal; }
 #task-list {
     margin: 0 auto;
     border-spacing: 0px 3px;
-}
-
-img.running {
-    float: left;
-    position: absolute;
 }
 
 tr.running { background-color: #D5F0F0; }

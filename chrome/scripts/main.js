@@ -11,7 +11,7 @@ window.onerror = function(msg, url, line) {
 
 $(document).ready(function() {
     // Set some variables
-    load = $('#loading');
+    load = $('#loading ');
     
     // Check the version, and show the changelog if necessary
     if(typeof localStorage['old-version'] != 'undefined') {
@@ -19,7 +19,8 @@ $(document).ready(function() {
             window.open('changelog.html');
         }
     } else {
-        window.open('installed.html');
+        localStorage['old-version'] = chrome.app.getDetails().version;
+        window.location = 'installed.html';
     }
     
     localStorage['old-version'] = chrome.app.getDetails().version;
@@ -64,8 +65,9 @@ $(document).ready(function() {
     // Set focus on the new task name field
     setTimeout(function() { $('#new-txt').focus(); }, 100);
     
-    // Start the update timer
+    // Start the timers
     update_time();
+    save_timeout = setTimeout('save(true)', 60000);
     
     // Add to the launch count, and show a rating reminder if at a multiple of 6
     localStorage['launches'] = typeof localStorage['launches'] == 'undefined' ? 1 : parseInt(localStorage['launches']) + 1;
@@ -103,6 +105,7 @@ $(document).ready(function() {
                 'goal_mins': parseInt($('#new-goal-mins').val()),
                 'notified': false
             });
+            
             if($('#new-start').is(':checked')) toggle_task(task_count - 1);
             save();
             
@@ -201,6 +204,7 @@ $(document).ready(function() {
             $('#custom-sound').attr('disabled', 'disabled');
         }
     });
+    
     
     $('#tasks').show();
 });
