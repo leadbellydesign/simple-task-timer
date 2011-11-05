@@ -2,16 +2,23 @@ var load, tasks = new Array(), task_running = new Array(), task_count = 0, save_
 
 // Set error event (most important event)
 window.onerror = function(msg, url, line) {
+    // Print error
     $('#tasks').css({'text-align': 'left'}).html('<div class="error">An error has occurred somewhere. Please report a bug with the following information, as well as what you did/what happened:<br /><br /></div>');
+    $('#tasks').append('<strong>App Version:</strong> '+ chrome.app.getDetails().version +'<br />');
     $('#tasks').append('<strong>Error Message:</strong> '+ msg +'<br />');
+    $('#tasks').append('<strong>URL:</strong> '+ url +'<br />');
     $('#tasks').append('<strong>Line number:</strong> '+ line +'<br />');
-    $('#tasks').append('<strong>Stack trace:</strong><br />'+ printStackTrace().join('<br />') +'<br />');
-    $('#tasks').append('<strong>localStorage:</strong><br />'+ JSON.stringify(localStorage)).show();
+    //$('#tasks').append('<strong>Stack trace:</strong><br />'+ printStackTrace().join('<br />') +'<br />');
+    $('#tasks').append('<strong>localStorage:</strong><br />'+ JSON.stringify(localStorage));
+    
+    // Make sure the error message is visible
+    $('#tasks').show();
+    $('.modal').hide();
 }
 
 $(document).ready(function() {
     // Set some variables
-    load = $('#loading ');
+    load = $('#loading');
     
     // Check the version, and show the changelog if necessary
     if(typeof localStorage['old-version'] != 'undefined') {
