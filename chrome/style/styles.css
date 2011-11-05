@@ -43,6 +43,11 @@ h2 { font-size: 16px; font-weight: normal; }
     box-shadow: 0 0 15px red; 
 }
 
+.error {
+    color: red;
+    font-weight: bold;
+}
+
 #saved {
     color: #4F8A10;
     background-color: #DFF2BF;

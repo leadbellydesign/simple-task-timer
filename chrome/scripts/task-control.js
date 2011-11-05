@@ -115,6 +115,7 @@ function list_task(task, anim) {
         reset_task(parseInt(this.name));
     });
     $('#task-'+ task +' button.delete').attr('name', task).click(function() {
+        cancel_edit();
         delete_task(parseInt(this.name));
     });
     

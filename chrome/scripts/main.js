@@ -1,14 +1,27 @@
 var load, tasks = new Array(), task_running = new Array(), task_count = 0, save_timeout, timer;
 
+// Set error event (most important event)
+window.onerror = function(msg, url, line) {
+    $('#tasks').css({'text-align': 'left'}).html('<div class="error">An error has occurred somewhere. Please report a bug with the following information, as well as what you did/what happened:<br /><br /></div>');
+    $('#tasks').append('<strong>Error Message:</strong> '+ msg +'<br />');
+    $('#tasks').append('<strong>Line number:</strong> '+ line +'<br />');
+    $('#tasks').append('<strong>Stack trace:</strong><br />'+ printStackTrace().join('<br />') +'<br />');
+    $('#tasks').append('<strong>localStorage:</strong><br />'+ JSON.stringify(localStorage)).show();
+}
+
 $(document).ready(function() {
     // Set some variables
     load = $('#loading');
     
     // Check the version, and show the changelog if necessary
-    if(typeof localStorage['old-version'] == 'undefined') localStorage['old-version'] = '0';
-    if(chrome.app.getDetails().version != localStorage['old-version'] && confirm('Task Timer has been updated!\nWould you like to see the changelog?')) {
-        window.open('changelog.html');
+    if(typeof localStorage['old-version'] != 'undefined') {
+        if(chrome.app.getDetails().version != localStorage['old-version'] && confirm('Task Timer has been updated!\nWould you like to see the changelog?\n\nBe aware that you will need to start your tasks again if Chrome auto-updated the app while any were running.')) {
+            window.open('changelog.html');
+        }
+    } else {
+        window.open('installed.html');
     }
+    
     localStorage['old-version'] = chrome.app.getDetails().version;
     
     // Retrieve any tasks they've previously added
@@ -44,8 +57,9 @@ $(document).ready(function() {
     // Load settings
     Load();
     
-    // Enable the add task fields
+    // Enable the add task fields and check the auto-start box if default is enabled
     $('#new-task input, #new-task button').removeAttr('disabled');
+    if(localStorage['autostart-default'] == 'true') $('#new-start').attr('checked', 'checked');
     
     // Set focus on the new task name field
     setTimeout(function() { $('#new-txt').focus(); }, 100);
@@ -79,6 +93,7 @@ $(document).ready(function() {
     // User clicked the Add Task button
     $('#new-btn').click(function() {
         if($('#new-txt').val() != '' && (parseInt($('#new-goal-hrs').val()) > 0 || parseInt($('#new-goal-mins').val()) > 0)) {
+            cancel_edit();
             add_task({
                 'text': $('#new-txt').val(),
                 'current_hours': 0,
@@ -92,6 +107,7 @@ $(document).ready(function() {
             save();
             
             $('#new-txt').val('');
+            if(localStorage['autostart-default'] == 'true') $('#new-start').attr('checked', 'checked');
         } else {
             $('#error').fadeIn(600).delay(2000).fadeOut(600);
         }
@@ -112,7 +128,7 @@ $(document).ready(function() {
     // User clicked the Options button
     $('#options').click(function() {
         Load();
-        $('.modal').fadeIn(400, function() { $('#modal-contents').show().animate({'height': '280px'}).animate({'width': '500px'}); });
+        $('.modal').fadeIn(400, function() { $('#modal-contents').show().animate({'height': '300px'}).animate({'width': '500px'}); });
     });
     
     // User clicked the cancel button in the options modal
@@ -129,6 +145,7 @@ $(document).ready(function() {
         localStorage['hide-notice'] = $('#hide-notice').is(':checked').toString();
         localStorage['confirm-reset'] = $('#confirm-reset').is(':checked').toString();
         localStorage['confirm-delete'] = $('#confirm-delete').is(':checked').toString();
+        localStorage['autostart-default'] = $('#autostart-default').is(':checked').toString();
         
         localStorage['notify'] = $('#notify').is(':checked').toString();
         localStorage['play-sound'] = $('#play-sound').is(':checked').toString();
@@ -148,6 +165,9 @@ $(document).ready(function() {
                 webkitNotifications.createNotification('/style/images/icon-64.png', 'Desktop Notifications Work!', 'You seeing this means desktop notifications are enabled and working correctly! Woo!').show();
             });
         }
+        
+        // Check the auto-start box if setting is enabled
+        if(localStorage['autostart-default'] == 'true') $('#new-start').attr('checked', 'checked');
         
         clearTimeout(timer);
         timer = setTimeout('update_time()', parseInt(localStorage['update-time']) * 1000);
@@ -182,7 +202,6 @@ $(document).ready(function() {
         }
     });
     
-    save();
     $('#tasks').show();
 });
 
@@ -194,6 +213,7 @@ function Load() {
     if(typeof localStorage['hide-notice'] == 'undefined') localStorage['hide-notice'] = 'false';
     if(typeof localStorage['confirm-reset'] == 'undefined') localStorage['confirm-reset'] = 'true';
     if(typeof localStorage['confirm-delete'] == 'undefined') localStorage['confirm-delete'] = 'true';
+    if(typeof localStorage['autostart-default'] == 'undefined') localStorage['autostart-default'] = 'false';
     if(typeof localStorage['notify'] == 'undefined') localStorage['notify'] = 'false';
     if(typeof localStorage['play-sound'] == 'undefined') localStorage['play-sound'] = 'true';
     if(typeof localStorage['sound-type'] == 'undefined') localStorage['sound-type'] = '1';
@@ -214,7 +234,7 @@ function Load() {
         $('#notice').show();
     }
     
-    $.each({'confirm-reset': 0, 'confirm-delete': 0, 'stop-timer': 0, 'notify': 0, 'only-one': 0}, function(i, v) {
+    $.each({'confirm-reset': 0, 'confirm-delete': 0, 'autostart-default': 0, 'stop-timer': 0, 'notify': 0, 'only-one': 0}, function(i, v) {
         if(localStorage[i] == 'true') {
             $('#'+ i).attr('checked', 'checked');
         } else {
@@ -247,12 +267,16 @@ function Load() {
 // Save the data in localStorage
 function save(timeout) {
     if(timeout) load.show();
+    $('button.delete, #new-btn').attr('disabled', 'disabled');
+    
+    // Save data
     localStorage['tasks'] = JSON.stringify(tasks);
     
+    // Timeout
     clearTimeout(save_timeout);
     save_timeout = setTimeout('save(true)', 60000);
     
-    window.status = 'Saved.';
+    $('button.delete, #new-btn').removeAttr('disabled');
     if(timeout) load.hide();
 }
 

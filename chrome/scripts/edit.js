@@ -5,8 +5,8 @@ function edit_name(task) {
     if(editing_task === -1) {
         editing_task = task;
         
-        // Disable all delete buttons and the task's toggle button
-        $('button.delete, #task-'+ task +' button.toggle').attr('disabled', 'disabled');
+        // Disable the task's toggle button
+        $('#task-'+ task +' button.toggle').attr('disabled', 'disabled');
         
         // Replace the text with a text field and a save button
         $('#task-'+ task +' td.text').empty();
@@ -51,8 +51,8 @@ function edit_goal(task) {
         editing_task = task;
         if(task_running[task]) toggle_task(task);
         
-        // Disable all delete buttons and the task's toggle button
-        $('button.delete, #task-'+ task +' button.toggle').attr('disabled', 'disabled');
+        // Disable the task's toggle button
+        $('#task-'+ task +' button.toggle').attr('disabled', 'disabled');
         
         // Replace the goal text with inputs
         $('#task-'+ task +' td.goal').empty();

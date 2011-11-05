@@ -6,6 +6,7 @@
     
     <link rel="stylesheet" type="text/css" href="style/styles.css" />
     
+    <script type="text/javascript" src="scripts/stacktrace-min-0.3.js"></script>
     <script type="text/javascript" src="scripts/jquery-1.6.2.min.js"></script>
     <script type="text/javascript" src="scripts/task-control.js"></script>
     <script type="text/javascript" src="scripts/edit.js"></script>
@@ -25,6 +26,7 @@
     <div id="notice" class="note">
         <button id="close-notice">Close</button>
         <p>Note: This only saves locally, on your computer, in your browser.<br />The data will be gone if you clear the data, or you move to a different computer/device.</p>
+        <p>Make sure to check out the settings by clicking on the gear button in the top right corner of the app!<br />There are settings such as desktop notifications for when a task finishes.</p>
     </div>
     
     <div id="tasks">
@@ -108,7 +110,8 @@
             
             <label><input type="checkbox" id="hide-notice" />Hide the notice box</label><br />
             <label><input type="checkbox" id="confirm-reset" />Ask to confirm when you attempt to reset a task</label><br />
-            <label><input type="checkbox" id="confirm-delete" />Ask to confirm when you attempt to delete a task</label><br /><br />
+            <label><input type="checkbox" id="confirm-delete" />Ask to confirm when you attempt to delete a task</label><br />
+            <label><input type="checkbox" id="autostart-default" />Check the start checkbox by default</input></label><br /><br />
             
             <label><input type="checkbox" id="notify" />Show a desktop notification when a task reaches its goal</label><br />
             <label><input type="checkbox" id="play-sound" />Play a sound when a task reaches its goal</label><br />
