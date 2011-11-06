@@ -3,7 +3,7 @@ var load, tasks = new Array(), task_running = new Array(), task_count = 0, save_
 // Set error event (most important event)
 window.onerror = function(msg, url, line) {
     // Print error
-    $('#tasks').css({'text-align': 'left'}).html('<div class="error">An error has occurred somewhere. Please report a bug with the following information, as well as what you did/what happened:<br /><br /></div>');
+    $('#tasks').css({'text-align': 'left'}).html('<div id="js-error">An error has occurred somewhere. Please report a bug with the following information, as well as what you did/what happened:<br /><br /></div>');
     $('#tasks').append('<strong>App Version:</strong> '+ chrome.app.getDetails().version +'<br />');
     $('#tasks').append('<strong>Error Message:</strong> '+ msg +'<br />');
     $('#tasks').append('<strong>URL:</strong> '+ url +'<br />');
@@ -57,6 +57,13 @@ $(document).ready(function() {
                 }
             }
             
+            // Add the indefinite property to a task if it doesn't exist
+            if(typeof tasks[i].indefinite == 'undefined') tasks[i].indefinite = false;
+            
+            // Make sure goal times aren't null
+            if(tasks[i].goal_hours == null) tasks[i].goal_hours = 0;
+            if(tasks[i].goal_mins == null) tasks[i].goal_mins = 0;
+            
             list_task(i, 0);
             task_running[i] = false;
         }
@@ -87,7 +94,6 @@ $(document).ready(function() {
     
     
     
-    
     /**************************************************
      *************      E V E N T S       *************
      **************************************************/
@@ -101,15 +107,21 @@ $(document).ready(function() {
     
     // User clicked the Add Task button
     $('#new-btn').click(function() {
-        if($('#new-txt').val() != '' && (parseInt($('#new-goal-hrs').val()) > 0 || parseInt($('#new-goal-mins').val()) > 0)) {
+        if($('#new-goal-hrs').val() == '') $('#new-goal-hrs').val('0');
+        if($('#new-goal-mins').val() == '') $('#new-goal-mins').val('0');
+        
+        var hours = parseInt($('#new-goal-hrs').val()), mins = parseInt($('#new-goal-mins').val()), indef = $('#new-goal-indef').is(':checked');
+        
+        if($('#new-txt').val() != '' && (hours > 0 || mins > 0 || indef) && !(hours < 0) && !(mins < 0)) {
             cancel_edit();
             add_task({
                 'text': $('#new-txt').val(),
                 'current_hours': 0,
                 'current_mins': 0,
                 'current_secs': 0,
-                'goal_hours': parseInt($('#new-goal-hrs').val()),
-                'goal_mins': parseInt($('#new-goal-mins').val()),
+                'goal_hours': hours,
+                'goal_mins': mins,
+                'indefinite': indef,
                 'notified': false
             });
             
@@ -123,11 +135,25 @@ $(document).ready(function() {
         }
     });
     
+    // User toggled the new task indefinite checkbox
+    $('#new-goal-indef').change(function() {
+        if($(this).is(':checked')) {
+            $('#new-goal-hrs, #new-goal-mins').attr('disabled', 'disabled') 
+        } else {
+            $('#new-goal-hrs, #new-goal-mins').removeAttr('disabled');
+        }
+    });
+    
     // User pressed enter in one of the new task fields
     $('#new-task input').keypress(function (e) {
         if(e.keyCode == 13 && !$('#new-btn').attr('disabled')) {
             $('#new-btn').click();
         }
+    });
+    
+    // User clicked away from the goal fields
+    $('#new-goal-hrs, #new-goal-mins').blur(function() {
+        if($(this).val() == '') $(this).val('0');
     });
     
     // User is leaving the page... Save the data.
@@ -292,6 +318,11 @@ function save(timeout) {
 }
 
 // Format the time to the format h:mm:ss
-function format_time(hours, mins, secs) {
+function format_time(hours, mins, secs, indef) {
+    if(hours == null) hours = 0;
+    if(mins == null) mins = 0;
+    if(secs == null) secs = 0;
+    
+    if(indef) return 'Indefinite';
     return hours.toString() +':'+ (mins < 10 ? '0' : '') + mins.toString() +':'+ (secs < 10 ? '0' : '') + secs.toString();
 }

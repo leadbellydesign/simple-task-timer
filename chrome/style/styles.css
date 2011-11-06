@@ -22,8 +22,6 @@ h2 { font-size: 16px; font-weight: normal; }
 /* Alerts */
 #error, #saved {
     position: fixed;
-    left: 2%;
-    top: 94%;
     padding: 3px;
     
     border: 1px solid;
@@ -33,20 +31,27 @@ h2 { font-size: 16px; font-weight: normal; }
 }
 
 #error {
+    top: 50%;
+    left: 50%;
+    margin: -13px 0 0 -93px;
+    
     color: #D8000C;
     background-color: #FFBABA;
-    box-shadow: 0 0 15px red; 
-}
-
-.error {
-    color: red;
-    font-weight: bold;
+    box-shadow: 0 0 15px red;
 }
 
 #saved {
+    bottom: 30px;
+    left: 25px;
+    
     color: #4F8A10;
     background-color: #DFF2BF;
     box-shadow: 0 0 15px lime;
+}
+
+#js-error {
+    color: red;
+    font-weight: bold;
 }
 
 /* Notes */

@@ -23,8 +23,7 @@ function reset_task(task) {
 function delete_task(task) {
     if(localStorage['confirm-delete'] == 'false' || confirm('Are you sure you want to delete task "'+ tasks[task].text +'"?')) {
         load.show();
-        $('#new-btn').attr('disabled', 'disabled');
-        $('#task-'+ task +' button').attr('disabled', 'disabled');
+        $('#new-btn, #task-'+ task +' button').attr('disabled', 'disabled');
         
         tasks.splice(task, 1);
         task_count--;
@@ -94,6 +93,8 @@ function toggle_task(task) {
 function list_task(task, anim) {
     // Progress done
     var progress = Math.floor((tasks[task].current_hours + (tasks[task].current_mins / 60) + (tasks[task].current_secs / 3600)) / (tasks[task].goal_hours + (tasks[task].goal_mins / 60)) * 100);
+    if(tasks[task].indefinite == true) progress = 0;
+    if(progress == Infinity) progress = 100;
     
     // Create the row
     $('#row-template').clone().attr('id', 'task-'+ task).appendTo('#task-list tbody');
@@ -101,7 +102,7 @@ function list_task(task, anim) {
     // Text
     $('#task-'+ task +' td.text').text(tasks[task].text);
     $('#task-'+ task +' td.current').text(format_time(tasks[task].current_hours, tasks[task].current_mins, tasks[task].current_secs));
-    $('#task-'+ task +' td.goal').text(format_time(tasks[task].goal_hours, tasks[task].goal_mins, 0));
+    $('#task-'+ task +' td.goal').text(format_time(tasks[task].goal_hours, tasks[task].goal_mins, 0, tasks[i].indefinite));
     $('#task-'+ task +' button.toggle').text(task_running[task] ? 'Stop' : 'Start');
     $('#task-'+ task +' progress').val(progress).text(progress.toString() +'%');
     
@@ -128,7 +129,7 @@ function list_task(task, anim) {
     });
     
     // Disable the toggle button if task is at its goal, and change the bg colour
-    if(tasks[task].current_hours >= tasks[task].goal_hours && tasks[task].current_mins >= tasks[task].goal_mins) {
+    if(!tasks[task].indefinite && tasks[task].current_hours >= tasks[task].goal_hours && tasks[task].current_mins >= tasks[task].goal_mins) {
         if(localStorage['stop-timer'] == 'true') $('#task-'+ task +' button.toggle').attr('disabled', 'disabled');
         $('#task-'+ task).attr('class', 'done');
     }
@@ -160,7 +161,7 @@ function update_time() {
             if(tasks[i].current_mins >= 60) { tasks[i].current_mins -= 60; tasks[i].current_hours++; }
             
             // Stop updating this one if it's at the goal, show a desktop notification, and play the sound
-            if(tasks[i].current_hours >= tasks[i].goal_hours && tasks[i].current_mins >= tasks[i].goal_mins) {
+            if(!tasks[i].indefinite && tasks[i].current_hours >= tasks[i].goal_hours && tasks[i].current_mins >= tasks[i].goal_mins) {
                 if(localStorage['stop-timer'] == 'true') {
                     toggle_task(i);
                     $('#task-'+ i +' button.toggle').attr('disabled', 'disabled');
@@ -179,6 +180,8 @@ function update_time() {
             }
             
             var progress = Math.floor((tasks[i].current_hours + (tasks[i].current_mins / 60) + (tasks[i].current_secs / 3600)) / (tasks[i].goal_hours + (tasks[i].goal_mins / 60)) * 100);
+            if(tasks[i].indefinite == true) progress = 0;
+            if(progress == Infinity) progress = 100;
             
             // Update list
             $('#task-'+ i +' td.current').text(format_time(tasks[i].current_hours, tasks[i].current_mins, tasks[i].current_secs));
