@@ -2,7 +2,13 @@
 header, footer { text-align: center; }
 
 #notice, #loading, #tasks, #task-list, #nothing, #modal-overlay, #modal, #edit-tasks { display: none; }
-#options { float: right; }
+
+#options {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
 #loading {
     position: fixed;
     bottom: 5px;
@@ -108,7 +114,7 @@ th.progress { width: 20%; }
 
 /* Options Modal */
 #modal, #modal-overlay {
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0px;
     
@@ -122,17 +128,19 @@ th.progress { width: 20%; }
 }
 
 #modal-contents {
-    margin: 200px auto;
-    overflow: hidden;
+    position: relative;
+    top: 50%;
+    margin: -150px auto;
     padding: 10px;
+    
     width: 0px;
     height: 0px;
+    overflow: hidden;
     
     border: 1px solid black;
     border-radius: 10px;
     
     background: #e9f6fd;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e9f6fd), color-stop(100%,#d3eefb));
     background: -webkit-linear-gradient(top, #e9f6fd 0%,#d3eefb 100%);
     background: linear-gradient(top, #e9f6fd 0%,#d3eefb 100%);
 }
