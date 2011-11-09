@@ -10,7 +10,7 @@ function add_task(data) {
 // Reset a task
 function reset_task(task) {
     try {
-        if(!setting('confirm-reset') || confirm('Are you sure you want to reset task "'+ tasks[task].text +'"?')) {
+        if(!setting('confirm-reset') || confirm(locale('confirmReset', tasks[task].text))) {
             tasks[task].current_hours = tasks[task].current_mins = tasks[task].current_secs = 0;
             tasks[task].notified = false;
             rebuild_list();
@@ -23,7 +23,7 @@ function reset_task(task) {
 // Delete a task
 function delete_task(task) {
     try {
-        if(!setting('confirm-delete') || confirm('Are you sure you want to delete task "'+ tasks[task].text +'"?')) {
+        if(!setting('confirm-delete') || confirm(locale('confirmDelete', tasks[task].text))) {
             load.show();
             $('#new-btn, #task-'+ task +' button').attr('disabled', 'disabled');
             
@@ -66,7 +66,7 @@ function toggle_task(task) {
     try {
         if(task_running[task]) {
             task_running[task] = false;
-            $('#task-'+ task +' button.toggle').text('Start');
+            $('#task-'+ task +' button.toggle').text(locale('start'));
             $('#task-'+ task).removeClass('running');
         } else {
             // Disable other tasks if they have it set to allow only one running at a time
@@ -77,7 +77,7 @@ function toggle_task(task) {
             }
             
             task_running[task] = true;
-            $('#task-'+ task +' button.toggle').text('Stop');
+            $('#task-'+ task +' button.toggle').text(locale('stop'));
             $('#task-'+ task).addClass('running');
         }
     } catch(e) {
@@ -100,7 +100,7 @@ function list_task(task, anim) {
         $('#task-'+ task +' td.text').text(tasks[task].text);
         $('#task-'+ task +' td.current').text(format_time(tasks[task].current_hours, tasks[task].current_mins, tasks[task].current_secs));
         $('#task-'+ task +' td.goal').text(format_time(tasks[task].goal_hours, tasks[task].goal_mins, 0, tasks[i].indefinite));
-        $('#task-'+ task +' button.toggle').text(task_running[task] ? 'Stop' : 'Start');
+        $('#task-'+ task +' button.toggle').text(task_running[task] ? locale('stop') : locale('start'));
         $('#task-'+ task +' progress').val(progress).text(progress.toString() +'%');
         
         if(task_running[task]) $('#task-'+ task).addClass('running');
@@ -153,10 +153,14 @@ function list_task(task, anim) {
 
 // Rebuild the task list
 function rebuild_list() {
+    editing_task = -1;
     $('#task-list tbody').empty();
+    
     for(i = 0; i < task_count; i++) {
         list_task(i, 0);
     }
+    
+    $('#task-list').tableDnDUpdate();
 }
 
 // Increase the current time on tasks that are running by a second

@@ -1,13 +1,14 @@
 {
-    "name": "Task Timer",
-    "description": "A simple tool to help keep track of time spent on tasks such as work, studies, or other things.",
-    "version": "1.6.0",
+    "name": "__MSG_appName__",
+    "description": "__MSG_appDesc__",
+    "version": "1.7.0",
+    "default_locale": "en",
+    
     "app": {
       "launch": {
           "local_path": "index.html"
       }
     },
-    
     "icons": {
         "16": "style/images/icon-16.png",
         "64": "style/images/icon-64.png",

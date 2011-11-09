@@ -1,4 +1,4 @@
-var load, tasks = new Array(), task_running = new Array(), task_count = 0, save_timer, timer, preview_sound = false;;
+var load, tasks = new Array(), task_running = new Array(), task_count = 0, save_timer, timer, preview_sound = false, errord = false;
 
 // Set error event (most important event)
 window.onerror = function(msg, url, line) { error_notice(msg, url, line); };
@@ -6,6 +6,8 @@ window.onerror = function(msg, url, line) { error_notice(msg, url, line); };
 // Document finished loading
 $(document).ready(function() {
     try {
+        localise();
+        
         // Set some variables
         load = $('#loading');
         
@@ -81,6 +83,23 @@ $(document).ready(function() {
             window.open('https://chrome.google.com/webstore/detail/aomfjmibjhhfdenfkpaodhnlhkolngif');
         }
         
+        // Make the table rows draggable
+        $('#task-list').tableDnD({
+            dragHandle: 'drag',
+            onDrop: function(table, row) {
+                var old_id = parseInt($(row).attr('id').replace('task-', ''));
+                var id = $('#task-list tbody tr').index(row);
+                var tmp = tasks[old_id], tmp2 = task_running[old_id];
+                
+                tasks.splice(old_id, 1);
+                tasks.splice(id, 0, tmp);
+                task_running.splice(old_id, 1);
+                task_running.splice(id, 0, tmp2);
+                
+                rebuild_list();
+            }
+        });
+        
         
         
         /**************************************************
@@ -112,6 +131,8 @@ $(document).ready(function() {
                     'indefinite': indef,
                     'notified': false
                 });
+                
+                $('#task-list').tableDnDUpdate();
                 
                 if($('#new-start').is(':checked')) toggle_task(task_count - 1);
                 save();
@@ -226,7 +247,7 @@ $(document).ready(function() {
         $('#preview-sound').click(function() {
             preview_sound = true;
             $('#preview').attr('src', $('#sound-type').val() == 1 ? 'Deneb.ogg' : $('#custom-sound').val());
-            $(this).text('Loading...').attr('disabled', 'disabled');
+            $(this).text(locale('loading')).attr('disabled', 'disabled');
         });
         
         // Preview sound is ready
@@ -234,7 +255,7 @@ $(document).ready(function() {
             if(preview_sound) {
                 preview_sound = false;
                 this.play();
-                $('#preview-sound').text('Preview sound').removeAttr('disabled');
+                $('#preview-sound').text(locale('optPreview')).removeAttr('disabled');
             }
         });
         
@@ -242,7 +263,7 @@ $(document).ready(function() {
         $('#preview').error(function() {
             if(preview_sound) {
                 preview_sound = false;
-                $('#preview-sound').text('Error!');
+                $('#preview-sound').text(locale('error'));
                 setTimeout(function() { $('#preview-sound').text('Preview sound').removeAttr('disabled'); }, 2000);
             }
         });
@@ -348,13 +369,33 @@ function setting(name, value, only_not_exists) {
 
 // Format the time to the format h:mm:ss
 function format_time(hours, mins, secs, indef) {
-    if(indef) return 'Indefinite';
+    if(indef) return locale('indefinite');
     
     if(hours == null) hours = 0;
     if(mins == null) mins = 0;
     if(secs == null) secs = 0;
     
     return hours.toString() +':'+ (mins < 10 ? '0' : '') + mins.toString() +':'+ (secs < 10 ? '0' : '') + secs.toString();
+}
+
+// Localise page
+function localise() {
+    var text_tags = ['DIV', 'SPAN', 'P', 'TD', 'TH', 'A', 'BUTTON', 'H1', 'H2', 'TITLE'];
+    
+    $('[i18n]').each(function(i, v) {
+        var i18n = locale($(this).attr('i18n'));
+        
+        if($.inArray($(this)[0].tagName, text_tags) != -1) $(this).text(i18n);
+        if($(this).attr('title')) $(this).attr('title', i18n);
+        if($(this).attr('alt')) $(this).attr('alt', i18n);
+        if($(this).attr('placeholder')) $(this).attr('placeholder', i18n);
+    });
+}
+
+// Get a single locale string
+function locale(messageID, args) {
+    var i18n = chrome.i18n.getMessage(messageID, args);
+    return i18n != '' ? i18n : messageID;
 }
 
 // Error handler
@@ -387,5 +428,10 @@ function error_notice(error, url, line) {
     // Make sure the error message is visible
     $('#tasks').show();
     $('.modal').hide();
-    alert('An error has occurred!');
+    
+    // Alert only once
+    if(!errord) {
+        errord = true;
+        alert('An error has occurred!');
+    }
 }

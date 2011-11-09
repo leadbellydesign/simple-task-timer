@@ -1,0 +1,19 @@
+{
+    "appName": {
+        "message": "Task Timer",
+        "description": "The name of the app"
+    },
+    "appDesc": {
+        "message": "A simple tool to help keep track of time spent on tasks such as work, studies, or other things.",
+        "description": "The short description of the app"
+    },
+    
+    "title": {
+        "message": "Task Timer",
+        "description": "The title of the main page"
+    },
+    "description": {
+        "message": "Use this tool to keep track of time that you spend on work, studies, or any other type of task.",
+        "description": "Shows right below the title"
+    }
+}

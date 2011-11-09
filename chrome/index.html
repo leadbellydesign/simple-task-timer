@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Task Timer</title>
+    <title i18n="title">Task Timer</title>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     
     <link rel="stylesheet" type="text/css" href="style/global.css" />
@@ -9,41 +9,43 @@
     
     <script type="text/javascript" src="scripts/stacktrace-min-0.3.js"></script>
     <script type="text/javascript" src="scripts/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery.tablednd-0.5.min.js"></script>
     <script type="text/javascript" src="scripts/task-control.js"></script>
     <script type="text/javascript" src="scripts/edit.js"></script>
     <script type="text/javascript" src="scripts/main.js"></script>
 </head>
 <body>
-    <img src="style/images/ajax-loader.gif" id="loading" width="32" height="32" alt="Loading..." />
-    <button id="options"><img src="style/images/gear.png" width="25" height="25" alt="Settings" /></button>
+    <img src="style/images/ajax-loader.gif" id="loading" width="32" height="32" alt="Loading..." i18n="loading" />
+    <button id="options"><img src="style/images/gear.png" width="25" height="25" alt="Settings" i18n="settings" /></button>
     
     <audio src="Deneb.ogg" id="sound" preload></audio>
     <audio src="Deneb.ogg" id="preview" preload></audio>
     
     <header>
-        <h1>Task Timer</h1>
-        <h2>Use this tool to keep track of time that you spend on work, studies, or any other type of task.</h2>
-        <img src="style/images/icon-64.png" id="logo" width="64" height="64" alt="" />
+        <h1 i18n="title">Task Timer</h1>
+        <h2 i18n="description">Use this tool to keep track of time that you spend on work, studies, or any other type of task.</h2>
+        <a href="https://chrome.google.com/webstore/detail/aomfjmibjhhfdenfkpaodhnlhkolngif" target="_blank"><img src="style/images/icon-64.png" id="logo" width="64" height="64" alt="Task Timer" i18n="title" /></a>
     </header>
     
     <div id="notice" class="note">
-        <button id="close-notice"><img src="style/images/cross.png" width="16" height="16" alt="Close" /></button>
-        <p>Note: This only saves locally, on your computer, in your browser.<br />The data will be gone if you clear the data, or you move to a different computer/device.</p>
-        <p>Make sure to check out the settings by clicking on the gear button in the top right corner of the app!<br />There are settings such as desktop notifications for when a task finishes.</p>
+        <button id="close-notice"><img src="style/images/cross.png" width="16" height="16" alt="Close" i18n="close" /></button>
+        <p i18n="note">Note: This only saves locally, on your computer, in your browser.<br />The data will be gone if you clear the data, or you move to a different computer/device.</p>
+        <p i18n="noteRemind">Make sure to check out the settings by clicking on the gear button in the top right corner of the app!<br />There are settings such as desktop notifications for when a task finishes.</p>
     </div>
     
     <div id="tasks" class="container">
-        <div id="no-tasks">You haven't created any tasks yet!</div>
-        <div id="edit-tasks">Double-click a task name or goal to edit it.</div>
+        <div id="no-tasks" i18n="noTasks">You haven't created any tasks yet!</div>
+        <div id="edit-tasks" i18n="editTasks">Double-click a task name or goal to edit it.</div>
             
         <table id="task-list">
             <thead>
-                <tr>
-                    <th class="text">Task</th>
-                    <th class="current">Time Spent</th>
-                    <th class="goal">Goal</th>
-                    <th class="progress">Progress</th>
-                    <th class="options">Options</th>
+                <tr class="nodrop nodrag">
+                    <th class="drag"></th>
+                    <th class="text" i18n="task">Task</th>
+                    <th class="current" i18n="timeSpent">Time Spent</th>
+                    <th class="goal" i18n="goal">Goal</th>
+                    <th class="progress" i18n="progress">Progress</th>
+                    <th class="options" i18n="options">Options</th>
                  </tr>
             </thead>
             <tbody></tbody>
@@ -51,20 +53,20 @@
         
         <table id="new-task">
             <tr>
-                <td>Name</td>
-                <td>Goal (hours : minutes)</td>
-                <td>Start</td>
+                <td i18n="name">Name</td>
+                <td i18n="goalBoth">Goal (hours : minutes)</td>
+                <td i18n="start">Start</td>
                 <td></td>
             </tr>
             <tr>
-                <td><input type="text" id="new-txt" placeholder="Task Name" title="Task Name" disabled /></td>
+                <td><input type="text" id="new-txt" placeholder="Task Name" title="Task Name" i18n="taskName" disabled /></td>
                 <td>
-                    <input type="number" id="new-goal-hrs" value="4" min="0" max="80" size="2" title="Goal Hours" disabled /> :
-                    <input type="number" id="new-goal-mins" value="0" min="0" max="59" size="2" title="Goal Minutes" disabled /><br />
-                    <label><input type="checkbox" id="new-goal-indef" disabled /> Indefinite</label>
+                    <input type="number" id="new-goal-hrs" value="4" min="0" max="80" size="2" title="Goal Hours" i18n="goalHours" disabled /> :
+                    <input type="number" id="new-goal-mins" value="0" min="0" max="59" size="2" title="Goal Minutes" i18n="goalMinutes" disabled /><br />
+                    <label><input type="checkbox" id="new-goal-indef" disabled /> <span i18n="indefinite">Indefinite</span></label>
                 </td>
-                <td><input type="checkbox" id="new-start" title="Start task immediately" disabled /></td>
-                <td><button id="new-btn" disabled>Add Task</button></td>
+                <td><input type="checkbox" id="new-start" title="Start task immediately" i18n="startImmediately" disabled /></td>
+                <td><button id="new-btn" i18n="addTask" disabled>Add Task</button></td>
             </tr>
         </table>
     </div>
@@ -72,38 +74,40 @@
     <div id="nothing">
         <table id="template">
             <tr id="row-template" style="display: none;">
-                <td class="text">Task</td>
-                <td class="current">Time Spent</td>
-                <td class="goal">Goal</td>
+                <td class="drag"></td>
+                <td class="text" i18n="task">Task</td>
+                <td class="current" i18n="timeSpent">Time Spent</td>
+                <td class="goal" i18n="goal">Goal</td>
                 <td class="progress"><progress max="100" value="0">0%</progress></td>
-                <td class="options">
-                    <button class="toggle">Start</button>
-					<button class="reset">Reset</button>
-                    <button class="delete">Delete</button>
+                <td class="options" >
+                    <button class="toggle" i18n="start">Start</button>
+					<button class="reset" i18n="reset">Reset</button>
+                    <button class="delete" i18n="delete">Delete</button>
                 </td>
             </tr>
         </table>
         
         <div id="name-edit-template">
-            <input type="text" placeholder="Task Name" />
-            <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" /></button>
-            <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" /></button>
+            <input type="text" placeholder="Task Name" title="Task Name" i18n="taskName" />
+            <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" i18n="save" /></button>
+            <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" i18n="cancel" /></button>
         </div>
         
         <div id="goal-edit-template">
-            <input type="number" class="hrs" min="0" max="80" size="2" title="Goal Hours" /> : 
-            <input type="number" class="mins" min="0" max="59" size="2" title="Goal Minutes" /><br />
-            <label><input type="checkbox" class="indef" /> Indefinite</label>
+            <input type="number" class="hrs" min="0" max="80" size="2" title="Goal Hours" i18n="goalHours" /> : 
+            <input type="number" class="mins" min="0" max="59" size="2" title="Goal Minutes" i18n="goalMinutes" /><br />
+            <label i18n="indefinite"><input type="checkbox" class="indef" /> Indefinite</label>
             
-            <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" /></button>
-            <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" /></button>
+            <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" i18n="save" /></button>
+            <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" i18n="cancel" /></button>
         </div>
     </div>
     
     <footer>
-        Created by <a href="http://gawdl3y.com/">Schuyler Cebulskie</a> | 
-        <a href="http://code.google.com/p/simple-task-timer/issues/list" target="_blank">Report a bug</a><br />
-        Have an idea? <a href="http://gawdl3y.com/suggest" target="_blank">Tell me</a> | <a href="changelog.html" target="_blank">Changelog</a>
+        <span i18n="createdBy">Created by</span> <a href="http://gawdl3y.com/">Schuyler Cebulskie</a> | 
+        <a href="http://code.google.com/p/simple-task-timer/issues/list" target="_blank" i18n="reportBug">Report a bug</a><br />
+        <span i18n="haveIdea">Have an idea?</span> <a href="http://gawdl3y.com/suggest" target="_blank" i18n="tellMe">Tell me</a> | 
+        <a href="changelog.html" target="_blank" i18n="changelog">Changelog</a>
     </footer>
     
     
@@ -111,7 +115,7 @@
     <div id="modal-overlay" class="modal"></div>
     <div id="modal" class="modal">
         <div id="modal-contents">
-            <h1>Settings</h1>
+            <h1 i18n="settings">Settings</h1>
             <hr />
             
             <label><input type="checkbox" id="hide-notice" />Hide the notice box</label><br />
@@ -122,23 +126,24 @@
             <label><input type="checkbox" id="notify" />Show a desktop notification when a task reaches its goal</label><br />
             <label><input type="checkbox" id="play-sound" />Play a sound when a task reaches its goal</label><br />
             <select id="sound-type">
-                <option value="1">Use the default sound</option>
-                <option value="2">Use a custom sound</option>
+                <option value="1" i18n="optUseDefault">Use the default sound</option>
+                <option value="2" i18n="optUseCustom">Use a custom sound</option>
             </select>
-            <input type="text" id="custom-sound" placeholder="Custom Sound URL" /> <button id="preview-sound">Preview sound</button><br /><br />
+            <input type="text" id="custom-sound" placeholder="Custom Sound URL" i18n="optSoundURL" />
+            <button id="preview-sound" i18n="optPreview">Preview sound</button><br /><br />
             
             <label><input type="checkbox" id="only-one" />Only allow one task to be running at a time</label><br />
             <label><input type="checkbox" id="stop-timer" />Stop a task's timer when it reaches its goal</label><br />
-            <label>Update the time of tasks every <input type="number" min="1" max="60" value="1" size="4" id="update-time" /> second(s)</label>
+            <label><span i18n="optUpdateTime1">Update the time of tasks every</span> <input type="number" min="1" max="60" value="1" size="4" id="update-time" /> <span i18n="optUpdateTime2">second(s)</span></label>
             
             <div id="modal-buttons">
-                <button id="save-settings">Save</button>
-                <button id="close-modal">Cancel</button>
+                <button id="save-settings" i18n="save">Save</button>
+                <button id="close-modal" i18n="cancel">Cancel</button>
             </div>
         </div>
     </div>
     
-    <div id="error">Invalid task name or goal.</div>
-    <div id="saved">Settings saved!</div>
+    <div id="error" i18n="invalid">Invalid task name or goal.</div>
+    <div id="saved" i18n="saved">Settings saved!</div>
 </body>
 </html>
