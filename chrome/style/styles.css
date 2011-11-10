@@ -37,10 +37,6 @@ h2 { font-size: 16px; font-weight: normal; }
 }
 
 #error {
-    top: 50%;
-    left: 50%;
-    margin: -13px 0 0 -93px;
-    
     color: #D8000C;
     background-color: #FFBABA;
     box-shadow: 0 0 15px red;
@@ -118,7 +114,8 @@ td.current { width: 10%; }
 td.goal { width: 10%; }
 td.progress { width: 20%; }
 
-.editing-goal td.text { width: 27%; }
+.editing-current td.text, .editing-goal td.text { width: 27%; }
+.editing-current td.current { width: 20%; }
 .editing-goal td.goal { width: 20%; }
 
 /* Options Modal */

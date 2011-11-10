@@ -10,6 +10,7 @@
     <script type="text/javascript" src="scripts/stacktrace-min-0.3.js"></script>
     <script type="text/javascript" src="scripts/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.tablednd-0.5.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery.center-1.0.min.js"></script>
     <script type="text/javascript" src="scripts/task-control.js"></script>
     <script type="text/javascript" src="scripts/edit.js"></script>
     <script type="text/javascript" src="scripts/main.js"></script>
@@ -89,6 +90,16 @@
         
         <div id="name-edit-template">
             <input type="text" placeholder="Task Name" title="Task Name" i18n="taskName" />
+            
+            <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" i18n="save" /></button>
+            <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" i18n="cancel" /></button>
+        </div>
+        
+        <div id="current-edit-template">
+            <input type="number" class="hrs" min="0" max="80" size="2" title="Hours" i18n="hours" /> : 
+            <input type="number" class="mins" min="0" max="59" size="2" title="Minutes" i18n="minutes" /> : 
+            <input type="number" class="secs" min="0" max="59" size="2" title="Seconds" i18n="seconds" /><br />
+            
             <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" i18n="save" /></button>
             <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" i18n="cancel" /></button>
         </div>

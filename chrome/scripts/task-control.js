@@ -121,6 +121,9 @@ function list_task(task, anim) {
         $('#task-'+ task +' td.text').dblclick(function() {
             edit_name(parseInt($(this).parent().attr('id').replace('task-', '')));
         });
+        $('#task-'+ task +' td.current').dblclick(function() {
+            edit_current(parseInt($(this).parent().attr('id').replace('task-', '')));
+        });
         $('#task-'+ task +' td.goal').dblclick(function() {
             edit_goal(parseInt($(this).parent().attr('id').replace('task-', '')));
         });

@@ -114,12 +114,12 @@ $(document).ready(function() {
         
         // User clicked the Add Task button
         $('#new-btn').click(function() {
-            if($('#new-goal-hrs').val() == '') $('#new-goal-hrs').val('0');
-            if($('#new-goal-mins').val() == '') $('#new-goal-mins').val('0');
+            if($('#new-goal-hrs').val() == '' || parseInt($('#new-goal-hrs').val()) < 0) $('#new-goal-hrs').val('0');
+            if($('#new-goal-mins').val() == '' || parseInt($('#new-goal-mins').val()) < 0) $('#new-goal-mins').val('0');
             
             var hours = parseInt($('#new-goal-hrs').val()), mins = parseInt($('#new-goal-mins').val()), indef = $('#new-goal-indef').is(':checked');
             
-            if($('#new-txt').val() != '' && (hours > 0 || mins > 0 || indef) && !(hours < 0) && !(mins < 0)) {
+            if($('#new-txt').val() != '' && (hours > 0 || mins > 0 || indef)) {
                 cancel_edit();
                 add_task({
                     'text': $('#new-txt').val(),
@@ -140,7 +140,7 @@ $(document).ready(function() {
                 $('#new-txt').val('');
                 if(setting('autostart-default')) $('#new-start').attr('checked', 'checked');
             } else {
-                $('#error').fadeIn(600).delay(2000).fadeOut(600);
+                $('#error').text(locale('invalid')).center().fadeIn(600).delay(2000).fadeOut(600);
             }
         });
         
@@ -162,7 +162,7 @@ $(document).ready(function() {
         
         // User clicked away from the goal fields
         $('#new-goal-hrs, #new-goal-mins').blur(function() {
-            if($(this).val() == '') $(this).val('0');
+            if($(this).val() == '' || parseInt($(this).val()) < 0) $(this).val('0');
         });
         
         // User is leaving the page... Save the data.
@@ -266,6 +266,11 @@ $(document).ready(function() {
                 $('#preview-sound').text(locale('error'));
                 setTimeout(function() { $('#preview-sound').text(locale('optPreview')).removeAttr('disabled'); }, 2000);
             }
+        });
+        
+        // User resized window
+        $(window).resize(function() {
+            $('#error').center();
         });
         
         

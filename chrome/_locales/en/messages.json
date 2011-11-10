@@ -58,6 +58,18 @@
         "message": "Invalid task name or goal.",
         "description": "Invalid task name/goal"
     },
+    "invalidName": {
+        "message": "Invalid task name.",
+        "description": "Invalid task name"
+    },
+    "invalidTime": {
+        "message": "Invalid time.",
+        "description": "Invalid time"
+    },
+    "invalidGoalTime": {
+        "message": "Invalid goal time.",
+        "description": "Invalid goal time"
+    },
     "saved": {
         "message": "Settings saved!",
         "description": "Settings saved success notice"
@@ -73,6 +85,18 @@
     "errorNotice": {
         "message": "An error has occurred somewhere. Please report a bug with the following information, as well as what you did/what happened:",
         "description": "Error notice"
+    },
+    "hours": {
+        "message": "Hours",
+        "description": "Hours"
+    },
+    "minutes": {
+        "message": "Minutes",
+        "description": "Minutes"
+    },
+    "seconds": {
+        "message": "Seconds",
+        "description": "Seconds"
     },
     
     "note": {

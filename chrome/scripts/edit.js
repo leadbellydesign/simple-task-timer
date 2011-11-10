@@ -50,8 +50,77 @@ function save_name(task) {
             editing_task = -1;
             save();
         } else {
-            $('#error').fadeIn(600).delay(2000).fadeOut(600);
+            $('#error').text(locale('invalidName')).center().fadeIn(600).delay(2000).fadeOut(600);
         }
+    } catch(e) {
+        error_notice(e);
+    }
+}
+
+// Begin editing a task's current time
+function edit_current(task) {
+    try {
+        if(editing_task === -1) {
+            editing_task = task;
+            was_running = task_running[task];
+            if(task_running[task]) toggle_task(task);
+            
+            $('#task-list tbody').addClass('editing-current');
+            
+            // Disable the task's toggle button
+            $('#task-'+ task +' button.toggle').attr('disabled', 'disabled');
+            
+            // Replace the current text with inputs
+            $('#task-'+ task +' td.current').empty();
+            $('#current-edit-template').clone().attr('id', 'current-edit-'+ task).appendTo('#task-'+ task +' td.current');
+            
+            // Add events
+            $('#current-edit-'+ task +' input').keypress(function (e) {
+                if(e.keyCode == 13) save_goal(editing_task);
+            }).blur(function() {
+                if($(this).val() == '' || parseInt($(this).val()) < 0) $(this).val('0');
+            });
+            
+            $('#current-edit-'+ task +' button.save').attr('name', task).click(function() {
+                save_current(parseInt(this.name));
+            });
+            $('#current-edit-'+ task +' button.cancel').click(function() {
+                cancel_edit();
+            });
+            
+            // Set the current goal and focus
+            $('#current-edit-'+ task +' .hrs').val(tasks[task].current_hours).focus();
+            $('#current-edit-'+ task +' .mins').val(tasks[task].current_mins);
+            $('#current-edit-'+ task +' .secs').val(tasks[task].current_secs);
+        } else {
+            if(task != editing_task) alert(locale('finishEditing', tasks[editing_task].text));
+        }
+    } catch(e) {
+        error_notice(e);
+    }
+}
+
+// Finish editing a task's current time
+function save_current(task) {
+    try {
+        if($('#current-edit-'+ task +' .hrs').val() == '' || parseInt($('#current-edit-'+ task +' .hrs').val()) < 0) $('#current-edit-'+ task +' .hrs').val('0');
+        if($('#current-edit-'+ task +' .mins'.val() == '' || parseInt($('#current-edit-'+ task +' .mins').val()) < 0)) $('#current-edit-'+ task +' .mins').val('0');
+        if($('#current-edit-'+ task +' .secs'.val() == '' || parseInt($('#current-edit-'+ task +' .secs').val()) < 0)) $('#current-edit-'+ task +' .secs').val('0');
+            
+        var hours = parseInt($('#current-edit-'+ task +' .hrs').val()), mins = parseInt($('#current-edit-'+ task +' .mins').val()), secs = parseInt($('#current-edit-'+ task +' .secs').val());
+            
+        // Set the goal
+        tasks[task].current_hours = hours;
+        tasks[task].current_mins = mins;
+        tasks[task].current_secs = secs;
+        
+        // Reset the task's notified property
+        tasks[task].notified = false;
+        
+        rebuild_list();
+        editing_task = -1;
+        save();
+        if(was_running) toggle_task(task);
     } catch(e) {
         error_notice(e);
     }
@@ -79,7 +148,7 @@ function edit_goal(task) {
                 if(e.keyCode == 13) save_goal(editing_task);
             })
             $('#goal-edit-'+ task +' .hrs, #goal-edit-'+ task +'.mins').blur(function() {
-                if($(this).val() == '') $(this).val('0');
+                if($(this).val() == '' || parseInt($(this).val()) < 0) $(this).val('0');
             });
             
             $('#goal-edit-'+ task +' .indef').change(function() {
@@ -115,12 +184,12 @@ function edit_goal(task) {
 // Finish editing a task's goal
 function save_goal(task) {
     try {
-        if($('#goal-edit-'+ task +' .hrs').val() == '') $('#goal-edit-'+ task +' .hrs').val('0');
-        if($('#goal-edit-'+ task +' .mins').val() == '') $('#goal-edit-'+ task +' .mins').val('0');
+        if($('#goal-edit-'+ task +' .hrs').val() == ''  || parseInt($('#goal-edit-'+ task +' .hrs').val()) < 0) $('#goal-edit-'+ task +' .hrs').val('0');
+        if($('#goal-edit-'+ task +' .mins').val() == ''  || parseInt($('#goal-edit-'+ task +' .mins').val()) < 0) $('#goal-edit-'+ task +' .mins').val('0');
             
         var hours = parseInt($('#goal-edit-'+ task +' .hrs').val()), mins = parseInt($('#goal-edit-'+ task +' .mins').val()), indef = $('#goal-edit-'+ task +' .indef').is(':checked');
             
-        if((hours > 0 || mins > 0 || indef) && !(hours < 0) && !(mins < 0)) {
+        if(hours > 0 || mins > 0 || indef) {
             // Set the goal
             tasks[task].goal_hours = hours;
             tasks[task].goal_mins = mins;
@@ -134,7 +203,7 @@ function save_goal(task) {
             save();
             if(was_running) toggle_task(task);
         } else {
-            $('#error').fadeIn(600).delay(2000).fadeOut(600);
+            $('#error').text(locale('invalidGoalTime')).center().fadeIn(600).delay(2000).fadeOut(600);
         }
     } catch(e) {
         error_notice(e);
