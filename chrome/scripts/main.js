@@ -6,14 +6,14 @@ window.onerror = function(msg, url, line) { error_notice(msg, url, line); };
 // Document finished loading
 $(document).ready(function() {
     try {
-        localise();
+        localisePage();
         
         // Set some variables
         load = $('#loading');
         
         // Check the version, and show the changelog if necessary
         if(typeof localStorage['old-version'] != 'undefined') {
-            if(chrome.app.getDetails().version != localStorage['old-version'] && confirm('Task Timer has been updated!\nWould you like to see the changelog?\n\nBe aware that you will need to start your tasks again if Chrome auto-updated the app while any were running.')) {
+            if(chrome.app.getDetails().version != localStorage['old-version'] && confirm(locale('updated'))) {
                 window.open('changelog.html');
             }
         } else {
@@ -78,7 +78,7 @@ $(document).ready(function() {
         localStorage['launches'] = typeof localStorage['launches'] == 'undefined' ? 1 : parseInt(localStorage['launches']) + 1;
         var launches = setting(launches);
         
-        if(launches % 6 == 0 && typeof localStorage['rated'] == 'undefined' && confirm('Would you like to give this app a rating/review on the Chrome Web Store? It really helps out!')) {
+        if(launches % 6 == 0 && typeof localStorage['rated'] == 'undefined' && confirm(locale('rating'))) {
             localStorage['rated'] = 'true';
             window.open('https://chrome.google.com/webstore/detail/aomfjmibjhhfdenfkpaodhnlhkolngif');
         }
@@ -207,7 +207,7 @@ $(document).ready(function() {
             // Check for notification permissions
             if(setting('notify')) {
                 webkitNotifications.requestPermission(function() {
-                    webkitNotifications.createNotification('/style/images/icon-64.png', 'Desktop Notifications Work!', 'You seeing this means desktop notifications are enabled and working correctly! Woo!').show();
+                    webkitNotifications.createNotification('/style/images/icon-64.png', locale('notificationsWork'), locale('notificationsWorkBody')).show();
                 });
             }
             
@@ -264,7 +264,7 @@ $(document).ready(function() {
             if(preview_sound) {
                 preview_sound = false;
                 $('#preview-sound').text(locale('error'));
-                setTimeout(function() { $('#preview-sound').text('Preview sound').removeAttr('disabled'); }, 2000);
+                setTimeout(function() { $('#preview-sound').text(locale('optPreview')).removeAttr('disabled'); }, 2000);
             }
         });
         
@@ -379,8 +379,8 @@ function format_time(hours, mins, secs, indef) {
 }
 
 // Localise page
-function localise() {
-    var text_tags = ['DIV', 'SPAN', 'P', 'TD', 'TH', 'A', 'BUTTON', 'H1', 'H2', 'TITLE'];
+function localisePage() {
+    var text_tags = ['DIV', 'P', 'TD', 'TH', 'SPAN', 'OPTION', 'A', 'BUTTON', 'H1', 'H2', 'TITLE'];
     
     $('[i18n]').each(function(i, v) {
         var i18n = locale($(this).attr('i18n'));
@@ -417,7 +417,7 @@ function error_notice(error, url, line) {
     clearTimeout(save_timer);
     
     // Print error
-    $('#tasks').css({'text-align': 'left'}).html('<div id="js-error">An error has occurred somewhere. Please report a bug with the following information, as well as what you did/what happened:<br /><br /></div>');
+    $('#tasks').css({'text-align': 'left'}).html('<div id="js-error">'+ locale('errorNotice') +'<br /><br /></div>');
     $('#tasks').append('<strong>App Version:</strong> '+ chrome.app.getDetails().version +'<br />');
     $('#tasks').append('<strong>Error Message:</strong> '+ msg +'<br />');
     if(!trace) $('#tasks').append('<strong>URL:</strong> '+ url +'<br />');
@@ -432,6 +432,6 @@ function error_notice(error, url, line) {
     // Alert only once
     if(!errord) {
         errord = true;
-        alert('An error has occurred!');
+        alert(locale('errorOccurred'));
     }
 }

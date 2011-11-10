@@ -27,7 +27,7 @@ function edit_name(task) {
                 cancel_edit();
             });
         } else {
-            if(task != editing_task) alert('Finish editing task "'+ tasks[editing_task].text +'" first!');
+            if(task != editing_task) alert(locale('finishEditing', tasks[editing_task].text));
         }
     } catch(e) {
         error_notice(e);
@@ -64,6 +64,8 @@ function edit_goal(task) {
             editing_task = task;
             was_running = task_running[task];
             if(task_running[task]) toggle_task(task);
+            
+            $('#task-list tbody').addClass('editing-goal');
             
             // Disable the task's toggle button
             $('#task-'+ task +' button.toggle').attr('disabled', 'disabled');
@@ -103,7 +105,7 @@ function edit_goal(task) {
                 $('#goal-edit-'+ task +' .hrs, #goal-edit-'+ task +' .mins').attr('disabled', 'disabled');
             }
         } else {
-            if(task != editing_task) alert('Finish editing task "'+ tasks[editing_task].text +'" first!');
+            if(task != editing_task) alert(locale('finishEditing', tasks[editing_task].text));
         }
     } catch(e) {
         error_notice(e);

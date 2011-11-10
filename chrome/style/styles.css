@@ -111,12 +111,15 @@ td.drag {
     cursor: move;
 }
 
-th.drag { width: 24px; }
-th.text { width: 27%; }
-th.options { width: 20%; }
-th.current { width: 15%; }
-th.goal { width: 15%; }
-th.progress { width: 20%; }
+td.drag { width: 24px; }
+td.text { width: 37%; }
+td.options { width: 20%; }
+td.current { width: 10%; }
+td.goal { width: 10%; }
+td.progress { width: 20%; }
+
+.editing-goal td.text { width: 27%; }
+.editing-goal td.goal { width: 20%; }
 
 /* Options Modal */
 #modal, #modal-overlay {

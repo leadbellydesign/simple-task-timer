@@ -154,7 +154,7 @@ function list_task(task, anim) {
 // Rebuild the task list
 function rebuild_list() {
     editing_task = -1;
-    $('#task-list tbody').empty();
+    $('#task-list tbody').empty().removeClass('editing-name editing-current editing-goal');
     
     for(i = 0; i < task_count; i++) {
         list_task(i, 0);
@@ -188,7 +188,7 @@ function update_time() {
                         tasks[i].notified = true;
                         if(setting('play-sound')) document.getElementById('sound').play();
                         if(setting('notify') && webkitNotifications.checkPermission() == 0) {
-                            webkitNotifications.createNotification('/style/images/icon-64.png', 'Task Finished!', 'Task "'+ tasks[i].text +'" completed!').show();
+                            webkitNotifications.createNotification('/style/images/icon-64.png', locale('taskFinished'), locale('taskFinished', tasks[i].text)).show();
                         }
                     }
                 }

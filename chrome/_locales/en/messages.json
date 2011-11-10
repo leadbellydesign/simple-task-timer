@@ -15,5 +15,278 @@
     "description": {
         "message": "Use this tool to keep track of time that you spend on work, studies, or any other type of task.",
         "description": "Shows right below the title"
+    },
+    
+    "createdBy": {
+        "message": "Created by",
+        "description": "Created by"
+    },
+    "reportBug": {
+        "message": "Report a bug",
+        "description": "Report a bug"
+    },
+    "haveIdea": {
+        "message": "Have an idea?",
+        "description": "Have an idea?"
+    },
+    "tellMe": {
+        "message": "Tell me",
+        "description": "Tell me"
+    },
+    "changelog": {
+        "message": "Changelog",
+        "description": "Changelog"
+    },
+    
+    "loading": {
+        "message": "Loading...",
+        "description": "Loading indicator"
+    },
+    "close": {
+        "message": "Close",
+        "description": "Close buttons"
+    },
+    "save": {
+        "message": "Save",
+        "description": "Save"
+    },
+    "cancel": {
+        "message": "Cancel",
+        "description": "Cancel"
+    },
+    "invalid": {
+        "message": "Invalid task name or goal.",
+        "description": "Invalid task name/goal"
+    },
+    "saved": {
+        "message": "Settings saved!",
+        "description": "Settings saved success notice"
+    },
+    "error": {
+        "message": "Error!",
+        "description": "Error"
+    },
+    "errorOccurred": {
+        "message": "An error has occurred!",
+        "description": "An error has occurred"
+    },
+    "errorNotice": {
+        "message": "An error has occurred somewhere. Please report a bug with the following information, as well as what you did/what happened:",
+        "description": "Error notice"
+    },
+    
+    "note": {
+        "message": "Note: This only saves locally, on your computer, in your browser. The data will be gone if you clear the data, or you move to a different computer/device.",
+        "description": "Reminder that the data is only saved locally"
+    },
+    "noteOpt": {
+        "message": "Make sure to check out the settings by clicking on the gear button in the top right corner of the app! There are settings such as desktop notifications for when a task finishes.",
+        "description": "Reminder to check out the settings menu"
+    },
+    
+    "noTasks": {
+        "message": "You haven't created any tasks yet!",
+        "description": "No tasks have been created"
+    },
+    "editTasks": {
+        "message": "Double-click a task name, time, or goal to edit it.",
+        "description": "Double-click task name, time, or goal to edit"
+    },
+    
+    "task": {
+        "message": "Task",
+        "description": "Column header - Task"
+    },
+    "timeSpent": {
+        "message": "Time Spent",
+        "description": "Column header - Time Spent"
+    },
+    "goal": {
+        "message": "Goal",
+        "description": "Column header - Goal"
+    },
+    "progress": {
+        "message": "Progress",
+        "description": "Column header - Progress"
+    },
+    "options": {
+        "message": "Options",
+        "description": "Column header - Options"
+    },
+    
+    "start": {
+        "message": "Start",
+        "description": "Start task's timer"
+    },
+    "stop": {
+        "message": "Stop",
+        "description": "Stop a task's timer"
+    },
+    "reset": {
+        "message": "Reset",
+        "description": "Reset a task's timer"
+    },
+    "delete": {
+        "message": "Delete",
+        "description": "Delete a task"
+    },
+    
+    "name": {
+        "message": "Name",
+        "description": "New task name label"
+    },
+    "taskName": {
+        "message": "Task Name",
+        "description": "Task Name"
+    },
+    "goalBoth": {
+        "message": "Goal (hours : minutes)",
+        "description": "New task goal label"
+    },
+    "goalHours": {
+        "message": "Goal Hours",
+        "description": "Goal Hours"
+    },
+    "goalMinutes": {
+        "message": "Goal Minutes",
+        "description": "Goal Minutes"
+    },
+    "indefinite": {
+        "message": "Indefinite",
+        "description": "Indefinite goal time"
+    },
+    "startImmediately": {
+        "message": "Start task immediately",
+        "description": "Start task immediately"
+    },
+    "addTask": {
+        "message": "Add Task",
+        "description": "Add Task"
+    },
+    
+    "settings": {
+        "message": "Settings",
+        "description": "Settings menu header"
+    },
+    "optHideNotice": {
+        "message": "Hide the notice box",
+        "description": "Setting - Hide the notice box"
+    },
+    "optConfirmReset": {
+        "message": "Ask to confirm when you attempt to reset a task",
+        "description": "Setting - Confirm on reset"
+    },
+    "optConfirmDelete": {
+        "message": "Ask to confirm when you attempt to delete a task",
+        "description": "Setting - Confirm on delete"
+    },
+    "optStartDefault": {
+        "message": "Check the \"Start\" checkbox by default",
+        "description": "Setting - Check Start by default"
+    },
+    "optShowNotification": {
+        "message": "Show a desktop notification when a task reaches its goal",
+        "description": "Setting - Show desktop notification"
+    },
+    "optPlaySound": {
+        "message": "Play a sound when a task reaches its goal",
+        "description": "Setting - Play a sound"
+    },
+    "optUseDefault": {
+        "message": "Use the default sound",
+        "description": "Setting - Use default sound"
+    },
+    "optUseCustom": {
+        "message": "Use a custom sound",
+        "description": "Setting - Use custom sound"
+    },
+    "optSoundURL": {
+        "message": "Custom Sound URL",
+        "description": "Setting - Custom Sound URL"
+    },
+    "optPreview": {
+        "message": "Preview sound",
+        "description": "Setting - Preview the sound"
+    },
+    "optOnlyOne": {
+        "message": "Only allow one task to be running at a time",
+        "description": "Setting - Only allow one task to be running"
+    },
+    "optStopTimer": {
+        "message": "Stop a task's timer when it reaches its goal",
+        "description": "Setting - Stop timer on goal"
+    },
+    "optUpdateTime1": {
+        "message": "Update the time of tasks every",
+        "description": "Setting - Update time first label"
+    },
+    "optUpdateTime2": {
+        "message": "second(s)",
+        "description": "Setting - Update time second label"
+    },
+    
+    "notificationsWork": {
+        "message": "Desktop Notifications Work!",
+        "description": "Desktop notifications work"
+    },
+    "notificationsWorkBody": {
+        "message": "You seeing this means desktop notifications are enabled and working correctly! Woo!",
+        "description": "Desktop notifications are enabled and working correctly"
+    },
+    
+    "confirmReset": {
+        "message": "Are you sure you want to reset task \"$taskName$\"?",
+        "description": "Confirmation notice on reset",
+        "placeholders": {
+            "taskName": {
+                "content": "$1",
+                "example": "Task Name"
+            }
+        }
+    },
+    "confirmDelete": {
+        "message": "Are you sure you want to delete task \"$taskName$\"?",
+        "description": "Confirmation notice on delete",
+        "placeholders": {
+            "taskName": {
+                "content": "$1",
+                "example": "Task Name"
+            }
+        }
+    },
+    
+    "taskFinished": {
+        "message": "Task Finished!",
+        "description": "Task finished (desktop notification)"
+    },
+    "taskCompleted": {
+        "message": "Task \"$taskName\" has reached its goal!",
+        "description": "Task has reached its goal (desktop notification)",
+        "placeholders": {
+            "taskName": {
+                "content": "$1",
+                "example": "Task Name"
+            }
+        }
+    },
+    
+    "finishEditing": {
+        "message": "Finish editing task \"$taskName$\" first!",
+        "description": "Finish editing task",
+        "placeholders": {
+            "taskName": {
+                "content": "$1",
+                "example": "Task Name"
+            }
+        }
+    },
+    
+    "updated": {
+        "message": "Task Timer has been updated!\nWould you like to see the changelog?\n\nBe aware that you will need to start your tasks again if Chrome auto-updated the app while any were running.",
+        "description": "Task timer was updated"
+    },
+    "rating": {
+        "message": "Would you like to give this app a rating/review on the Chrome Web Store? It really helps out!",
+        "description": "Rating reminder"
     }
 }
