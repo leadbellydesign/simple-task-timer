@@ -33,9 +33,9 @@
         "message": "Tell me",
         "description": "Tell me"
     },
-    "changelog": {
-        "message": "Changelog",
-        "description": "Changelog"
+    "about": {
+        "message": "About",
+        "description": "About"
     },
     
     "loading": {
@@ -306,8 +306,14 @@
     },
     
     "updated": {
-        "message": "Task Timer has been updated!\nWould you like to see the changelog?\n\nBe aware that you will need to start your tasks again if Chrome auto-updated the app while any were running.",
-        "description": "Task timer was updated"
+        "message": "Task Timer has been updated to version $version$!\nWould you like to see the changelog?\n\nBe aware that you will need to start your tasks again if Chrome auto-updated the app while any were running.",
+        "description": "Task timer was updated",
+        "placeholders": {
+            "version": {
+                "content": "$1",
+                "example": "1.42.9"
+            }
+        }
     },
     "rating": {
         "message": "Would you like to give this app a rating/review on the Chrome Web Store? It really helps out!",

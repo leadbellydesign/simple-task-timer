@@ -14,7 +14,7 @@ $(document).ready(function() {
         // Check the version, and show the changelog if necessary
         if(typeof localStorage['old-version'] != 'undefined') {
             if(chrome.app.getDetails().version != localStorage['old-version'] && confirm(locale('updated'))) {
-                window.open('changelog.html');
+                window.open('about.html#changelog');
             }
         } else {
             localStorage['old-version'] = chrome.app.getDetails().version;
