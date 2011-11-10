@@ -37,6 +37,10 @@
         "message": "About",
         "description": "About"
     },
+    "donate": {
+        "message": "Donate",
+        "description": "Donate"
+    },
     
     "loading": {
         "message": "Loading...",

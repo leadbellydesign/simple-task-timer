@@ -104,8 +104,8 @@ function edit_current(task) {
 function save_current(task) {
     try {
         if($('#current-edit-'+ task +' .hrs').val() == '' || parseInt($('#current-edit-'+ task +' .hrs').val()) < 0) $('#current-edit-'+ task +' .hrs').val('0');
-        if($('#current-edit-'+ task +' .mins'.val() == '' || parseInt($('#current-edit-'+ task +' .mins').val()) < 0)) $('#current-edit-'+ task +' .mins').val('0');
-        if($('#current-edit-'+ task +' .secs'.val() == '' || parseInt($('#current-edit-'+ task +' .secs').val()) < 0)) $('#current-edit-'+ task +' .secs').val('0');
+        if($('#current-edit-'+ task +' .mins').val() == '' || parseInt($('#current-edit-'+ task +' .mins').val()) < 0) $('#current-edit-'+ task +' .mins').val('0');
+        if($('#current-edit-'+ task +' .secs').val() == '' || parseInt($('#current-edit-'+ task +' .secs').val()) < 0) $('#current-edit-'+ task +' .secs').val('0');
             
         var hours = parseInt($('#current-edit-'+ task +' .hrs').val()), mins = parseInt($('#current-edit-'+ task +' .mins').val()), secs = parseInt($('#current-edit-'+ task +' .secs').val());
             
