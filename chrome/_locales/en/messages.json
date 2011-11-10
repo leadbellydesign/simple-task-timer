@@ -311,7 +311,7 @@
         "placeholders": {
             "version": {
                 "content": "$1",
-                "example": "1.42.9"
+                "example": "1.7.2"
             }
         }
     },

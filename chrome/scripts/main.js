@@ -13,7 +13,7 @@ $(document).ready(function() {
         
         // Check the version, and show the changelog if necessary
         if(typeof localStorage['old-version'] != 'undefined') {
-            if(chrome.app.getDetails().version != localStorage['old-version'] && confirm(locale('updated'))) {
+            if(chrome.app.getDetails().version != localStorage['old-version'] && confirm(locale('updated', chrome.app.getDetails().version))) {
                 window.open('about.html#changelog');
             }
         } else {
