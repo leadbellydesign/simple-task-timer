@@ -286,17 +286,18 @@ $(document).ready(function() {
         $('#task-list').tableDnD({
             dragHandle: 'drag',
             
-            onDragStart: function(table, row) {
+            /*onDragStart: function(table, row) {
+                alert($(row).html());
                 var id = parseInt($(row).attr('id').replace('task-', ''));
                 dragging = tasks[id];
-            },
+            },*/
             
             onDrop: function(table, row) {
                 var old_id = parseInt($(row).attr('id').replace('task-', ''));
                 var id = $('#task-list tbody tr').index(row);
                 var tmp = tasks[old_id], tmp2 = task_running[old_id];
                 
-                if(!typeof tasks[old_id] == 'undefined' && tasks[old_id] === dragging) {
+                if(typeof tasks[old_id] != 'undefined' /*&& tasks[old_id] === dragging*/) {
                     tasks.splice(old_id, 1);
                     tasks.splice(id, 0, tmp);
                     task_running.splice(old_id, 1);
