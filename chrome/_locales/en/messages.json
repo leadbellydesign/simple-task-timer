@@ -90,6 +90,18 @@
         "message": "An error has occurred somewhere. Please report a bug with the following information, as well as what you did/what happened:",
         "description": "Error notice"
     },
+    "triedRefresh": {
+        "message": "Have you tried refreshing the app?",
+        "description": "Tried refreshing?"
+    },
+    "resetData": {
+        "message": "Reset all of the app's data",
+        "description": "Reset all data"
+    },
+    "usualFix": {
+        "message": "This will usually fix any errors, but will clear all of your tasks and settings.",
+        "description": "Usually fixes errors, clears data"
+    },
     "hours": {
         "message": "Hours",
         "description": "Hours"
@@ -104,7 +116,7 @@
     },
     
     "note": {
-        "message": "Note: This only saves locally, on your computer, in your browser. The data will be gone if you clear the data, or you move to a different computer/device.",
+        "message": "Note: This only saves locally, on your computer, in your browser. Don't worry, your tasks will not be deleted if you clear Chrome's cache/storage.",
         "description": "Reminder that the data is only saved locally"
     },
     "noteOpt": {
@@ -281,6 +293,10 @@
                 "example": "Task Name"
             }
         }
+    },
+    "confirmResetData": {
+        "message": "Are you sure you want to wipe all of Task Timer's data?",
+        "description": "Confirmation notice on deletion of all data"
     },
     
     "taskFinished": {

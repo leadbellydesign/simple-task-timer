@@ -1,4 +1,7 @@
-var load, tasks = new Array(), task_running = new Array(), task_count = 0, save_timer, timer, preview_sound = false, errord = false;
+var load, tasks = new Array(), task_running = new Array(), task_count = 0;
+var dragging = false;
+var save_timer, timer;
+var preview_sound = false, errord = false;
 
 // Set error event (most important event)
 window.onerror = function(msg, url, line) { error_notice(msg, url, line); };
@@ -6,102 +9,6 @@ window.onerror = function(msg, url, line) { error_notice(msg, url, line); };
 // Document finished loading
 $(document).ready(function() {
     try {
-        localisePage();
-        
-        // Set some variables
-        load = $('#loading');
-        
-        // Check the version, and show the changelog if necessary
-        if(typeof localStorage['old-version'] != 'undefined') {
-            if(chrome.app.getDetails().version != localStorage['old-version'] && confirm(locale('updated', chrome.app.getDetails().version))) {
-                window.open('about.html#changelog');
-            }
-        } else {
-            localStorage['old-version'] = chrome.app.getDetails().version;
-            window.location = 'installed.html';
-        }
-        
-        localStorage['old-version'] = chrome.app.getDetails().version;
-        
-        // Retrieve any tasks they've previously added
-        if(localStorage['tasks']) {
-            tasks = JSON.parse(localStorage['tasks']);
-            task_count = tasks.length;
-            
-            for(i = 0; i < task_count; i++) {
-                // Convert from the old method of storing times to the new one
-                if(typeof tasks[i].current_hours == 'undefined') {
-                    tasks[i].current_hours = Math.floor(tasks[i].current);
-                    tasks[i].current_mins = Math.floor((tasks[i].current - tasks[i].current_hours) * 60);
-                    tasks[i].current_secs = Math.round((tasks[i].current - tasks[i].current_hours - (tasks[i].current_mins / 60)) * 3600);
-                    
-                    tasks[i].goal_hours = Math.floor(tasks[i].goal);
-                    tasks[i].goal_mins = Math.round((tasks[i].goal - tasks[i].goal_hours) * 60);
-                }
-                
-                // Add the notified property to a task if it doesn't exist
-                if(typeof tasks[i].notified == 'undefined') {
-                    if(tasks[i].current_hours >= tasks[i].goal_hours && tasks[i].current_mins >= tasks[i].goal_mins) {
-                        tasks[i].notified = true;
-                    } else {
-                        tasks[i].notified = false;
-                    }
-                }
-                
-                // Add the indefinite property to a task if it doesn't exist
-                if(typeof tasks[i].indefinite == 'undefined') tasks[i].indefinite = false;
-                
-                // Make sure goal times aren't null
-                if(tasks[i].goal_hours == null) tasks[i].goal_hours = 0;
-                if(tasks[i].goal_mins == null) tasks[i].goal_mins = 0;
-                
-                list_task(i, 0);
-                task_running[i] = false;
-            }
-        }
-        
-        // Load settings
-        Load();
-        
-        // Enable the add task fields and check the auto-start box if default is enabled
-        $('#new-task input, #new-task button').removeAttr('disabled');
-        if(setting('autostart-default')) $('#new-start').attr('checked', 'checked');
-        
-        // Set focus on the new task name field
-        setTimeout(function() { $('#new-txt').focus(); }, 100);
-        
-        // Start the timers
-        update_time();
-        save_timer = setTimeout('save(true)', 60000);
-        
-        // Add to the launch count, and show a rating reminder if at a multiple of 6
-        localStorage['launches'] = typeof localStorage['launches'] == 'undefined' ? 1 : parseInt(localStorage['launches']) + 1;
-        var launches = setting(launches);
-        
-        if(launches % 6 == 0 && typeof localStorage['rated'] == 'undefined' && confirm(locale('rating'))) {
-            localStorage['rated'] = 'true';
-            window.open('https://chrome.google.com/webstore/detail/aomfjmibjhhfdenfkpaodhnlhkolngif');
-        }
-        
-        // Make the table rows draggable
-        $('#task-list').tableDnD({
-            dragHandle: 'drag',
-            onDrop: function(table, row) {
-                var old_id = parseInt($(row).attr('id').replace('task-', ''));
-                var id = $('#task-list tbody tr').index(row);
-                var tmp = tasks[old_id], tmp2 = task_running[old_id];
-                
-                tasks.splice(old_id, 1);
-                tasks.splice(id, 0, tmp);
-                task_running.splice(old_id, 1);
-                task_running.splice(id, 0, tmp2);
-                
-                rebuild_list();
-            }
-        });
-        
-        
-        
         /**************************************************
          *************      E V E N T S       *************
          **************************************************/
@@ -273,6 +180,132 @@ $(document).ready(function() {
             $('#error').center();
         });
         
+        // User toggled the refreshed checkbox
+        $('#refreshed').change(function() {
+            if($('#refreshed').is(':checked')) {
+                $('#clear-data').removeAttr('disabled');
+            } else {
+                $('#clear-data').attr('disabled', 'disabled');
+            }
+        });
+        
+        // User clicked the clear data button
+        $('#clear-data').click(function() {
+            if(confirm(locale('confirmResetData'))) {
+                $(window).unbind();
+                localStorage.clear();
+                location.reload();
+            }
+        });
+        
+        
+        
+        /**************************************************
+         ***********      D O   S T U F F       ***********
+         **************************************************/
+        
+        // Set some variables
+        load = $('#loading');
+        
+        // Localise the page
+        localisePage();
+        
+        // Check the version, and show the changelog if necessary
+        if(typeof localStorage['old-version'] != 'undefined') {
+            if(chrome.app.getDetails().version != localStorage['old-version'] && confirm(locale('updated', chrome.app.getDetails().version))) {
+                window.open('about.html#changelog');
+            }
+        } else {
+            localStorage['old-version'] = chrome.app.getDetails().version;
+            window.location = 'installed.html';
+        }
+        
+        localStorage['old-version'] = chrome.app.getDetails().version;
+        
+        // Retrieve any tasks they've previously added
+        if(localStorage['tasks']) {
+            tasks = JSON.parse(localStorage['tasks']);
+            task_count = tasks.length;
+            
+            for(i = 0; i < task_count; i++) {
+                // Convert from the old method of storing times to the new one
+                if(typeof tasks[i].current_hours == 'undefined') {
+                    tasks[i].current_hours = Math.floor(tasks[i].current);
+                    tasks[i].current_mins = Math.floor((tasks[i].current - tasks[i].current_hours) * 60);
+                    tasks[i].current_secs = Math.round((tasks[i].current - tasks[i].current_hours - (tasks[i].current_mins / 60)) * 3600);
+                    
+                    tasks[i].goal_hours = Math.floor(tasks[i].goal);
+                    tasks[i].goal_mins = Math.round((tasks[i].goal - tasks[i].goal_hours) * 60);
+                }
+                
+                // Add the notified property to a task if it doesn't exist
+                if(typeof tasks[i].notified == 'undefined') {
+                    if(tasks[i].current_hours >= tasks[i].goal_hours && tasks[i].current_mins >= tasks[i].goal_mins) {
+                        tasks[i].notified = true;
+                    } else {
+                        tasks[i].notified = false;
+                    }
+                }
+                
+                // Add the indefinite property to a task if it doesn't exist
+                if(typeof tasks[i].indefinite == 'undefined') tasks[i].indefinite = false;
+                
+                // Make sure goal times aren't null
+                if(tasks[i].goal_hours == null) tasks[i].goal_hours = 0;
+                if(tasks[i].goal_mins == null) tasks[i].goal_mins = 0;
+                
+                list_task(i, 0);
+                task_running[i] = false;
+            }
+        }
+        
+        // Load settings
+        Load();
+        
+        // Enable the add task fields and check the auto-start box if default is enabled
+        $('#new-task input, #new-task button').removeAttr('disabled');
+        if(setting('autostart-default')) $('#new-start').attr('checked', 'checked');
+        
+        // Set focus on the new task name field
+        setTimeout(function() { $('#new-txt').focus(); }, 100);
+        
+        // Start the timers
+        update_time();
+        save_timer = setTimeout('save(true)', 60000);
+        
+        // Add to the launch count, and show a rating reminder if at a multiple of 6
+        localStorage['launches'] = typeof localStorage['launches'] == 'undefined' ? 1 : parseInt(localStorage['launches']) + 1;
+        var launches = setting(launches);
+        
+        if(launches % 6 == 0 && typeof localStorage['rated'] == 'undefined' && confirm(locale('rating'))) {
+            localStorage['rated'] = 'true';
+            window.open('https://chrome.google.com/webstore/detail/aomfjmibjhhfdenfkpaodhnlhkolngif');
+        }
+        
+        // Make the table rows draggable
+        $('#task-list').tableDnD({
+            dragHandle: 'drag',
+            
+            onDragStart: function(table, row) {
+                var id = parseInt($(row).attr('id').replace('task-', ''));
+                dragging = tasks[id];
+            },
+            
+            onDrop: function(table, row) {
+                var old_id = parseInt($(row).attr('id').replace('task-', ''));
+                var id = $('#task-list tbody tr').index(row);
+                var tmp = tasks[old_id], tmp2 = task_running[old_id];
+                
+                if(!typeof tasks[old_id] == 'undefined' && tasks[old_id] === dragging) {
+                    tasks.splice(old_id, 1);
+                    tasks.splice(id, 0, tmp);
+                    task_running.splice(old_id, 1);
+                    task_running.splice(id, 0, tmp2);
+                }
+                
+                rebuild_list();
+            }
+        });
         
         $('#tasks').show();
     } catch(e) {
@@ -385,7 +418,7 @@ function format_time(hours, mins, secs, indef) {
 
 // Localise page
 function localisePage() {
-    var text_tags = ['DIV', 'P', 'TD', 'TH', 'SPAN', 'OPTION', 'A', 'BUTTON', 'H1', 'H2', 'TITLE'];
+    var text_tags = ['DIV', 'P', 'TD', 'TH', 'SPAN', 'OPTION', 'A', 'BUTTON', 'H1', 'H2', 'H3', 'TITLE'];
     
     $('[i18n]').each(function(i, v) {
         var i18n = locale($(this).attr('i18n'));
@@ -405,38 +438,40 @@ function locale(messageID, args) {
 
 // Error handler
 function error_notice(error, url, line) {
-    var trace = false;
-    
-    // See if we're coming from try...catch or window.onerror
-    if(typeof error.message != 'undefined') {
-        msg = error.message;
-        url = error.url;
-        line = error.number;
-        trace = true;
-    } else {
-        msg = error;
-    }
-    
-    // Stop timers
-    clearTimeout(timer);
-    clearTimeout(save_timer);
-    
-    // Print error
-    $('#tasks').css({'text-align': 'left'}).html('<div id="js-error">'+ locale('errorNotice') +'<br /><br /></div>');
-    $('#tasks').append('<strong>App Version:</strong> '+ chrome.app.getDetails().version +'<br />');
-    $('#tasks').append('<strong>Error Message:</strong> '+ msg +'<br />');
-    if(!trace) $('#tasks').append('<strong>URL:</strong> '+ url +'<br />');
-    if(!trace) $('#tasks').append('<strong>Line number:</strong> '+ line +'<br />');
-    if(trace) $('#tasks').append('<strong>Stack trace:</strong><br />'+ printStackTrace({e: error}).join('<br />') +'<br />');
-    $('#tasks').append('<strong>localStorage:</strong><br />'+ JSON.stringify(localStorage));
-    
-    // Make sure the error message is visible
-    $('#tasks').show();
-    $('.modal').hide();
-    
-    // Alert only once
     if(!errord) {
-        errord = true;
-        alert(locale('errorOccurred'));
+        var trace = false;
+        
+        // See if we're coming from try...catch or window.onerror
+        if(typeof error.message != 'undefined') {
+            msg = error.message;
+            url = error.url;
+            line = error.number;
+            trace = true;
+        } else {
+            msg = error;
+        }
+        
+        // Stop timers
+        clearTimeout(timer);
+        clearTimeout(save_timer);
+        
+        // Print error
+        $('#js-error h3').text(locale('errorNotice'));
+        $('#error-info').html('<strong>App Version:</strong> '+ chrome.app.getDetails().version +'<br />');
+        $('#error-info').append('<strong>Error Message:</strong> '+ msg +'<br />');
+        if(!trace) $('#error-info').append('<strong>URL:</strong> '+ url +'<br />');
+        if(!trace) $('#error-info').append('<strong>Line number:</strong> '+ line +'<br />');
+        if(trace) $('#error-info').append('<strong>Stack trace:</strong><br />'+ printStackTrace({e: error}).join('<br />') +'<br />');
+        $('#error-info').append('<strong>localStorage:</strong><br />'+ JSON.stringify(localStorage));
+        
+        // Make sure the error message is visible
+        $('#tasks, .modal').hide();
+        $('#js-error').show();
+        
+        // Alert only once
+        if(!errord) {
+            errord = true;
+            alert(locale('errorOccurred'));
+        }
     }
 }

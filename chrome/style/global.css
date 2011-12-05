@@ -5,6 +5,7 @@ body {
 
 .container {
     margin: 10px auto 0px auto;
+    padding: 10px;
     width: 70%;
     min-width: 960px;
     overflow: auto;

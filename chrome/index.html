@@ -5,7 +5,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     
     <link rel="stylesheet" type="text/css" href="style/global.css" />
-    <link rel="stylesheet" type="text/css" href="style/styles.css" />
+    <link rel="stylesheet" type="text/css" href="style/main.css" />
     
     <script type="text/javascript" src="scripts/stacktrace-min-0.3.js"></script>
     <script type="text/javascript" src="scripts/jquery-1.7.min.js"></script>
@@ -31,7 +31,7 @@
     
     <div id="notice" class="note">
         <button id="close-notice"><img src="style/images/cross.png" width="16" height="16" alt="Close" i18n="close" /></button>
-        <p i18n="note">Note: This only saves locally, on your computer, in your browser.<br />The data will be gone if you clear the data, or you move to a different computer/device.</p>
+        <p i18n="note">Note: This only saves locally, on your computer, in your browser.<br />This data will <strong>not</strong> be cleared if you clear Chrome's cache and storage.</p>
         <p i18n="noteOpt">Make sure to check out the settings by clicking on the gear button in the top right corner of the app!<br />There are settings such as desktop notifications for when a task finishes.</p>
     </div>
     
@@ -41,7 +41,7 @@
             
         <table id="task-list">
             <thead>
-                <tr class="nodrop nodrag">
+                <tr class="nodrag nodrop">
                     <th class="drag"></th>
                     <th class="text" i18n="task">Task</th>
                     <th class="current" i18n="timeSpent">Time Spent</th>
@@ -113,6 +113,15 @@
             <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" i18n="save" /></button>
             <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" i18n="cancel" /></button>
         </div>
+    </div>
+    
+    <div id="js-error" class="container">
+        <div id="big-error-thang" i18n="errorNotice">SUPER ULTRA MEGA ERROR THING</div>
+        <div id="error-info"></div>
+        
+        <label><input type="checkbox" id="refreshed" /> <span i18n="triedRefresh">Have you tried refreshing the app?</span></label><br />
+        <button id="clear-data" disabled>Clear all of the app's data</button>
+        <div i18n="usualFix">This will usually fix any errors, but will clear all of your tasks and settings.</div>
     </div>
     
     <footer>

@@ -26,6 +26,8 @@ function delete_task(task) {
         if(!setting('confirm-delete') || confirm(locale('confirmDelete', tasks[task].text))) {
             load.show();
             $('#new-btn, #task-'+ task +' button').attr('disabled', 'disabled');
+            $('#task-list tbody tr').addClass('nodrag nodrop');
+            $('#task-list').tableDnDUpdate();
             
             if(task_running[task]) toggle_task(task);
             
@@ -34,8 +36,8 @@ function delete_task(task) {
             task_count--;
             
             // Animate accordingly.
-            if(task_count == 0) {
-                setTimeout(function() {
+            setTimeout(function() {
+                if(task_count == 0) {
                     $('#edit-tasks').fadeOut();
                     $('#task-list').fadeOut(400, function() {
                         $('#task-list tbody').empty();
@@ -43,15 +45,13 @@ function delete_task(task) {
                         
                         $('#new-btn').removeAttr('disabled');
                     });
-                }, 10);
-            } else {
-                setTimeout(function() {
+                } else {
                     $('#task-'+ task).fadeOut(400, function() {
                         rebuild_list();
                         $('#new-btn').removeAttr('disabled');
                     });
-                }, 10);
-            }
+                }
+            }, 50);
             
             save();
             load.hide();
