@@ -1,7 +1,7 @@
 /* Page Layout */
 header, footer { text-align: center; }
 
-#notice, #loading, #tasks, #task-list, #nothing, #modal-overlay, #modal, #edit-tasks, #js-error { display: none; }
+#notice, #loading, #tasks, #charts, #task-list, #nothing, #modal-overlay, #modal, #edit-tasks, #js-error { display: none; }
 
 #options {
     position: absolute;
@@ -86,21 +86,24 @@ h2 { font-size: 16px; font-weight: normal; }
 }
 
 #task-list {
+    width: 100%;
     margin: 0 auto;
     border-spacing: 0px 3px;
 }
 
-tr.running { background-color: #D5F0F0; }
-tr.running td.text { background: url(images/task-running.gif) no-repeat left center; }
-tr.done { background-color: #D7F0D7; }
+tbody tr.running { background-color: #D5F0F0; }
+tbody tr.running td.text { background: url(images/task-running.gif) no-repeat left center; }
+tbody tr.done { background-color: #D7F0D7; }
 
-tr td:first-child { border-radius: 5px 0px 0px 5px; }
-tr td:last-child { border-radius: 0px 5px 5px 0px; }
+tbody tr td:first-child { border-radius: 5px 0px 0px 5px; }
+tbody tr td:last-child { border-radius: 0px 5px 5px 0px; }
 
-td.drag {
+tbody td.drag {
     background: url(images/drag.gif) repeat-y center center;
     cursor: move;
 }
+
+td.progress progress { width: 95%; }
 
 td.drag { width: 10px; }
 td.text { width: 38%; }
@@ -112,6 +115,23 @@ td.progress { width: 20%; }
 .editing-current td.text, .editing-goal td.text { width: 28%; }
 .editing-current td.current { width: 20%; }
 .editing-goal td.goal { width: 20%; }
+
+tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress {
+    /*border-top: 2px solid #E9E9E9;*/
+    font-weight: bold;
+}
+
+/* Pie Charts */
+#charts { padding: 5px; }
+#current-pie-title, #total-pie-title { font-weight: bold; font-size: 18px; }
+
+#current-pie { margin: 0 auto; text-align: center; width: 48%; }
+/*#total-pie { float: right; width: 48%; }*/
+
+#current-pie-chart, #total-pie-chart {
+    width: 100%;
+    height: 400px;
+}
 
 /* Options Modal */
 #modal, #modal-overlay {
@@ -131,7 +151,7 @@ td.progress { width: 20%; }
 #modal-contents {
     position: relative;
     top: 50%;
-    margin: -150px auto;
+    margin: -175px auto;
     padding: 10px;
     
     width: 0px;

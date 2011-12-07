@@ -1,8 +1,9 @@
 {
     "name": "__MSG_appName__",
     "description": "__MSG_appDesc__",
-    "version": "1.8.3",
+    "version": "1.9.0",
     "default_locale": "en",
+    "offline_enabled": true,
     
     "app": {
       "launch": {

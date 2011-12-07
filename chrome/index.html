@@ -7,11 +7,14 @@
     <link rel="stylesheet" type="text/css" href="style/global.css" />
     <link rel="stylesheet" type="text/css" href="style/main.css" />
     
-    <script type="text/javascript" src="scripts/stacktrace-min-0.3.js"></script>
     <script type="text/javascript" src="scripts/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.tablednd-0.5.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.center-1.0.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery.flot.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery.flot.pie.min.js"></script>
+    <script type="text/javascript" src="scripts/stacktrace-min-0.3.js"></script>
     
+    <script type="text/javascript" src="scripts/utilities.js"></script>
     <script type="text/javascript" src="scripts/task-control.js"></script>
     <script type="text/javascript" src="scripts/edit.js"></script>
     <script type="text/javascript" src="scripts/main.js"></script>
@@ -31,8 +34,9 @@
     
     <div id="notice" class="note">
         <button id="close-notice"><img src="style/images/cross.png" width="16" height="16" alt="Close" i18n="close" /></button>
-        <p i18n="note">Note: This only saves locally, on your computer, in your browser.<br />This data will <strong>not</strong> be cleared if you clear Chrome's cache and storage.</p>
+        <p i18n="note">This only saves locally, on your computer, in your browser.<br />This data will <strong>not</strong> be cleared if you clear Chrome's cache and storage.</p>
         <p i18n="noteOpt">Make sure to check out the settings by clicking on the gear button in the top right corner of the app!<br />There are settings such as desktop notifications for when a task finishes.</p>
+        <p i18n="notePerf">Is the app running slowly for you? Try increasing the pie chart update time in the settings, or disabling pie charts completely. Still running slowly? Increase the general update time.</p>
     </div>
     
     <div id="tasks" class="container">
@@ -51,6 +55,16 @@
                  </tr>
             </thead>
             <tbody></tbody>
+            <tfoot>
+                <tr class="nodrag nodrop" id="totals">
+                    <td class="drag"></td>
+                    <td class="text" i18n="totals">Totals</td>
+                    <td class="current">0:00:00</td>
+                    <td class="goal">0:00:00</td>
+                    <td class="progress"><progress max="100" value="0" /></td>
+                    <td class="options"></td>
+                </tr>
+            </tfoot>
         </table>
         
         <table id="new-task">
@@ -71,6 +85,26 @@
                 <td><button id="new-btn" i18n="addTask" disabled>Add Task</button></td>
             </tr>
         </table>
+    </div>
+    
+    <div id="charts" class="container">
+        <div id="current-pie">
+            <div id="current-pie-title" i18n="currentPieTitle">Current Time Usage</div>
+            <div id="current-pie-chart"></div>
+        </div>
+        <!--<div id="total-pie">
+            <div id="current-pie-title" i18n="totalPieTitle">Total Time Usage</div>
+            <div id="current-pie-chart"></div>
+        </div>-->
+    </div>
+    
+    <div id="js-error" class="container">
+        <div id="big-error-thang" i18n="errorNotice">SUPER ULTRA MEGA ERROR THING</div>
+        <div id="error-info"></div>
+        
+        <label><input type="checkbox" id="refreshed" /> <span i18n="triedRefresh">Have you tried refreshing the app?</span></label><br />
+        <button id="clear-data" disabled>Clear all of the app's data</button>
+        <div i18n="usualFix">This will usually fix any errors, but will clear all of your tasks and settings.</div>
     </div>
     
     <div id="nothing">
@@ -115,15 +149,6 @@
         </div>
     </div>
     
-    <div id="js-error" class="container">
-        <div id="big-error-thang" i18n="errorNotice">SUPER ULTRA MEGA ERROR THING</div>
-        <div id="error-info"></div>
-        
-        <label><input type="checkbox" id="refreshed" /> <span i18n="triedRefresh">Have you tried refreshing the app?</span></label><br />
-        <button id="clear-data" disabled>Clear all of the app's data</button>
-        <div i18n="usualFix">This will usually fix any errors, but will clear all of your tasks and settings.</div>
-    </div>
-    
     <footer>
         <span i18n="createdBy">Created by</span> <a href="http://gawdl3y.com/">Schuyler Cebulskie</a> | 
         <a href="http://code.google.com/p/simple-task-timer/issues/list" target="_blank" i18n="reportBug">Report a bug</a><br />
@@ -139,11 +164,14 @@
             <h1 i18n="settings">Settings</h1>
             <hr />
             
+            <label><input type="checkbox" id="enable-charts" /><span i18n="optEnableCharts">Enable pie charts</span></label><br />
             <label><input type="checkbox" id="hide-notice" /><span i18n="optHideNotice">Hide the notice box</span></label><br />
             <label><input type="checkbox" id="confirm-reset" /><span i18n="optConfirmReset">Ask to confirm when you attempt to reset a task</span></label><br />
             <label><input type="checkbox" id="confirm-delete" /><span i18n="optConfirmDelete">Ask to confirm when you attempt to delete a task</span></label><br />
-            <label><input type="checkbox" id="autostart-default" /><span i18n="optStartDefault">Check the start checkbox by default</span></label><br /><br />
+            <label><input type="checkbox" id="autostart-default" /><span i18n="optStartDefault">Check the start checkbox by default</span></label><br />
+            <label><input type="checkbox" id="only-one" /><span i18n="optOnlyOne">Only allow one task to be running at a time</span></label><br /><br />
             
+            <label><input type="checkbox" id="stop-timer" /><span i18n="optStopTimer">Stop a task's timer when it reaches its goal</span></label><br />
             <label><input type="checkbox" id="notify" /><span i18n="optShowNotification">Show a desktop notification when a task reaches its goal</span></label><br />
             <label><input type="checkbox" id="play-sound" /><span i18n="optPlaySound">Play a sound when a task reaches its goal</span></label><br />
             <select id="sound-type">
@@ -153,9 +181,8 @@
             <input type="text" id="custom-sound" placeholder="Custom Sound URL" i18n="optSoundURL" />
             <button id="preview-sound" i18n="optPreview">Preview sound</button><br /><br />
             
-            <label><input type="checkbox" id="only-one" /><span i18n="optOnlyOne">Only allow one task to be running at a time</span></label><br />
-            <label><input type="checkbox" id="stop-timer" /><span i18n="optStopTimer">Stop a task's timer when it reaches its goal</span></label><br />
-            <label><span i18n="optUpdateTime1">Update the time of tasks every</span> <input type="number" min="1" max="60" value="1" size="4" id="update-time" /> <span i18n="optUpdateTime2">second(s)</span></label>
+            <label><span i18n="optUpdateTime1">Update the time of tasks every</span> <input type="number" min="1" max="60" value="1" size="4" id="update-time" /> <span i18n="optUpdateTime2">second(s)</span></label><br />
+            <label><span i18n="optChartUpdateTime1">Update the pie charts every</span> <input type="number" min="1" max="60" value="3" size="4" id="chart-update-time" /> <span i18n="optUpdateTime2">second(s)</span></label>
             
             <div id="modal-buttons">
                 <button id="save-settings" i18n="save">Save</button>

@@ -123,6 +123,10 @@
         "message": "Make sure to check out the settings by clicking on the gear button in the top right corner of the app! There are settings such as desktop notifications for when a task finishes.",
         "description": "Reminder to check out the settings menu"
     },
+    "notePerf": {
+        "message": "Is the app running slowly for you? Try increasing the pie chart update time in the settings, or disabling pie charts completely. Still running slowly? Increase the general update time.",
+        "description": "Performance notice"
+    },
     
     "noTasks": {
         "message": "You haven't created any tasks yet!",
@@ -131,6 +135,11 @@
     "editTasks": {
         "message": "Double-click a task name, time, or goal to edit it.",
         "description": "Double-click task name, time, or goal to edit"
+    },
+    
+    "totals": {
+        "message": "Totals",
+        "description": "Title for the totals row"
     },
     
     "task": {
@@ -204,9 +213,18 @@
         "description": "Add Task"
     },
     
+    "currentPieTitle": {
+        "message": "Time Spent on Tasks",
+        "description": "Title for the time spent pie chart"
+    },
+    
     "settings": {
         "message": "Settings",
         "description": "Settings menu header"
+    },
+    "optEnableCharts": {
+        "message": "Enable pie charts",
+        "description": "Setting - Enable pie charts"
     },
     "optHideNotice": {
         "message": "Hide the notice box",
@@ -263,6 +281,10 @@
     "optUpdateTime2": {
         "message": "second(s)",
         "description": "Setting - Update time second label"
+    },
+    "optChartUpdateTime1": {
+        "message": "Update the pie charts every",
+        "description": "Setting - Chart update time first label"
     },
     
     "notificationsWork": {

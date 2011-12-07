@@ -2,9 +2,9 @@
 function add_task(data) {
     tasks[task_count] = data;
     task_running[task_count] = false;
-    list_task(task_count, (task_count == 0 ? 1 : 2));
-    
     task_count++;
+    
+    list_task(task_count - 1, (task_count - 1 == 0 ? 1 : 2));
 }
 
 // Reset a task
@@ -51,7 +51,9 @@ function delete_task(task) {
                         $('#new-btn').removeAttr('disabled');
                     });
                 }
-            }, 50);
+                
+                if(task_count >= 2) $('#task-list tfoot').fadeIn(); else $('#task-list tfoot').fadeOut();
+            }, 20);
             
             save();
             load.hide();
@@ -149,21 +151,11 @@ function list_task(task, anim) {
             // Fade in
             $('#task-'+ task).fadeIn();
         }
+        
+        if(task_count >= 2) $('#task-list tfoot').fadeIn(); else $('#task-list tfoot').fadeOut();
     } catch(e) {
         error_notice(e);
     }
-}
-
-// Rebuild the task list
-function rebuild_list() {
-    editing_task = -1;
-    $('#task-list tbody').empty().removeClass('editing-name editing-current editing-goal');
-    
-    for(i = 0; i < task_count; i++) {
-        list_task(i, 0);
-    }
-    
-    $('#task-list').tableDnDUpdate();
 }
 
 // Increase the current time on tasks that are running by a second
@@ -206,8 +198,15 @@ function update_time() {
             }
         }
         
+        // Update pie charts
+        if(timer_step >= setting('chart-update-time', 3, true)) {
+            update_charts();
+            timer_step = 0;
+        }
+        
         // Do it again in a second
         timer = setTimeout('update_time()', setting('update-time') * 1000);
+        timer_step++;
     } catch(e) {
         error_notice(e);
     }

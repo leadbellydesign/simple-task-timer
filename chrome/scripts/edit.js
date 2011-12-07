@@ -76,9 +76,12 @@ function edit_current(task) {
             
             // Add events
             $('#current-edit-'+ task +' input').keypress(function (e) {
-                if(e.keyCode == 13) save_goal(editing_task);
+                if(e.keyCode == 13) save_current(editing_task);
             }).blur(function() {
                 if($(this).val() == '' || parseInt($(this).val()) < 0) $(this).val('0');
+            });
+            $('#current-edit-'+ task +' .mins, #current-edit-'+ task +' .secs').blur(function() {
+                if(parseInt($(this).val()) > 59) $(this).val('59');
             });
             
             $('#current-edit-'+ task +' button.save').attr('name', task).click(function() {
@@ -106,6 +109,8 @@ function save_current(task) {
         if($('#current-edit-'+ task +' .hrs').val() == '' || parseInt($('#current-edit-'+ task +' .hrs').val()) < 0) $('#current-edit-'+ task +' .hrs').val('0');
         if($('#current-edit-'+ task +' .mins').val() == '' || parseInt($('#current-edit-'+ task +' .mins').val()) < 0) $('#current-edit-'+ task +' .mins').val('0');
         if($('#current-edit-'+ task +' .secs').val() == '' || parseInt($('#current-edit-'+ task +' .secs').val()) < 0) $('#current-edit-'+ task +' .secs').val('0');
+        if(parseInt($('#current-edit-'+ task +' .mins').val()) > 59) $('#current-edit-'+ task +' .mins').val('59');
+        if(parseInt($('#current-edit-'+ task +' .secs').val()) > 59) $('#current-edit-'+ task +' .secs').val('59');
             
         var hours = parseInt($('#current-edit-'+ task +' .hrs').val()), mins = parseInt($('#current-edit-'+ task +' .mins').val()), secs = parseInt($('#current-edit-'+ task +' .secs').val());
             
@@ -146,9 +151,11 @@ function edit_goal(task) {
             // Add events
             $('#goal-edit-'+ task +' input').keypress(function (e) {
                 if(e.keyCode == 13) save_goal(editing_task);
-            })
-            $('#goal-edit-'+ task +' .hrs, #goal-edit-'+ task +'.mins').blur(function() {
+            }).blur(function() {
                 if($(this).val() == '' || parseInt($(this).val()) < 0) $(this).val('0');
+            });
+            $('#goal-edit-'+ task +' .mins').blur(function() {
+                if(parseInt($(this).val()) > 59) $(this).val('59');
             });
             
             $('#goal-edit-'+ task +' .indef').change(function() {
@@ -186,6 +193,7 @@ function save_goal(task) {
     try {
         if($('#goal-edit-'+ task +' .hrs').val() == ''  || parseInt($('#goal-edit-'+ task +' .hrs').val()) < 0) $('#goal-edit-'+ task +' .hrs').val('0');
         if($('#goal-edit-'+ task +' .mins').val() == ''  || parseInt($('#goal-edit-'+ task +' .mins').val()) < 0) $('#goal-edit-'+ task +' .mins').val('0');
+        if(parseInt($('#goal-edit-'+ task +' .mins').val()) > 59) $('#goal-edit-'+ task +' .mins').val('59');
             
         var hours = parseInt($('#goal-edit-'+ task +' .hrs').val()), mins = parseInt($('#goal-edit-'+ task +' .mins').val()), indef = $('#goal-edit-'+ task +' .indef').is(':checked');
             

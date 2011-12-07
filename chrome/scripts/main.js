@@ -1,7 +1,7 @@
 var load, tasks = new Array(), task_running = new Array(), task_count = 0;
-var dragging = false;
-var save_timer, timer;
-var preview_sound = false, errord = false;
+var dragging = false, preview_sound = false, errord = false;
+var current_plot = false, total_plot = false;
+var save_timer, timer, timer_step = 0;
 
 // Set error event (most important event)
 window.onerror = function(msg, url, line) { error_notice(msg, url, line); };
@@ -46,6 +46,7 @@ $(document).ready(function() {
                 
                 $('#new-txt').val('');
                 if(setting('autostart-default')) $('#new-start').attr('checked', 'checked');
+                update_charts();
             } else {
                 $('#error').text(locale('invalid')).center().fadeIn(600).delay(2000).fadeOut(600);
             }
@@ -80,7 +81,7 @@ $(document).ready(function() {
         // User clicked the Options button
         $('#options').click(function() {
             Load();
-            $('.modal').fadeIn(400, function() { $('#modal-contents').show().animate({'height': '300px'}).animate({'width': '500px'}); });
+            $('.modal').fadeIn(400, function() { $('#modal-contents').show().animate({'height': '350px'}).animate({'width': '500px'}); });
         });
         
         // User clicked the cancel button in the options modal
@@ -94,21 +95,24 @@ $(document).ready(function() {
         // User clicked the save button in the options modal
         $('#save-settings').click(function() {
             // Save the settings
+            setting('enable-charts', $('#enable-charts').is(':checked'));
             setting('hide-notice', $('#hide-notice').is(':checked'));
             setting('confirm-reset', $('#confirm-reset').is(':checked'));
             setting('confirm-delete', $('#confirm-delete').is(':checked'));
             setting('autostart-default', $('#autostart-default').is(':checked'));
+            setting('only-one', $('#only-one').is(':checked'));
+            setting('stop-timer', $('#stop-timer').is(':checked'));
             
             setting('notify', $('#notify').is(':checked'));
             setting('play-sound', $('#play-sound').is(':checked'));
             setting('sound-type', $('#sound-type').val());
             setting('custom-sound', $('#custom-sound').val());
             
-            setting('only-one', $('#only-one').is(':checked'));
-            setting('stop-timer', $('#stop-timer').is(':checked'));
-            
-            if(parseInt($('#update-time').val()) > 0 && parseInt($('#update-time').val()) < 60) {
+            if(parseInt($('#update-time').val()) > 0 && parseInt($('#update-time').val()) <= 60) {
                 setting('update-time', $('#update-time').val());
+            }
+            if(parseInt($('#chart-update-time').val()) > 0 && parseInt($('#chart-update-time').val()) <= 60) {
+                setting('chart-update-time', parseInt($('#chart-update-time').val()));
             }
             
             // Check for notification permissions
@@ -178,6 +182,7 @@ $(document).ready(function() {
         // User resized window
         $(window).resize(function() {
             $('#error').center();
+            rebuild_list();
         });
         
         // User toggled the refreshed checkbox
@@ -309,18 +314,92 @@ $(document).ready(function() {
         });
         
         $('#tasks').show();
+        update_charts();
     } catch(e) {
         error_notice(e);
     }
 });
 
+// Rebuild the task list
+function rebuild_list() {
+    editing_task = -1;
+    $('#task-list tbody').empty().removeClass('editing-name editing-current editing-goal');
+    
+    for(i = 0; i < task_count; i++) {
+        list_task(i, 0);
+    }
+    
+    $('#task-list').tableDnDUpdate();
+    update_charts();
+}
 
+// Rebuild the totals row
+function rebuild_totals(update_goal) {
+    
+}
+
+// Update the pie charts
+function update_charts() {
+    if(setting('enable-charts') && typeof tasks[0] != 'undefined') {
+        var plot_data = new Array(), total_time = 0, i;
+        
+        // Get the total of all times
+        for(i = 0; i < task_count; i++) {
+            total_time += (tasks[i].current_hours) + (tasks[i].current_mins / 60) + (tasks[i].current_secs / 3600);
+        }
+        
+        // Display charts container
+        if(total_time > 0) $('#charts').fadeIn(); else $('#charts').fadeOut();
+        
+        // Build the time spent chart
+        for(i = 0; i < task_count; i++) {
+            plot_data[i] = {
+                label: tasks[i].text,
+                data: ((tasks[i].current_hours) + (tasks[i].current_mins / 60) + (tasks[i].current_secs / 3600)) / total_time * 100
+            };
+        }
+        
+        
+        // Display the time spent chart
+        if(current_plot) {
+            /*current_plot.setData(plot_data);
+            current_plot.setupGrid();
+            current_plot.draw();*/
+            current_plot = $.plot($('#current-pie-chart'), plot_data, {
+                series: {
+                    pie: {
+                        show: true
+                    }
+                },
+                
+                legend: {
+                    show: false
+                }
+            });
+        } else {
+            current_plot = $.plot($('#current-pie-chart'), plot_data, {
+                series: {
+                    pie: {
+                        show: true
+                    }
+                },
+                
+                legend: {
+                    show: false
+                }
+            });
+        }
+    } else {
+        $('#charts').fadeOut();
+    }
+}
 
 // Load the settings
 function Load() {
     $('#sound-type').val(setting('sound-type', 1, true));
     $('#custom-sound').val(setting('custom-sound', '', true));
     $('#update-time').val(setting('update-time', 1, true));
+    $('#chart-update-time').val(setting('chart-update-time', 3, true));
     
     if(setting('hide-notice', false, true)) {
         $('#hide-notice').attr('checked', 'checked');
@@ -330,7 +409,7 @@ function Load() {
         $('#notice').show();
     }
     
-    $.each({'confirm-reset': true, 'confirm-delete': true, 'autostart-default': false, 'stop-timer': true, 'notify': false, 'only-one': false}, function(i, v) {
+    $.each({'confirm-reset': true, 'confirm-delete': true, 'autostart-default': false, 'stop-timer': true, 'notify': false, 'enable-charts': true, 'only-one': false}, function(i, v) {
         if(setting(i, v, true)) {
             $('#'+ i).attr('checked', 'checked');
         } else {
@@ -373,106 +452,4 @@ function save(timeout) {
     
     $('button.delete, #new-btn').removeAttr('disabled');
     if(timeout) load.hide();
-}
-
-// Return or set the value of a setting
-function setting(name, value, only_not_exists) {
-    if(typeof only_not_exists == 'undefined') only_not_exists = false;
-    
-    // Check if the setting exists
-    var exists;
-    if(typeof localStorage[name] == 'undefined') {
-        exists = false;
-    } else {
-        exists = true;
-    }
-    
-    // Set the setting
-    if(typeof value != 'undefined' && ((exists && !only_not_exists) || (!exists && only_not_exists))) {
-        if(typeof value.toString() != 'undefined') {
-            localStorage[name] = value.toString();
-        } else {
-            localStorage[name] = value;
-        }
-        
-        return value;
-    } else {
-        // Return the value
-        value = localStorage[name];
-        if(value == 'true') return true;
-        if(value == 'false') return false;
-        if(!isNaN(parseInt(value))) return parseInt(value);
-        return value;
-    }
-}
-
-// Format the time to the format h:mm:ss
-function format_time(hours, mins, secs, indef) {
-    if(indef) return locale('indefinite');
-    
-    if(hours == null) hours = 0;
-    if(mins == null) mins = 0;
-    if(secs == null) secs = 0;
-    
-    return hours.toString() +':'+ (mins < 10 ? '0' : '') + mins.toString() +':'+ (secs < 10 ? '0' : '') + secs.toString();
-}
-
-// Localise page
-function localisePage() {
-    var text_tags = ['DIV', 'P', 'TD', 'TH', 'SPAN', 'OPTION', 'A', 'BUTTON', 'H1', 'H2', 'H3', 'TITLE'];
-    
-    $('[i18n]').each(function(i, v) {
-        var i18n = locale($(this).attr('i18n'));
-        
-        if($.inArray($(this)[0].tagName, text_tags) != -1) $(this).text(i18n);
-        if($(this).attr('title')) $(this).attr('title', i18n);
-        if($(this).attr('alt')) $(this).attr('alt', i18n);
-        if($(this).attr('placeholder')) $(this).attr('placeholder', i18n);
-    });
-}
-
-// Get a single locale string
-function locale(messageID, args) {
-    var i18n = chrome.i18n.getMessage(messageID, args);
-    return i18n != '' ? i18n : messageID;
-}
-
-// Error handler
-function error_notice(error, url, line) {
-    if(!errord) {
-        var trace = false;
-        
-        // See if we're coming from try...catch or window.onerror
-        if(typeof error.message != 'undefined') {
-            msg = error.message;
-            url = error.url;
-            line = error.number;
-            trace = true;
-        } else {
-            msg = error;
-        }
-        
-        // Stop timers
-        clearTimeout(timer);
-        clearTimeout(save_timer);
-        
-        // Print error
-        $('#js-error h3').text(locale('errorNotice'));
-        $('#error-info').html('<strong>App Version:</strong> '+ chrome.app.getDetails().version +'<br />');
-        $('#error-info').append('<strong>Error Message:</strong> '+ msg +'<br />');
-        if(!trace) $('#error-info').append('<strong>URL:</strong> '+ url +'<br />');
-        if(!trace) $('#error-info').append('<strong>Line number:</strong> '+ line +'<br />');
-        if(trace) $('#error-info').append('<strong>Stack trace:</strong><br />'+ printStackTrace({e: error}).join('<br />') +'<br />');
-        $('#error-info').append('<strong>localStorage:</strong><br />'+ JSON.stringify(localStorage));
-        
-        // Make sure the error message is visible
-        $('#tasks, .modal').hide();
-        $('#js-error').show();
-        
-        // Alert only once
-        if(!errord) {
-            errord = true;
-            alert(locale('errorOccurred'));
-        }
-    }
 }
