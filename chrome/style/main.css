@@ -1,7 +1,7 @@
 /* Page Layout */
 header, footer { text-align: center; }
 
-#notice, #loading, #tasks, #charts, #task-list, #nothing, #modal-overlay, #modal, #edit-tasks, #js-error { display: none; }
+#notice, #loading, #tasks, #charts, #task-list, #task-list tfoot, #nothing, #modal-overlay, #modal, #edit-tasks, #js-error { display: none; }
 
 #options {
     position: absolute;

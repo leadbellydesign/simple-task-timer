@@ -46,7 +46,7 @@ $(document).ready(function() {
                 
                 $('#new-txt').val('');
                 if(setting('autostart-default')) $('#new-start').attr('checked', 'checked');
-                update_charts();
+                rebuild_charts();
             } else {
                 $('#error').text(locale('invalid')).center().fadeIn(600).delay(2000).fadeOut(600);
             }
@@ -101,8 +101,8 @@ $(document).ready(function() {
             setting('confirm-delete', $('#confirm-delete').is(':checked'));
             setting('autostart-default', $('#autostart-default').is(':checked'));
             setting('only-one', $('#only-one').is(':checked'));
-            setting('stop-timer', $('#stop-timer').is(':checked'));
             
+            setting('stop-timer', $('#stop-timer').is(':checked'));
             setting('notify', $('#notify').is(':checked'));
             setting('play-sound', $('#play-sound').is(':checked'));
             setting('sound-type', $('#sound-type').val());
@@ -314,7 +314,8 @@ $(document).ready(function() {
         });
         
         $('#tasks').show();
-        update_charts();
+        rebuild_totals();
+        rebuild_charts();
     } catch(e) {
         error_notice(e);
     }
@@ -331,7 +332,7 @@ function rebuild_list() {
     
     $('#task-list').tableDnDUpdate();
     rebuild_totals();
-    update_charts();
+    rebuild_charts();
 }
 
 // Rebuild the totals row
@@ -372,11 +373,13 @@ function rebuild_totals() {
         $('#task-list tfoot td.current').text(format_time(current_hours, current_mins, current_secs));
         $('#task-list tfoot td.goal').text(format_time(goal_hours, goal_mins, 0));
         $('#task-list tfoot progress').text(progress + '%').val(progress);
+        
+        if(task_count >= 2) $('#task-list tfoot').fadeIn(); else $('#task-list tfoot').fadeOut();
     }
 }
 
 // Update the pie charts
-function update_charts() {
+function rebuild_charts() {
     if(setting('enable-charts') && typeof tasks[0] != 'undefined') {
         var plot_data = new Array(), total_time = 0, i;
         

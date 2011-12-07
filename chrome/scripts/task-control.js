@@ -59,6 +59,7 @@ function delete_task(task) {
             }, 20);
             
             save();
+            $('#new-txt').focus();
             load.hide();
         }
     } catch(e) {
@@ -159,8 +160,6 @@ function list_task(task, anim) {
             // Fade in
             $('#task-'+ task).fadeIn();
         }
-        
-        if(task_count >= 2) $('#task-list tfoot').fadeIn(); else $('#task-list tfoot').fadeOut();
     } catch(e) {
         error_notice(e);
     }
@@ -213,7 +212,7 @@ function update_time() {
         
         // Update pie charts
         if(timer_step >= setting('chart-update-time', 3, true)) {
-            update_charts();
+            rebuild_charts();
             timer_step = 0;
         }
         
