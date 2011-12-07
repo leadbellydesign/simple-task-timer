@@ -5,6 +5,7 @@ function add_task(data) {
     task_count++;
     
     list_task(task_count - 1, (task_count - 1 == 0 ? 1 : 2));
+    rebuild_totals();
 }
 
 // Reset a task
@@ -18,6 +19,8 @@ function reset_task(task) {
     } catch(e) {
         error_notice(e);
     }
+    
+    rebuild_totals();
 }
 
 // Delete a task
@@ -197,6 +200,9 @@ function update_time() {
                 $('#task-'+ i +' progress').val(progress).text(progress.toString() +'%')
             }
         }
+        
+        // Update totals row
+        rebuild_totals();
         
         // Update pie charts
         if(timer_step >= setting('chart-update-time', 3, true)) {
