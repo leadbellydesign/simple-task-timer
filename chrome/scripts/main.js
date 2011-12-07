@@ -359,11 +359,11 @@ function rebuild_totals() {
         }
         if(current_mins > 59) {
             current_hours += Math.floor(current_mins / 60);
-            current_secs = current_mins % 60;
+            current_mins = current_mins % 60;
         }
         if(goal_mins > 59) {
             goal_hours += Math.floor(goal_mins / 60);
-            goal_secs = goal_mins % 60;
+            goal_mins = goal_mins % 60;
         }
         
         // Get the progress done
