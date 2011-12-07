@@ -100,15 +100,20 @@ function list_task(task, anim) {
         
         // Create the row
         $('#row-template').clone().attr('id', 'task-'+ task).appendTo('#task-list tbody');
+        if(task_running[task]) $('#task-'+ task).addClass('running');
         
         // Text
         $('#task-'+ task +' td.text').text(tasks[task].text);
         $('#task-'+ task +' td.current').text(format_time(tasks[task].current_hours, tasks[task].current_mins, tasks[task].current_secs));
         $('#task-'+ task +' td.goal').text(format_time(tasks[task].goal_hours, tasks[task].goal_mins, 0, tasks[i].indefinite));
         $('#task-'+ task +' button.toggle').text(task_running[task] ? locale('stop') : locale('start'));
-        $('#task-'+ task +' progress').val(progress).text(progress.toString() +'%');
         
-        if(task_running[task]) $('#task-'+ task).addClass('running');
+        // Progress bar
+        if(!tasks[task].indefinite) {
+            $('#task-'+ task +' progress').val(progress).text(progress + '%').attr('max', '100');
+        } else {
+            $('#task-'+ task +' progress').removeAttr('value').removeAttr('max').text('...');
+        }
         
         // Option Buttons
         $('#task-'+ task +' button.toggle').attr('name', task).click(function() {
@@ -192,12 +197,14 @@ function update_time() {
                 }
                 
                 var progress = Math.floor((tasks[i].current_hours + (tasks[i].current_mins / 60) + (tasks[i].current_secs / 3600)) / (tasks[i].goal_hours + (tasks[i].goal_mins / 60)) * 100);
-                if(tasks[i].indefinite == true) progress = 0;
+                if(tasks[i].indefinite) progress = 0;
                 if(progress == Infinity) progress = 100;
                 
                 // Update list
                 $('#task-'+ i +' td.current').text(format_time(tasks[i].current_hours, tasks[i].current_mins, tasks[i].current_secs));
-                $('#task-'+ i +' progress').val(progress).text(progress.toString() +'%')
+                if(!tasks[i].indefinite) {
+                    $('#task-'+ i +' progress').val(progress).attr('max', '100').text(progress.toString() +'%');
+                }
             }
         }
         

@@ -336,39 +336,43 @@ function rebuild_list() {
 
 // Rebuild the totals row
 function rebuild_totals() {
-    var current_hours = 0, current_mins = 0, current_secs = 0, goal_hours = 0, goal_mins = 0, progress, i;
-    
-    // Get the total hours, minutes, and seconds
-    for(i = 0; i < task_count; i++) {
-        current_hours += tasks[i].current_hours;
-        current_mins += tasks[i].current_mins;
-        current_secs += tasks[i].current_secs;
+    if(task_count > 0) {
+        var current_hours = 0, current_mins = 0, current_secs = 0, goal_hours = 0, goal_mins = 0, progress, i;
         
-        goal_hours += tasks[i].goal_hours;
-        goal_mins += tasks[i].goal_mins;
+        // Get the total hours, minutes, and seconds
+        for(i = 0; i < task_count; i++) {
+            current_hours += tasks[i].current_hours;
+            current_mins += tasks[i].current_mins;
+            current_secs += tasks[i].current_secs;
+            
+            if(!tasks[i].indefinite) {
+                goal_hours += tasks[i].goal_hours;
+                goal_mins += tasks[i].goal_mins;
+            }
+        }
+        
+        // Fix things like 12:72:142
+        if(current_secs > 59) {
+            current_mins += Math.floor(current_secs / 60);
+            current_secs = current_secs % 60;
+        }
+        if(current_mins > 59) {
+            current_hours += Math.floor(current_mins / 60);
+            current_secs = current_mins % 60;
+        }
+        if(goal_mins > 59) {
+            goal_hours += Math.floor(goal_mins / 60);
+            goal_secs = goal_mins % 60;
+        }
+        
+        // Get the progress done
+        progress = Math.floor((current_hours + (current_mins / 60) + (current_secs / 3600)) / (goal_hours + (goal_mins / 60)) * 100);
+        
+        // Display
+        $('#task-list tfoot td.current').text(format_time(current_hours, current_mins, current_secs));
+        $('#task-list tfoot td.goal').text(format_time(goal_hours, goal_mins, 0));
+        $('#task-list tfoot progress').text(progress + '%').val(progress);
     }
-    
-    // Fix things like 12:72:142
-    if(current_secs > 59) {
-        current_mins += Math.floor(current_secs / 60);
-        current_secs = current_secs % 60;
-    }
-    if(current_mins > 59) {
-        current_hours += Math.floor(current_mins / 60);
-        current_secs = current_mins % 60;
-    }
-    if(goal_mins > 59) {
-        goal_hours += Math.floor(goal_mins / 60);
-        goal_secs = goal_mins % 60;
-    }
-    
-    // Get the progress done
-    progress = Math.floor((current_hours + (current_mins / 60) + (current_secs / 3600)) / (goal_hours + (goal_mins / 60)) * 100);
-    
-    // Display
-    $('#task-list tfoot td.current').text(format_time(current_hours, current_mins, current_secs));
-    $('#task-list tfoot td.goal').text(format_time(goal_hours, goal_mins, 0));
-    $('#task-list tfoot progress').text(progress + '%').val(progress);
 }
 
 // Update the pie charts
