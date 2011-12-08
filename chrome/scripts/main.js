@@ -338,7 +338,7 @@ function rebuild_list() {
 // Rebuild the totals row
 function rebuild_totals() {
     if(task_count > 0) {
-        var current_hours = 0, current_mins = 0, current_secs = 0, goal_hours = 0, goal_mins = 0, progress, i;
+        var current_hours = 0, current_mins = 0, current_secs = 0, goal_hours = 0, goal_mins = 0, dec_current = 0, dec_this_current, dec_this_goal, progress, i;
         
         // Get the total hours, minutes, and seconds
         for(i = 0; i < task_count; i++) {
@@ -349,6 +349,11 @@ function rebuild_totals() {
             if(!tasks[i].indefinite) {
                 goal_hours += tasks[i].goal_hours;
                 goal_mins += tasks[i].goal_mins;
+                
+                // Don't add excess time spent
+                dec_this_current = tasks[i].current_hours + (tasks[i].current_mins / 60) + (tasks[i].current_secs / 3600);
+                dec_this_goal = tasks[i].goal_hours + (tasks[i].goal_mins / 60);
+                dec_current += dec_this_current > dec_this_goal ? dec_this_goal : dec_this_current;
             }
         }
         
@@ -366,8 +371,8 @@ function rebuild_totals() {
             goal_mins = goal_mins % 60;
         }
         
-        // Get the progress done
-        progress = Math.floor((current_hours + (current_mins / 60) + (current_secs / 3600)) / (goal_hours + (goal_mins / 60)) * 100);
+        // Get the total progress done
+        progress = Math.floor(dec_current / (goal_hours + (goal_mins / 60)) * 100);
         
         // Display
         $('#task-list tfoot td.current').text(format_time(current_hours, current_mins, current_secs));
