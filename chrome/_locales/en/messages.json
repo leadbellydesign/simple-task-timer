@@ -296,6 +296,11 @@
         "description": "Desktop notifications are enabled and working correctly"
     },
     
+    "totalsHelp": {
+        "message": "This is the totals row. It only appears when you have more than one task.\n\nThe \"Time Spent\" column of this row totals the time spent on every single one of your tasks.\nThe \"Goal\" column of this row totals all of the goal times from all of your tasks, other than indefinite ones.\nThe \"Progress\" column of this row gives you the total progress towards finishing the goals of all of your tasks. This progress does not include time spent that went over a task's goal, or time spent on tasks with indefinite goals.",
+        "description": "Totals row help message"
+    },
+    
     "confirmReset": {
         "message": "Are you sure you want to reset task \"$taskName$\"?",
         "description": "Confirmation notice on reset",
@@ -325,7 +330,7 @@
         "message": "Task Finished!",
         "description": "Task finished (desktop notification)"
     },
-    "taskCompleted": {
+    "taskFinishedLong": {
         "message": "Task \"$taskName\" has reached its goal!",
         "description": "Task has reached its goal (desktop notification)",
         "placeholders": {

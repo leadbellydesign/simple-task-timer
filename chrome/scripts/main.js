@@ -203,6 +203,11 @@ $(document).ready(function() {
             }
         });
         
+        // User clicked the totals row help button
+        $('#totals-help').click(function() {
+            alert(locale('totalsHelp'));
+        });
+        
         
         
         /**************************************************
@@ -373,11 +378,12 @@ function rebuild_totals() {
         
         // Get the total progress done
         progress = Math.floor(dec_current / (goal_hours + (goal_mins / 60)) * 100);
+        if(isNaN(progress)) progress = 0;
         
         // Display
         $('#task-list tfoot td.current').text(format_time(current_hours, current_mins, current_secs));
         $('#task-list tfoot td.goal').text(format_time(goal_hours, goal_mins, 0));
-        $('#task-list tfoot progress').text(progress + '%').val(progress);
+        $('#task-list tfoot progress').text(progress.toString() + '%').val(progress);
         
         if(task_count >= 2) $('#task-list tfoot').fadeIn(); else $('#task-list tfoot').fadeOut();
     }

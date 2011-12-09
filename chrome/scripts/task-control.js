@@ -168,7 +168,7 @@ function list_task(task, anim) {
 // Increase the current time on tasks that are running by a second
 function update_time() {
     try {
-        for(i = 0; i < task_count; i++) {
+        for(var i = 0; i < task_count; i++) {
             if(task_running[i]) {
                 // Increment time
                 tasks[i].current_secs += setting('update-time');
@@ -190,11 +190,12 @@ function update_time() {
                         tasks[i].notified = true;
                         if(setting('play-sound')) document.getElementById('sound').play();
                         if(setting('notify') && webkitNotifications.checkPermission() == 0) {
-                            webkitNotifications.createNotification('/style/images/icon-64.png', locale('taskFinished'), locale('taskFinished', tasks[i].text)).show();
+                            webkitNotifications.createNotification('/style/images/icon-64.png', locale('taskFinished'), locale('taskFinishedLong', tasks[i].text)).show();
                         }
                     }
                 }
                 
+                // Progress done
                 var progress = Math.floor((tasks[i].current_hours + (tasks[i].current_mins / 60) + (tasks[i].current_secs / 3600)) / (tasks[i].goal_hours + (tasks[i].goal_mins / 60)) * 100);
                 if(tasks[i].indefinite) progress = 0;
                 if(progress == Infinity) progress = 100;
