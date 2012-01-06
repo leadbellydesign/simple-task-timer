@@ -271,8 +271,8 @@
         "description": "Setting - Only allow one task to be running"
     },
     "optStopTimer": {
-        "message": "Stop a task's timer when it reaches its goal",
-        "description": "Setting - Stop timer on goal"
+        "message": "Don't allow task times to go over their goals",
+        "description": "Setting - Don't allow going over goals"
     },
     "optUpdateTime1": {
         "message": "Update the time of tasks every",
@@ -331,7 +331,7 @@
         "description": "Task finished (desktop notification)"
     },
     "taskFinishedLong": {
-        "message": "Task \"$taskName\" has reached its goal!",
+        "message": "Task \"$taskName$\" has reached its goal!",
         "description": "Task has reached its goal (desktop notification)",
         "placeholders": {
             "taskName": {
