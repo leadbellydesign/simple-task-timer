@@ -81,7 +81,7 @@ $(document).ready(function() {
         // User clicked the Options button
         $('#options').click(function() {
             Load();
-            $('.modal').fadeIn(400, function() { $('#modal-contents').show().animate({'height': '350px'}).animate({'width': '500px'}); });
+            $('.modal').fadeIn(400, function() { $('#modal-contents').show().animate({'height': '355px'}).animate({'width': '500px'}); });
         });
         
         // User clicked the cancel button in the options modal

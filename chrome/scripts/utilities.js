@@ -48,12 +48,15 @@ function locale(messageID, args) {
 
 // Localise page
 function localisePage() {
-    var text_tags = ['DIV', 'P', 'TD', 'TH', 'SPAN', 'OPTION', 'A', 'BUTTON', 'H1', 'H2', 'H3', 'TITLE'];
+    var text_tags = ['OPTION', 'A', 'BUTTON', 'H1', 'H2', 'H3', 'TITLE'];
+    var html_tags = ['DIV', 'P', 'TD', 'TH', 'SPAN'];
     
     $('[i18n]').each(function(i, v) {
         var i18n = locale($(this).attr('i18n'));
         
         if($.inArray($(this)[0].tagName, text_tags) != -1) $(this).text(i18n);
+        else if($.inArray($(this)[0].tagName, html_tags) != -1) $(this).html(i18n);
+        
         if($(this).attr('title')) $(this).attr('title', i18n);
         if($(this).attr('alt')) $(this).attr('alt', i18n);
         if($(this).attr('placeholder')) $(this).attr('placeholder', i18n);

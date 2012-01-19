@@ -160,9 +160,9 @@ function edit_goal(task) {
             
             $('#goal-edit-'+ task +' .indef').change(function() {
                 if($(this).is(':checked')) {
-                    $('.hrs, .mins').attr('disabled', 'disabled');
+                    $('#goal-edit-'+ editing_task +' .hrs, #goal-edit-'+ editing_task +' .mins').attr('disabled', 'disabled');
                 } else {
-                    $('.hrs, .mins').removeAttr('disabled');
+                    $('#goal-edit-'+ editing_task +' .hrs, #goal-edit-'+ editing_task +' .mins').removeAttr('disabled');
                 }
             });
             

@@ -156,7 +156,7 @@ tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress {
     
     width: 0px;
     height: 0px;
-    overflow: hidden;
+    overflow: auto;
     
     border: 1px solid black;
     border-radius: 10px;
