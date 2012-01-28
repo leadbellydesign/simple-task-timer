@@ -48,7 +48,9 @@ $(document).ready(function() {
                 if(setting('autostart-default')) $('#new-start').attr('checked', 'checked');
                 rebuild_charts();
             } else {
-                $('#error').text(locale('invalid')).center().fadeIn(600).delay(2000).fadeOut(600);
+                $('#error').text(locale('invalid')).center().stop(true, true).fadeIn(600).delay(2000).fadeIn(10, function() {
+                    $(this).stop(true, true).fadeOut(600);
+                });
             }
         });
         
