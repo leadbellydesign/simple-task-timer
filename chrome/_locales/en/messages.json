@@ -222,23 +222,11 @@
         "message": "Settings",
         "description": "Settings menu header"
     },
+    
     "generalSettings": {
         "message": "General Settings",
         "description": "General settings header"
     },
-    "taskSettings": {
-        "message": "Task Settings",
-        "description": "Task settings header"
-    },
-    "notificationSettings": {
-        "message": "Notification Settings",
-        "description": "Notification settings header"
-    },
-    "performanceSettings": {
-        "message": "Performance Settings",
-        "description": "Performance settings header"
-    },
-    
     "optEnableCharts": {
         "message": "Enable pie charts",
         "description": "Setting - Enable pie charts"
@@ -258,6 +246,28 @@
     "optStartDefault": {
         "message": "Check the \"Start\" checkbox by default",
         "description": "Setting - Check Start by default"
+    },
+    "optSaveFields": {
+        "message": "Keep what you have in the new task fields when you relaunch the app",
+        "description": "Setting - Keep new task field contents on relaunch"
+    },
+    
+    "taskSettings": {
+        "message": "Task Settings",
+        "description": "Task settings header"
+    },
+    "optStopTimer": {
+        "message": "Don't allow task times to go over their goals",
+        "description": "Setting - Don't allow going over goals"
+    },
+    "optOnlyOne": {
+        "message": "Only allow one task to be running at a time",
+        "description": "Setting - Only allow one task to be running"
+    },
+    
+    "notificationSettings": {
+        "message": "Notification Settings",
+        "description": "Notification settings header"
     },
     "optShowNotification": {
         "message": "Show a desktop notification when a task reaches its goal",
@@ -283,13 +293,10 @@
         "message": "Preview sound",
         "description": "Setting - Preview the sound"
     },
-    "optOnlyOne": {
-        "message": "Only allow one task to be running at a time",
-        "description": "Setting - Only allow one task to be running"
-    },
-    "optStopTimer": {
-        "message": "Don't allow task times to go over their goals",
-        "description": "Setting - Don't allow going over goals"
+    
+    "performanceSettings": {
+        "message": "Performance Settings",
+        "description": "Performance settings header"
     },
     "optUpdateTime1": {
         "message": "Update the time of tasks every",

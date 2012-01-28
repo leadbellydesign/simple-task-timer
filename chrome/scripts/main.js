@@ -21,10 +21,10 @@ $(document).ready(function() {
         
         // User clicked the Add Task button
         $('#new-btn').click(function() {
-            if($('#new-goal-hrs').val() == '' || parseInt($('#new-goal-hrs').val()) < 0) $('#new-goal-hrs').val('0');
+            if($('#new-goal-hours').val() == '' || parseInt($('#new-goal-hours').val()) < 0) $('#new-goal-hours').val('0');
             if($('#new-goal-mins').val() == '' || parseInt($('#new-goal-mins').val()) < 0) $('#new-goal-mins').val('0');
             
-            var hours = parseInt($('#new-goal-hrs').val()), mins = parseInt($('#new-goal-mins').val()), indef = $('#new-goal-indef').is(':checked');
+            var hours = parseInt($('#new-goal-hours').val()), mins = parseInt($('#new-goal-mins').val()), indef = $('#new-goal-indef').is(':checked');
             
             if($('#new-txt').val() != '' && (hours > 0 || mins > 0 || indef)) {
                 cancel_edit();
@@ -57,9 +57,9 @@ $(document).ready(function() {
         // User toggled the new task indefinite checkbox
         $('#new-goal-indef').change(function() {
             if($(this).is(':checked')) {
-                $('#new-goal-hrs, #new-goal-mins').attr('disabled', 'disabled') 
+                $('#new-goal-hours, #new-goal-mins').attr('disabled', 'disabled') 
             } else {
-                $('#new-goal-hrs, #new-goal-mins').removeAttr('disabled');
+                $('#new-goal-hours, #new-goal-mins').removeAttr('disabled');
             }
         });
         
@@ -71,7 +71,7 @@ $(document).ready(function() {
         });
         
         // User clicked away from the goal fields
-        $('#new-goal-hrs, #new-goal-mins').blur(function() {
+        $('#new-goal-hours, #new-goal-mins').blur(function() {
             if($(this).val() == '' || parseInt($(this).val()) < 0) $(this).val('0');
         });
         
@@ -106,9 +106,11 @@ $(document).ready(function() {
             setting('confirm-reset', $('#confirm-reset').is(':checked'));
             setting('confirm-delete', $('#confirm-delete').is(':checked'));
             setting('autostart-default', $('#autostart-default').is(':checked'));
-            setting('only-one', $('#only-one').is(':checked'));
+            setting('save-fields', $('#save-fields').is(':checked'));
             
             setting('stop-timer', $('#stop-timer').is(':checked'));
+            setting('only-one', $('#only-one').is(':checked'));
+            
             setting('notify', $('#notify').is(':checked'));
             setting('play-sound', $('#play-sound').is(':checked'));
             setting('sound-type', $('#sound-type').val());
@@ -278,9 +280,23 @@ $(document).ready(function() {
         // Load settings
         Load();
         
-        // Enable the add task fields and check the auto-start box if default is enabled
+        // Enable the add task fields
         $('#new-task input, #new-task button').removeAttr('disabled');
+        
+        // Check the auto-start box if enabled, and fill in the new task fields if enabled
         if(setting('autostart-default')) $('#new-start').attr('checked', 'checked');
+        if(setting('save-fields')) {
+            $('#new-txt').val(setting('field-name', '', true));
+            $('#new-goal-hours').val(setting('field-hours', '4', true));
+            $('#new-goal-mins').val(setting('field-mins', '0', true));
+            
+            if(setting('field-start', false, true)) $('#new-start').attr('checked', 'checked');
+            if(setting('field-indef', false, true)) {
+                $('#new-goal-indef').attr('checked', 'checked');
+                $('#new-goal-hours').attr('disabled', 'disabled');
+                $('#new-goal-mins').attr('disabled', 'disabled');
+            }
+        }
         
         // Set focus on the new task name field
         setTimeout(function() { $('#new-txt').focus(); }, 100);
@@ -466,7 +482,7 @@ function Load() {
         $('#notice').show();
     }
     
-    $.each({'confirm-reset': true, 'confirm-delete': true, 'autostart-default': false, 'stop-timer': true, 'notify': false, 'enable-charts': true, 'only-one': false}, function(i, v) {
+    $.each({'enable-charts': true, 'confirm-reset': true, 'confirm-delete': true, 'autostart-default': false, 'save-fields': true, 'stop-timer': true, 'only-one': false, 'notify': false}, function(i, v) {
         if(setting(i, v, true)) {
             $('#'+ i).attr('checked', 'checked');
         } else {
@@ -500,8 +516,17 @@ function save(timeout) {
     if(timeout) load.show();
     $('button.delete, #new-btn').attr('disabled', 'disabled');
     
-    // Save data
+    // Save task data
     localStorage['tasks'] = JSON.stringify(tasks);
+    
+    // Save current new task field contents
+    if(setting('save-fields')) {
+        setting('field-name', $('#new-txt').val());
+        setting('field-hours', $('#new-goal-hours').val());
+        setting('field-mins', $('#new-goal-mins').val());
+        setting('field-indef', $('#new-goal-indef').is(':checked'));
+        setting('field-start', $('#new-start').is(':checked'));
+    }
     
     // Timeout
     clearTimeout(save_timer);
