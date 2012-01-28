@@ -177,12 +177,12 @@ function update_time() {
                 
                 // Stop updating this one if it's at the goal
                 if(!tasks[i].indefinite && tasks[i].current_hours >= tasks[i].goal_hours && tasks[i].current_mins >= tasks[i].goal_mins) {
-                    $('#task-'+ i).addClass('done');
+                    $('tr#task-'+ i).addClass('done');
                     
                     // Stop the timer
                     if(setting('stop-timer')) {
                         toggle_task(i);
-                        $('#task-'+ i +' button.toggle').attr('disabled', 'disabled');
+                        $('tr#task-'+ i +' button.toggle').attr('disabled', 'disabled');
                     }
                     
                     // Show notification and play the sound
@@ -201,9 +201,9 @@ function update_time() {
                 if(progress == Infinity) progress = 100;
                 
                 // Update list
-                $('#task-'+ i +' td.current').text(format_time(tasks[i].current_hours, tasks[i].current_mins, tasks[i].current_secs));
+                $('tr#task-'+ i +' td.current').text(format_time(tasks[i].current_hours, tasks[i].current_mins, tasks[i].current_secs));
                 if(!tasks[i].indefinite) {
-                    $('#task-'+ i +' progress').val(progress).attr('max', '100').text(progress.toString() +'%');
+                    $('tr#task-'+ i +' progress').val(progress).attr('max', '100').text(progress.toString() +'%');
                 }
             }
         }

@@ -222,6 +222,23 @@
         "message": "Settings",
         "description": "Settings menu header"
     },
+    "generalSettings": {
+        "message": "General Settings",
+        "description": "General settings header"
+    },
+    "taskSettings": {
+        "message": "Task Settings",
+        "description": "Task settings header"
+    },
+    "notificationSettings": {
+        "message": "Notification Settings",
+        "description": "Notification settings header"
+    },
+    "performanceSettings": {
+        "message": "Performance Settings",
+        "description": "Performance settings header"
+    },
+    
     "optEnableCharts": {
         "message": "Enable pie charts",
         "description": "Setting - Enable pie charts"

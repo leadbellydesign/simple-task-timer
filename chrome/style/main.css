@@ -22,8 +22,8 @@ hr { border-color: #E9E9E9; }
 
 /* Header */
 h1, h2 { margin: 0; }
-h1 { font-size: 32px; font-weight: bold; }
-h2 { font-size: 16px; font-weight: normal; }
+h1 { font-size: 2em; font-weight: bold; }
+h2 { font-size: 1em; font-weight: normal; }
 
 /* Alerts */
 #error, #saved {
@@ -82,7 +82,7 @@ h2 { font-size: 16px; font-weight: normal; }
 
 #no-tasks {
     font-weight: bold;
-    font-size: 24px;
+    font-size: 1.5em;
 }
 
 #task-list {
@@ -123,7 +123,7 @@ tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress {
 
 /* Pie Charts */
 #charts { padding: 5px; }
-#current-pie-title, #total-pie-title { font-weight: bold; font-size: 18px; }
+#current-pie-title, #total-pie-title { font-weight: bold; font-size: 1.1em; }
 
 #current-pie { margin: 0 auto; text-align: center; width: 48%; }
 /*#total-pie { float: right; width: 48%; }*/
@@ -145,35 +145,48 @@ tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress {
 
 #modal-overlay {
     background-color: black;
-    opacity: .60;
+    opacity: .70;
 }
 
 #modal-contents {
     position: relative;
-    top: 50%;
-    margin: -175px auto;
+    top: 0;
+    left: 100%;
+    
+    margin: 0;
     padding: 10px;
     
-    width: 0px;
-    height: 0px;
+    width: 450px;
+    height: 100%;
     overflow: auto;
     
-    border: 1px solid black;
-    border-radius: 10px;
+    border-left: 1px solid black;
     
     background: #e9f6fd;
     background: -webkit-linear-gradient(top, #e9f6fd 0%,#d3eefb 100%);
     background: linear-gradient(top, #e9f6fd 0%,#d3eefb 100%);
 }
 
-#modal-buttons { float: right; }
+#modal-buttons {
+    position: absolute;
+    bottom: 30px;
+}
+
+.settings-group {
+    margin-bottom: 30px;
+}
+
+.settings-group h2 {
+    font-weight: bold;
+    text-decoration: underline;
+}
 
 /* JS Error */
 #big-error-thang {
     margin-bottom: 30px;
     
     color: red;
-    font-size: 18px;
+    font-size: 1.1em;
     font-weight: bold;
 }
 

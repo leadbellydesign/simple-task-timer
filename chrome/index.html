@@ -164,25 +164,42 @@
             <h1 i18n="settings">Settings</h1>
             <hr />
             
-            <label><input type="checkbox" id="enable-charts" /><span i18n="optEnableCharts">Enable pie charts</span></label><br />
-            <label><input type="checkbox" id="hide-notice" /><span i18n="optHideNotice">Hide the notice box</span></label><br />
-            <label><input type="checkbox" id="confirm-reset" /><span i18n="optConfirmReset">Ask to confirm when you attempt to reset a task</span></label><br />
-            <label><input type="checkbox" id="confirm-delete" /><span i18n="optConfirmDelete">Ask to confirm when you attempt to delete a task</span></label><br />
-            <label><input type="checkbox" id="autostart-default" /><span i18n="optStartDefault">Check the start checkbox by default</span></label><br />
-            <label><input type="checkbox" id="only-one" /><span i18n="optOnlyOne">Only allow one task to be running at a time</span></label><br /><br />
+            <div class="settings-group">
+                <h2 i18n="generalSettings">General Settings</h2>
+                
+                <label><input type="checkbox" id="enable-charts" /><span i18n="optEnableCharts">Enable pie charts</span></label><br />
+                <label><input type="checkbox" id="hide-notice" /><span i18n="optHideNotice">Hide the notice box</span></label><br />
+                <label><input type="checkbox" id="confirm-reset" /><span i18n="optConfirmReset">Ask to confirm when you attempt to reset a task</span></label><br />
+                <label><input type="checkbox" id="confirm-delete" /><span i18n="optConfirmDelete">Ask to confirm when you attempt to delete a task</span></label><br />
+                <label><input type="checkbox" id="autostart-default" /><span i18n="optStartDefault">Check the start checkbox by default</span></label><br />
+            </div>
             
-            <label><input type="checkbox" id="stop-timer" /><span i18n="optStopTimer">Don't allow task times to go over their goals</span></label><br />
-            <label><input type="checkbox" id="notify" /><span i18n="optShowNotification">Show a desktop notification when a task reaches its goal</span></label><br />
-            <label><input type="checkbox" id="play-sound" /><span i18n="optPlaySound">Play a sound when a task reaches its goal</span></label><br />
-            <select id="sound-type">
-                <option value="1" i18n="optUseDefault">Use the default sound</option>
-                <option value="2" i18n="optUseCustom">Use a custom sound</option>
-            </select>
-            <input type="text" id="custom-sound" placeholder="Custom Sound URL" i18n="optSoundURL" />
-            <button id="preview-sound" i18n="optPreview">Preview sound</button><br /><br />
+            <div class="settings-group">
+                <h2 i18n="taskSettings">Task Settings</h2>
+                
+                <label><input type="checkbox" id="stop-timer" /><span i18n="optStopTimer">Don't allow task times to go over their goals</span></label><br />
+                <label><input type="checkbox" id="only-one" /><span i18n="optOnlyOne">Only allow one task to be running at a time</span></label>
+            </div>
             
-            <label><span i18n="optUpdateTime1">Update the time of tasks every</span> <input type="number" min="1" max="60" value="1" size="4" id="update-time" /> <span i18n="optUpdateTime2">second(s)</span></label><br />
-            <label><span i18n="optChartUpdateTime1">Update the pie charts every</span> <input type="number" min="1" max="60" value="3" size="4" id="chart-update-time" /> <span i18n="optUpdateTime2">second(s)</span></label>
+            <div class="settings-group">
+                <h2 i18n="notificationSettings">Notification Settings</h2>
+                
+                <label><input type="checkbox" id="notify" /><span i18n="optShowNotification">Show a desktop notification when a task reaches its goal</span></label><br />
+                <label><input type="checkbox" id="play-sound" /><span i18n="optPlaySound">Play a sound when a task reaches its goal</span></label><br />
+                <select id="sound-type">
+                    <option value="1" i18n="optUseDefault">Use the default sound</option>
+                    <option value="2" i18n="optUseCustom">Use a custom sound</option>
+                </select>
+                <input type="text" id="custom-sound" placeholder="Custom Sound URL" i18n="optSoundURL" />
+                <button id="preview-sound" i18n="optPreview">Preview sound</button><br />
+            </div>
+            
+            <div class="settings-group">
+                <h2 i18n="performanceSettings">Performance Settings</h2>
+                
+                <label><span i18n="optUpdateTime1">Update the time of tasks every</span> <input type="number" min="1" max="60" value="1" size="4" id="update-time" /> <span i18n="optUpdateTime2">second(s)</span></label><br />
+                <label><span i18n="optChartUpdateTime1">Update the pie charts every</span> <input type="number" min="1" max="60" value="3" size="4" id="chart-update-time" /> <span i18n="optUpdateTime2">second(s)</span></label>
+            </div>
             
             <div id="modal-buttons">
                 <button id="save-settings" i18n="save">Save</button>

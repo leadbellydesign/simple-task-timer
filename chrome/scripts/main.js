@@ -81,15 +81,15 @@ $(document).ready(function() {
         // User clicked the Options button
         $('#options').click(function() {
             Load();
-            $('.modal').fadeIn(400, function() { $('#modal-contents').show().animate({'height': '355px'}).animate({'width': '500px'}); });
+            $('div.modal').fadeIn(600);
+            $('div#modal-contents').animate({left: ((($(window).width() - $('#modal-contents').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
         });
         
         // User clicked the cancel button in the options modal
         $('#close-modal').click(function() {
             Load();
-            $('#modal-contents').animate({'width': '0px'}).animate({'height': '0px'}, 400, function() {
-                $('.modal').fadeOut(); $('#modal-contents').hide(); 
-            });
+            $('.modal').fadeOut(600);
+            $('#modal-contents').animate({left: '100%'}, 600);
         });
         
         // User clicked the save button in the options modal
