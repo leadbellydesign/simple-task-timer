@@ -1,5 +1,5 @@
 var load, tasks = new Array(), task_running = new Array(), task_count = 0;
-var dragging = false, preview_sound = false, errord = false;
+var dragging = false, preview_sound = false, settings_open = false, errord = false;
 var current_plot = false, total_plot = false;
 var save_timer, timer, timer_step = 0;
 
@@ -81,13 +81,17 @@ $(document).ready(function() {
         // User clicked the Options button
         $('#options').click(function() {
             Load();
+            settings_open = true;
+            
             $('div.modal').fadeIn(600);
-            $('div#modal-contents').animate({left: ((($(window).width() - $('#modal-contents').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
+            $('#modal-contents').animate({left: ((($(window).width() - $('#modal-contents').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
         });
         
         // User clicked the cancel button in the options modal
         $('#close-modal').click(function() {
             Load();
+            settings_open = false;
+            
             $('.modal').fadeOut(600);
             $('#modal-contents').animate({left: '100%'}, 600);
         });
@@ -131,7 +135,7 @@ $(document).ready(function() {
             rebuild_list();
             editing_task = -1;
             
-            $('#saved').fadeIn(600).delay(2000).fadeOut(600);
+            $('#saved').center().fadeIn(600).delay(2000).fadeOut(600);
             $('#close-modal').click();
         });
         
@@ -181,8 +185,8 @@ $(document).ready(function() {
         
         // User resized window
         $(window).resize(function() {
-            $('#error').center();
-            rebuild_list();
+            $('#error, #saved').center();
+            if(settings_open) $('#modal-contents').css({left: ((($(window).width() - $('#modal-contents').outerWidth(true)) / $(window).width()) * 100).toString() + '%'});
         });
         
         // User toggled the refreshed checkbox

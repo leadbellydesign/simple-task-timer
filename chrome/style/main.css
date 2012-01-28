@@ -43,9 +43,6 @@ h2 { font-size: 1em; font-weight: normal; }
 }
 
 #saved {
-    bottom: 30px;
-    left: 25px;
-    
     color: #4F8A10;
     background-color: #DFF2BF;
     box-shadow: 0 0 15px lime;
