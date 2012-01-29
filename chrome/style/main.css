@@ -3,16 +3,26 @@ header, footer { text-align: center; }
 
 #notice, #loading, #tasks, #charts, #task-list, #task-list tfoot, #nothing, #modal-overlay, #modal, #edit-tasks, #js-error { display: none; }
 
-#options {
+#options-button {
     position: absolute;
-    top: 5px;
     right: 5px;
+    top: 5px;
 }
 
 #loading {
     position: fixed;
     bottom: 5px;
     left: 5px;
+}
+
+#settings-alert {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    
+    padding: 0;
+    border-radius: 0 0 0 360px;
+    box-shadow: 0 0 20px cyan;
 }
 
 button { margin: 2px 0px; }

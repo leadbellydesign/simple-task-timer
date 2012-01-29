@@ -1,6 +1,7 @@
 var load, tasks = new Array(), task_running = new Array(), task_count = 0;
 var dragging = false, preview_sound = false, settings_open = false, errord = false;
 var current_plot = false, total_plot = false;
+var box_size = 75, box_dir = true;
 var save_timer, timer, timer_step = 0;
 
 // Set error event (most important event)
@@ -81,12 +82,14 @@ $(document).ready(function() {
         });
         
         // User clicked the Options button
-        $('#options').click(function() {
+        $('#options-button').click(function() {
             Load();
             settings_open = true;
+            setting('new-settings', false)
             
             $('div.modal').fadeIn(600);
             $('#modal-contents').animate({left: ((($(window).width() - $('#modal-contents').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
+            $('#settings-alert').fadeOut(800);
         });
         
         // User clicked the cancel button in the options modal
@@ -341,6 +344,7 @@ $(document).ready(function() {
         });
         
         $('#tasks').show();
+        settings_alert();
         rebuild_totals();
         rebuild_charts();
     } catch(e) {
@@ -534,4 +538,11 @@ function save(timeout) {
     
     $('button.delete, #new-btn').removeAttr('disabled');
     if(timeout) load.hide();
+}
+
+function settings_alert() {
+    if(setting('new-settings', true, true)) {
+        $('#settings-alert').animate({width: '150px', height: '150px'}, 800).animate({width: '75px', height: '75px'}, 800);
+        setTimeout('settings_alert()', 800);
+    }
 }
