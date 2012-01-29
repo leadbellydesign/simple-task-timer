@@ -3,20 +3,20 @@ header, footer { text-align: center; }
 
 #notice, #loading, #tasks, #charts, #task-list, #task-list tfoot, #nothing, #modal-overlay, #modal, #edit-tasks, #js-error { display: none; }
 
-#tools-button {
-    position: absolute;
-    right: 5px;
-    top: 5px;
-}
-
 #loading {
     position: fixed;
     bottom: 5px;
     left: 5px;
 }
 
+#tools-button {
+    position: fixed;
+    right: 5px;
+    top: 5px;
+}
+
 #tools-alert {
-    position: absolute;
+    position: fixed;
     top: 0px;
     right: 0px;
     
