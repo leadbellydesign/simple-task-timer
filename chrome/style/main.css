@@ -15,10 +15,10 @@ header, footer { text-align: center; }
     top: 5px;
 }
 
-#tools-alert {
+#tools-pulsate {
     position: fixed;
-    top: 0px;
-    right: 0px;
+    top: 0;
+    right: 0;
     
     width: 0;
     height: 0;

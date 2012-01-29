@@ -132,11 +132,10 @@ $(document).ready(function() {
         $('#tools-button').click(function() {
             Load();
             tools_open = true;
-            setting('new-settings', false)
+            setting('new-settings', false);
             
-            $('div.modal').fadeIn(600);
+            $('div.modal').fadeIn(600, function() { $('#tools-alert').stop(1, 1).fadeOut(400); });
             $('#tools-menu').animate({left: ((($(window).width() - $('#tools-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
-            $('#tools-alert').fadeOut(400);
         });
         
         // User clicked the close button in the tools modal
@@ -380,7 +379,7 @@ $(document).ready(function() {
         });
         
         $('#tasks').show();
-        settings_alert();
+        tools_pulsate();
         rebuild_totals();
         rebuild_charts();
     } catch(e) {
@@ -589,9 +588,10 @@ function save(timeout) {
     if(timeout) load.hide();
 }
 
-function settings_alert() {
+// The little pulsate effect on the tools button
+function tools_pulsate() {
     if(setting('new-settings', true, true)) {
-        $('#tools-alert').animate({width: '150px', height: '150px'}, 800).animate({width: '75px', height: '75px'}, 800);
-        setTimeout('settings_alert()', 1600);
+        $('#tools-pulsate').animate({width: '150px', height: '150px'}, 800).animate({width: '75px', height: '75px'}, 800);
+        setTimeout('tools_pulsate()', 1600);
     }
 }
