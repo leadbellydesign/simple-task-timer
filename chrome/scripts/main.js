@@ -136,7 +136,7 @@ $(document).ready(function() {
             
             $('div.modal').fadeIn(600);
             $('#tools-menu').animate({left: ((($(window).width() - $('#tools-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
-            $('#tools-alert').stop(true, true).fadeOut(400);
+            $('#tools-alert').fadeOut(400);
         });
         
         // User clicked the close button in the tools modal
@@ -592,6 +592,6 @@ function save(timeout) {
 function settings_alert() {
     if(setting('new-settings', true, true)) {
         $('#tools-alert').animate({width: '150px', height: '150px'}, 800).animate({width: '75px', height: '75px'}, 800);
-        setTimeout('settings_alert()', 800);
+        setTimeout('settings_alert()', 1600);
     }
 }
