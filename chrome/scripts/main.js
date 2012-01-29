@@ -5,6 +5,7 @@ var save_timer, timer, timer_step = 0;
 
 var settings_checkboxes = {
     'enable-charts': true,
+    'hide-notice': false,
     'confirm-reset': true,
     'confirm-delete': true,
     'autostart-default': false,
@@ -156,7 +157,7 @@ $(document).ready(function() {
             }
         });
         
-        // User clicked the save button in the tools modal
+        // User clicked the save button in the tools menu
         $('#save-settings').click(function() {
             // Save the state of the checkboxes
             for(i in settings_checkboxes) {
