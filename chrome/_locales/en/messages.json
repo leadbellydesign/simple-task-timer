@@ -212,12 +212,15 @@
         "message": "Add Task",
         "description": "Add Task"
     },
+    "stopAlarm": {
+        "message": "Stop Alarm",
+        "description": "Stop alarm"
+    },
     
     "currentPieTitle": {
         "message": "Time Spent on Tasks",
         "description": "Title for the time spent pie chart"
     },
-    
     
     
     "tools": {
@@ -286,6 +289,10 @@
         "message": "Notification Settings",
         "description": "Notification settings header"
     },
+    "optShowPopup": {
+        "message": "Show a popup on the page when a task reaches its goal",
+        "description": "Setting - Show popup"
+    },
     "optShowNotification": {
         "message": "Show a desktop notification when a task reaches its goal",
         "description": "Setting - Show desktop notification"
@@ -309,6 +316,10 @@
     "optPreview": {
         "message": "Preview sound",
         "description": "Setting - Preview the sound"
+    },
+    "optLoopSound": {
+        "message": "Loop the sound until you stop it",
+        "description": "Setting - Loop the sound"
     },
     
     "performanceSettings": {

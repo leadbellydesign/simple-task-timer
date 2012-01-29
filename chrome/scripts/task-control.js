@@ -192,6 +192,10 @@ function update_time() {
                         if(setting('notify') && webkitNotifications.checkPermission() == 0) {
                             webkitNotifications.createNotification('/style/images/icon-64.png', locale('taskFinished'), locale('taskFinishedLong', tasks[i].text)).show();
                         }
+                        
+                        $('#alarm-txt').text(locale('taskFinishedLong', tasks[i].text));
+                        $('.modal, #alarm').fadeIn(600);
+                        $('#alarm').center();
                     }
                 }
                 

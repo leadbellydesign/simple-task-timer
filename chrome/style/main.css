@@ -1,7 +1,7 @@
 /* Page Layout */
 header, footer { text-align: center; }
 
-#notice, #loading, #tasks, #charts, #task-list, #task-list tfoot, #nothing, #modal-overlay, #modal, #edit-tasks, #js-error { display: none; }
+#notice, #loading, #tasks, #charts, #task-list, #task-list tfoot, #nothing, #modal-overlay, #modal, #alarm, #edit-tasks, #js-error { display: none; }
 
 #loading {
     position: fixed;
@@ -143,7 +143,7 @@ tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress {
     height: 400px;
 }
 
-/* Tools Modal */
+/* Modal */
 #modal, #modal-overlay {
     position: fixed;
     top: 0px;
@@ -158,7 +158,24 @@ tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress {
     opacity: .70;
 }
 
-#modal-contents {
+/* Alarm menu */
+#alarm {
+    position: fixed;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    
+    background: #e9f6fd;
+    background: -webkit-linear-gradient(top, #e9f6fd 0%,#d3eefb 100%);
+    background: linear-gradient(top, #e9f6fd 0%,#d3eefb 100%);
+}
+
+#close-alarm {
+    font-size: 1em;
+}
+
+/* Tools menu */
+#tools-menu {
     position: relative;
     top: 0;
     left: 100%;

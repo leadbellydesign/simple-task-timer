@@ -160,7 +160,12 @@
     
     <div id="modal-overlay" class="modal"></div>
     <div id="modal" class="modal">
-        <div id="modal-contents">
+        <div id="alarm">
+            <h2 id="alarm-txt">Task "YOURFACE" has completed!</h1>
+            <button id="close-alarm" i18n="close">Close</button>
+        </div>
+        
+        <div id="tools-menu">
             <button id="close-modal"><img src="style/images/cross.png" width="16" height="16" alt="Close" i18n="close" /></button>
             
             <h1 i18n="tools">Tools</h1>
@@ -196,14 +201,17 @@
             <div class="tools-group">
                 <h2 i18n="notificationSettings">Notification Settings</h2>
                 
-                <label><input type="checkbox" id="notify" /><span i18n="optShowNotification">Show a desktop notification when a task reaches its goal</span></label><br />
+                <label><input type="checkbox" id="show-popup" /><span i18n="optShowPopup">Show a popup on the page when a task reaches its goal</span></label><br />
+                <label><input type="checkbox" id="notify" /><span i18n="optShowNotification">Show a desktop notification when a task reaches its goal</span></label><br /><br />
+                
                 <label><input type="checkbox" id="play-sound" /><span i18n="optPlaySound">Play a sound when a task reaches its goal</span></label><br />
+                <label><input type="checkbox" id="loop-sound" /><span i18n="optLoopSound">Loop the sound until you stop it</span></label><br />
                 <select id="sound-type">
                     <option value="1" i18n="optUseDefault">Use the default sound</option>
                     <option value="2" i18n="optUseCustom">Use a custom sound</option>
                 </select>
                 <input type="text" id="custom-sound" placeholder="Custom Sound URL" i18n="optSoundURL" />
-                <button id="preview-sound" i18n="optPreview">Preview sound</button><br />
+                <button id="preview-sound" i18n="optPreview">Preview sound</button>
             </div>
             
             <div class="tools-group">

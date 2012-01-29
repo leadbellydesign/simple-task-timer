@@ -3,6 +3,21 @@ var dragging = false, preview_sound = false, tools_open = false, errord = false;
 var current_plot = false, total_plot = false;
 var save_timer, timer, timer_step = 0;
 
+var settings_checkboxes = {
+    'enable-charts': true,
+    'confirm-reset': true,
+    'confirm-delete': true,
+    'autostart-default': false,
+    'save-fields': true,
+    
+    'stop-timer': true,
+    'only-one': false,
+    
+    'show-popup': true,
+    'notify': false,
+    'loop-sound': false
+};
+
 // Set error event (most important event)
 window.onerror = function(msg, url, line) { error_notice(msg, url, line); };
 
@@ -75,17 +90,6 @@ $(document).ready(function() {
             if($(this).val() == '' || parseInt($(this).val()) < 0) $(this).val('0');
         });
         
-        // User is leaving the page... Save the data.
-        $(window).unload(function() {
-            save();
-        });
-        
-        // User resized window
-        $(window).resize(function() {
-            $('#error, #saved').center();
-            if(tools_open) $('#modal-contents').css({left: ((($(window).width() - $('#modal-contents').outerWidth(true)) / $(window).width()) * 100).toString() + '%'});
-        });
-        
         // User toggled the refreshed checkbox
         $('#refreshed').change(function() {
             if($('#refreshed').is(':checked')) {
@@ -111,6 +115,17 @@ $(document).ready(function() {
             }
         });
         
+        // User is leaving the page... Save the data.
+        $(window).unload(function() {
+            save();
+        });
+        
+        // User resized window
+        $(window).resize(function() {
+            $('#error, #saved, #close-alarm').center();
+            if(tools_open) $('#tools-menu').css({left: ((($(window).width() - $('#tools-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'});
+        });
+        
         
         
         // User clicked the tools button
@@ -120,8 +135,8 @@ $(document).ready(function() {
             setting('new-settings', false)
             
             $('div.modal').fadeIn(600);
-            $('#modal-contents').animate({left: ((($(window).width() - $('#modal-contents').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
-            $('#tools-alert').fadeOut(800);
+            $('#tools-menu').animate({left: ((($(window).width() - $('#tools-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
+            $('#tools-alert').stop(true, true).fadeOut(400);
         });
         
         // User clicked the close button in the tools modal
@@ -130,7 +145,7 @@ $(document).ready(function() {
             tools_open = false;
             
             $('.modal').fadeOut(600);
-            $('#modal-contents').animate({left: '100%'}, 600);
+            $('#tools-menu').animate({left: '100%'}, 600);
         });
         
         // User clicked the delete tasks button
@@ -144,19 +159,12 @@ $(document).ready(function() {
         
         // User clicked the save button in the tools modal
         $('#save-settings').click(function() {
-            // Save the settings
-            setting('enable-charts', $('#enable-charts').is(':checked'));
-            setting('hide-notice', $('#hide-notice').is(':checked'));
-            setting('confirm-reset', $('#confirm-reset').is(':checked'));
-            setting('confirm-delete', $('#confirm-delete').is(':checked'));
-            setting('autostart-default', $('#autostart-default').is(':checked'));
-            setting('save-fields', $('#save-fields').is(':checked'));
+            // Save the state of the checkboxes
+            for(i in settings_checkboxes) {
+                setting(i, $('#'+ i).is(':checked'));
+            }
             
-            setting('stop-timer', $('#stop-timer').is(':checked'));
-            setting('only-one', $('#only-one').is(':checked'));
-            
-            setting('notify', $('#notify').is(':checked'));
-            setting('play-sound', $('#play-sound').is(':checked'));
+            // Save the other field types
             setting('sound-type', $('#sound-type').val());
             setting('custom-sound', $('#custom-sound').val());
             
@@ -191,10 +199,19 @@ $(document).ready(function() {
         // User changed the play sound checkbox
         $('#play-sound').change(function() {
             if($('#play-sound').is(':checked')) {
-                $('#sound-type, #preview-sound').removeAttr('disabled');
+                $('#sound-type, #preview-sound, #loop-sound').removeAttr('disabled');
                 if($('#sound-type').val() == '2') $('#custom-sound').removeAttr('disabled');
             } else {
-                $('#sound-type, #custom-sound, #preview-sound').attr('disabled', 'disabled');
+                $('#sound-type, #custom-sound, #preview-sound, #loop-sound').attr('disabled', 'disabled');
+            }
+        });
+        
+        // User changed the loop sound checkbox
+        $('#loop-sound').change(function() {
+            if($('#loop-sound').is(':checked')) {
+                $('#show-popup').attr('disabled', 'disabled');
+            } else {
+                $('#show-popup').removeAttr('disabled');
             }
         });
         
@@ -232,6 +249,12 @@ $(document).ready(function() {
             }
         });
         
+        // User clicked the stop alarm button
+        $('#close-alarm').click(function() {
+            document.getElementById('sound').pause();
+            document.getElementById('sound').currentTime = 0;
+            $('#alarm, .modal').fadeOut(600);
+        });
         
         
         /**************************************************
@@ -486,11 +509,20 @@ function rebuild_charts() {
 
 // Load the settings
 function Load() {
-    $('#sound-type').val(setting('sound-type', 1, true));
     $('#custom-sound').val(setting('custom-sound', '', true));
     $('#update-time').val(setting('update-time', 1, true));
     $('#chart-update-time').val(setting('chart-update-time', 3, true));
     
+    // Check/uncheck checkboxes
+    $.each(settings_checkboxes, function(i, v) {
+        if(setting(i, v, true)) {
+            $('#'+ i).attr('checked', 'checked');
+        } else {
+            $('#'+ i).removeAttr('checked');
+        }
+    });
+    
+    // Display/hide the notice
     if(setting('hide-notice', false, true)) {
         $('#hide-notice').attr('checked', 'checked');
         $('#notice').hide();
@@ -499,17 +531,21 @@ function Load() {
         $('#notice').show();
     }
     
-    $.each({'enable-charts': true, 'confirm-reset': true, 'confirm-delete': true, 'autostart-default': false, 'save-fields': true, 'stop-timer': true, 'only-one': false, 'notify': false}, function(i, v) {
-        if(setting(i, v, true)) {
-            $('#'+ i).attr('checked', 'checked');
-        } else {
-            $('#'+ i).removeAttr('checked');
-        }
-    });
+    // Set the audio to loop if looping is enabled
+    if(setting('loop-sound', false, true)) {
+        $('#sound').attr('loop', 'loop');
+        $('#close-alarm').text(locale('stopAlarm'));
+        $('#show-popup').attr('disabled', 'disabled');
+    } else {
+        $('#sound').removeAttr('loop');
+        $('#close-alarm').text(locale('close'));
+        $('#show-popup').removeAttr('disabled');
+    }
     
+    // Do stuff for the notification sound
     if(setting('play-sound', true, true)) {
         $('#play-sound').attr('checked', 'checked');
-        $('#sound-type, #preview-sound').removeAttr('disabled');
+        $('#sound-type, #preview-sound, #loop-sound').removeAttr('disabled');
         if($('#sound-type').val() == '2') {
             $('#custom-sound').removeAttr('disabled');
         } else {
@@ -517,11 +553,11 @@ function Load() {
         }
     } else {
         $('#play-sound').removeAttr('checked');
-        $('#sound-type, #custom-sound, #preview-sound').attr('disabled', 'disabled');
+        $('#sound-type, #custom-sound, #preview-sound, #loop-sound').attr('disabled', 'disabled');
     }
     
     // If the user has chosen to use a custom sound, set the audio element's src to the custom sound path
-    if(setting('sound-type') == 2) {
+    if(setting('sound-type', 1, true) == 2) {
         $('#sound').attr('src', setting('custom-sound'));
     } else {
         $('#sound').attr('src', 'Deneb.ogg');
