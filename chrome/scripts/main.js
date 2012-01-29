@@ -252,11 +252,12 @@ $(document).ready(function() {
             }
         });
         
-        // User clicked the stop alarm button
+        // User clicked the close alarm button
         $('#close-alarm').click(function() {
             document.getElementById('sound').pause();
             document.getElementById('sound').currentTime = 0;
-            $('#alarm, .modal').fadeOut(600);
+            $('#alarm').fadeOut(600);
+            if(!tools_open) $('#.modal').fadeOut(600);
         });
         
         
