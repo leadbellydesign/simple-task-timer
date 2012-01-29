@@ -122,7 +122,7 @@ $(document).ready(function() {
         
         // User resized window
         $(window).resize(function() {
-            $('#error, #saved, #close-alarm').center();
+            $('#error, #saved, #alarm').center();
             if(tools_open) $('#tools-menu').css({left: ((($(window).width() - $('#tools-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'});
         });
         
