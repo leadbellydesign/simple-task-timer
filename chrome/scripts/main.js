@@ -134,7 +134,7 @@ $(document).ready(function() {
             tools_open = true;
             setting('new-settings', false);
             
-            $('div.modal').fadeIn(600, function() { $('#tools-alert').stop(1, 1).fadeOut(400); });
+            $('div.modal').fadeIn(600, function() { $('#tools-pulsate').stop(1, 1).fadeOut(400); });
             $('#tools-menu').animate({left: ((($(window).width() - $('#tools-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
         });
         
