@@ -218,6 +218,23 @@
         "description": "Title for the time spent pie chart"
     },
     
+    
+    
+    "tools": {
+        "message": "Tools",
+        "description": "Tools menu header"
+    },
+    
+    "deleteTasks": {
+        "message": "Delete all tasks",
+        "description": "Delete all tasks"
+    },
+    "clearData": {
+        "message": "Clear all of the app's data",
+        "description": "Clear all data"
+    },
+    
+    
     "settings": {
         "message": "Settings",
         "description": "Settings menu header"
@@ -311,6 +328,11 @@
         "description": "Setting - Chart update time first label"
     },
     
+    "saveSettings": {
+        "message": "Save Settings",
+        "description": "Save settings header"
+    },
+    
     "notificationsWork": {
         "message": "Desktop Notifications Work!",
         "description": "Desktop notifications work"
@@ -344,6 +366,11 @@
                 "example": "Task Name"
             }
         }
+    },
+    
+    "confirmDeleteTasks": {
+        "message": "Are you sure you want to delete all of your tasks?",
+        "description": "Confirmation notice on deletion of all tasks"
     },
     "confirmResetData": {
         "message": "Are you sure you want to wipe all of Task Timer's data?",

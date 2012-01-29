@@ -1,7 +1,6 @@
 var load, tasks = new Array(), task_running = new Array(), task_count = 0;
-var dragging = false, preview_sound = false, settings_open = false, errord = false;
+var dragging = false, preview_sound = false, tools_open = false, errord = false;
 var current_plot = false, total_plot = false;
-var box_size = 75, box_dir = true;
 var save_timer, timer, timer_step = 0;
 
 // Set error event (most important event)
@@ -81,27 +80,69 @@ $(document).ready(function() {
             save();
         });
         
-        // User clicked the Options button
-        $('#options-button').click(function() {
+        // User resized window
+        $(window).resize(function() {
+            $('#error, #saved').center();
+            if(tools_open) $('#modal-contents').css({left: ((($(window).width() - $('#modal-contents').outerWidth(true)) / $(window).width()) * 100).toString() + '%'});
+        });
+        
+        // User toggled the refreshed checkbox
+        $('#refreshed').change(function() {
+            if($('#refreshed').is(':checked')) {
+                $('.clear-data').first().removeAttr('disabled');
+            } else {
+                $('.clear-data').first().attr('disabled', 'disabled');
+            }
+        });
+        
+        // User clicked the totals row help button
+        $('#totals-help').click(function() {
+            alert(locale('totalsHelp'));
+        });
+        
+        // User clicked one of the clear data buttons
+        $('.clear-data').click(function() {
+            if(confirm(locale('confirmResetData'))) {
+                $(window).unbind();
+                clearTimeout(save_timer);
+                clearTimeout(timer);
+                localStorage.clear();
+                location.reload();
+            }
+        });
+        
+        
+        
+        // User clicked the tools button
+        $('#tools-button').click(function() {
             Load();
-            settings_open = true;
+            tools_open = true;
             setting('new-settings', false)
             
             $('div.modal').fadeIn(600);
             $('#modal-contents').animate({left: ((($(window).width() - $('#modal-contents').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
-            $('#settings-alert').fadeOut(800);
+            $('#tools-alert').fadeOut(800);
         });
         
-        // User clicked the cancel button in the options modal
+        // User clicked the close button in the tools modal
         $('#close-modal').click(function() {
             Load();
-            settings_open = false;
+            tools_open = false;
             
             $('.modal').fadeOut(600);
             $('#modal-contents').animate({left: '100%'}, 600);
         });
         
-        // User clicked the save button in the options modal
+        // User clicked the delete tasks button
+        $('#delete-tasks').click(function() {
+            if(confirm(locale('confirmDeleteTasks'))) {
+                for(i = task_count - 1; i >= 0; i--) {
+                    delete_task(i, true);
+                }
+            }
+        });
+        
+        // User clicked the save button in the tools modal
         $('#save-settings').click(function() {
             // Save the settings
             setting('enable-charts', $('#enable-charts').is(':checked'));
@@ -188,35 +229,6 @@ $(document).ready(function() {
                 $('#preview-sound').text(locale('error'));
                 setTimeout(function() { $('#preview-sound').text(locale('optPreview')).removeAttr('disabled'); }, 2000);
             }
-        });
-        
-        // User resized window
-        $(window).resize(function() {
-            $('#error, #saved').center();
-            if(settings_open) $('#modal-contents').css({left: ((($(window).width() - $('#modal-contents').outerWidth(true)) / $(window).width()) * 100).toString() + '%'});
-        });
-        
-        // User toggled the refreshed checkbox
-        $('#refreshed').change(function() {
-            if($('#refreshed').is(':checked')) {
-                $('#clear-data').removeAttr('disabled');
-            } else {
-                $('#clear-data').attr('disabled', 'disabled');
-            }
-        });
-        
-        // User clicked the clear data button
-        $('#clear-data').click(function() {
-            if(confirm(locale('confirmResetData'))) {
-                $(window).unbind();
-                localStorage.clear();
-                location.reload();
-            }
-        });
-        
-        // User clicked the totals row help button
-        $('#totals-help').click(function() {
-            alert(locale('totalsHelp'));
         });
         
         
@@ -542,7 +554,7 @@ function save(timeout) {
 
 function settings_alert() {
     if(setting('new-settings', true, true)) {
-        $('#settings-alert').animate({width: '150px', height: '150px'}, 800).animate({width: '75px', height: '75px'}, 800);
+        $('#tools-alert').animate({width: '150px', height: '150px'}, 800).animate({width: '75px', height: '75px'}, 800);
         setTimeout('settings_alert()', 800);
     }
 }

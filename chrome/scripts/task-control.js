@@ -24,9 +24,9 @@ function reset_task(task) {
 }
 
 // Delete a task
-function delete_task(task) {
+function delete_task(task, override) {
     try {
-        if(!setting('confirm-delete') || confirm(locale('confirmDelete', tasks[task].text))) {
+        if(override || !setting('confirm-delete') || confirm(locale('confirmDelete', tasks[task].text))) {
             load.show();
             $('#new-btn, #task-'+ task +' button').attr('disabled', 'disabled');
             $('#task-list tbody tr').addClass('nodrag nodrop');
