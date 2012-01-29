@@ -185,6 +185,9 @@ $(document).ready(function() {
             // Check the auto-start box if setting is enabled
             if(setting('autostart-default')) $('#new-start').attr('checked', 'checked');
             
+            // Hide/show the notice box
+            if(setting('hide-notice')) $('#notice').fadeOut(800); else $('#notice').fadeIn(800);
+            
             clearTimeout(timer);
             timer = setTimeout('update_time()', setting('update-time') * 1000);
             
