@@ -257,7 +257,7 @@ $(document).ready(function() {
             document.getElementById('sound').pause();
             document.getElementById('sound').currentTime = 0;
             $('#alarm').fadeOut(600);
-            if(!tools_open) $('#.modal').fadeOut(600);
+            if(!tools_open) $('.modal').fadeOut(600);
         });
         
         
