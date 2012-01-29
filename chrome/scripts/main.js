@@ -183,8 +183,9 @@ $(document).ready(function() {
             rebuild_list();
             editing_task = -1;
             
-            $('#saved').center().fadeIn(600).delay(2000).fadeOut(600);
-            $('#close-modal').click();
+            $('#saved').center().stop(true, true).fadeIn(600).delay(2000).fadeIn(10, function() {
+                $(this).stop(true, true).fadeOut(600);
+            });
         });
         
         // User changed the play sound checkbox
