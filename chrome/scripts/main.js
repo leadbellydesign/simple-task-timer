@@ -1,7 +1,8 @@
-var load, tasks = new Array(), task_running = new Array(), task_count = 0;
-var dragging = false, preview_sound = false, tools_open = false, errord = false;
-var current_plot = false, total_plot = false;
-var save_timer, timer, timer_step = 0;
+var load, dragging = false, preview_sound = false, errord = false; // General variables
+var tasks = new Array(), task_running = new Array(), task_count = 0; // Task variables
+var alarm_open = false, task_open = false, tools_open = false; // Menu state variables
+var current_plot = false, total_plot = false; // Plot variables
+var save_timer, timer, timer_step = 0; // Timer variables
 
 var settings_checkboxes = {
     'enable-charts': true,
@@ -20,7 +21,7 @@ var settings_checkboxes = {
 };
 
 // Set error event (most important event)
-window.onerror = function(msg, url, line) { error_notice(msg, url, line); };
+window.onerror = function(msg, url, line) { js_error(msg, url, line); };
 
 // Document finished loading
 $(document).ready(function() {
@@ -55,7 +56,7 @@ $(document).ready(function() {
                     'notified': false
                 });
                 
-                $('#task-list').tableDnDUpdate();
+                $('table#task-list').tableDnDUpdate();
                 
                 if($('#new-start').is(':checked')) toggle_task(task_count - 1);
                 save();
@@ -64,9 +65,7 @@ $(document).ready(function() {
                 if(setting('autostart-default')) $('#new-start').attr('checked', 'checked');
                 rebuild_charts();
             } else {
-                $('#error').text(locale('invalid')).center().stop(true, true).fadeIn(600).delay(2000).fadeIn(10, function() {
-                    $(this).stop(true, true).fadeOut(600);
-                });
+                error('invalid');
             }
         });
         
@@ -123,10 +122,40 @@ $(document).ready(function() {
         
         // User resized window
         $(window).resize(function() {
-            $('#error, #saved, #alarm').center();
+            $('#error, #saved, #alarm-menu').center();
+            if(task_open) $('#task-menu').css({left: ((($(window).width() - $('#task-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'});
             if(tools_open) $('#tools-menu').css({left: ((($(window).width() - $('#tools-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'});
         });
         
+        
+        // User clicked the close button in one of the menus
+        $('.close-menus').click(function() {
+            Load();
+            tools_open = false;
+            
+            $('#modal').fadeOut(600);
+            $('#tools-menu').animate({left: '100%'}, 600);
+        });
+        
+        
+        // User clicked the close alarm button
+        $('#close-alarm').click(function() {
+            document.getElementById('sound').pause();
+            document.getElementById('sound').currentTime = 0;
+            alarm_open = false;
+            
+            $('#alarm-menu').fadeOut(600);
+            if(!task_open && !tools_open) $('#modal').fadeOut(600);
+        });
+        
+        
+        // User clicked the info button on a task
+        $('button.task-info').click(function() {
+            task_open = true;
+            
+            $('#modal').fadeIn(600);
+            $('#task-menu').animate({left: ((($(window).width() - $('div#task-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
+        });
         
         
         // User clicked the tools button
@@ -135,17 +164,8 @@ $(document).ready(function() {
             tools_open = true;
             setting('new-settings', false);
             
-            $('div.modal').fadeIn(600, function() { $('#tools-pulsate').stop(true, true).fadeOut(400); });
+            $('#modal').fadeIn(600, function() { $('#tools-pulsate').stop(true, true).fadeOut(400); });
             $('#tools-menu').animate({left: ((($(window).width() - $('#tools-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
-        });
-        
-        // User clicked the close button in the tools modal
-        $('#close-modal').click(function() {
-            Load();
-            tools_open = false;
-            
-            $('.modal').fadeOut(600);
-            $('#tools-menu').animate({left: '100%'}, 600);
         });
         
         // User clicked the delete tasks button
@@ -252,14 +272,6 @@ $(document).ready(function() {
             }
         });
         
-        // User clicked the close alarm button
-        $('#close-alarm').click(function() {
-            document.getElementById('sound').pause();
-            document.getElementById('sound').currentTime = 0;
-            $('#alarm').fadeOut(600);
-            if(!tools_open) $('.modal').fadeOut(600);
-        });
-        
         
         /**************************************************
          ***********      D O   S T U F F       ***********
@@ -358,7 +370,7 @@ $(document).ready(function() {
         }
         
         // Make the table rows draggable
-        $('#task-list').tableDnD({
+        $('table#task-list').tableDnD({
             dragHandle: 'drag',
             
             /*onDragStart: function(table, row) {
@@ -369,7 +381,7 @@ $(document).ready(function() {
             
             onDrop: function(table, row) {
                 var old_id = parseInt($(row).attr('id').replace('task-', ''));
-                var id = $('#task-list tbody tr').index(row);
+                var id = $('table#task-list tbody tr').index(row);
                 var tmp = tasks[old_id], tmp2 = task_running[old_id];
                 
                 if(typeof tasks[old_id] != 'undefined' /*&& tasks[old_id] === dragging*/) {
@@ -383,25 +395,25 @@ $(document).ready(function() {
             }
         });
         
-        $('#tasks').show();
+        $('div#tasks').show();
         tools_pulsate();
         rebuild_totals();
         rebuild_charts();
     } catch(e) {
-        error_notice(e);
+        js_error(e);
     }
 });
 
 // Rebuild the task list
 function rebuild_list() {
     editing_task = -1;
-    $('#task-list tbody').empty().removeClass('editing-name editing-current editing-goal');
+    $('table#task-list tbody').empty().removeClass('editing-name editing-current editing-goal');
     
     for(i = 0; i < task_count; i++) {
         list_task(i, 0);
     }
     
-    $('#task-list').tableDnDUpdate();
+    $('table#task-list').tableDnDUpdate();
     rebuild_totals();
     rebuild_charts();
 }
@@ -447,11 +459,11 @@ function rebuild_totals() {
         if(isNaN(progress)) progress = 0;
         
         // Display
-        $('#task-list tfoot td.current').text(format_time(current_hours, current_mins, current_secs));
-        $('#task-list tfoot td.goal').text(format_time(goal_hours, goal_mins, 0));
-        $('#task-list tfoot progress').text(progress.toString() + '%').val(progress);
+        $('table#task-list tfoot td.current').text(format_time(current_hours, current_mins, current_secs));
+        $('table#task-list tfoot td.goal').text(format_time(goal_hours, goal_mins, 0));
+        $('table#task-list tfoot progress').text(progress.toString() + '%').val(progress);
         
-        if(task_count >= 2) $('#task-list tfoot').fadeIn(); else $('#task-list tfoot').fadeOut();
+        if(task_count >= 2) $('table#task-list tfoot').fadeIn(); else $('table#task-list tfoot').fadeOut();
     }
 }
 

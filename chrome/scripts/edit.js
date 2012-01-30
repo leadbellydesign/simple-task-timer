@@ -30,7 +30,7 @@ function edit_name(task) {
             if(task != editing_task) alert(locale('finishEditing', tasks[editing_task].text));
         }
     } catch(e) {
-        error_notice(e);
+        js_error(e);
     }
 }
 
@@ -50,10 +50,10 @@ function save_name(task) {
             editing_task = -1;
             save();
         } else {
-            $('#error').text(locale('invalidName')).center().fadeIn(600).delay(2000).fadeOut(600);
+            error('invalidName');
         }
     } catch(e) {
-        error_notice(e);
+        js_error(e);
     }
 }
 
@@ -99,7 +99,7 @@ function edit_current(task) {
             if(task != editing_task) alert(locale('finishEditing', tasks[editing_task].text));
         }
     } catch(e) {
-        error_notice(e);
+        js_error(e);
     }
 }
 
@@ -127,7 +127,7 @@ function save_current(task) {
         save();
         if(was_running) toggle_task(task);
     } catch(e) {
-        error_notice(e);
+        js_error(e);
     }
 }
 
@@ -184,7 +184,7 @@ function edit_goal(task) {
             if(task != editing_task) alert(locale('finishEditing', tasks[editing_task].text));
         }
     } catch(e) {
-        error_notice(e);
+        js_error(e);
     }
 }
 
@@ -211,10 +211,10 @@ function save_goal(task) {
             save();
             if(was_running) toggle_task(task);
         } else {
-            $('#error').text(locale('invalidGoalTime')).center().fadeIn(600).delay(2000).fadeOut(600);
+            error('invalidGoalTime');
         }
     } catch(e) {
-        error_notice(e);
+        js_error(e);
     }
 }
 
@@ -224,6 +224,6 @@ function cancel_edit() {
         editing_task = -1;
         rebuild_list();
     } catch(e) {
-        error_notice(e);
+        js_error(e);
     }
 }

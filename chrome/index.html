@@ -158,15 +158,15 @@
     </footer>
     
     
-    <div id="modal-overlay" class="modal"></div>
     <div id="modal" class="modal">
-        <div id="alarm">
-            <div id="alarm-txt">Task "YOURFACE" has completed!</div>
-            <button id="close-alarm" i18n="close">Close</button>
+        <div id="task-menu">
+            <button class="close-menus"><img src="style/images/cross.png" width="16" height="16" alt="Close" i18n="close" /></button>
+            
+            herp derp
         </div>
         
-        <div id="tools-menu">
-            <button id="close-modal"><img src="style/images/cross.png" width="16" height="16" alt="Close" i18n="close" /></button>
+        <div id="tools-menu" class="modal">
+            <button class="close-menus"><img src="style/images/cross.png" width="16" height="16" alt="Close" i18n="close" /></button>
             
             <h1 i18n="tools">Tools</h1>
             <hr />
@@ -226,6 +226,11 @@
                 
                 <button id="save-settings" i18n="save">Save</button>
             </div>
+        </div>
+        
+        <div id="alarm-menu" class="modal">
+            <div id="alarm-txt">Task "YOURFACE" has completed!</div>
+            <button id="close-alarm" i18n="close">Close</button>
         </div>
     </div>
     

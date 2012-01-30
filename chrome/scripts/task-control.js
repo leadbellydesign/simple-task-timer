@@ -17,7 +17,7 @@ function reset_task(task) {
             rebuild_list();
         }
     } catch(e) {
-        error_notice(e);
+        js_error(e);
     }
     
     rebuild_totals();
@@ -29,8 +29,8 @@ function delete_task(task, override) {
         if(override || !setting('confirm-delete') || confirm(locale('confirmDelete', tasks[task].text))) {
             load.show();
             $('#new-btn, #task-'+ task +' button').attr('disabled', 'disabled');
-            $('#task-list tbody tr').addClass('nodrag nodrop');
-            $('#task-list').tableDnDUpdate();
+            $('table#task-list tbody tr').addClass('nodrag nodrop');
+            $('table#task-list').tableDnDUpdate();
             
             if(task_running[task]) toggle_task(task);
             
@@ -42,8 +42,8 @@ function delete_task(task, override) {
             setTimeout(function() {
                 if(task_count == 0) {
                     $('#edit-tasks').fadeOut();
-                    $('#task-list').fadeOut(400, function() {
-                        $('#task-list tbody').empty();
+                    $('table#task-list').fadeOut(400, function() {
+                        $('table#task-list tbody').empty();
                         $('#no-tasks').fadeIn();
                         
                         $('#new-btn').removeAttr('disabled');
@@ -55,7 +55,7 @@ function delete_task(task, override) {
                     });
                 }
                 
-                if(task_count >= 2) $('#task-list tfoot').fadeIn(); else $('#task-list tfoot').fadeOut();
+                if(task_count >= 2) $('table#task-list tfoot').fadeIn(); else $('table#task-list tfoot').fadeOut();
             }, 20);
             
             save();
@@ -63,7 +63,7 @@ function delete_task(task, override) {
             load.hide();
         }
     } catch(e) {
-        error_notice(e);
+        js_error(e);
     }
 }
 
@@ -87,7 +87,7 @@ function toggle_task(task) {
             $('#task-'+ task).addClass('running');
         }
     } catch(e) {
-        error_notice(e);
+        js_error(e);
     }
 }
 
@@ -100,7 +100,7 @@ function list_task(task, anim) {
         if(progress == Infinity) progress = 100;
         
         // Create the row
-        $('#row-template').clone().attr('id', 'task-'+ task).appendTo('#task-list tbody');
+        $('#row-template').clone().attr('id', 'task-'+ task).appendTo('table#task-list tbody');
         if(task_running[task]) $('#task-'+ task).addClass('running');
         
         // Text
@@ -149,19 +149,19 @@ function list_task(task, anim) {
         if(anim == 0) {
             // Show instantly
             $('#no-tasks').hide();
-            $('#edit-tasks, #task-list, #task-'+ task).show();
+            $('#edit-tasks, table#task-list, #task-'+ task).show();
         } else if(anim == 1) {
             // Fade all at once
             $('#task-'+ task).show();
             $('#no-tasks').fadeOut(400, function() {
-                $('#edit-tasks, #task-list').fadeIn();
+                $('#edit-tasks, table#task-list').fadeIn();
             });
         } else {
             // Fade in
             $('#task-'+ task).fadeIn();
         }
     } catch(e) {
-        error_notice(e);
+        js_error(e);
     }
 }
 
@@ -188,14 +188,23 @@ function update_time() {
                     // Show notification and play the sound
                     if(!tasks[i].notified) {
                         tasks[i].notified = true;
+                        
+                        // Play sound
                         if(setting('play-sound')) document.getElementById('sound').play();
+                        
+                        // Show popup
+                        if(setting('show-popup')) {
+                            alarm_open = true;
+                            
+                            $('#alarm-txt').text(locale('taskFinishedLong', tasks[i].text));
+                            $('#modal, #alarm-menu').fadeIn(600);
+                            $('#alarm-menu').center();
+                        }
+                        
+                        // Show Desktop Notification
                         if(setting('notify') && webkitNotifications.checkPermission() == 0) {
                             webkitNotifications.createNotification('/style/images/icon-64.png', locale('taskFinished'), locale('taskFinishedLong', tasks[i].text)).show();
                         }
-                        
-                        $('#alarm-txt').text(locale('taskFinishedLong', tasks[i].text));
-                        $('.modal, #alarm').fadeIn(600);
-                        $('#alarm').center();
                     }
                 }
                 
@@ -225,6 +234,6 @@ function update_time() {
         timer = setTimeout('update_time()', setting('update-time') * 1000);
         timer_step++;
     } catch(e) {
-        error_notice(e);
+        js_error(e);
     }
 }

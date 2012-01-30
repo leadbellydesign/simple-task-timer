@@ -1,3 +1,10 @@
+// Display an error message
+function error(s) {
+    $('#error').text(locale(s)).center().stop(true, true).fadeIn(600).delay(2000).fadeIn(10, function() {
+        $(this).stop(true, true).fadeOut(600);
+    });
+}
+
 // Format the time to the format h:mm:ss
 function format_time(hours, mins, secs, indef) {
     if(indef) return locale('indefinite');
@@ -63,8 +70,8 @@ function localisePage() {
     });
 }
 
-// Error handler
-function error_notice(error, url, line) {
+// JS Error handler
+function js_error(error, url, line) {
     if(!errord) {
         var trace = false;
         
