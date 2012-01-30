@@ -63,7 +63,7 @@
                     <td class="text" i18n="totals">Totals</td>
                     <td class="current">0:00:00</td>
                     <td class="goal">0:00:00</td>
-                    <td class="progress"><progress max="100" value="0" /></td>
+                    <td class="progress"><progress max="100" value="0">0%</progress></td>
                     <td class="options"><button id="totals-help">?</button></td>
                 </tr>
             </tfoot>
@@ -109,54 +109,13 @@
         <div i18n="usualFix">This will usually fix any errors, but will clear all of your tasks and settings.</div>
     </div>
     
-    <div id="nothing">
-        <table id="template">
-            <tr id="row-template" style="display: none;">
-                <td class="drag"></td>
-                <td class="text" i18n="task">Task</td>
-                <td class="current" i18n="timeSpent">Time Spent</td>
-                <td class="goal" i18n="goal">Goal</td>
-                <td class="progress"><progress max="100" value="0">0%</progress></td>
-                <td class="options" >
-                    <button class="toggle" i18n="start">Start</button>
-					<button class="reset" i18n="reset">Reset</button>
-                    <button class="delete" i18n="delete">Delete</button>
-                </td>
-            </tr>
-        </table>
-        
-        <div id="name-edit-template">
-            <input type="text" placeholder="Task Name" title="Task Name" i18n="taskName" />
-            
-            <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" i18n="save" /></button>
-            <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" i18n="cancel" /></button>
-        </div>
-        
-        <div id="current-edit-template">
-            <input type="number" class="hrs" min="0" max="80" size="2" title="Hours" i18n="hours" /> : 
-            <input type="number" class="mins" min="0" max="59" size="2" title="Minutes" i18n="minutes" /> : 
-            <input type="number" class="secs" min="0" max="59" size="2" title="Seconds" i18n="seconds" /><br />
-            
-            <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" i18n="save" /></button>
-            <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" i18n="cancel" /></button>
-        </div>
-        
-        <div id="goal-edit-template">
-            <input type="number" class="hrs" min="0" max="80" size="2" title="Goal Hours" i18n="goalHours" /> : 
-            <input type="number" class="mins" min="0" max="59" size="2" title="Goal Minutes" i18n="goalMinutes" /><br />
-            <label i18n="indefinite"><input type="checkbox" class="indef" /> Indefinite</label>
-            
-            <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" i18n="save" /></button>
-            <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" i18n="cancel" /></button>
-        </div>
-    </div>
-    
     <footer>
         <span i18n="createdBy">Created by</span> <a href="http://gawdl3y.com/">Schuyler Cebulskie</a> | 
         <a href="http://code.google.com/p/simple-task-timer/issues/list" target="_blank" i18n="reportBug">Report a bug</a><br />
         <span i18n="haveIdea">Have an idea?</span> <a href="http://gawdl3y.com/suggest" target="_blank" i18n="tellMe">Tell me</a> | 
         <a href="about.html" target="_blank" i18n="about">About</a> | <a href="about.html#me" target="_blank" i18n="donate">Donate</a>
     </footer>
+    
     
     
     <div id="modal" class="modal">
@@ -235,7 +194,60 @@
         </div>
     </div>
     
+    
     <div id="success">Success</div>
     <div id="error">Error</div>
+    
+    
+    <div id="nothing">
+        <table id="template">
+            <tr id="row-template" style="display: none;">
+                <td class="drag"></td>
+                <td class="text" i18n="task">Task</td>
+                <td class="current" i18n="timeSpent">Time Spent</td>
+                <td class="goal" i18n="goal">Goal</td>
+                <td class="progress"><progress max="100" value="0">0%</progress></td>
+                <td class="options" >
+                    <div class="button-btns">
+                        <button class="toggle" i18n="start">Start</button>
+                        <button class="info" i18n="info">Info</button>
+                        <button class="reset" i18n="reset">Reset</button>
+                        <button class="delete" i18n="delete">Delete</button>
+                    </div>
+                    <div class="img-btns">
+                        <img src="style/images/control_play_blue.png" class="toggle" title="Start" i18n="start" />
+                        <img src="style/images/information.png" class="info" title="Info" i18n="info" />
+                        <img src="style/images/arrow_refresh.png" class="reset" title="Reset" i18n="reset" />
+                        <img src="style/images/delete.png" class="delete" title="Delete" i18n="delete" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+        
+        <div id="name-edit-template">
+            <input type="text" placeholder="Task Name" title="Task Name" i18n="taskName" />
+            
+            <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" i18n="save" /></button>
+            <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" i18n="cancel" /></button>
+        </div>
+        
+        <div id="current-edit-template">
+            <input type="number" class="hrs" min="0" max="80" size="2" title="Hours" i18n="hours" /> : 
+            <input type="number" class="mins" min="0" max="59" size="2" title="Minutes" i18n="minutes" /> : 
+            <input type="number" class="secs" min="0" max="59" size="2" title="Seconds" i18n="seconds" /><br />
+            
+            <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" i18n="save" /></button>
+            <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" i18n="cancel" /></button>
+        </div>
+        
+        <div id="goal-edit-template">
+            <input type="number" class="hrs" min="0" max="80" size="2" title="Goal Hours" i18n="goalHours" /> : 
+            <input type="number" class="mins" min="0" max="59" size="2" title="Goal Minutes" i18n="goalMinutes" /><br />
+            <label i18n="indefinite"><input type="checkbox" class="indef" /> Indefinite</label>
+            
+            <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" i18n="save" /></button>
+            <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" i18n="cancel" /></button>
+        </div>
+    </div>
 </body>
 </html>

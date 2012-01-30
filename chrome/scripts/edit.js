@@ -8,6 +8,7 @@ function edit_name(task) {
             
             // Disable the task's toggle button
             $('#task-'+ task +' button.toggle').attr('disabled', 'disabled');
+            $('#task-'+ task +' img.toggle').addClass('disabled');
             
             // Replace the text with a text field and a save button
             $('#task-'+ task +' td.text').empty();
@@ -65,6 +66,7 @@ function edit_current(task) {
             
             // Disable the task's toggle button
             $('#task-'+ task +' button.toggle').attr('disabled', 'disabled');
+            $('#task-'+ task +' img.toggle').attr('src', 'style/images/control_play.png').addClass('disabled');
             
             // Replace the current text with inputs
             $('#task-'+ task +' td.current').empty();
@@ -141,6 +143,7 @@ function edit_goal(task) {
             
             // Disable the task's toggle button
             $('#task-'+ task +' button.toggle').attr('disabled', 'disabled');
+            $('#task-'+ task +' img.toggle').attr('src', 'style/images/control_play.png').addClass('disabled');
             
             // Replace the goal text with inputs
             $('#task-'+ task +' td.goal').empty();

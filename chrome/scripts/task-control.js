@@ -15,12 +15,11 @@ function reset_task(task) {
             tasks[task].current_hours = tasks[task].current_mins = tasks[task].current_secs = 0;
             tasks[task].notified = false;
             rebuild_list();
+            rebuild_totals();
         }
     } catch(e) {
         js_error(e);
     }
-    
-    rebuild_totals();
 }
 
 // Delete a task
@@ -29,6 +28,7 @@ function delete_task(task, override) {
         if(override || !setting('confirm-delete') || confirm(locale('confirmDelete', tasks[task].text))) {
             load.show();
             $('#new-btn, #task-'+ task +' button').attr('disabled', 'disabled');
+            $('#task-'+ task +' img').addClass('disabled');
             $('table#task-list tbody tr').addClass('nodrag nodrop');
             $('table#task-list').tableDnDUpdate();
             
@@ -73,6 +73,7 @@ function toggle_task(task) {
         if(task_running[task]) {
             task_running[task] = false;
             $('#task-'+ task +' button.toggle').text(locale('start'));
+            $('#task-'+ task +' img.toggle').attr('title', locale('start')).attr('src', 'style/images/control_play_blue.png');
             $('#task-'+ task).removeClass('running');
         } else {
             // Disable other tasks if they have it set to allow only one running at a time
@@ -84,6 +85,7 @@ function toggle_task(task) {
             
             task_running[task] = true;
             $('#task-'+ task +' button.toggle').text(locale('stop'));
+            $('#task-'+ task +' img.toggle').attr('title', locale('stop')).attr('src', 'style/images/control_stop_blue.png');
             $('#task-'+ task).addClass('running');
         }
     } catch(e) {
@@ -108,6 +110,7 @@ function list_task(task, anim) {
         $('#task-'+ task +' td.current').text(format_time(tasks[task].current_hours, tasks[task].current_mins, tasks[task].current_secs));
         $('#task-'+ task +' td.goal').text(format_time(tasks[task].goal_hours, tasks[task].goal_mins, 0, tasks[i].indefinite));
         $('#task-'+ task +' button.toggle').text(task_running[task] ? locale('stop') : locale('start'));
+        $('#task-'+ task +' img.toggle').attr('title', task_running[task] ? locale('stop') : locale('start')).attr('src', 'style/images/control_'+ (task_running[task] ? 'stop' : 'play') +'_blue.png');
         
         // Progress bar
         if(!tasks[task].indefinite) {
@@ -117,15 +120,17 @@ function list_task(task, anim) {
         }
         
         // Option Buttons
-        $('#task-'+ task +' button.toggle').attr('name', task).click(function() {
-            toggle_task(parseInt(this.name));
+        $('#task-'+ task +' .toggle').attr('name', task).click(function() {
+            if(!$(this).hasClass('disabled')) toggle_task(parseInt($(this).attr('name')));
         });
-        $('#task-'+ task +' button.reset').attr('name', task).click(function() {
-            reset_task(parseInt(this.name));
+        $('#task-'+ task +' .reset').attr('name', task).click(function() {
+            if(!$(this).hasClass('disabled')) reset_task(parseInt($(this).attr('name')));
         });
-        $('#task-'+ task +' button.delete').attr('name', task).click(function() {
-            cancel_edit();
-            delete_task(parseInt(this.name));
+        $('#task-'+ task +' .delete').attr('name', task).click(function() {
+            if(!$(this).hasClass('disabled')) {
+                cancel_edit();
+                delete_task(parseInt($(this).attr('name')));
+            }
         });
         
         // In-line editing events
@@ -141,7 +146,11 @@ function list_task(task, anim) {
         
         // Disable the toggle button if task is at its goal, and change the bg colour
         if(!tasks[task].indefinite && tasks[task].current_hours >= tasks[task].goal_hours && tasks[task].current_mins >= tasks[task].goal_mins) {
-            if(setting('stop-timer')) $('#task-'+ task +' button.toggle').attr('disabled', 'disabled');
+            if(setting('stop-timer')) {
+                $('#task-'+ task +' button.toggle').attr('disabled', 'disabled');
+                $('#task-'+ task +' img.toggle').attr('src', 'style/images/control_play.png').addClass('disabled');
+            }
+            
             $('#task-'+ task).addClass('done');
         }
         
@@ -183,6 +192,7 @@ function update_time() {
                     if(setting('stop-timer')) {
                         toggle_task(i);
                         $('tr#task-'+ i +' button.toggle').attr('disabled', 'disabled');
+                        $('tr#task-'+ i +' img.toggle').attr('src', 'style/images/control_play.png').addClass('disabled');
                     }
                     
                     // Show notification and play the sound

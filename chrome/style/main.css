@@ -84,22 +84,22 @@ h2 { font-size: 1em; font-weight: normal; }
     text-align: center;
 }
 
-#new-task {
-    margin-top: 20px;
+#task-list {
+    width: 100%;
+    margin: 0 auto;
+    border-spacing: 0px 3px;
 }
-
-#new-start { margin: 0 30px; }
 
 #no-tasks {
     font-weight: bold;
     font-size: 1.5em;
 }
 
-#task-list {
-    width: 100%;
-    margin: 0 auto;
-    border-spacing: 0px 3px;
+#new-task {
+    margin-top: 20px;
 }
+
+#new-start { margin: 0 30px; }
 
 tbody tr.running { background-color: #D5F0F0; }
 tbody tr.running td.text { background: url(images/task-running.gif) no-repeat left center; }
@@ -126,10 +126,8 @@ td.progress { width: 20%; }
 .editing-current td.current { width: 20%; }
 .editing-goal td.goal { width: 20%; }
 
-tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress {
-    /*border-top: 2px solid #E9E9E9;*/
-    font-weight: bold;
-}
+tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress { font-weight: bold; }
+.img-btns img:not(.disabled) { cursor: pointer; }
 
 /* Pie Charts */
 #charts { padding: 5px; }
