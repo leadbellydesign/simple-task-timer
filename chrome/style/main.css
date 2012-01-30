@@ -39,7 +39,7 @@ h1 { font-size: 2em; font-weight: bold; }
 h2 { font-size: 1em; font-weight: normal; }
 
 /* Alerts */
-#error, #saved {
+#error, #success {
     position: fixed;
     padding: 3px;
     
@@ -55,7 +55,7 @@ h2 { font-size: 1em; font-weight: normal; }
     box-shadow: 0 0 15px red;
 }
 
-#saved {
+#success {
     color: #4F8A10;
     background-color: #DFF2BF;
     box-shadow: 0 0 15px lime;

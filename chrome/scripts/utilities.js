@@ -1,3 +1,10 @@
+// Display a success message
+function success(s) {
+    $('#success').text(locale(s)).center().stop(true, true).fadeIn(600).delay(2000).fadeIn(10, function() {
+            $(this).stop(true, true).fadeOut(600);
+    });
+}
+
 // Display an error message
 function error(s) {
     $('#error').text(locale(s)).center().stop(true, true).fadeIn(600).delay(2000).fadeIn(10, function() {
