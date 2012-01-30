@@ -41,14 +41,10 @@ function save_name(task) {
             // Set the name
             tasks[task].text = $('#name-edit-'+ task +' input').val();
             
-            // Replace the edit fields with just the task name
-            $('#task-'+ task +' td.text').empty().text(tasks[task].text);
-            
-            // Enable all delete buttons and the task's toggle button
-            $('button.delete, #task-'+ task +' button.toggle').removeAttr('disabled');
-            
-            editing_task = -1;
+            // Finish editing
+            rebuild_list();
             save();
+            editing_task = -1;
         } else {
             error('invalidName');
         }
@@ -106,12 +102,13 @@ function edit_current(task) {
 // Finish editing a task's current time
 function save_current(task) {
     try {
+        // Validate inputs
         if($('#current-edit-'+ task +' .hrs').val() == '' || parseInt($('#current-edit-'+ task +' .hrs').val()) < 0) $('#current-edit-'+ task +' .hrs').val('0');
         if($('#current-edit-'+ task +' .mins').val() == '' || parseInt($('#current-edit-'+ task +' .mins').val()) < 0) $('#current-edit-'+ task +' .mins').val('0');
         if($('#current-edit-'+ task +' .secs').val() == '' || parseInt($('#current-edit-'+ task +' .secs').val()) < 0) $('#current-edit-'+ task +' .secs').val('0');
         if(parseInt($('#current-edit-'+ task +' .mins').val()) > 59) $('#current-edit-'+ task +' .mins').val('59');
         if(parseInt($('#current-edit-'+ task +' .secs').val()) > 59) $('#current-edit-'+ task +' .secs').val('59');
-            
+        
         var hours = parseInt($('#current-edit-'+ task +' .hrs').val()), mins = parseInt($('#current-edit-'+ task +' .mins').val()), secs = parseInt($('#current-edit-'+ task +' .secs').val());
             
         // Set the goal
@@ -122,9 +119,10 @@ function save_current(task) {
         // Reset the task's notified property
         tasks[task].notified = false;
         
+        // Finish editing
         rebuild_list();
-        editing_task = -1;
         save();
+        editing_task = -1;
         if(was_running) toggle_task(task);
     } catch(e) {
         js_error(e);
@@ -191,6 +189,7 @@ function edit_goal(task) {
 // Finish editing a task's goal
 function save_goal(task) {
     try {
+        // Validate inputs
         if($('#goal-edit-'+ task +' .hrs').val() == ''  || parseInt($('#goal-edit-'+ task +' .hrs').val()) < 0) $('#goal-edit-'+ task +' .hrs').val('0');
         if($('#goal-edit-'+ task +' .mins').val() == ''  || parseInt($('#goal-edit-'+ task +' .mins').val()) < 0) $('#goal-edit-'+ task +' .mins').val('0');
         if(parseInt($('#goal-edit-'+ task +' .mins').val()) > 59) $('#goal-edit-'+ task +' .mins').val('59');
@@ -206,9 +205,10 @@ function save_goal(task) {
             // Reset the task's notified property
             tasks[task].notified = false;
             
+            // Finish editing
             rebuild_list();
-            editing_task = -1;
             save();
+            editing_task = -1;
             if(was_running) toggle_task(task);
         } else {
             error('invalidGoalTime');
