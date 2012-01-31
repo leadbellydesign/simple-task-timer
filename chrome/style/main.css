@@ -127,6 +127,7 @@ td.progress { width: 20%; }
 .editing-goal td.goal { width: 20%; }
 
 tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress { font-weight: bold; }
+.img-btns { display: none; }
 .img-btns img:not(.disabled) { cursor: pointer; }
 
 /* Pie Charts */

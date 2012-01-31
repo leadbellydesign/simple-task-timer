@@ -143,10 +143,9 @@
             <hr />
             
             <div class="tools-group">
-                <button id="delete-tasks" i18n="deleteTasks">Delete all of your tasks</button><br />
+                <button class="csv-export" i18n="exportCSV" disabled>Export tasks as a CSV file</button> <span i18n="comingSoon">Coming soon!</span><br />
                 <button class="clear-data" i18n="clearData">Clear all of the app's data</button>
             </div>
-            
             
             <h1 i18n="settings">Settings</h1>
             <hr />
@@ -159,7 +158,8 @@
                 <label><input type="checkbox" id="confirm-reset" /><span i18n="optConfirmReset">Ask to confirm when you attempt to reset a task</span></label><br />
                 <label><input type="checkbox" id="confirm-delete" /><span i18n="optConfirmDelete">Ask to confirm when you attempt to delete a task</span></label><br />
                 <label><input type="checkbox" id="autostart-default" /><span i18n="optStartDefault">Check the start checkbox by default</span></label><br />
-                <label><input type="checkbox" id="save-fields" /><span i18n="optSaveFields">Keep what you have in the new task fields when you relaunch the app</span></label>
+                <label><input type="checkbox" id="save-fields" /><span i18n="optSaveFields">Keep what you have in the new task fields when you relaunch the app</span></label><br />
+                <label><input type="checkbox" id="use-icons" /><span i18n="optUseIcons">Use icons in place of buttons for the task options (good for small screens)</span></label>
             </div>
             
             <div class="tools-group">

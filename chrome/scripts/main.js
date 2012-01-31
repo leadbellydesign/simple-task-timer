@@ -7,6 +7,7 @@ var save_timer, timer, timer_step = 0; // Timer variables
 var settings_checkboxes = {
     'enable-charts': true,
     'hide-notice': false,
+    'use-icons': false,
     'confirm-reset': true,
     'confirm-delete': true,
     'autostart-default': false,
@@ -296,6 +297,12 @@ function Load() {
         $('#notice').show();
     }
     
+    // Switch to icons
+    if(setting('use-icons')) {
+        $('.button-btns').hide();
+        $('.img-btns').show();
+    }
+    
     // Set the audio to loop if looping is enabled
     if(setting('loop-sound', false, true)) {
         $('#sound').attr('loop', 'loop');
@@ -356,7 +363,7 @@ function save(timeout) {
 
 // The little pulsate effect on the tools button
 function tools_pulsate() {
-    if(setting('new-settings', true, true)) {
+    if(setting('new-tools', true, true)) {
         $('#tools-pulsate').animate({width: '150px', height: '150px'}, 800).animate({width: '75px', height: '75px'}, 800);
         setTimeout('tools_pulsate()', 1600);
     }

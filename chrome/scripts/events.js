@@ -76,6 +76,8 @@ $(document).ready(function() {
     
     // User clicked the save button in the tools menu
     $('#save-settings').click(function() {
+        old_use_icons = setting('use-icons');
+        
         // Save the state of the checkboxes
         for(i in settings_checkboxes) {
             setting(i, $('#'+ i).is(':checked'));
@@ -104,6 +106,17 @@ $(document).ready(function() {
         
         // Hide/show the notice box
         if(setting('hide-notice')) $('#notice').fadeOut(800); else $('#notice').fadeIn(800);
+        
+        // Switch between icons and buttons
+        if(old_use_icons != setting('use-icons')) {
+            if(setting('use-icons')) {
+                $('.button-btns').hide();
+                $('.img-btns').show();
+            } else {
+                $('.img-btns').hide();
+                $('.button-btns').show();
+            }
+        }
         
         clearTimeout(timer);
         timer = setTimeout('update_time()', setting('update-time') * 1000);
@@ -177,7 +190,7 @@ $(document).ready(function() {
     $('#tools-button').click(function() {
         Load();
         tools_open = true;
-        setting('new-settings', false);
+        setting('new-tools', false);
         
         $('#modal').fadeIn(600, function() { $('#tools-pulsate').stop(true, true).fadeOut(400); });
         $('#tools-menu').animate({left: ((($(window).width() - $('#tools-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);

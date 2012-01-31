@@ -133,6 +133,12 @@ function list_task(task, anim) {
             }
         });
         
+        // Change the buttons to icons if the setting is enabled
+        if(setting('use-icons')) {
+            $('#task-'+ task +' .button-btns').hide();
+            $('#task-'+ task +' .img-btns').show();
+        }
+        
         // In-line editing events
         $('#task-'+ task +' td.text').dblclick(function() {
             edit_name(parseInt($(this).parent().attr('id').replace('task-', '')));

@@ -241,9 +241,13 @@
         "description": "Tools menu header"
     },
     
-    "deleteTasks": {
-        "message": "Delete all tasks",
+    "exportCSV": {
+        "message": "Export tasks as a CSV file",
         "description": "Delete all tasks"
+    },
+    "comingSoon": {
+        "message": "Coming soon!",
+        "description": "Coming soon"
     },
     "clearData": {
         "message": "Clear all of the app's data",
@@ -267,6 +271,10 @@
     "optHideNotice": {
         "message": "Hide the notice box",
         "description": "Setting - Hide the notice box"
+    },
+    "optUseIcons": {
+        "message": "Use icons in place of buttons for the task options (good for small screens)",
+        "description": "Setting - Use icons instead of buttons"
     },
     "optConfirmReset": {
         "message": "Ask to confirm when you attempt to reset a task",
