@@ -138,8 +138,8 @@ $(document).ready(function() {
         }
     });
     
-    // User clicked the totals info button
-    $('.totals-info').click(function() {
+    // User clicked the totals help button
+    $('.totals-help').click(function() {
         alert(locale('totalsHelp'));
     });
     
