@@ -1,4 +1,4 @@
-var load, dragging = false, preview_sound = false, all_toggle = false, errord = false, now = new Date(); // General variables
+var load, dragging = false, preview_sound = false, errord = false, now = new Date(); // General variables
 var tasks = new Array(), task_running = new Array(), task_count = 0; // Task variables
 var alarm_open = false, task_open = false, tools_open = false; // Menu state variables
 var current_plot = false, total_plot = false; // Plot variables
@@ -298,10 +298,22 @@ function Load() {
         $('#notice').show();
     }
     
-    // Switch to icons
+    // Switch to/from icons
     if(setting('use-icons')) {
         $('.button-btns').hide();
         $('.img-btns').show();
+    } else {
+        $('.button-btns').show();
+        $('.img-btns').hide();
+    }
+    
+    // Show the history disabled message if necessary
+    if(setting('track-history')) {
+        $('#history-disabled').hide();
+        $('.history').show();
+    } else {
+        $('#history-disabled').show();
+        $('.history').hide();
     }
     
     // Set the audio to loop if looping is enabled

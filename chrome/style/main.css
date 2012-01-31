@@ -176,6 +176,15 @@ tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress { font-weight:
     background: linear-gradient(top, #e9f6fd 0%,#d3eefb 100%);
 }
 
+.menu-group {
+    margin-bottom: 30px;
+}
+
+.menu-group h2 {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 .close-menus {
     float: right;
 }
@@ -191,15 +200,12 @@ tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress { font-weight:
     font-size: 1em;
 }
 
-/* Tools menu */
-.tools-group {
-    margin-bottom: 30px;
-}
-
-.tools-group h2 {
-    font-weight: bold;
-    text-decoration: underline;
-}
+/* Task info menu */
+#info-table { width: 100%; }
+#info-table td { padding: 3px; }
+#info-table tr td:first-child { font-weight: bold; }
+#info-table tr td:last-child { width: 75%; }
+#info-progress progress { width: 100%; }
 
 /* JS Error */
 #big-error-thang {

@@ -1,3 +1,5 @@
+var displaying_task = -1;
+
 // Add a task
 function add_task(data) {
     tasks[task_count] = data;
@@ -16,6 +18,9 @@ function reset_task(task, override) {
             tasks[task].notified = false;
             rebuild_list();
             rebuild_totals();
+            
+            // Enable the task info toggle button
+            if(displaying_task == task) $('#task-toggle').removeAttr('disabled');
         }
     } catch(e) {
         js_error(e);
@@ -74,6 +79,7 @@ function toggle_task(task) {
             task_running[task] = false;
             $('#task-'+ task +' button.toggle').text(locale('start'));
             $('#task-'+ task +' img.toggle').attr('title', locale('start')).attr('src', 'style/images/control_play_blue.png');
+            if(displaying_task == task) $('#task-toggle').text(locale('start'));
             $('#task-'+ task).removeClass('running');
         } else {
             // Disable other tasks if they have it set to allow only one running at a time
@@ -86,6 +92,7 @@ function toggle_task(task) {
             task_running[task] = true;
             $('#task-'+ task +' button.toggle').text(locale('stop'));
             $('#task-'+ task +' img.toggle').attr('title', locale('stop')).attr('src', 'style/images/control_stop_blue.png');
+            if(displaying_task == task) $('#task-toggle').text(locale('stop'));
             $('#task-'+ task).addClass('running');
         }
     } catch(e) {
@@ -122,6 +129,9 @@ function list_task(task, anim) {
         // Option Buttons
         $('#task-'+ task +' .toggle').attr('name', task).click(function() {
             if(!$(this).hasClass('disabled')) toggle_task(parseInt($(this).attr('name')));
+        });
+        $('#task-'+ task +' .info').attr('name', task).click(function() {
+            if(!$(this).hasClass('disabled')) task_info(parseInt($(this).attr('name')));
         });
         $('#task-'+ task +' .reset').attr('name', task).click(function() {
             if(!$(this).hasClass('disabled')) reset_task(parseInt($(this).attr('name')));
@@ -160,6 +170,9 @@ function list_task(task, anim) {
             $('#task-'+ task).addClass('done');
         }
         
+        // Update task menu if it's shown for this task
+        if(displaying_task == task) task_info(task, false, progress);
+        
         // Animation
         if(anim == 0) {
             // Show instantly
@@ -174,6 +187,51 @@ function list_task(task, anim) {
         } else {
             // Fade in
             $('#task-'+ task).fadeIn();
+        }
+    } catch(e) {
+        js_error(e);
+    }
+}
+
+// Display information about a specific task in a menu
+function task_info(task, anim, progress) {
+    try {
+        displaying_task = task;
+        task_open = true;
+        
+        // Text
+        $('td#info-name').text(tasks[task].text);
+        $('td#info-current').text(format_time(tasks[task].current_hours, tasks[task].current_mins, tasks[task].current_secs));
+        $('td#info-goal').text(format_time(tasks[task].goal_hours, tasks[task].goal_mins, 0, tasks[task].indefinite));
+        
+        // Progress done
+        if(typeof progress == 'undefined') {
+            var progress = Math.floor((tasks[task].current_hours + (tasks[task].current_mins / 60) + (tasks[task].current_secs / 3600)) / (tasks[task].goal_hours + (tasks[task].goal_mins / 60)) * 100);
+            if(tasks[task].indefinite == true) progress = 0;
+            if(progress == Infinity) progress = 100;
+        }
+        
+        // Progress bar
+        if(!tasks[task].indefinite) {
+            $('td#info-progress progress').val(progress).text(progress + '%').attr('max', '100');
+        } else {
+            $('td#info-progress progress').removeAttr('value').removeAttr('max').text('...');
+        }
+        
+        // Option Buttons
+        $('button#task-toggle, button#task-reset, button#task-delete, button#task-clear-history').attr('name', task);
+        if($('tr#task-'+ task +' button.toggle').attr('disabled')) $('#task-toggle').attr('disabled', 'disabled'); else $('#task-toggle').removeAttr('disabled');
+        
+        // Disable the toggle button if task is at its goal, and change the bg colour
+        if(!tasks[task].indefinite && tasks[task].current_hours >= tasks[task].goal_hours && tasks[task].current_mins >= tasks[task].goal_mins && setting('stop-timer')) {
+            $('#task-toggle').attr('disabled', 'disabled');
+        }
+        
+        
+        // Show menu
+        if(typeof anim == 'undefined' || anim) {
+            $('#modal').fadeIn(600);
+            $('#task-menu').animate({left: ((($(window).width() - $('#task-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
         }
     } catch(e) {
         js_error(e);
@@ -256,6 +314,9 @@ function update_time() {
                 if(!tasks[i].indefinite) {
                     $('tr#task-'+ i +' progress').val(progress).attr('max', '100').text(progress.toString() +'%');
                 }
+                
+                // Update task menu if it's shown for this task
+                if(displaying_task == i) task_info(i, false, progress);
             }
         }
         

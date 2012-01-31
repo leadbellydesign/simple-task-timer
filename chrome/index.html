@@ -67,15 +67,15 @@
                     <td class="options">
                         <div class="button-btns">
                             <button class="totals-help">?</button>
-                            <button class="totals-info" i18n="info">Info</button>
+                            <button class="info-all" i18n="info">Info</button>
                             <button class="reset-all" i18n="resetAll">Reset</button>
                             <button class="delete-all" i18n="deleteAll">Delete</button>
                         </div>
                         <div class="img-btns">
-                            <img src="style/images/help.png" class="totals-help" title="?" />
-                            <img src="style/images/information.png" class="totals-info" title="Info" i18n="info" />
-                            <img src="style/images/arrow_refresh.png" class="reset-all" title="Reset all" i18n="resetAll" />
-                            <img src="style/images/delete.png" class="delete-all" title="Delete all" i18n="deleteAll" />
+                            <img src="style/images/help.png" class="totals-help" title="?" width="16" height="16" />
+                            <img src="style/images/information.png" class="info-all" title="Info" i18n="info" width="16" height="16" />
+                            <img src="style/images/arrow_refresh.png" class="reset-all" title="Reset all" i18n="resetAll" width="16" height="16" />
+                            <img src="style/images/delete.png" class="delete-all" title="Delete all" i18n="deleteAll" width="16" height="16" />
                         </div>
                     </td>
                 </tr>
@@ -135,7 +135,54 @@
         <div id="task-menu">
             <button class="close-menus"><img src="style/images/cross.png" width="16" height="16" alt="Close" i18n="close" /></button>
             
-            herp derp
+            <div id="task-info">
+                <h1 i18n="taskInfo">Task Information</h1>
+                <hr />
+                
+                <div class="menu-group">
+                    <table id="info-table">
+                        <tr>
+                            <td i18n="task">Task Name</td>
+                            <td id="info-name">All your base are belong to us</td>
+                        </tr>
+                        <tr>
+                            <td i18n="timeSpent">Time Spent</td>
+                            <td id="info-current">42:00:00</td>
+                        </tr>
+                        <tr>
+                            <td i18n="goal">Goal</td>
+                            <td id="info-goal">42:00</td>
+                        </tr>
+                        <tr>
+                            <td i18n="progress">Progress</td>
+                            <td id="info-progress"><progress max="100" value="100">100%</progress></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div id="task-options">
+                <h1 i18n="taskOptions">Task Options</h1>
+                <hr />
+                
+                <div class="menu-group">
+                    <button id="task-toggle" i18n="start">Start</button>
+                    <button id="task-reset" i18n="reset">Reset</button>
+                    <button id="task-delete" i18n="delete">Delete</button>
+                    <button id="task-clear-history" i18n="clearHistory">Clear History</button>
+                </div>
+            </div>
+            
+            
+            <div id="task-history">
+                <h1 i18n="history">History</h1>
+                <hr />
+                
+                <div id="date-picker" class="history"></div>
+                <div id="history-dump" class="history"></div>
+                
+                <div id="history-disabled" i18n="historyDisabled">History is disabled.</div>
+            </div>
         </div>
         
         <div id="tools-menu" class="modal">
@@ -144,15 +191,16 @@
             <h1 i18n="tools">Tools</h1>
             <hr />
             
-            <div class="tools-group">
+            <div class="menu-group">
                 <button class="csv-export" i18n="exportCSV" disabled>Export tasks as a CSV file</button> <span i18n="comingSoon">Coming soon!</span><br />
+                <button id="clear-all-history" i18n="clearAllHistory">Clear all task history</button><br />
                 <button class="clear-data" i18n="clearData">Clear all of the app's data</button>
             </div>
             
             <h1 i18n="settings">Settings</h1>
             <hr />
             
-            <div class="tools-group">
+            <div class="menu-group">
                 <h2 i18n="generalSettings">General Settings</h2>
                 
                 <label><input type="checkbox" id="enable-charts" /><span i18n="optEnableCharts">Enable pie charts</span></label><br />
@@ -164,7 +212,7 @@
                 <label><input type="checkbox" id="use-icons" /><span i18n="optUseIcons">Use icons in place of buttons for the task options (good for small screens)</span></label>
             </div>
             
-            <div class="tools-group">
+            <div class="menu-group">
                 <h2 i18n="taskSettings">Task Settings</h2>
                 
                 <label><input type="checkbox" id="track-history" /><span i18n="optTrackHistory">Track task history (so you can view statistics for each task)</span></label><br />
@@ -172,7 +220,7 @@
                 <label><input type="checkbox" id="only-one" /><span i18n="optOnlyOne">Only allow one task to be running at a time</span></label>
             </div>
             
-            <div class="tools-group">
+            <div class="menu-group">
                 <h2 i18n="notificationSettings">Notification Settings</h2>
                 
                 <label><input type="checkbox" id="show-popup" /><span i18n="optShowPopup">Show a popup on the page when a task reaches its goal</span></label><br />
@@ -188,14 +236,14 @@
                 <button id="preview-sound" i18n="optPreview">Preview sound</button>
             </div>
             
-            <div class="tools-group">
+            <div class="menu-group">
                 <h2 i18n="performanceSettings">Performance Settings</h2>
                 
                 <label><span i18n="optUpdateTime1">Update the time of tasks every</span> <input type="number" min="1" max="60" value="1" size="4" id="update-time" /> <span i18n="optUpdateTime2">second(s)</span></label><br />
                 <label><span i18n="optChartUpdateTime1">Update the pie charts every</span> <input type="number" min="1" max="60" value="3" size="4" id="chart-update-time" /> <span i18n="optUpdateTime2">second(s)</span></label>
             </div>
             
-            <div class="tools-group">
+            <div class="menu-group">
                 <h2 i18n="saveSettings">Save Settings</h2>
                 
                 <button id="save-settings" i18n="save">Save</button>
@@ -208,9 +256,6 @@
         </div>
     </div>
     
-    
-    <div id="success">Success</div>
-    <div id="error">Error</div>
     
     
     <div id="nothing">
@@ -229,10 +274,10 @@
                         <button class="delete" i18n="delete">Delete</button>
                     </div>
                     <div class="img-btns">
-                        <img src="style/images/control_play_blue.png" class="toggle" title="Start" i18n="start" />
-                        <img src="style/images/information.png" class="info" title="Info" i18n="info" />
-                        <img src="style/images/arrow_refresh.png" class="reset" title="Reset" i18n="reset" />
-                        <img src="style/images/delete.png" class="delete" title="Delete" i18n="delete" />
+                        <img src="style/images/control_play_blue.png" class="toggle" title="Start" i18n="start" width="16" height="16" />
+                        <img src="style/images/information.png" class="info" title="Info" i18n="info" width="16" height="16" />
+                        <img src="style/images/arrow_refresh.png" class="reset" title="Reset" i18n="reset" width="16" height="16" />
+                        <img src="style/images/delete.png" class="delete" title="Delete" i18n="delete" width="16" height="16" />
                     </div>
                 </td>
             </tr>
@@ -263,5 +308,10 @@
             <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" i18n="cancel" /></button>
         </div>
     </div>
+    
+    
+    
+    <div id="success">Success</div>
+    <div id="error">Error</div>
 </body>
 </html>

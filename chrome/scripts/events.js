@@ -127,6 +127,15 @@ $(document).ready(function() {
         success('saved');
     });
     
+    // User clicked the clear all history button
+    $('#clear-all-history').click(function() {
+        if(confirm(locale('confirmClearAllHistory'))) {
+            for(t = 0; t < task_count; t++) {
+                tasks[t].history = {};
+            }
+        }
+    });
+    
     // User clicked one of the clear data buttons
     $('.clear-data').click(function() {
         if(confirm(locale('confirmResetData'))) {
@@ -165,9 +174,10 @@ $(document).ready(function() {
     $('.close-menus').click(function() {
         Load();
         tools_open = false;
+        displaying_task = -1
         
         $('#modal').fadeOut(600);
-        $('#tools-menu').animate({left: '100%'}, 600);
+        $('#task-menu, #tools-menu').animate({left: '100%'}, 600);
     });
     
     // User clicked the close alarm button
@@ -196,12 +206,30 @@ $(document).ready(function() {
         $('#tools-menu').animate({left: ((($(window).width() - $('#tools-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
     });
     
-    // User clicked the info button on a task
-    $('button.task-info').click(function() {
-        task_open = true;
+    // User clicked the toggle button in the task info menu
+    $('#task-toggle').click(function() {
+        toggle_task(parseInt($(this).attr('name')));
+    });
+    
+    // User clicked the reset button in the task info menu
+    $('#task-reset').click(function() {
+        reset_task(parseInt($(this).attr('name')));
+    });
+    
+    // User clicked the delete button in the task info menu
+    $('#task-delete').click(function() {
+        cancel_edit();
+        delete_task(parseInt($(this).attr('name')));
+        $('.close-menus').click();
+    });
+    
+    // User clicked the clear history button in the task info menu
+    $('#task-clear-history').click(function() {
+        var task = parseInt($(this).attr('name'));
         
-        $('#modal').fadeIn(600);
-        $('#task-menu').animate({left: ((($(window).width() - $('div#task-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
+        if(confirm(locale('confirmClearHistory', tasks[task].text))) {
+            tasks[task].history = {};
+        }
     });
     
     

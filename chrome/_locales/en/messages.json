@@ -124,7 +124,7 @@
         "description": "Reminder to check out the settings menu"
     },
     "notePerf": {
-        "message": "Is the app running slowly for you? Try increasing the pie chart update time in the settings, or disabling pie charts completely.<br />Still running slowly? Increase the general update time.",
+        "message": "Is the app running slowly for you? Try increasing the pie chart update time in the settings, or disabling pie charts completely.<br />Still running slowly? Increase the general update time or disable task history tracking.",
         "description": "Performance notice"
     },
     
@@ -183,6 +183,10 @@
         "message": "Delete",
         "description": "Delete a task"
     },
+    "clearHistory": {
+        "message": "Clear history",
+        "description": "Clear task's history"
+    },
     
     "resetAll": {
         "message": "Reset all",
@@ -236,6 +240,27 @@
     },
     
     
+    "taskInfo": {
+        "message": "Task Information",
+        "description": "Header for the task info menu"
+    },
+    
+    "taskOptions": {
+        "message": "Task Options",
+        "description": "Header for the task options in the info menu"
+    },
+    
+    "history": {
+        "message": "History",
+        "description": "Header for the task info history"
+    },
+    
+    "trackingDisabled": {
+        "message": "Task history tracking is disabled. You can enable it in the tools menu.",
+        "description": "Task history tracking disabled"
+    },
+    
+    
     "tools": {
         "message": "Tools",
         "description": "Tools menu header"
@@ -248,6 +273,10 @@
     "comingSoon": {
         "message": "Coming soon!",
         "description": "Coming soon"
+    },
+    "clearAllHistory": {
+        "message": "Clear all task history",
+        "description": "Clear all task history"
     },
     "clearData": {
         "message": "Clear all of the app's data",
@@ -384,22 +413,32 @@
     },
     
     "confirmReset": {
-        "message": "Are you sure you want to reset task \"$taskName$\"?",
+        "message": "Are you sure you want to reset task \"$taskName$\"?\nThis will not reset the task's history.",
         "description": "Confirmation notice on reset",
         "placeholders": {
             "taskName": {
                 "content": "$1",
-                "example": "Task Name"
+                "example": "Chores"
             }
         }
     },
     "confirmDelete": {
-        "message": "Are you sure you want to delete task \"$taskName$\"?",
+        "message": "Are you sure you want to delete task \"$taskName$\"?\nThis will delete the task's history as well.",
         "description": "Confirmation notice on delete",
         "placeholders": {
             "taskName": {
                 "content": "$1",
-                "example": "Task Name"
+                "example": "Chores"
+            }
+        }
+    },
+    "confirmClearHistory": {
+        "message": "Are you sure you want to clear the history of task \"$taskName$\"?",
+        "description": "Confirmation notice on clearing a task's history",
+        "placeholders": {
+            "taskName": {
+                "content": "$1",
+                "example": "Chores"
             }
         }
     },
@@ -412,8 +451,12 @@
         "message": "Are you sure you want to delete all of your tasks?",
         "description": "Confirmation notice on deletion of all tasks"
     },
+    "confirmClearAllHistory": {
+        "message": "Are you sure you want to clear the history of all tasks?",
+        "description": "Confirmation notice on clearing of all tasks' history"
+    },
     "confirmResetData": {
-        "message": "Are you sure you want to wipe all of Task Timer's data?",
+        "message": "Are you sure you want to wipe all of Task Timer's data completely?\nThis will get rid of your tasks and settings.",
         "description": "Confirmation notice on deletion of all data"
     },
     
