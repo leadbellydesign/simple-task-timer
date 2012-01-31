@@ -1,4 +1,4 @@
-var load, dragging = false, preview_sound = false, all_toggle = false, errord = false; // General variables
+var load, dragging = false, preview_sound = false, all_toggle = false, errord = false, now = new Date(); // General variables
 var tasks = new Array(), task_running = new Array(), task_count = 0; // Task variables
 var alarm_open = false, task_open = false, tools_open = false; // Menu state variables
 var current_plot = false, total_plot = false; // Plot variables
@@ -7,12 +7,13 @@ var save_timer, timer, timer_step = 0; // Timer variables
 var settings_checkboxes = {
     'enable-charts': true,
     'hide-notice': false,
-    'use-icons': false,
     'confirm-reset': true,
     'confirm-delete': true,
     'autostart-default': false,
     'save-fields': true,
+    'use-icons': false,
     
+    'track-history': true,
     'stop-timer': true,
     'only-one': false,
     
@@ -26,7 +27,7 @@ window.onerror = function(msg, url, line) { js_error(msg, url, line); };
 
 // Document finished loading
 $(document).ready(function() {
-    try {
+    try {        
         // Set some variables
         load = $('#loading');
         

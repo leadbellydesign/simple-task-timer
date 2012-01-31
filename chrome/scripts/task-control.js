@@ -183,12 +183,34 @@ function list_task(task, anim) {
 // Increase the current time on tasks that are running by a second
 function update_time() {
     try {
+        // Get the real time
+        if(setting('track-history')) {
+            now = new Date();
+            var year = now.getFullYear(), month = now.getMonth(), day = now.getDate(), hour = now.getHours();
+        }
+        
+        // Go through the tasks array
         for(var i = 0; i < task_count; i++) {
             if(task_running[i]) {
                 // Increment time
                 tasks[i].current_secs += setting('update-time');
                 if(tasks[i].current_secs >= 60) { tasks[i].current_secs -= 60; tasks[i].current_mins++; }
                 if(tasks[i].current_mins >= 60) { tasks[i].current_mins -= 60; tasks[i].current_hours++; }
+                
+                // Historical time
+                if(setting('track-history')) {
+                    // Make sure the object exists all the way down
+                    if(typeof tasks[i].history == 'undefined') tasks[i].history = {};
+                    if(typeof tasks[i].history[year] == 'undefined') tasks[i].history[year] = {};
+                    if(typeof tasks[i].history[year][month] == 'undefined') tasks[i].history[year][month] = {};
+                    if(typeof tasks[i].history[year][month][day] == 'undefined') tasks[i].history[year][month][day] = {};
+                    if(typeof tasks[i].history[year][month][day][hour] == 'undefined') tasks[i].history[year][month][day][hour] = {secs: 0, mins: 0, hours: 0};
+                    
+                    // Increment the historical time
+                    tasks[i].history[year][month][day][hour].secs++;
+                    if(tasks[i].history[year][month][day][hour].secs >= 60) { tasks[i].history[year][month][day][hour].secs -= 60; tasks[i].history[year][month][day][hour].mins++; }
+                    if(tasks[i].history[year][month][day][hour].mins >= 60) { tasks[i].history[year][month][day][hour].mins -= 60; tasks[i].history[year][month][day][hour].hours++; }
+                }
                 
                 // Stop updating this one if it's at the goal
                 if(!tasks[i].indefinite && tasks[i].current_hours >= tasks[i].goal_hours && tasks[i].current_mins >= tasks[i].goal_mins) {

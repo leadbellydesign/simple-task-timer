@@ -297,6 +297,10 @@
         "message": "Task Settings",
         "description": "Task settings header"
     },
+    "optTrackHistory": {
+        "message": "Track task history (so you can view statistics for each task)",
+        "description": "Setting - Track task history"
+    },
     "optStopTimer": {
         "message": "Don't allow task times to go over their goals",
         "description": "Setting - Don't allow going over goals"
