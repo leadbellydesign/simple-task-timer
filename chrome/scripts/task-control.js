@@ -9,9 +9,9 @@ function add_task(data) {
 }
 
 // Reset a task
-function reset_task(task) {
+function reset_task(task, override) {
     try {
-        if(!setting('confirm-reset') || confirm(locale('confirmReset', tasks[task].text))) {
+        if(override || !setting('confirm-reset') || confirm(locale('confirmReset', tasks[task].text))) {
             tasks[task].current_hours = tasks[task].current_mins = tasks[task].current_secs = 0;
             tasks[task].notified = false;
             rebuild_list();

@@ -64,7 +64,18 @@
                     <td class="current">0:00:00</td>
                     <td class="goal">0:00:00</td>
                     <td class="progress"><progress max="100" value="0">0%</progress></td>
-                    <td class="options"><button id="totals-help">?</button></td>
+                    <td class="options">
+                        <div class="button-btns">
+                            <button class="totals-info" i18n="info">Info</button>
+                            <button class="reset-all" i18n="resetAll">Reset</button>
+                            <button class="delete-all" i18n="deleteAll">Delete</button>
+                        </div>
+                        <div class="img-btns">
+                            <img src="style/images/information.png" class="totals-info" title="Info" i18n="info" />
+                            <img src="style/images/arrow_refresh.png" class="reset-all" title="Reset all" i18n="resetAll" />
+                            <img src="style/images/delete.png" class="delete-all" title="Delete all" i18n="deleteAll" />
+                        </div>
+                    </td>
                 </tr>
             </tfoot>
         </table>

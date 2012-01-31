@@ -125,11 +125,25 @@ $(document).ready(function() {
         }
     });
     
-    // User clicked the delete tasks button
-    $('#delete-tasks').click(function() {
-        if(confirm(locale('confirmDeleteTasks'))) {
-            for(i = task_count - 1; i >= 0; i--) {
-                delete_task(i, true);
+    // User clicked the totals info button
+    $('.totals-info').click(function() {
+        alert(locale('totalsHelp'));
+    });
+    
+    // User clicked the reset all button
+    $('.reset-all').click(function() {
+        if(confirm(locale('confirmResetAll'))) {
+            for(t = 0; t < task_count; t++) {
+                reset_task(t, true);
+            }
+        }
+    });
+    
+    // User clicked the delete all button
+    $('.delete-all').click(function() {
+        if(confirm(locale('confirmDeleteAll'))) {
+            for(t = task_count - 1; t >= 0; t--) {
+                delete_task(t, true);
             }
         }
     });
@@ -175,11 +189,6 @@ $(document).ready(function() {
         
         $('#modal').fadeIn(600);
         $('#task-menu').animate({left: ((($(window).width() - $('div#task-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
-    });
-    
-    // User clicked the totals row help button
-    $('#totals-help').click(function() {
-        alert(locale('totalsHelp'));
     });
     
     

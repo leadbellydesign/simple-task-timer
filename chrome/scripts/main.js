@@ -1,4 +1,4 @@
-var load, dragging = false, preview_sound = false, errord = false; // General variables
+var load, dragging = false, preview_sound = false, all_toggle = false, errord = false; // General variables
 var tasks = new Array(), task_running = new Array(), task_count = 0; // Task variables
 var alarm_open = false, task_open = false, tools_open = false; // Menu state variables
 var current_plot = false, total_plot = false; // Plot variables

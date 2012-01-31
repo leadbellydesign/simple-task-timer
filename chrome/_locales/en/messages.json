@@ -171,6 +171,10 @@
         "message": "Stop",
         "description": "Stop a task's timer"
     },
+    "info": {
+        "message": "Info",
+        "description": "Show task info"
+    },
     "reset": {
         "message": "Reset",
         "description": "Reset a task's timer"
@@ -178,6 +182,15 @@
     "delete": {
         "message": "Delete",
         "description": "Delete a task"
+    },
+    
+    "resetAll": {
+        "message": "Reset all",
+        "description": "Reset all tasks"
+    },
+    "deleteAll": {
+        "message": "Delete all",
+        "description": "Delete all tasks"
     },
     
     "name": {
@@ -379,7 +392,11 @@
         }
     },
     
-    "confirmDeleteTasks": {
+    "confirmResetAll": {
+        "message": "Are you sure you want to reset the time spent on all of your tasks?",
+        "description": "Confirmation notice on resetting all tasks"
+    },
+    "confirmDeleteAll": {
         "message": "Are you sure you want to delete all of your tasks?",
         "description": "Confirmation notice on deletion of all tasks"
     },
