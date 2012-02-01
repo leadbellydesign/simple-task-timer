@@ -255,9 +255,21 @@
         "description": "Header for the task info history"
     },
     
-    "trackingDisabled": {
+    "historyDisabled": {
         "message": "Task history tracking is disabled. You can enable it in the tools menu.",
         "description": "Task history tracking disabled"
+    },
+    "selectDate": {
+        "message": "Please select a date.",
+        "description": "Select a date"
+    },
+    "noHistory": {
+        "message": "There is no saved history on that day.",
+        "description": "No history on that day"
+    },
+    "beginningTime": {
+        "message": "Beginning Hour",
+        "description": "Beginning hour"
     },
     
     

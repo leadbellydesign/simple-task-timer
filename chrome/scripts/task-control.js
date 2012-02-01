@@ -227,11 +227,45 @@ function task_info(task, anim, progress) {
             $('#task-toggle').attr('disabled', 'disabled');
         }
         
+        // History
+        $('#history-info').text(locale('selectDate')).show();
+        $('#history').hide();
         
         // Show menu
         if(typeof anim == 'undefined' || anim) {
             $('#modal').fadeIn(600);
             $('#task-menu').animate({left: ((($(window).width() - $('#task-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
+        }
+    } catch(e) {
+        js_error(e);
+    }
+}
+
+// Display the history for a task
+function show_history(y, m, d) {
+    try {
+        if(typeof tasks[displaying_task].history != 'undefined' && typeof tasks[displaying_task].history[y] != 'undefined' && typeof tasks[displaying_task].history[y][m - 1] != 'undefined' && typeof tasks[displaying_task].history[y][m - 1][d] != 'undefined') {
+            // Clear out the list, and show it
+            $('#history tbody').empty();
+            $('#history-info').fadeOut(400, function() {
+                $('#history').fadeIn(400);
+            });
+            
+            // Make a row for each hour that there was time spent
+            for(h = 0; h <= 23; h++) {
+                if(typeof tasks[displaying_task].history[y][m - 1][d][h] != 'undefined') {
+                    $('<tr />')
+                        .append('<td>'+ format_time(h, 0, 0) +'</td>')
+                        .append('<td>'+ format_time(tasks[displaying_task].history[y][m - 1][d][h].hours, tasks[displaying_task].history[y][m - 1][d][h].mins, tasks[displaying_task].history[y][m - 1][d][h].secs) +'</td>')
+                        .appendTo('#history tbody')
+                    ;
+                }
+            }
+        } else {
+            // No history for that day
+            $('#history').fadeOut(400, function() {
+                $('#history-info').text(locale('noHistory')).fadeIn(400);
+            });
         }
     } catch(e) {
         js_error(e);

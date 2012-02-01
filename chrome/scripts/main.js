@@ -146,6 +146,17 @@ $(document).ready(function() {
             }
         });
         
+        // Add the history date picker
+        $('#date-picker').datepicker({
+            firstDay: 1,
+            dateFormat: 'yy-mm-dd',
+            
+            onSelect: function(dateText, inst) {
+                date = dateText.split('-');
+                show_history(parseInt(date[0]), parseInt(date[1]), parseInt(date[2]));
+            }
+        });
+        
         $('div#tasks').show();
         tools_pulsate();
         rebuild_totals();
@@ -310,10 +321,10 @@ function Load() {
     // Show the history disabled message if necessary
     if(setting('track-history')) {
         $('#history-disabled').hide();
-        $('.history').show();
+        $('#history-group').show();
     } else {
         $('#history-disabled').show();
-        $('.history').hide();
+        $('#history-group').hide();
     }
     
     // Set the audio to loop if looping is enabled

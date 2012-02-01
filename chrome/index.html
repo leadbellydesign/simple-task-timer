@@ -6,8 +6,10 @@
     
     <link rel="stylesheet" type="text/css" href="style/global.css" />
     <link rel="stylesheet" type="text/css" href="style/main.css" />
+    <link rel="stylesheet" type="text/css" href="style/redmond/jquery-ui-1.8.17.custom.css" />
     
     <script type="text/javascript" src="scripts/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery-ui-1.8.17.custom.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.tablednd-0.5.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.center-1.0.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.flot.min.js"></script>
@@ -67,13 +69,13 @@
                     <td class="options">
                         <div class="button-btns">
                             <button class="totals-help">?</button>
-                            <button class="info-all" i18n="info">Info</button>
+                            <!--<button class="info-all" i18n="info">Info</button>-->
                             <button class="reset-all" i18n="resetAll">Reset</button>
                             <button class="delete-all" i18n="deleteAll">Delete</button>
                         </div>
                         <div class="img-btns">
                             <img src="style/images/help.png" class="totals-help" title="?" width="16" height="16" />
-                            <img src="style/images/information.png" class="info-all" title="Info" i18n="info" width="16" height="16" />
+                            <!--<img src="style/images/information.png" class="info-all" title="Info" i18n="info" width="16" height="16" />-->
                             <img src="style/images/arrow_refresh.png" class="reset-all" title="Reset all" i18n="resetAll" width="16" height="16" />
                             <img src="style/images/delete.png" class="delete-all" title="Delete all" i18n="deleteAll" width="16" height="16" />
                         </div>
@@ -178,11 +180,22 @@
                 <h1 i18n="history">History</h1>
                 <hr />
                 
-                <div id="date-picker" class="history"></div>
-                <div id="history-dump" class="history"></div>
-                
-                <div id="history-disabled" i18n="historyDisabled">History is disabled.</div>
+                <div id="history-group" class="menu-group">
+                    <div id="date-picker"></div>
+                    <div id="history-info" i18n="selectDate">Please select a date to view the task's history for that day.</div>
+                    <table id="history">
+                        <thead>
+                            <tr>
+                                <td i18n="beginningTime">Time Range</td>
+                                <td i18n="timeSpent">Time Spent</td>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
+            
+            <div id="history-disabled" i18n="historyDisabled">History is disabled.</div>
         </div>
         
         <div id="tools-menu" class="modal">
