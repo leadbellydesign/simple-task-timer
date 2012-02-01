@@ -227,12 +227,11 @@ function task_info(task, anim, progress) {
             $('#task-toggle').attr('disabled', 'disabled');
         }
         
-        // History
-        $('#history-info').text(locale('selectDate')).show();
-        $('#history').hide();
-        
         // Show menu
         if(typeof anim == 'undefined' || anim) {
+            $('#history-info').text(locale('selectDate')).show();
+            $('#history').hide();
+            
             $('#modal').fadeIn(600);
             $('#task-menu').animate({left: ((($(window).width() - $('#task-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
         }
