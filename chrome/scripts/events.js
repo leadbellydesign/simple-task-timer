@@ -174,6 +174,7 @@ $(document).ready(function() {
     $('.close-menus').click(function() {
         Load();
         tools_open = false;
+        task_open = false;
         displaying_task = -1
         
         $('#modal').fadeOut(600);
