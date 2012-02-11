@@ -69,7 +69,7 @@ function localisePage() {
         var i18n = locale($(this).attr('i18n'));
         
         if($.inArray($(this)[0].tagName, text_tags) != -1) $(this).text(i18n);
-        else if($.inArray($(this)[0].tagName, html_tags) != -1) $(this).html(i18n);
+        else if($.inArray($(this)[0].tagName, html_tags) != -1) $(this).html(i18n.replace('\n', '<br />'));
         
         if($(this).attr('title')) $(this).attr('title', i18n);
         if($(this).attr('alt')) $(this).attr('alt', i18n);

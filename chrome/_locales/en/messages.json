@@ -116,15 +116,15 @@
     },
     
     "note": {
-        "message": "Note: This only saves locally, on your computer, in your browser.<br />Don't worry, your tasks will <strong>not</strong> be deleted if you clear Chrome's cache/storage.",
+        "message": "Note: This only saves locally, on your computer, in your browser.\nDon't worry, your tasks will <strong>not</strong> be deleted if you clear Chrome's cache/storage.",
         "description": "Reminder that the data is only saved locally"
     },
     "noteOpt": {
-        "message": "Make sure to check out the settings by clicking on the gear button in the top right corner of the app!<br />There are settings such as desktop notifications for when a task finishes.",
+        "message": "Make sure to check out the settings by clicking on the gear button in the top right corner of the app!\nThere are settings such as desktop notifications for when a task finishes.",
         "description": "Reminder to check out the settings menu"
     },
     "notePerf": {
-        "message": "Is the app running slowly for you? Try increasing the pie chart update time in the settings, or disabling pie charts completely.<br />Still running slowly? Increase the general update time or disable task history tracking.",
+        "message": "Is the app running slowly for you? Try increasing the pie chart update time in the settings, or disabling pie charts completely.\nStill running slowly? Increase the general update time or disable task history tracking.",
         "description": "Performance notice"
     },
     
