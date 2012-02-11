@@ -183,10 +183,15 @@ $(document).ready(function() {
     
     // User clicked the close alarm button
     $('#close-alarm').click(function() {
-        document.getElementById('sound').pause();
-        document.getElementById('sound').currentTime = 0;
         alarm_open = false;
         
+        // Stop the sound
+        if(setting('play-sound')) {
+            document.getElementById('sound').pause();
+            document.getElementById('sound').currentTime = 0;
+        }
+        
+        // Hide the popup
         $('#alarm-menu').fadeOut(600);
         if(!task_open && !tools_open) $('#modal').fadeOut(600);
     });

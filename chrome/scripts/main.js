@@ -4,6 +4,7 @@ var alarm_open = false, task_open = false, tools_open = false; // Menu state var
 var current_plot = false, total_plot = false; // Plot variables
 var save_timer, timer, timer_step = 0; // Timer variables
 
+// The settings checkboxes (ID: Default value)
 var settings_checkboxes = {
     'enable-charts': true,
     'hide-notice': false,
@@ -19,6 +20,7 @@ var settings_checkboxes = {
     
     'show-popup': true,
     'notify': false,
+    'play-sound': true,
     'loop-sound': false
 };
 
@@ -327,17 +329,6 @@ function Load() {
         $('#history-group').hide();
     }
     
-    // Set the audio to loop if looping is enabled
-    if(setting('loop-sound', false, true)) {
-        $('#sound').attr('loop', 'loop');
-        $('#close-alarm').text(locale('stopAlarm'));
-        $('#show-popup').attr('disabled', 'disabled');
-    } else {
-        $('#sound').removeAttr('loop');
-        $('#close-alarm').text(locale('close'));
-        $('#show-popup').removeAttr('disabled');
-    }
-    
     // Do stuff for the notification sound
     if(setting('play-sound', true, true)) {
         $('#play-sound').attr('checked', 'checked');
@@ -350,6 +341,17 @@ function Load() {
     } else {
         $('#play-sound').removeAttr('checked');
         $('#sound-type, #custom-sound, #preview-sound, #loop-sound').attr('disabled', 'disabled');
+    }
+    
+    // Set the audio to loop if looping is enabled
+    if(setting('loop-sound', false, true) && setting('play-sound')) {
+        $('#sound').attr('loop', 'loop');
+        $('#close-alarm').text(locale('stopAlarm'));
+        $('#show-popup').attr('disabled', 'disabled');
+    } else {
+        $('#sound').removeAttr('loop');
+        $('#close-alarm').text(locale('close'));
+        $('#show-popup').removeAttr('disabled');
     }
     
     // If the user has chosen to use a custom sound, set the audio element's src to the custom sound path

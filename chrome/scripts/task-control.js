@@ -322,7 +322,7 @@ function update_time() {
                         if(setting('play-sound')) document.getElementById('sound').play();
                         
                         // Show popup
-                        if(setting('show-popup')) {
+                        if(setting('show-popup') || (setting('loop-sound') && setting('play-sound'))) {
                             alarm_open = true;
                             
                             $('#alarm-txt').text(locale('taskFinishedLong', tasks[i].text));
