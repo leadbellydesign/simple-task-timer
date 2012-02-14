@@ -241,6 +241,15 @@ $(document).ready(function() {
         }
     });
     
+    // User clicked the preview button for the notification sound
+    $('#preview-sound').click(function() {
+        if($('#sound-type').val() == 1 || $('#custom-sound').val() != '') {
+            preview_sound = true;
+            $('#preview').attr('src', $('#sound-type').val() == 1 ? 'Deneb.ogg' : $('#custom-sound').val());
+            $(this).text(locale('loading')).attr('disabled', 'disabled');
+        }
+    });
+    
     
     /**************************************************
      ********     I N P U T   E V E N T S      ********
@@ -290,12 +299,10 @@ $(document).ready(function() {
             $('#custom-sound').attr('disabled', 'disabled');
         }
     });
-
-    // User clicked the preview button for the notification sound
-    $('#preview-sound').click(function() {
-        preview_sound = true;
-        $('#preview').attr('src', $('#sound-type').val() == 1 ? 'Deneb.ogg' : $('#custom-sound').val());
-        $(this).text(locale('loading')).attr('disabled', 'disabled');
+    
+    // User changed the custom sound URL field
+    $('#custom-sound').keyup(function() {
+        verify_custom_sound();
     });
     
     // User pressed enter in one of the new task fields

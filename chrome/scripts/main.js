@@ -1,8 +1,9 @@
-var load, dragging = false, preview_sound = false, errord = false, now = new Date(); // General variables
+var load, dragging = false, preview_sound = false, now = new Date(); // General variables
 var tasks = new Array(), task_running = new Array(), task_count = 0; // Task variables
 var alarm_open = false, task_open = false, tools_open = false; // Menu state variables
 var current_plot = false, total_plot = false; // Plot variables
 var save_timer, timer, timer_step = 0; // Timer variables
+var errord = false, no_local_files_alerted = false; // Alert state variables
 
 // The settings checkboxes (ID: Default value)
 var settings_checkboxes = {
@@ -398,6 +399,23 @@ function check_width() {
         }
         
         setting('small-window-alerted', true);
+    }
+}
+
+// Verify the format of the custom sound URL
+function verify_custom_sound() {
+    var url = $('#custom-sound').val();
+    
+    if(url.match(/^(((ht|f)tp(s?))\:\/\/).+$/i)) {
+        // URLs! Interwebs!
+        $('#custom-sound').removeClass('invalid');
+    } else if(url.match(/^(file\:\/\/)?(([a-z]\:(\\|\/))|\/).+$/i) && !no_local_files_alerted) {
+        // Local files can't be used
+        alert(locale('noLocalFiles'));
+        no_local_files_alerted = true;
+    } else {
+        // No format recognised
+        $('#custom-sound').addClass('invalid');
     }
 }
 

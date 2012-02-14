@@ -1,5 +1,9 @@
 /* Page Layout */
 header, footer { text-align: center; }
+hr { border-color: #E9E9E9; }
+button { margin: 2px 0px; }
+button.save, button.cancel { padding: 1px; }
+input.invalid { border: 2px dashed #FF4F4F; }
 
 #notice, #loading, #tasks, #charts, #task-list, #task-list tfoot, #nothing, #edit-tasks, #js-error, #modal, #alarm-menu, #history { display: none; }
 
@@ -27,11 +31,6 @@ header, footer { text-align: center; }
     border-radius: 0 0 0 360px;
     box-shadow: 0 0 20px cyan;
 }
-
-button { margin: 2px 0px; }
-button.save, button.cancel { padding: 1px; }
-
-hr { border-color: #E9E9E9; }
 
 /* Header */
 h1, h2 { margin: 0; }
