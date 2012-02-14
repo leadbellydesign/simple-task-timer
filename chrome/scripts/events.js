@@ -12,6 +12,8 @@ $(document).ready(function() {
         $('#error, #saved, #alarm-menu').center();
         if(task_open) $('#task-menu').css({left: ((($(window).width() - $('#task-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'});
         if(tools_open) $('#tools-menu').css({left: ((($(window).width() - $('#tools-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'});
+        
+        check_width();
     });
     
     // User is leaving the page... Save the data.
@@ -115,6 +117,7 @@ $(document).ready(function() {
             } else {
                 $('.img-btns').hide();
                 $('.button-btns').show();
+                setting('small-window-alerted', false);
             }
         }
         

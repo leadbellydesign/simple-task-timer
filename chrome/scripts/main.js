@@ -158,11 +158,13 @@ $(document).ready(function() {
                 show_history(parseInt(date[0]), parseInt(date[1]), parseInt(date[2]));
             }
         });
-        
+            
+        // Show and update everything
         $('div#tasks').show();
         tools_pulsate();
         rebuild_totals();
         rebuild_charts();
+        check_width();
     } catch(e) {
         js_error(e);
     }
@@ -385,6 +387,18 @@ function save(timeout) {
     
     $('button.delete, #new-btn').removeAttr('disabled');
     if(timeout) load.hide();
+}
+
+// Check window width - if it's small, ask if they want to use icons
+function check_width() {
+    if($(window).innerWidth() < 1440) {
+        if(!setting('small-window-alerted', false, true) && !setting('use-icons') && confirm(locale('smallWindow'))) {
+            setting('use-icons', true);
+            Load();
+        }
+        
+        setting('small-window-alerted', true);
+    }
 }
 
 // The little pulsate effect on the tools button

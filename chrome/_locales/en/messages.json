@@ -511,5 +511,10 @@
     "rating": {
         "message": "Would you like to give this app a rating/review on the Chrome Web Store? It really helps out!",
         "description": "Rating reminder"
+    },
+    
+    "smallWindow": {
+        "message": "You seem to be running Task Timer in a small window, small monitor, or at a low resolution. Would you like to switch to icons instead of buttons in the task list? This will help make sure that tasks don't take up more than one line each.\n\nThis setting can also be changed in the tools menu.",
+        "description": "Running Task Timer in a small window - use icons?"
     }
 }
