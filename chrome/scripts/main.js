@@ -363,6 +363,8 @@ function Load() {
     } else {
         $('#sound').attr('src', 'Deneb.ogg');
     }
+    
+    verify_custom_sound();
 }
 
 // Save the data in localStorage
@@ -403,13 +405,14 @@ function check_width() {
 }
 
 // Verify the format of the custom sound URL
-function verify_custom_sound() {
+function verify_custom_sound(show_no_local_files) {
     var url = $('#custom-sound').val();
     
     if(url.match(/^(((ht|f)tp(s?))\:\/\/).+$/i)) {
         // URLs! Interwebs!
         $('#custom-sound').removeClass('invalid');
-    } else if(url.match(/^(file\:\/\/)?(([a-z]\:(\\|\/))|\/).+$/i) && !no_local_files_alerted) {
+        return true;
+    } else if(url.match(/^(file\:\/\/)?(([a-z]\:(\\|\/))|\/).+$/i) && (!no_local_files_alerted || show_no_local_files)) {
         // Local files can't be used
         alert(locale('noLocalFiles'));
         no_local_files_alerted = true;
@@ -417,6 +420,8 @@ function verify_custom_sound() {
         // No format recognised
         $('#custom-sound').addClass('invalid');
     }
+    
+    return false;
 }
 
 // The little pulsate effect on the tools button

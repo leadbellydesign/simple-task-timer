@@ -80,6 +80,12 @@ $(document).ready(function() {
     $('#save-settings').click(function() {
         old_use_icons = setting('use-icons');
         
+        // Verify that the custom sound URL is valid
+        if($('#play-sound').attr('checked') && $('#sound-type').val() == 2 && !verify_custom_sound(true)) {
+            error(locale('invalidURL'));
+            return false;
+        }
+        
         // Save the state of the checkboxes
         for(i in settings_checkboxes) {
             setting(i, $('#'+ i).is(':checked'));
@@ -243,6 +249,12 @@ $(document).ready(function() {
     
     // User clicked the preview button for the notification sound
     $('#preview-sound').click(function() {
+        // Verify that the custom sound URL is valid
+        if($('#play-sound').attr('checked') && $('#sound-type').val() == 2 && !verify_custom_sound(true)) {
+            error(locale('invalidURL'));
+            return false;
+        }
+        
         if($('#sound-type').val() == 1 || $('#custom-sound').val() != '') {
             preview_sound = true;
             $('#preview').attr('src', $('#sound-type').val() == 1 ? 'Deneb.ogg' : $('#custom-sound').val());
