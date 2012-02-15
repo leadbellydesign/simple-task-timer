@@ -83,6 +83,7 @@ $(document).ready(function() {
         // Verify that the custom sound URL is valid
         if($('#play-sound').attr('checked') && $('#sound-type').val() == 2 && !verify_custom_sound(true)) {
             error(locale('invalidURL'));
+            $('#custom-sound').focus();
             return false;
         }
         
@@ -252,9 +253,11 @@ $(document).ready(function() {
         // Verify that the custom sound URL is valid
         if($('#play-sound').attr('checked') && $('#sound-type').val() == 2 && !verify_custom_sound(true)) {
             error(locale('invalidURL'));
+            $('#custom-sound').focus();
             return false;
         }
         
+        // Play preview sound
         if($('#sound-type').val() == 1 || $('#custom-sound').val() != '') {
             preview_sound = true;
             $('#preview').attr('src', $('#sound-type').val() == 1 ? 'Deneb.ogg' : $('#custom-sound').val());
