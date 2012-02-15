@@ -117,7 +117,7 @@ $(document).ready(function() {
             clearTimeout(save_timer);
             clearTimeout(timer);
             localStorage.clear();
-            location.reLoadSettings();
+            location.reload();
         }
     });
     
