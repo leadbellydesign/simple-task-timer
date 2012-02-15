@@ -3,9 +3,9 @@ var tasks = new Array(), task_running = new Array(), task_count = 0; // Task var
 var alarm_open = false, task_open = false, tools_open = false; // Menu state variables
 var current_plot = false, total_plot = false; // Plot variables
 var save_timer, timer, timer_step = 0; // Timer variables
-var errord = false, no_local_files_alerted = false; // Alert state variables
+var js_error_shown = false, no_local_files_alerted = false; // Alert state variables
 
-// The settings checkboxes (ID: Default value)
+// Settings checkboxes (ID: Default value)
 var settings_checkboxes = {
     'enable-charts': true,
     'hide-notice': false,

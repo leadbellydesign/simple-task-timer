@@ -1,5 +1,5 @@
 // Load the settings
-function LoadSettings() {
+function LoadSettings(from_save) {
     $('#sound-type').val(Setting('sound-type'));
     $('#custom-sound').val(Setting('custom-sound', '', true));
     $('#update-time').val(Setting('update-time', 1, true));
@@ -17,10 +17,10 @@ function LoadSettings() {
     // Display/hide the notice
     if(Setting('hide-notice', false, true)) {
         $('#hide-notice').attr('checked', 'checked');
-        $('#notice').hide();
+        if(from_save) $('#notice').fadeOut(800); else $('#notice').hide();
     } else {
         $('#hide-notice').removeAttr('checked');
-        $('#notice').show();
+        if(from_save) $('#notice').fadeIn(800); else $('#notice').show();
     }
     
     // Switch to/from icons
@@ -96,10 +96,11 @@ function SaveSettings() {
         Setting(i, $('#'+ i).is(':checked'));
     }
     
-    // Save the other field types
+    // Save the sound type and custom sound URL
     Setting('sound-type', $('#sound-type').val());
     Setting('custom-sound', $('#custom-sound').val());
     
+    // Save the update times
     if(parseInt($('#update-time').val()) > 0 && parseInt($('#update-time').val()) <= 60) {
         Setting('update-time', $('#update-time').val());
     }
@@ -114,30 +115,8 @@ function SaveSettings() {
         });
     }
     
-    // Check the auto-start box if setting is enabled
-    if(Setting('autostart-default')) $('#new-start').attr('checked', 'checked');
-    
-    // Hide/show the notice box
-    if(Setting('hide-notice')) $('#notice').fadeOut(800); else $('#notice').fadeIn(800);
-    
-    // Switch between icons and buttons
-    if(old_use_icons != Setting('use-icons')) {
-        if(Setting('use-icons')) {
-            $('.button-btns').hide();
-            $('.img-btns').show();
-        } else {
-            $('.img-btns').hide();
-            $('.button-btns').show();
-            Setting('small-window-alerted', false);
-        }
-    }
-    
-    clearTimeout(timer);
-    timer = setTimeout('update_time()', Setting('update-time') * 1000);
-    
+    LoadSettings(true);
     rebuild_list();
-    editing_task = -1;
-    
     success('saved');
 }
 

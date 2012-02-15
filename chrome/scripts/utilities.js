@@ -48,7 +48,7 @@ function localisePage() {
 
 // JS Error handler
 function js_error(error, url, line) {
-    if(!errord) {
+    if(!js_error_shown) {
         var trace = false;
         
         // See if we're coming from try...catch or window.onerror
@@ -79,8 +79,8 @@ function js_error(error, url, line) {
         $('#js-error').show();
         
         // Alert only once
-        if(!errord) {
-            errord = true;
+        if(!js_error_shown) {
+            js_error_shown = true;
             alert(locale('errorOccurred'));
         }
     }
