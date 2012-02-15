@@ -153,8 +153,8 @@ function Setting(name, value, only_not_exists) {
         exists = true;
     }
     
-    // Set the setting
     if(typeof value != 'undefined' && ((exists && !only_not_exists) || (!exists && only_not_exists))) {
+        // Set the setting
         if(typeof value.toString() != 'undefined') {
             localStorage[name] = value.toString();
         } else {

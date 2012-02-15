@@ -147,7 +147,7 @@ $(document).ready(function() {
         LoadSettings();
         tools_open = false;
         task_open = false;
-        displaying_task = -1
+        displaying_task = -1;
         
         $('#modal').fadeOut(600);
         $('#task-menu, #tools-menu').animate({left: '100%'}, 600);
