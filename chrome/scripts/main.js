@@ -120,7 +120,7 @@ $(document).ready(function() {
         setTimeout(function() { $('#new-txt').focus(); }, 100);
         
         // Start the timers
-        update_time();
+        timer = setTimeout('update_time()', Setting('update-time') * 1000);
         save_timer = setTimeout('SaveTasks(true)', 60000);
         
         // Add to the launch count, and show a rating reminder if at a multiple of 6

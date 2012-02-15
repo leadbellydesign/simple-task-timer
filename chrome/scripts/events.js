@@ -97,7 +97,7 @@ $(document).ready(function() {
             }
             
             // Reload settings
-            LoadSettings();
+            LoadSettings(true, true);
         }
     });
     

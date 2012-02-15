@@ -1,5 +1,5 @@
 // Load the settings
-function LoadSettings(from_save) {
+function LoadSettings(reset_timer, from_save) {
     $('#sound-type').val(Setting('sound-type'));
     $('#custom-sound').val(Setting('custom-sound', '', true));
     $('#update-time').val(Setting('update-time', 1, true));
@@ -77,8 +77,10 @@ function LoadSettings(from_save) {
     verify_custom_sound();
     
     // Reset timer
-    clearTimeout(timer);
-    timer = setTimeout('update_time()', Setting('update-time') * 1000);
+    if(reset_timer) {
+        clearTimeout(timer);
+        timer = setTimeout('update_time()', Setting('update-time') * 1000);
+    }
 }
 
 function SaveSettings() {
@@ -116,7 +118,7 @@ function SaveSettings() {
     }
     
     // Reload settings and stuff
-    LoadSettings(true);
+    LoadSettings(true, true);
     rebuild_list();
     success('saved');
 }
