@@ -292,6 +292,7 @@ function rebuild_charts() {
 
 // Load the settings
 function Load() {
+    $('#sound-type').val(setting('sound-type'));
     $('#custom-sound').val(setting('custom-sound', '', true));
     $('#update-time').val(setting('update-time', 1, true));
     $('#chart-update-time').val(setting('chart-update-time', 3, true));
@@ -336,7 +337,7 @@ function Load() {
     if(setting('play-sound', true, true)) {
         $('#play-sound').attr('checked', 'checked');
         $('#sound-type, #preview-sound, #loop-sound').removeAttr('disabled');
-        if($('#sound-type').val() == '2') {
+        if($('#sound-type').val() == 2) {
             $('#custom-sound').removeAttr('disabled');
         } else {
             $('#custom-sound').attr('disabled', 'disabled');
@@ -357,7 +358,7 @@ function Load() {
         $('#show-popup').removeAttr('disabled');
     }
     
-    // If the user has chosen to use a custom sound, set the audio element's src to the custom sound path
+    // Set the notification audio to the proper src
     if(setting('sound-type', 1, true) == 2) {
         $('#sound').attr('src', setting('custom-sound'));
     } else {
@@ -405,14 +406,14 @@ function check_width() {
 }
 
 // Verify the format of the custom sound URL
-function verify_custom_sound(show_no_local_files) {
+function verify_custom_sound(from_save) {
     var url = $('#custom-sound').val();
     
     if(url.match(/^(((ht|f)tp(s?))\:\/\/).+$/i)) {
         // URLs! Interwebs!
         $('#custom-sound').removeClass('invalid');
         return true;
-    } else if(url.match(/^(file\:\/\/)?(([a-z]\:(\\|\/))|\/).+$/i) && (!no_local_files_alerted || show_no_local_files)) {
+    } else if(url.match(/^(file\:\/\/)?(([a-z]\:(\\|\/))|\/).+$/i) && (!no_local_files_alerted || from_save)) {
         // Local files can't be used
         alert(locale('noLocalFiles'));
         no_local_files_alerted = true;
@@ -421,6 +422,7 @@ function verify_custom_sound(show_no_local_files) {
         $('#custom-sound').addClass('invalid');
     }
     
+    if(url == '' && !from_save) $('#custom-sound').removeClass('invalid');
     return false;
 }
 
