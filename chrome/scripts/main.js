@@ -121,7 +121,7 @@ $(document).ready(function() {
         
         // Start the timers
         update_time();
-        save_timer = setTimeout('save(true)', 60000);
+        save_timer = setTimeout('SaveTasks(true)', 60000);
         
         // Add to the launch count, and show a rating reminder if at a multiple of 6
         localStorage['launches'] = typeof localStorage['launches'] == 'undefined' ? 1 : parseInt(localStorage['launches']) + 1;
@@ -300,7 +300,7 @@ function rebuild_charts() {
 }
 
 // Save the data in localStorage
-function save(timeout) {
+function SaveTasks(timeout) {
     if(timeout) load.show();
     $('button.delete, #new-btn').attr('disabled', 'disabled');
     
@@ -318,7 +318,7 @@ function save(timeout) {
     
     // Timeout
     clearTimeout(save_timer);
-    save_timer = setTimeout('save(true)', 60000);
+    save_timer = setTimeout('SaveTasks(true)', 60000);
     
     $('button.delete, #new-btn').removeAttr('disabled');
     if(timeout) load.hide();

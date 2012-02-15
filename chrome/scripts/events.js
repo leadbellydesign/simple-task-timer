@@ -18,7 +18,7 @@ $(document).ready(function() {
     
     // User is leaving the page... Save the data.
     $(window).unload(function() {
-        save();
+        SaveTasks();
     });
     
     // Preview sound is ready
@@ -66,7 +66,7 @@ $(document).ready(function() {
             $('table#task-list').tableDnDUpdate();
             
             if($('#new-start').is(':checked')) toggle_task(task_count - 1);
-            save();
+            SaveTasks();
             
             $('#new-txt').val('');
             if(Setting('autostart-default')) $('#new-start').attr('checked', 'checked');
