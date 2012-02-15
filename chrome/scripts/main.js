@@ -299,18 +299,6 @@ function rebuild_charts() {
     }
 }
 
-// Check window width - if it's small, ask if they want to use icons
-function check_width() {
-    if($(window).innerWidth() < 1440) {
-        if(!Setting('small-window-alerted', false, true) && !Setting('use-icons') && confirm(locale('smallWindow'))) {
-            Setting('use-icons', true);
-            LoadSettings();
-        }
-        
-        Setting('small-window-alerted', true);
-    }
-}
-
 // Verify the format of the custom sound URL
 function verify_custom_sound(from_btn) {
     if($('#play-sound').attr('checked') && $('#sound-type').val() == 2) {
@@ -333,6 +321,18 @@ function verify_custom_sound(from_btn) {
     } else {
         $('#custom-sound').removeClass('invalid');
         return true;
+    }
+}
+
+// Check window width - if it's small, ask if they want to use icons
+function check_width() {
+    if($(window).width() < 1440) {
+        if(!Setting('small-window-alerted', false, true) && !Setting('use-icons') && confirm(locale('smallWindow'))) {
+            Setting('use-icons', true);
+            LoadSettings();
+        }
+        
+        Setting('small-window-alerted', true);
     }
 }
 
