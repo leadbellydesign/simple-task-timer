@@ -51,6 +51,7 @@ $(document).ready(function() {
         var hours = parseInt($('#new-goal-hours').val()), mins = parseInt($('#new-goal-mins').val()), indef = $('#new-goal-indef').is(':checked');
         
         if($('#new-txt').val() != '' && (hours > 0 || mins > 0 || indef)) {
+            // Cancel editing and add the task
             cancel_edit();
             add_task({
                 'text': $('#new-txt').val(),
@@ -63,12 +64,13 @@ $(document).ready(function() {
                 'notified': false
             });
             
-            $('table#task-list').tableDnDUpdate();
-            
+            // Start the task if the start checkbox is checked and save the tasks
             if($('#new-start').is(':checked')) toggle_task(task_count - 1);
             SaveTasks();
             
+            // Update table, text fields, etc.
             $('#new-txt').val('');
+            $('table#task-list').tableDnDUpdate();
             if(Setting('autostart-default')) $('#new-start').attr('checked', 'checked');
             rebuild_charts();
         } else {
