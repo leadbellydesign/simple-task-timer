@@ -406,24 +406,28 @@ function check_width() {
 }
 
 // Verify the format of the custom sound URL
-function verify_custom_sound(from_save) {
-    var url = $('#custom-sound').val();
-    
-    if(url.match(/^(((ht|f)tp(s?))\:\/\/).+$/i)) {
-        // URLs! Interwebs!
+function verify_custom_sound(from_btn) {
+    if($('#play-sound').attr('checked') && $('#sound-type').val() == 2) {
+        var url = $('#custom-sound').val();
+        
+        if(url.match(/^(((ht|f)tp(s?))\:\/\/).+$/i)) {
+            // URLs! Interwebs!
+            $('#custom-sound').removeClass('invalid');
+            return true;
+        } else if(url.match(/^(file\:\/\/)?(([a-z]\:(\\|\/))|\/).+$/i) && (!no_local_files_alerted || from_btn)) {
+            // Local files can't be used
+            alert(locale('noLocalFiles'));
+            no_local_files_alerted = true;
+        } else {
+            // No format recognised
+            $('#custom-sound').addClass('invalid');
+        }
+        
+        return false;
+    } else {
         $('#custom-sound').removeClass('invalid');
         return true;
-    } else if(url.match(/^(file\:\/\/)?(([a-z]\:(\\|\/))|\/).+$/i) && (!no_local_files_alerted || from_save)) {
-        // Local files can't be used
-        alert(locale('noLocalFiles'));
-        no_local_files_alerted = true;
-    } else {
-        // No format recognised
-        $('#custom-sound').addClass('invalid');
     }
-    
-    if(url == '' && !from_save) $('#custom-sound').removeClass('invalid');
-    return false;
 }
 
 // The little pulsate effect on the tools button

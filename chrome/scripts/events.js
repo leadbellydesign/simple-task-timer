@@ -81,7 +81,7 @@ $(document).ready(function() {
         old_use_icons = setting('use-icons');
         
         // Verify that the custom sound URL is valid
-        if($('#play-sound').attr('checked') && $('#sound-type').val() == 2 && !verify_custom_sound(true)) {
+        if(!verify_custom_sound(true)) {
             error(locale('invalidURL'));
             $('#custom-sound').focus();
             return false;
@@ -251,7 +251,7 @@ $(document).ready(function() {
     // User clicked the preview button for the notification sound
     $('#preview-sound').click(function() {
         // Verify that the custom sound URL is valid
-        if($('#play-sound').attr('checked') && $('#sound-type').val() == 2 && !verify_custom_sound(true)) {
+        if(!verify_custom_sound(true)) {
             error(locale('invalidURL'));
             $('#custom-sound').focus();
             return false;
@@ -313,6 +313,8 @@ $(document).ready(function() {
         } else {
             $('#custom-sound').attr('disabled', 'disabled');
         }
+        
+        verify_custom_sound();
     });
     
     // User changed the custom sound URL field
