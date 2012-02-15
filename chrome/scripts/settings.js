@@ -84,7 +84,7 @@ function LoadSettings(reset_timer, from_save) {
 }
 
 function SaveSettings() {
-    old_use_icons = Setting('use-icons');
+    var old_use_icons = Setting('use-icons');
     
     // Verify that the custom sound URL is valid
     if(!verify_custom_sound(true)) {
@@ -116,6 +116,9 @@ function SaveSettings() {
             webkitNotifications.createNotification('/style/images/icon-64.png', locale('notificationsWork'), locale('notificationsWorkBody')).show();
         });
     }
+    
+    // Reset the small window alerted state
+    if(old_use_icons != Setting('use-icons') && !Setting('use-icons')) Setting('small-window-alerted', false);
     
     // Reload settings and stuff
     LoadSettings(true, true);
