@@ -69,7 +69,7 @@ $(document).ready(function() {
             save();
             
             $('#new-txt').val('');
-            if(setting('autostart-default')) $('#new-start').attr('checked', 'checked');
+            if(Setting('autostart-default')) $('#new-start').attr('checked', 'checked');
             rebuild_charts();
         } else {
             error('invalid');
@@ -86,12 +86,12 @@ $(document).ready(function() {
         if(confirm(locale('confirmResetSettings'))) {
             // Reset checkbox settings
             for(i in settings_checkboxes) {
-                setting(i, settings_checkboxes[i]);
+                Setting(i, settings_checkboxes[i]);
             }
             
             // Reset other settings
             for(i in settings_other) {
-                setting(i, settings_other[i]);
+                Setting(i, settings_other[i]);
             }
             
             // Reload settings
@@ -158,7 +158,7 @@ $(document).ready(function() {
         alarm_open = false;
         
         // Stop the sound
-        if(setting('play-sound')) {
+        if(Setting('play-sound')) {
             document.getElementById('sound').pause();
             document.getElementById('sound').currentTime = 0;
         }
@@ -171,14 +171,14 @@ $(document).ready(function() {
     // User clicked the Close button in the notice
     $('#close-notice').click(function() {
         $('#notice').fadeOut(600);
-        setting('hide-notice', true);
+        Setting('hide-notice', true);
     });
     
     // User clicked the tools button
     $('#tools-button').click(function() {
         LoadSettings();
         tools_open = true;
-        setting('new-tools', false);
+        Setting('new-tools', false);
         
         $('#modal').fadeIn(600, function() { $('#tools-pulsate').stop(true, true).fadeOut(400); });
         $('#tools-menu').animate({left: ((($(window).width() - $('#tools-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);

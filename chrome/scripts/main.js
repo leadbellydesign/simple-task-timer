@@ -102,14 +102,14 @@ $(document).ready(function() {
         $('#new-task input, #new-task button').removeAttr('disabled');
         
         // Check the auto-start box if enabled, and fill in the new task fields if enabled
-        if(setting('autostart-default')) $('#new-start').attr('checked', 'checked');
-        if(setting('save-fields')) {
-            $('#new-txt').val(setting('field-name', '', true));
-            $('#new-goal-hours').val(setting('field-hours', '4', true));
-            $('#new-goal-mins').val(setting('field-mins', '0', true));
+        if(Setting('autostart-default')) $('#new-start').attr('checked', 'checked');
+        if(Setting('save-fields')) {
+            $('#new-txt').val(Setting('field-name', '', true));
+            $('#new-goal-hours').val(Setting('field-hours', '4', true));
+            $('#new-goal-mins').val(Setting('field-mins', '0', true));
             
-            if(setting('field-start', false, true)) $('#new-start').attr('checked', 'checked');
-            if(setting('field-indef', false, true)) {
+            if(Setting('field-start', false, true)) $('#new-start').attr('checked', 'checked');
+            if(Setting('field-indef', false, true)) {
                 $('#new-goal-indef').attr('checked', 'checked');
                 $('#new-goal-hours').attr('disabled', 'disabled');
                 $('#new-goal-mins').attr('disabled', 'disabled');
@@ -125,7 +125,7 @@ $(document).ready(function() {
         
         // Add to the launch count, and show a rating reminder if at a multiple of 6
         localStorage['launches'] = typeof localStorage['launches'] == 'undefined' ? 1 : parseInt(localStorage['launches']) + 1;
-        var launches = setting(launches);
+        var launches = Setting(launches);
         
         if(launches % 6 == 0 && typeof localStorage['rated'] == 'undefined' && confirm(locale('rating'))) {
             localStorage['rated'] = 'true';
@@ -245,7 +245,7 @@ function rebuild_totals() {
 
 // Update the pie charts
 function rebuild_charts() {
-    if(setting('enable-charts') && typeof tasks[0] != 'undefined') {
+    if(Setting('enable-charts') && typeof tasks[0] != 'undefined') {
         var plot_data = new Array(), total_time = 0, i;
         
         // Get the total of all times
@@ -308,12 +308,12 @@ function save(timeout) {
     localStorage['tasks'] = JSON.stringify(tasks);
     
     // Save current new task field contents
-    if(setting('save-fields')) {
-        setting('field-name', $('#new-txt').val());
-        setting('field-hours', $('#new-goal-hours').val());
-        setting('field-mins', $('#new-goal-mins').val());
-        setting('field-indef', $('#new-goal-indef').is(':checked'));
-        setting('field-start', $('#new-start').is(':checked'));
+    if(Setting('save-fields')) {
+        Setting('field-name', $('#new-txt').val());
+        Setting('field-hours', $('#new-goal-hours').val());
+        Setting('field-mins', $('#new-goal-mins').val());
+        Setting('field-indef', $('#new-goal-indef').is(':checked'));
+        Setting('field-start', $('#new-start').is(':checked'));
     }
     
     // Timeout
@@ -327,12 +327,12 @@ function save(timeout) {
 // Check window width - if it's small, ask if they want to use icons
 function check_width() {
     if($(window).innerWidth() < 1440) {
-        if(!setting('small-window-alerted', false, true) && !setting('use-icons') && confirm(locale('smallWindow'))) {
-            setting('use-icons', true);
+        if(!Setting('small-window-alerted', false, true) && !Setting('use-icons') && confirm(locale('smallWindow'))) {
+            Setting('use-icons', true);
             LoadSettings();
         }
         
-        setting('small-window-alerted', true);
+        Setting('small-window-alerted', true);
     }
 }
 
@@ -363,7 +363,7 @@ function verify_custom_sound(from_btn) {
 
 // The little pulsate effect on the tools button
 function tools_pulsate() {
-    if(setting('new-tools', true, true)) {
+    if(Setting('new-tools', true, true)) {
         $('#tools-pulsate').animate({width: '150px', height: '150px'}, 800).animate({width: '75px', height: '75px'}, 800);
         setTimeout('tools_pulsate()', 1600);
     }

@@ -23,37 +23,6 @@ function format_time(hours, mins, secs, indef) {
     return hours.toString() +':'+ (mins < 10 ? '0' : '') + mins.toString() +':'+ (secs < 10 ? '0' : '') + secs.toString();
 }
 
-// Return or set the value of a setting
-function setting(name, value, only_not_exists) {
-    if(typeof only_not_exists == 'undefined') only_not_exists = false;
-    
-    // Check if the setting exists
-    var exists;
-    if(typeof localStorage[name] == 'undefined') {
-        exists = false;
-    } else {
-        exists = true;
-    }
-    
-    // Set the setting
-    if(typeof value != 'undefined' && ((exists && !only_not_exists) || (!exists && only_not_exists))) {
-        if(typeof value.toString() != 'undefined') {
-            localStorage[name] = value.toString();
-        } else {
-            localStorage[name] = value;
-        }
-        
-        return value;
-    } else {
-        // Return the value
-        value = localStorage[name];
-        if(value == 'true') return true;
-        if(value == 'false') return false;
-        if(!isNaN(parseInt(value))) return parseInt(value);
-        return value;
-    }
-}
-
 // Get a single locale string
 function locale(messageID, args) {
     var i18n = chrome.i18n.getMessage(messageID, args);

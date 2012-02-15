@@ -13,7 +13,7 @@ function add_task(data) {
 // Reset a task
 function reset_task(task, override) {
     try {
-        if(override || !setting('confirm-reset') || confirm(locale('confirmReset', tasks[task].text))) {
+        if(override || !Setting('confirm-reset') || confirm(locale('confirmReset', tasks[task].text))) {
             tasks[task].current_hours = tasks[task].current_mins = tasks[task].current_secs = 0;
             tasks[task].notified = false;
             rebuild_list();
@@ -30,7 +30,7 @@ function reset_task(task, override) {
 // Delete a task
 function delete_task(task, override) {
     try {
-        if(override || !setting('confirm-delete') || confirm(locale('confirmDelete', tasks[task].text))) {
+        if(override || !Setting('confirm-delete') || confirm(locale('confirmDelete', tasks[task].text))) {
             load.show();
             $('#new-btn, #task-'+ task +' button').attr('disabled', 'disabled');
             $('#task-'+ task +' img').addClass('disabled');
@@ -83,7 +83,7 @@ function toggle_task(task) {
             $('#task-'+ task).removeClass('running');
         } else {
             // Disable other tasks if they have it set to allow only one running at a time
-            if(setting('only-one')) {
+            if(Setting('only-one')) {
                 for(i = 0; i < task_count; i++) {
                     if(task_running[i]) toggle_task(i);
                 }
@@ -144,7 +144,7 @@ function list_task(task, anim) {
         });
         
         // Change the buttons to icons if the setting is enabled
-        if(setting('use-icons')) {
+        if(Setting('use-icons')) {
             $('#task-'+ task +' .button-btns').hide();
             $('#task-'+ task +' .img-btns').show();
         }
@@ -162,7 +162,7 @@ function list_task(task, anim) {
         
         // Disable the toggle button if task is at its goal, and change the bg colour
         if(!tasks[task].indefinite && tasks[task].current_hours >= tasks[task].goal_hours && tasks[task].current_mins >= tasks[task].goal_mins) {
-            if(setting('stop-timer')) {
+            if(Setting('stop-timer')) {
                 $('#task-'+ task +' button.toggle').attr('disabled', 'disabled');
                 $('#task-'+ task +' img.toggle').attr('src', 'style/images/control_play.png').addClass('disabled');
             }
@@ -223,7 +223,7 @@ function task_info(task, anim, progress) {
         if($('tr#task-'+ task +' button.toggle').attr('disabled')) $('#task-toggle').attr('disabled', 'disabled'); else $('#task-toggle').removeAttr('disabled');
         
         // Disable the toggle button if task is at its goal, and change the bg colour
-        if(!tasks[task].indefinite && tasks[task].current_hours >= tasks[task].goal_hours && tasks[task].current_mins >= tasks[task].goal_mins && setting('stop-timer')) {
+        if(!tasks[task].indefinite && tasks[task].current_hours >= tasks[task].goal_hours && tasks[task].current_mins >= tasks[task].goal_mins && Setting('stop-timer')) {
             $('#task-toggle').attr('disabled', 'disabled');
         }
         
@@ -275,7 +275,7 @@ function show_history(y, m, d) {
 function update_time() {
     try {
         // Get the real time
-        if(setting('track-history')) {
+        if(Setting('track-history')) {
             now = new Date();
             var year = now.getFullYear(), month = now.getMonth(), day = now.getDate(), hour = now.getHours();
         }
@@ -284,12 +284,12 @@ function update_time() {
         for(var i = 0; i < task_count; i++) {
             if(task_running[i]) {
                 // Increment time
-                tasks[i].current_secs += setting('update-time');
+                tasks[i].current_secs += Setting('update-time');
                 if(tasks[i].current_secs >= 60) { tasks[i].current_secs -= 60; tasks[i].current_mins++; }
                 if(tasks[i].current_mins >= 60) { tasks[i].current_mins -= 60; tasks[i].current_hours++; }
                 
                 // Historical time
-                if(setting('track-history')) {
+                if(Setting('track-history')) {
                     // Make sure the object exists all the way down
                     if(typeof tasks[i].history == 'undefined') tasks[i].history = {};
                     if(typeof tasks[i].history[year] == 'undefined') tasks[i].history[year] = {};
@@ -308,7 +308,7 @@ function update_time() {
                     $('tr#task-'+ i).addClass('done');
                     
                     // Stop the timer
-                    if(setting('stop-timer')) {
+                    if(Setting('stop-timer')) {
                         toggle_task(i);
                         $('tr#task-'+ i +' button.toggle').attr('disabled', 'disabled');
                         $('tr#task-'+ i +' img.toggle').attr('src', 'style/images/control_play.png').addClass('disabled');
@@ -319,10 +319,10 @@ function update_time() {
                         tasks[i].notified = true;
                         
                         // Play sound
-                        if(setting('play-sound')) document.getElementById('sound').play();
+                        if(Setting('play-sound')) document.getElementById('sound').play();
                         
                         // Show popup
-                        if(setting('show-popup') || (setting('loop-sound') && setting('play-sound'))) {
+                        if(Setting('show-popup') || (Setting('loop-sound') && Setting('play-sound'))) {
                             alarm_open = true;
                             
                             $('#alarm-txt').text(locale('taskFinishedLong', tasks[i].text));
@@ -331,7 +331,7 @@ function update_time() {
                         }
                         
                         // Show Desktop Notification
-                        if(setting('notify') && webkitNotifications.checkPermission() == 0) {
+                        if(Setting('notify') && webkitNotifications.checkPermission() == 0) {
                             webkitNotifications.createNotification('/style/images/icon-64.png', locale('taskFinished'), locale('taskFinishedLong', tasks[i].text)).show();
                         }
                     }
@@ -357,13 +357,13 @@ function update_time() {
         rebuild_totals();
         
         // Update pie charts
-        if(timer_step >= setting('chart-update-time', 3, true)) {
+        if(timer_step >= Setting('chart-update-time', 3, true)) {
             rebuild_charts();
             timer_step = 0;
         }
         
         // Do it again in a second
-        timer = setTimeout('update_time()', setting('update-time') * 1000);
+        timer = setTimeout('update_time()', Setting('update-time') * 1000);
         timer_step++;
     } catch(e) {
         js_error(e);
