@@ -115,6 +115,7 @@ function SaveSettings() {
         });
     }
     
+    // Reload settings and stuff
     LoadSettings(true);
     rebuild_list();
     success('saved');

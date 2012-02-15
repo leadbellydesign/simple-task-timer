@@ -1,9 +1,9 @@
 var load, dragging = false, preview_sound = false, now = new Date(); // General variables
 var tasks = new Array(), task_running = new Array(), task_count = 0; // Task variables
 var alarm_open = false, task_open = false, tools_open = false; // Menu state variables
+var js_error_shown = false, no_local_files_alerted = false; // Alert state variables
 var current_plot = false, total_plot = false; // Plot variables
 var save_timer, timer, timer_step = 0; // Timer variables
-var js_error_shown = false, no_local_files_alerted = false; // Alert state variables
 
 // Settings checkboxes (ID: Default value)
 var settings_checkboxes = {
