@@ -54,6 +54,10 @@
         "message": "Save",
         "description": "Save"
     },
+    "resetSettings": {
+        "message": "Reset to Default",
+        "description": "Reset to default"
+    },
     "cancel": {
         "message": "Cancel",
         "description": "Cancel"
@@ -474,6 +478,10 @@
     "confirmResetData": {
         "message": "Are you sure you want to wipe all of Task Timer's data completely?\nThis will get rid of your tasks and settings.",
         "description": "Confirmation notice on deletion of all data"
+    },
+    "confirmResetSettings": {
+        "message": "Are you sure you want to reset all of your settings back to their default values?",
+        "description": "Confirmation notice on resetting settings"
     },
     
     "taskFinished": {

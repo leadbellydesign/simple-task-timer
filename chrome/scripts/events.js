@@ -78,63 +78,25 @@ $(document).ready(function() {
     
     // User clicked the save button in the tools menu
     $('#save-settings').click(function() {
-        old_use_icons = setting('use-icons');
-        
-        // Verify that the custom sound URL is valid
-        if(!verify_custom_sound(true)) {
-            error(locale('invalidURL'));
-            $('#custom-sound').focus();
-            return false;
-        }
-        
-        // Save the state of the checkboxes
-        for(i in settings_checkboxes) {
-            setting(i, $('#'+ i).is(':checked'));
-        }
-        
-        // Save the other field types
-        setting('sound-type', $('#sound-type').val());
-        setting('custom-sound', $('#custom-sound').val());
-        
-        if(parseInt($('#update-time').val()) > 0 && parseInt($('#update-time').val()) <= 60) {
-            setting('update-time', $('#update-time').val());
-        }
-        if(parseInt($('#chart-update-time').val()) > 0 && parseInt($('#chart-update-time').val()) <= 60) {
-            setting('chart-update-time', parseInt($('#chart-update-time').val()));
-        }
-        
-        // Check for notification permissions
-        if(setting('notify')) {
-            webkitNotifications.requestPermission(function() {
-                webkitNotifications.createNotification('/style/images/icon-64.png', locale('notificationsWork'), locale('notificationsWorkBody')).show();
-            });
-        }
-        
-        // Check the auto-start box if setting is enabled
-        if(setting('autostart-default')) $('#new-start').attr('checked', 'checked');
-        
-        // Hide/show the notice box
-        if(setting('hide-notice')) $('#notice').fadeOut(800); else $('#notice').fadeIn(800);
-        
-        // Switch between icons and buttons
-        if(old_use_icons != setting('use-icons')) {
-            if(setting('use-icons')) {
-                $('.button-btns').hide();
-                $('.img-btns').show();
-            } else {
-                $('.img-btns').hide();
-                $('.button-btns').show();
-                setting('small-window-alerted', false);
+        SaveSettings();
+    });
+    
+    // User clicked the reset settings button
+    $('#reset-settings').click(function() {
+        if(confirm(locale('confirmResetSettings'))) {
+            // Reset checkbox settings
+            for(i in settings_checkboxes) {
+                setting(i, settings_checkboxes[i]);
             }
+            
+            // Reset other settings
+            for(i in settings_other) {
+                setting(i, settings_other[i]);
+            }
+            
+            // Reload settings
+            LoadSettings();
         }
-        
-        clearTimeout(timer);
-        timer = setTimeout('update_time()', setting('update-time') * 1000);
-        
-        rebuild_list();
-        editing_task = -1;
-        
-        success('saved');
     });
     
     // User clicked the clear all history button
@@ -153,7 +115,7 @@ $(document).ready(function() {
             clearTimeout(save_timer);
             clearTimeout(timer);
             localStorage.clear();
-            location.reload();
+            location.reLoadSettings();
         }
     });
     
@@ -182,7 +144,7 @@ $(document).ready(function() {
     
     // User clicked the close button in one of the menus
     $('.close-menus').click(function() {
-        Load();
+        LoadSettings();
         tools_open = false;
         task_open = false;
         displaying_task = -1
@@ -214,7 +176,7 @@ $(document).ready(function() {
     
     // User clicked the tools button
     $('#tools-button').click(function() {
-        Load();
+        LoadSettings();
         tools_open = true;
         setting('new-tools', false);
         

@@ -25,6 +25,15 @@ var settings_checkboxes = {
     'loop-sound': false
 };
 
+// Other settings (ID: Default value)
+var settings_other = {
+    'sound-type': 1,
+    'custom-sound': '',
+    
+    'update-time': 1,
+    'chart-update-time': 3
+};
+
 // Set error event (most important event)
 window.onerror = function(msg, url, line) { js_error(msg, url, line); };
 
@@ -87,7 +96,7 @@ $(document).ready(function() {
         }
         
         // Load settings
-        Load();
+        LoadSettings();
         
         // Enable the add task fields
         $('#new-task input, #new-task button').removeAttr('disabled');
@@ -290,84 +299,6 @@ function rebuild_charts() {
     }
 }
 
-// Load the settings
-function Load() {
-    $('#sound-type').val(setting('sound-type'));
-    $('#custom-sound').val(setting('custom-sound', '', true));
-    $('#update-time').val(setting('update-time', 1, true));
-    $('#chart-update-time').val(setting('chart-update-time', 3, true));
-    
-    // Check/uncheck checkboxes
-    $.each(settings_checkboxes, function(i, v) {
-        if(setting(i, v, true)) {
-            $('#'+ i).attr('checked', 'checked');
-        } else {
-            $('#'+ i).removeAttr('checked');
-        }
-    });
-    
-    // Display/hide the notice
-    if(setting('hide-notice', false, true)) {
-        $('#hide-notice').attr('checked', 'checked');
-        $('#notice').hide();
-    } else {
-        $('#hide-notice').removeAttr('checked');
-        $('#notice').show();
-    }
-    
-    // Switch to/from icons
-    if(setting('use-icons')) {
-        $('.button-btns').hide();
-        $('.img-btns').show();
-    } else {
-        $('.button-btns').show();
-        $('.img-btns').hide();
-    }
-    
-    // Show the history disabled message if necessary
-    if(setting('track-history')) {
-        $('#history-disabled').hide();
-        $('#history-group').show();
-    } else {
-        $('#history-disabled').show();
-        $('#history-group').hide();
-    }
-    
-    // Do stuff for the notification sound
-    if(setting('play-sound', true, true)) {
-        $('#play-sound').attr('checked', 'checked');
-        $('#sound-type, #preview-sound, #loop-sound').removeAttr('disabled');
-        if($('#sound-type').val() == 2) {
-            $('#custom-sound').removeAttr('disabled');
-        } else {
-            $('#custom-sound').attr('disabled', 'disabled');
-        }
-    } else {
-        $('#play-sound').removeAttr('checked');
-        $('#sound-type, #custom-sound, #preview-sound, #loop-sound').attr('disabled', 'disabled');
-    }
-    
-    // Set the audio to loop if looping is enabled
-    if(setting('loop-sound', false, true) && setting('play-sound')) {
-        $('#sound').attr('loop', 'loop');
-        $('#close-alarm').text(locale('stopAlarm'));
-        $('#show-popup').attr('disabled', 'disabled');
-    } else {
-        $('#sound').removeAttr('loop');
-        $('#close-alarm').text(locale('close'));
-        $('#show-popup').removeAttr('disabled');
-    }
-    
-    // Set the notification audio to the proper src
-    if(setting('sound-type', 1, true) == 2) {
-        $('#sound').attr('src', setting('custom-sound'));
-    } else {
-        $('#sound').attr('src', 'Deneb.ogg');
-    }
-    
-    verify_custom_sound();
-}
-
 // Save the data in localStorage
 function save(timeout) {
     if(timeout) load.show();
@@ -398,7 +329,7 @@ function check_width() {
     if($(window).innerWidth() < 1440) {
         if(!setting('small-window-alerted', false, true) && !setting('use-icons') && confirm(locale('smallWindow'))) {
             setting('use-icons', true);
-            Load();
+            LoadSettings();
         }
         
         setting('small-window-alerted', true);
