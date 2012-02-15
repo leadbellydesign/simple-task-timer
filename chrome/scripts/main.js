@@ -299,31 +299,6 @@ function rebuild_charts() {
     }
 }
 
-// Save the data in localStorage
-function SaveTasks(timeout) {
-    if(timeout) load.show();
-    $('button.delete, #new-btn').attr('disabled', 'disabled');
-    
-    // Save task data
-    localStorage['tasks'] = JSON.stringify(tasks);
-    
-    // Save current new task field contents
-    if(Setting('save-fields')) {
-        Setting('field-name', $('#new-txt').val());
-        Setting('field-hours', $('#new-goal-hours').val());
-        Setting('field-mins', $('#new-goal-mins').val());
-        Setting('field-indef', $('#new-goal-indef').is(':checked'));
-        Setting('field-start', $('#new-start').is(':checked'));
-    }
-    
-    // Timeout
-    clearTimeout(save_timer);
-    save_timer = setTimeout('SaveTasks(true)', 60000);
-    
-    $('button.delete, #new-btn').removeAttr('disabled');
-    if(timeout) load.hide();
-}
-
 // Check window width - if it's small, ask if they want to use icons
 function check_width() {
     if($(window).innerWidth() < 1440) {
@@ -367,4 +342,29 @@ function tools_pulsate() {
         $('#tools-pulsate').animate({width: '150px', height: '150px'}, 800).animate({width: '75px', height: '75px'}, 800);
         setTimeout('tools_pulsate()', 1600);
     }
+}
+
+// Save the data in localStorage
+function SaveTasks(timeout) {
+    if(timeout) load.show();
+    $('button.delete, #new-btn').attr('disabled', 'disabled');
+    
+    // Save task data
+    localStorage['tasks'] = JSON.stringify(tasks);
+    
+    // Save current new task field contents
+    if(Setting('save-fields')) {
+        Setting('field-name', $('#new-txt').val());
+        Setting('field-hours', $('#new-goal-hours').val());
+        Setting('field-mins', $('#new-goal-mins').val());
+        Setting('field-indef', $('#new-goal-indef').is(':checked'));
+        Setting('field-start', $('#new-start').is(':checked'));
+    }
+    
+    // Timeout
+    clearTimeout(save_timer);
+    save_timer = setTimeout('SaveTasks(true)', 60000);
+    
+    $('button.delete, #new-btn').removeAttr('disabled');
+    if(timeout) load.hide();
 }

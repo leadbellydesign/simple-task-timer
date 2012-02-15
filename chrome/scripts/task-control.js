@@ -63,7 +63,7 @@ function delete_task(task, override) {
                 if(task_count >= 2) $('table#task-list tfoot').fadeIn(); else $('table#task-list tfoot').fadeOut();
             }, 20);
             
-            SaveTasks();
+            save();
             $('#new-txt').focus();
             load.hide();
         }

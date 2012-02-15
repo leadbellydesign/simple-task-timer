@@ -44,7 +44,7 @@ function save_name(task) {
             
             // Finish editing
             rebuild_list();
-            SaveTasks();
+            save();
             editing_task = -1;
         } else {
             error('invalidName');
@@ -123,7 +123,7 @@ function save_current(task) {
         
         // Finish editing
         rebuild_list();
-        SaveTasks();
+        save();
         editing_task = -1;
         if(was_running) toggle_task(task);
     } catch(e) {
@@ -210,7 +210,7 @@ function save_goal(task) {
             
             // Finish editing
             rebuild_list();
-            SaveTasks();
+            save();
             editing_task = -1;
             if(was_running) toggle_task(task);
         } else {
