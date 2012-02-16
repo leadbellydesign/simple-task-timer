@@ -26,6 +26,11 @@ function format_time(hours, mins, secs, indef) {
 // Get a single locale string
 function locale(messageID, args) {
     var i18n = chrome.i18n.getMessage(messageID, args);
+    
+    // Replace URLs in the format of [Text|URL]
+    i18n = i18n.replace(/\[(.+)\|(.+)\]/gi, '<a href="$2">$1</a>');
+    
+    // Return locale string
     return i18n != '' ? i18n : messageID;
 }
 
@@ -35,11 +40,14 @@ function localisePage() {
     var html_tags = ['DIV', 'P', 'TD', 'TH', 'SPAN'];
     
     $('[i18n]').each(function(i, v) {
-        var i18n = locale($(this).attr('i18n'));
+        var i18n = locale($(this).attr('i18n')), type;
         
-        // Set the HTML or text
-        if($.inArray($(this)[0].tagName, text_tags) != -1) $(this).text(i18n.replace(/\[email\]/gi, 'Gawdl3y@gmail.com'));
-        else if($.inArray($(this)[0].tagName, html_tags) != -1) $(this).html(i18n.replace(/\n/g, '<br />').replace(/\[email\]/gi, '<a href="mailto:Gawdl3y@gmail.com?subject=Volunteering%20for%20Task Timer">Gawdl3y@gmail.com</a>'));
+        // Text or HTML tag? 1 = text, 2 = HTML, 3 = N/A
+        type = $.inArray($(this)[0].tagName, text_tags) != -1 ? 1 : ($.inArray($(this)[0].tagName, html_tags) != -1 ? 2 : 3);
+        
+        // Set the text or HTML
+        if(type == 1) $(this).text(i18n);
+        else if(type == 2) $(this).html(i18n.replace(/\n/g, '<br />'));
         
         // Set attributes
         if($(this).attr('title')) $(this).attr('title', i18n);

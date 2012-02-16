@@ -1,3 +1,4 @@
+var start = new Date();
 var load, dragging = false, preview_sound = false, now = new Date(); // General variables
 var tasks = new Array(), task_running = new Array(), task_count = 0; // Task variables
 var alarm_open = false, task_open = false, tools_open = false; // Menu state variables
@@ -176,6 +177,9 @@ $(document).ready(function() {
         rebuild_totals();
         rebuild_charts();
         check_width();
+        
+        var end = new Date();
+        alert(end.getTime() - start.getTime());
     } catch(e) {
         js_error(e);
     }
