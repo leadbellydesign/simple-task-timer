@@ -38,8 +38,8 @@ function localisePage() {
         var i18n = locale($(this).attr('i18n'));
         
         // Set the HTML or text
-        if($.inArray($(this)[0].tagName, text_tags) != -1) $(this).text(i18n);
-        else if($.inArray($(this)[0].tagName, html_tags) != -1) $(this).html(i18n.replace(/\n/g, '<br />'));
+        if($.inArray($(this)[0].tagName, text_tags) != -1) $(this).text(i18n.replace(/\[email\]/gi, 'Gawdl3y@gmail.com'));
+        else if($.inArray($(this)[0].tagName, html_tags) != -1) $(this).html(i18n.replace(/\n/g, '<br />').replace(/\[email\]/gi, '<a href="mailto:Gawdl3y@gmail.com?subject=Volunteering%20for%20Task Timer">Gawdl3y@gmail.com</a>'));
         
         // Set attributes
         if($(this).attr('title')) $(this).attr('title', i18n);

@@ -23,6 +23,9 @@ function LoadSettings(reset_timer, from_save) {
         if(from_save) $('#notice').fadeIn(800); else $('#notice').show();
     }
     
+    // Display the volunteer notice
+    if(!Setting('volunteer-hidden', false, true)) $('#volunteer-notice').show();
+    
     // Switch to/from icons
     if(Setting('use-icons')) {
         $('.button-btns').hide();

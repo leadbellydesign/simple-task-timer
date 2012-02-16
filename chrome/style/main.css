@@ -1,5 +1,5 @@
 /* General Look and Feel */
-#notice, #loading, #tasks, #charts, #task-list, #task-list tfoot, #nothing, #edit-tasks, #js-error, #modal, #alarm-menu, #history { display: none; }
+#loading, #notice, #volunteer-notice, #tasks, #charts, #task-list, #task-list tfoot, #nothing, #edit-tasks, #js-error, #modal, #alarm-menu, #history { display: none; }
 
 header, footer { text-align: center; }
 hr { border-color: #E9E9E9; }
@@ -78,7 +78,7 @@ h2 { font-size: 1em; font-weight: normal; }
     border-radius: 5px;
 }
 
-#close-notice {
+.close-note {
     float: right;
 }
 

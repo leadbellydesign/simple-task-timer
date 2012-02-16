@@ -170,10 +170,16 @@ $(document).ready(function() {
         if(!task_open && !tools_open) $('#modal').fadeOut(600);
     });
     
-    // User clicked the Close button in the notice
+    // User clicked the close button in the notice
     $('#close-notice').click(function() {
         $('#notice').fadeOut(600);
         Setting('hide-notice', true);
+    });
+    
+    // User clicked the close button in the volunteer notice
+    $('#close-vol-notice').click(function() {
+        $('#volunteer-notice').fadeOut(600);
+        Setting('volunteer-hidden', true);
     });
     
     // User clicked the tools button

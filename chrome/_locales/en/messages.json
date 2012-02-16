@@ -136,6 +136,11 @@
         "description": "Performance notice"
     },
     
+    "volunteerNoticeGFX": {
+        "message": "I'm useless at image design, so I'm looking for people who can design a couple of images for the app.\nWant to volunteer? Shoot me an Email at [EMAIL]!",
+        "description": "Graphics volunteer notice"
+    },
+    
     "noTasks": {
         "message": "You haven't created any tasks yet!",
         "description": "No tasks have been created"
