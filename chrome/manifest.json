@@ -5,6 +5,9 @@
     "default_locale": "en",
     "offline_enabled": true,
     
+    "background_page": "background.html",
+    "content_security_policy": "default-src 'self' https://www.paypal.com https://www.paypalobjects.com",
+    
     "app": {
       "launch": {
           "local_path": "index.html"
