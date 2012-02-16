@@ -14,6 +14,7 @@ var settings_checkboxes = {
     'autostart-default': false,
     'save-fields': true,
     'use-icons': false,
+    'update-alert': true,
     
     'track-history': true,
     'stop-timer': true,

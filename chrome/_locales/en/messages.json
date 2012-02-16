@@ -341,6 +341,10 @@
         "message": "Keep what you have in the new task fields when you relaunch the app",
         "description": "Setting - Keep new task field contents on relaunch"
     },
+    "optUpdateAlert": {
+        "message": "Open the app when it is updated",
+        "description": "Setting - Open app when updated"
+    },
     
     "taskSettings": {
         "message": "Task Settings",
