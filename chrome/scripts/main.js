@@ -61,9 +61,7 @@ $(document).ready(function() {
 
         // If coming from a version older than 3.5, convert the stop-timer setting to no-overtime
         if(parseFloat(localStorage['old-version']) < 3.5) {
-            if(Setting('stop-timer', true, true)) {
-                Setting('no-overtime', true);
-            } else {
+            if(!Setting('stop-timer', true, true)) {
                 Setting('no-overtime', false);
                 Setting('stop-timer', true);
             }
