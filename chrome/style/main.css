@@ -1,5 +1,5 @@
 /* General Look and Feel */
-#loading, #notice, #volunteer-notice, #tasks, #charts, #task-list, #task-list tfoot, #nothing, #edit-tasks, #js-error, #modal, #alarm-menu, #history { display: none; }
+#loading, #notice, #volunteer-notice, #tasks, #charts, #task-list, #task-list tfoot, #nothing, #edit-tasks, #js-error, #modal, #history, #alarm-menu, #modal-dialog { display: none; }
 
 header, footer { text-align: center; }
 hr { border-color: #E9E9E9; }
@@ -19,13 +19,13 @@ input.invalid {
 }
 
 #tools-button {
-    position: fixed;
+    position: absolute;
     right: 5px;
     top: 5px;
 }
 
 #tools-pulsate {
-    position: fixed;
+    position: absolute;
     top: 0;
     right: 0;
     
@@ -67,15 +67,9 @@ h2 { font-size: 1em; font-weight: normal; }
 
 /* Notes */
 .note {
-    margin: 10px auto 0px auto;
     padding: 5px;
-    width: 70%;
-    min-width: 960px;
-    
     background-color: #D7F0D7;
-    
     border: 1px solid #C8E1C8;
-    border-radius: 5px;
 }
 
 .close-note {
@@ -175,7 +169,7 @@ tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress { font-weight:
     border-left: 1px solid black;
 }
 
-#task-menu, #tools-menu, #alarm-menu {
+#task-menu, #tools-menu, #alarm-menu, #modal-dialog {
     position: fixed;
     padding: 10px;
     
@@ -197,16 +191,14 @@ tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress { font-weight:
     float: right;
 }
 
-/* Alarm menu */
-#alarm-menu {
-    position: fixed;
+/* Alarm menu & modal dialog */
+#alarm-menu, #modal-dialog {
     border-radius: 5px;
     text-align: center;
 }
 
-#close-alarm {
-    font-size: 1em;
-}
+#alarm-menu hr, #modal-dialog hr { margin: 15px 0 5px 0; }
+#alarm-menu button, #modal-dialog button { float: right; }
 
 /* Task info menu */
 #info-table { width: 100%; }

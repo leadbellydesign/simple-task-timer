@@ -8,11 +8,11 @@
         "description": "The short description of the app"
     },
     
-    "title": {
+    "txtTitle": {
         "message": "Task Timer",
-        "description": "The title of the main page"
+        "description": "Title of the main page"
     },
-    "description": {
+    "txtDescription": {
         "message": "Use this tool to keep track of time that you spend on work, studies, or any other type of task.",
         "description": "Shows right below the title"
     },

@@ -24,7 +24,7 @@ function LoadSettings(reset_timer, from_save) {
     }
     
     // Display the volunteer notice
-    if(!Setting('volunteer-hidden', false, true)) $('#volunteer-notice').show();
+    //if(!Setting('volunteer-hidden', false, true)) $('#volunteer-notice').show();
     
     // Switch to/from icons
     if(Setting('use-icons')) {
@@ -42,6 +42,13 @@ function LoadSettings(reset_timer, from_save) {
     } else {
         $('#history-disabled').show();
         $('#history-group').hide();
+    }
+
+    // Enable/disable stop timer checkbox
+    if(Setting('no-overtime')) {
+        $('#stop-timer').attr('disabled', 'disabled');
+    } else {
+        $('#stop-timer').removeAttr('disabled');
     }
     
     // Do stuff for the notification sound
@@ -91,7 +98,7 @@ function SaveSettings() {
     
     // Verify that the custom sound URL is valid
     if(!verify_custom_sound(true)) {
-        error(locale('invalidURL'));
+        error(locale('errInvalidURL'));
         $('#custom-sound').focus();
         return false;
     }
@@ -126,7 +133,7 @@ function SaveSettings() {
     // Reload settings and stuff
     LoadSettings(true, true);
     rebuild_list();
-    success('saved');
+    success('sucSavedSettings');
 }
 
 // Return or set the value of a setting

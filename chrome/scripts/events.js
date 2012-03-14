@@ -9,7 +9,7 @@ $(document).ready(function() {
     
     // User resized window
     $(window).resize(function() {
-        $('#error, #saved, #alarm-menu').center();
+        $('#error, #saved, #alarm-menu, #modal-dialog').center();
         if(task_open) $('#task-menu').css({left: ((($(window).width() - $('#task-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'});
         if(tools_open) $('#tools-menu').css({left: ((($(window).width() - $('#tools-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'});
         
@@ -45,16 +45,16 @@ $(document).ready(function() {
      **************************************************/
     // User clicked the Add Task button
     $('#new-btn').click(function() {
-        if($('#new-goal-hours').val() == '' || parseInt($('#new-goal-hours').val()) < 0) $('#new-goal-hours').val('0');
-        if($('#new-goal-mins').val() == '' || parseInt($('#new-goal-mins').val()) < 0) $('#new-goal-mins').val('0');
-        
+        // Validate time
+        fix_time('#new-goal-hours', '#new-goal-mins')
         var hours = parseInt($('#new-goal-hours').val()), mins = parseInt($('#new-goal-mins').val()), indef = $('#new-goal-indef').is(':checked');
         
         if($('#new-txt').val() != '' && (hours > 0 || mins > 0 || indef)) {
-            // Cancel editing and add the task
+            // Add the task to the array
             cancel_edit();
             add_task({
                 'text': $('#new-txt').val(),
+                'description': '',
                 'current_hours': 0,
                 'current_mins': 0,
                 'current_secs': 0,
@@ -85,7 +85,7 @@ $(document).ready(function() {
     
     // User clicked the reset settings button
     $('#reset-settings').click(function() {
-        if(confirm(locale('confirmResetSettings'))) {
+        if(confirm(locale('confResetSettings'))) {
             // Reset checkbox settings
             for(i in settings_checkboxes) {
                 Setting(i, settings_checkboxes[i]);
@@ -103,7 +103,7 @@ $(document).ready(function() {
     
     // User clicked the clear all history button
     $('#clear-all-history').click(function() {
-        if(confirm(locale('confirmClearAllHistory'))) {
+        if(confirm(locale('confClearAllHistory'))) {
             for(t = 0; t < task_count; t++) {
                 tasks[t].history = {};
             }
@@ -112,7 +112,7 @@ $(document).ready(function() {
     
     // User clicked one of the clear data buttons
     $('.clear-data').click(function() {
-        if(confirm(locale('confirmResetData'))) {
+        if(confirm(locale('confResetData'))) {
             $(window).unbind();
             clearTimeout(save_timer);
             clearTimeout(timer);
@@ -123,25 +123,29 @@ $(document).ready(function() {
     
     // User clicked the totals help button
     $('.totals-help').click(function() {
-        alert(locale('totalsHelp'));
+        alert(locale('noteTotalsHelp'));
     });
     
     // User clicked the reset all button
     $('.reset-all').click(function() {
-        if(confirm(locale('confirmResetAll'))) {
-            for(t = 0; t < task_count; t++) {
-                reset_task(t, true);
+        dialog(locale('confResetAll'), function(status) {
+            if(status) {
+                for(t = 0; t < task_count; t++) {
+                    reset_task(t, true);
+                }
             }
-        }
+        }, {}, 'question');
     });
     
     // User clicked the delete all button
     $('.delete-all').click(function() {
-        if(confirm(locale('confirmDeleteAll'))) {
-            for(t = task_count - 1; t >= 0; t--) {
-                delete_task(t, true);
+        dialog(locale('confDeleteAll'), function(status) {
+            if(status) {
+                for(t = task_count - 1; t >= 0; t--) {
+                    delete_task(t, true);
+                }
             }
-        }
+        }, {}, 'question');
     });
     
     // User clicked the close button in one of the menus
@@ -151,7 +155,7 @@ $(document).ready(function() {
         task_open = false;
         displaying_task = -1;
         
-        $('#modal').fadeOut(600);
+        if(!alarm_open && !task_open && !tools_open && !dialog_open) $('#modal').fadeOut(600);
         $('#task-menu, #tools-menu').animate({left: '100%'}, 600);
     });
     
@@ -167,7 +171,7 @@ $(document).ready(function() {
         
         // Hide the popup
         $('#alarm-menu').fadeOut(600);
-        if(!task_open && !tools_open) $('#modal').fadeOut(600);
+        if(!task_open && !tools_open && !dialog_open) $('#modal').fadeOut(600);
     });
     
     // User clicked the close button in the notice
@@ -177,10 +181,10 @@ $(document).ready(function() {
     });
     
     // User clicked the close button in the volunteer notice
-    $('#close-vol-notice').click(function() {
+    /*$('#close-vol-notice').click(function() {
         $('#volunteer-notice').fadeOut(600);
         Setting('volunteer-hidden', true);
-    });
+    });*/
     
     // User clicked the tools button
     $('#tools-button').click(function() {
@@ -192,6 +196,12 @@ $(document).ready(function() {
         $('#tools-menu').animate({left: ((($(window).width() - $('#tools-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
     });
     
+    // User clicked the save description button in the task info menu
+    $('#save-description').click(function() {
+        tasks[parseInt($(this).attr('name'))].description = $('#info-description textarea').val();
+        success(locale('sucSavedDesc'));
+    });
+
     // User clicked the toggle button in the task info menu
     $('#task-toggle').click(function() {
         toggle_task(parseInt($(this).attr('name')));
@@ -213,7 +223,7 @@ $(document).ready(function() {
     $('#task-clear-history').click(function() {
         var task = parseInt($(this).attr('name'));
         
-        if(confirm(locale('confirmClearHistory', tasks[task].text))) {
+        if(confirm(locale('confClearHistory', tasks[task].text))) {
             tasks[task].history = {};
         }
     });
@@ -222,7 +232,7 @@ $(document).ready(function() {
     $('#preview-sound').click(function() {
         // Verify that the custom sound URL is valid
         if(!verify_custom_sound(true)) {
-            error(locale('invalidURL'));
+            error(locale('txtInvalidURL'));
             $('#custom-sound').focus();
             return false;
         }
@@ -231,7 +241,7 @@ $(document).ready(function() {
         if($('#sound-type').val() == 1 || $('#custom-sound').val() != '') {
             preview_sound = true;
             $('#preview').attr('src', $('#sound-type').val() == 1 ? 'Deneb.ogg' : $('#custom-sound').val());
-            $(this).text(locale('loading')).attr('disabled', 'disabled');
+            $(this).text(locale('txtLoading')).attr('disabled', 'disabled');
         }
     });
     
@@ -254,6 +264,15 @@ $(document).ready(function() {
             $('.clear-data').first().removeAttr('disabled');
         } else {
             $('.clear-data').first().attr('disabled', 'disabled');
+        }
+    });
+
+    // User toggled the no overtime checkbox
+    $('#no-overtime').change(function() {
+        if($('#no-overtime').is(':checked')) {
+            $('#stop-timer').attr('disabled', 'disabled');
+        } else {
+            $('#stop-timer').removeAttr('disabled');
         }
     });
     
@@ -297,5 +316,10 @@ $(document).ready(function() {
         if(e.keyCode == 13 && !$('#new-btn').attr('disabled')) {
             $('#new-btn').click();
         }
+    });
+
+    // User clicked away from the new task goal minutes field
+    $('#new-goal-mins').blur(function() {
+        fix_time('#new-goal-hours', '#new-goal-mins');
     });
 });

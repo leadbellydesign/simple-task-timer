@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title i18n="title">Task Timer</title>
+    <title i18n="txtTitle">Task Timer</title>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     
     <link rel="stylesheet" type="text/css" href="style/global.css" />
@@ -25,66 +25,66 @@
 </head>
 <body>
     <div id="tools-pulsate"></div>
-    <img src="style/images/ajax-loader.gif" id="loading" width="32" height="32" alt="Loading..." i18n="loading" />
-    <button id="tools-button"><img src="style/images/gear.png" width="25" height="25" alt="Tools" i18n="tools" /></button>
+    <img src="style/images/ajax-loader.gif" id="loading" width="32" height="32" alt="Loading..." i18n="txtLoading" />
+    <button id="tools-button"><img src="style/images/gear.png" width="25" height="25" alt="Tools" i18n="btnTools" /></button>
     
     <audio src="Deneb.ogg" id="sound" preload></audio>
     <audio src="Deneb.ogg" id="preview" preload></audio>
     
     <header>
-        <h1 i18n="title">Task Timer</h1>
-        <h2 i18n="description">Use this tool to keep track of time that you spend on work, studies, or any other type of task.</h2>
+        <h1 i18n="txtTitle">Task Timer</h1>
+        <h2 i18n="txtDescription">Use this tool to keep track of time that you spend on work, studies, or any other type of task.</h2>
         <a href="https://chrome.google.com/webstore/detail/aomfjmibjhhfdenfkpaodhnlhkolngif" target="_blank"><img src="style/images/icon-64.png" id="logo" width="64" height="64" alt="Task Timer" i18n="appName" /></a>
     </header>
     
-    <div id="notice" class="note">
-        <button id="close-notice" class="close-note"><img src="style/images/cross.png" width="16" height="16" alt="Close Notice" i18n="closeNotice" /></button>
+    <div id="notice" class="container note">
+        <button id="close-notice" class="close-note"><img src="style/images/cross.png" width="16" height="16" alt="Close Notice" i18n="btnCloseNotice" /></button>
         
-        <p i18n="note">This only saves locally, on your computer, in your browser.<br />This data will <strong>not</strong> be cleared if you clear Chrome's cache and storage.</p>
-        <p i18n="noteOpt">Make sure to check out the settings by clicking on the gear button in the top right corner of the app!<br />There are settings such as desktop notifications for when a task finishes.</p>
-        <p i18n="notePerf">Is the app running slowly for you? Try increasing the pie chart update time in the settings, or disabling pie charts completely.<br />Still running slowly? Increase the general update time.</p>
+        <p i18n="txtInfoData">This only saves locally, on your computer, in your browser.<br />This data will <strong>not</strong> be cleared if you clear Chrome's cache and storage.</p>
+        <p i18n="txtInfoOpt">Make sure to check out the settings by clicking on the gear button in the top right corner of the app!<br />There are settings such as desktop notifications for when a task finishes.</p>
+        <p i18n="txtInfoPerf">Is the app running slowly for you? Try increasing the pie chart update time in the settings, or disabling pie charts completely.<br />Still running slowly? Increase the general update time.</p>
     </div>
     
-    <div id="volunteer-notice" class="note">
-        <button id="close-vol-notice" class="close-note"><img src="style/images/cross.png" width="16" height="16" alt="Close" i18n="close" /></button>
-        <p i18n="volunteerNoticeGFX">Looking for graphics volunteers!</p>
-    </div>
+    <!--<div id="volunteer-notice" class="container note">
+        <button id="close-vol-notice" class="close-note"><img src="style/images/cross.png" width="16" height="16" alt="Close" i18n="btnClose" /></button>
+        <p i18n="txtInfoGFX">Looking for graphics volunteers!</p>
+    </div>-->
     
     <div id="tasks" class="container">
-        <div id="no-tasks" i18n="noTasks">You haven't created any tasks yet!</div>
-        <div id="edit-tasks" i18n="editTasks">Double-click a task name or goal to edit it.</div>
+        <div id="no-tasks" i18n="txtNoTasks">You haven't created any tasks yet!</div>
+        <div id="edit-tasks" i18n="txtEditTasks">Double-click a task name or goal to edit it.</div>
             
         <table id="task-list">
             <thead>
                 <tr class="nodrag nodrop">
                     <th class="drag"></th>
-                    <th class="text" i18n="task">Task</th>
-                    <th class="current" i18n="timeSpent">Time Spent</th>
-                    <th class="goal" i18n="goal">Goal</th>
-                    <th class="progress" i18n="progress">Progress</th>
-                    <th class="options" i18n="options">Options</th>
+                    <th class="text" i18n="lblTask">Task</th>
+                    <th class="current" i18n="lblTimeSpent">Time Spent</th>
+                    <th class="goal" i18n="lblGoal">Goal</th>
+                    <th class="progress" i18n="lblProgress">Progress</th>
+                    <th class="options" i18n="lblOptions">Options</th>
                  </tr>
             </thead>
             <tbody></tbody>
             <tfoot>
                 <tr class="nodrag nodrop" id="totals">
                     <td class="drag"></td>
-                    <td class="text" i18n="totals">Totals</td>
+                    <td class="text" i18n="lblTotals">Totals</td>
                     <td class="current">0:00:00</td>
                     <td class="goal">0:00:00</td>
                     <td class="progress"><progress max="100" value="0">0%</progress></td>
                     <td class="options">
                         <div class="button-btns">
                             <button class="totals-help">?</button>
-                            <!--<button class="info-all" i18n="info">Info</button>-->
-                            <button class="reset-all" i18n="resetAll">Reset</button>
-                            <button class="delete-all" i18n="deleteAll">Delete</button>
+                            <!--<button class="info-all" i18n="btnInfo">Info</button>-->
+                            <button class="reset-all" i18n="btnResetAll">Reset</button>
+                            <button class="delete-all" i18n="btnDeleteAll">Delete</button>
                         </div>
                         <div class="img-btns">
                             <img src="style/images/help.png" class="totals-help" title="?" width="16" height="16" />
-                            <!--<img src="style/images/information.png" class="info-all" title="Info" i18n="info" width="16" height="16" />-->
-                            <img src="style/images/arrow_refresh.png" class="reset-all" title="Reset all" i18n="resetAll" width="16" height="16" />
-                            <img src="style/images/delete.png" class="delete-all" title="Delete all" i18n="deleteAll" width="16" height="16" />
+                            <!--<img src="style/images/information.png" class="info-all" title="Info" i18n="btnInfo" width="16" height="16" />-->
+                            <img src="style/images/arrow_refresh.png" class="reset-all" title="Reset all" i18n="btnResetAll" width="16" height="16" />
+                            <img src="style/images/delete.png" class="delete-all" title="Delete all" i18n="btnDeleteAll" width="16" height="16" />
                         </div>
                     </td>
                 </tr>
@@ -93,108 +93,115 @@
         
         <table id="new-task">
             <tr>
-                <td i18n="name">Name</td>
-                <td i18n="goalBoth">Goal (hours : minutes)</td>
-                <td i18n="start">Start</td>
+                <td i18n="lblName">Name</td>
+                <td i18n="lblGoalBoth">Goal (hours : minutes)</td>
+                <td i18n="lblStart">Start</td>
                 <td></td>
             </tr>
             <tr>
-                <td><input type="text" id="new-txt" placeholder="Task Name" title="Task Name" i18n="taskName" disabled /></td>
+                <td><input type="text" id="new-txt" placeholder="Task Name" title="Task Name" i18n="lblTaskName" disabled /></td>
                 <td>
-                    <input type="number" id="new-goal-hours" value="4" min="0" max="80" size="2" title="Goal Hours" i18n="goalHours" disabled /> :
-                    <input type="number" id="new-goal-mins" value="0" min="0" max="59" size="2" title="Goal Minutes" i18n="goalMinutes" disabled /><br />
-                    <label><input type="checkbox" id="new-goal-indef" disabled /> <span i18n="indefinite">Indefinite</span></label>
+                    <input type="number" id="new-goal-hours" value="4" min="0" max="80" size="2" title="Goal Hours" i18n="txtGoalHours" disabled /> :
+                    <input type="number" id="new-goal-mins" value="0" min="0" max="59" size="2" title="Goal Minutes" i18n="txtGoalMinutes" disabled /><br />
+                    <label><input type="checkbox" id="new-goal-indef" disabled /> <span i18n="lblIndefinite">Indefinite</span></label>
                 </td>
-                <td><input type="checkbox" id="new-start" title="Start task immediately" i18n="startImmediately" disabled /></td>
-                <td><button id="new-btn" i18n="addTask" disabled>Add Task</button></td>
+                <td><input type="checkbox" id="new-start" title="Start task immediately" i18n="lblStartNow" disabled /></td>
+                <td><button id="new-btn" i18n="btnAddTask" disabled>Add Task</button></td>
             </tr>
         </table>
     </div>
     
     <div id="charts" class="container">
         <div id="current-pie">
-            <div id="current-pie-title" i18n="currentPieTitle">Current Time Usage</div>
+            <div id="current-pie-title" i18n="txtCurrentPieTitle">Current Time Usage</div>
             <div id="current-pie-chart"></div>
         </div>
         <!--<div id="total-pie">
-            <div id="current-pie-title" i18n="totalPieTitle">Total Time Usage</div>
-            <div id="current-pie-chart"></div>
+            <div id="total-pie-title" i18n="txtTotalPieTitle">Total Time Usage</div>
+            <div id="total-pie-chart"></div>
         </div>-->
     </div>
     
     <div id="js-error" class="container">
-        <div id="big-error-thang" i18n="errorNotice">SUPER ULTRA MEGA ERROR THING</div>
+        <div id="big-error-thang" i18n="errJS">SUPER ULTRA MEGA ERROR THING</div>
         <div id="error-info"></div>
         
-        <label><input type="checkbox" id="refreshed" /> <span i18n="triedRefresh">Have you tried refreshing the app?</span></label><br />
-        <button class="clear-data" i18n="clearData" disabled>Clear all of the app's data</button>
-        <div i18n="usualFix">This will usually fix any errors, but will clear all of your tasks and settings.</div>
+        <label><input type="checkbox" id="refreshed" /> <span i18n="txtTriedRefresh">Have you tried refreshing the app?</span></label><br />
+        <button class="clear-data" i18n="toolClearData" disabled>Clear all of the app's data</button>
+        <div i18n="txtUsualFix">This will usually fix any errors, but will clear all of your tasks and settings.</div>
     </div>
     
     <footer>
-        <span i18n="createdBy">Created by</span> <a href="http://gawdl3y.com/">Schuyler Cebulskie</a> | 
-        <a href="http://code.google.com/p/simple-task-timer/issues/list" target="_blank" i18n="reportBug">Report a bug</a><br />
-        <span i18n="haveIdea">Have an idea?</span> <a href="http://gawdl3y.com/suggest" target="_blank" i18n="tellMe">Tell me</a> | 
-        <a href="about.html" target="_blank" i18n="about">About</a> | <a href="about.html#me" target="_blank" i18n="donate">Donate</a>
+        <span i18n="txtCreatedBy">Created by</span> <a href="http://gawdl3y.com/">Schuyler Cebulskie</a> | 
+        <a href="http://code.google.com/p/simple-task-timer/issues/list" target="_blank" i18n="txtReportBug">Report a bug</a><br />
+        <span i18n="txtHaveIdea">Have an idea?</span> <a href="http://gawdl3y.com/suggest" target="_blank" i18n="txtTellMe">Tell me</a> | 
+        <a href="about.html" target="_blank" i18n="txtAbout">About</a> | <a href="about.html#me" target="_blank" i18n="txtDonate">Donate</a>
     </footer>
     
     
     
-    <div id="modal" class="modal">
+    <div id="modal">
         <div id="task-menu">
-            <button class="close-menus"><img src="style/images/cross.png" width="16" height="16" alt="Close" i18n="close" /></button>
+            <button class="close-menus"><img src="style/images/cross.png" width="16" height="16" alt="Close" i18n="btnClose" /></button>
             
             <div id="task-info">
-                <h1 i18n="taskInfo">Task Information</h1>
+                <h1 i18n="txtTaskInfo">Task Information</h1>
                 <hr />
                 
                 <div class="menu-group">
                     <table id="info-table">
                         <tr>
-                            <td i18n="task">Task Name</td>
+                            <td i18n="lblTask">Task</td>
                             <td id="info-name">All your base are belong to us</td>
                         </tr>
                         <tr>
-                            <td i18n="timeSpent">Time Spent</td>
+                            <td i18n="lblTimeSpent">Time Spent</td>
                             <td id="info-current">42:00:00</td>
                         </tr>
                         <tr>
-                            <td i18n="goal">Goal</td>
+                            <td i18n="lblGoal">Goal</td>
                             <td id="info-goal">42:00</td>
                         </tr>
                         <tr>
-                            <td i18n="progress">Progress</td>
+                            <td i18n="lblProgress">Progress</td>
                             <td id="info-progress"><progress max="100" value="100">100%</progress></td>
+                        </tr>
+                        <tr>
+                            <td i18n="lblDescription">Description</td>
+                            <td id="info-description">
+                                <textarea rows="6" cols="38">Nothing to see here.</textarea><br />
+                                <button id="save-description" i18n="btnSave">Save</button>
+                            </td>
                         </tr>
                     </table>
                 </div>
             </div>
             
             <div id="task-options">
-                <h1 i18n="taskOptions">Task Options</h1>
+                <h1 i18n="txtTaskOptions">Task Options</h1>
                 <hr />
                 
                 <div class="menu-group">
-                    <button id="task-toggle" i18n="start">Start</button>
-                    <button id="task-reset" i18n="reset">Reset</button>
-                    <button id="task-delete" i18n="delete">Delete</button>
-                    <button id="task-clear-history" i18n="clearHistory">Clear History</button>
+                    <button id="task-toggle" i18n="btnStart">Start</button>
+                    <button id="task-reset" i18n="btnReset">Reset</button>
+                    <button id="task-delete" i18n="btnDelete">Delete</button>
+                    <button id="task-clear-history" i18n="btnClearHistory">Clear History</button>
                 </div>
             </div>
             
             
             <div id="task-history">
-                <h1 i18n="history">History</h1>
+                <h1 i18n="txtHistory">History</h1>
                 <hr />
                 
                 <div id="history-group" class="menu-group">
                     <div id="date-picker"></div>
-                    <div id="history-info" i18n="selectDate">Please select a date to view the task's history for that day.</div>
+                    <div id="history-info" i18n="txtSelectDate">Please select a date to view the task's history for that day.</div>
                     <table id="history">
                         <thead>
                             <tr>
-                                <td i18n="beginningTime">Time Range</td>
-                                <td i18n="timeSpent">Time Spent</td>
+                                <td i18n="lblBeginningTime">Time</td>
+                                <td i18n="lblTimeSpent">Time Spent</td>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -202,26 +209,26 @@
                 </div>
             </div>
             
-            <div id="history-disabled" i18n="historyDisabled">History is disabled.</div>
+            <div id="history-disabled" i18n="txtHistoryDisabled">History is disabled.</div>
         </div>
         
-        <div id="tools-menu" class="modal">
-            <button class="close-menus"><img src="style/images/cross.png" width="16" height="16" alt="Close" i18n="close" /></button>
+        <div id="tools-menu">
+            <button class="close-menus"><img src="style/images/cross.png" width="16" height="16" alt="Close" i18n="btnClose" /></button>
             
-            <h1 i18n="tools">Tools</h1>
+            <h1 i18n="txtTools">Tools</h1>
             <hr />
             
             <div class="menu-group">
-                <button class="csv-export" i18n="exportCSV" disabled>Export tasks as a CSV file</button> <span i18n="comingSoon">Coming soon!</span><br />
-                <button id="clear-all-history" i18n="clearAllHistory">Clear all task history</button><br />
-                <button class="clear-data" i18n="clearData">Clear all of the app's data</button>
+                <button class="csv-export" i18n="toolExportCSV" disabled>Export tasks as a CSV file</button> <span i18n="txtComingSoon">Coming soon!</span><br />
+                <button id="clear-all-history" i18n="toolClearAllHistory">Clear all task history</button><br />
+                <button class="clear-data" i18n="toolClearData">Clear all of the app's data</button>
             </div>
             
-            <h1 i18n="settings">Settings</h1>
+            <h1 i18n="txtSettings">Settings</h1>
             <hr />
             
             <div class="menu-group">
-                <h2 i18n="generalSettings">General Settings</h2>
+                <h2 i18n="txtGeneralSettings">General Settings</h2>
                 
                 <label><input type="checkbox" id="enable-charts" /><span i18n="optEnableCharts">Enable pie charts</span></label><br />
                 <label><input type="checkbox" id="hide-notice" /><span i18n="optHideNotice">Hide the notice box</span></label><br />
@@ -230,19 +237,21 @@
                 <label><input type="checkbox" id="autostart-default" /><span i18n="optStartDefault">Check the start checkbox by default</span></label><br />
                 <label><input type="checkbox" id="save-fields" /><span i18n="optSaveFields">Keep what you have in the new task fields when you relaunch the app</span></label><br />
                 <label><input type="checkbox" id="use-icons" /><span i18n="optUseIcons">Use icons in place of buttons for the task options (good for small screens)</span></label><br />
+                <label><input type="checkbox" id="pretty-dialogs" /><span i18n="optPrettyDialogs">Use pretty dialogs rather than the default Chrome ones</span></label><br />
                 <label><input type="checkbox" id="update-alert" /><span i18n="optUpdateAlert">Open the app when it is updated</span></label>
             </div>
             
             <div class="menu-group">
-                <h2 i18n="taskSettings">Task Settings</h2>
+                <h2 i18n="txtTaskSettings">Task Settings</h2>
                 
                 <label><input type="checkbox" id="track-history" /><span i18n="optTrackHistory">Track task history (so you can view statistics for each task)</span></label><br />
-                <label><input type="checkbox" id="stop-timer" /><span i18n="optStopTimer">Don't allow task times to go over their goals</span></label><br />
+                <label><input type="checkbox" id="no-overtime" /><span i18n="optNoOvertime">Don't allow task times to go over their goals</span></label><br />
+                <label><input type="checkbox" id="stop-timer" /><span i18n="optStopTimer">Stop a task when it reaches its goal</span></label><br />
                 <label><input type="checkbox" id="only-one" /><span i18n="optOnlyOne">Only allow one task to be running at a time</span></label>
             </div>
             
             <div class="menu-group">
-                <h2 i18n="notificationSettings">Notification Settings</h2>
+                <h2 i18n="txtNoteSettings">Notification Settings</h2>
                 
                 <label><input type="checkbox" id="show-popup" /><span i18n="optShowPopup">Show a popup on the page when a task reaches its goal</span></label><br />
                 <label><input type="checkbox" id="notify" /><span i18n="optShowNotification">Show a desktop notification when a task reaches its goal</span></label><br /><br />
@@ -258,82 +267,90 @@
             </div>
             
             <div class="menu-group">
-                <h2 i18n="performanceSettings">Performance Settings</h2>
+                <h2 i18n="txtPerfSettings">Performance Settings</h2>
                 
                 <label><span i18n="optUpdateTime1">Update the time of tasks every</span> <input type="number" min="1" max="60" value="1" size="4" id="update-time" /> <span i18n="optUpdateTime2">second(s)</span></label><br />
                 <label><span i18n="optChartUpdateTime1">Update the pie charts every</span> <input type="number" min="1" max="60" value="3" size="4" id="chart-update-time" /> <span i18n="optUpdateTime2">second(s)</span></label>
             </div>
             
             <div class="menu-group">
-                <h2 i18n="saveSettings">Save Settings</h2>
+                <h2 i18n="txtSaveSettings">Save Settings</h2>
                 
-                <button id="save-settings" i18n="save">Save</button>
-                <button id="reset-settings" i18n="resetSettings">Reset to Default</button>
+                <button id="save-settings" i18n="btnSave">Save</button>
+                <button id="reset-settings" i18n="btnResetSettings">Reset to Default</button>
             </div>
         </div>
         
-        <div id="alarm-menu" class="modal">
+        <div id="modal-dialog">
+            <div id="dialog-txt">Dialog text</div>
+            <hr />
+            <button id="dialog-ok" i18n="btnOK">OK</button>
+            <button id="dialog-cancel" i18n="btnCancel">Cancel</button>
+        </div>
+
+        <div id="alarm-menu">
             <div id="alarm-txt">Task "YOURFACE" has completed!</div>
-            <button id="close-alarm" i18n="close">Close</button>
+            <hr />
+            <button id="close-alarm" i18n="btnClose">Close</button>
         </div>
     </div>
     
+
+
+    <div id="success">Success</div>
+    <div id="error">Error</div>
     
+
     
     <div id="nothing">
         <table id="template">
             <tr id="row-template" style="display: none;">
                 <td class="drag"></td>
-                <td class="text" i18n="task">Task</td>
-                <td class="current" i18n="timeSpent">Time Spent</td>
-                <td class="goal" i18n="goal">Goal</td>
+                <td class="text" i18n="lblTask">Task</td>
+                <td class="current" i18n="lblTimeSpent">Time Spent</td>
+                <td class="goal" i18n="lblGoal">Goal</td>
                 <td class="progress"><progress max="100" value="0">0%</progress></td>
                 <td class="options" >
                     <div class="button-btns">
-                        <button class="toggle" i18n="start">Start</button>
-                        <button class="info" i18n="info">Info</button>
-                        <button class="reset" i18n="reset">Reset</button>
-                        <button class="delete" i18n="delete">Delete</button>
+                        <button class="toggle" i18n="btnStart">Start</button>
+                        <button class="info" i18n="btnInfo">Info</button>
+                        <button class="reset" i18n="btnReset">Reset</button>
+                        <button class="delete" i18n="btnDelete">Delete</button>
                     </div>
                     <div class="img-btns">
-                        <img src="style/images/control_play_blue.png" class="toggle" title="Start" i18n="start" width="16" height="16" />
-                        <img src="style/images/information.png" class="info" title="Info" i18n="info" width="16" height="16" />
-                        <img src="style/images/arrow_refresh.png" class="reset" title="Reset" i18n="reset" width="16" height="16" />
-                        <img src="style/images/delete.png" class="delete" title="Delete" i18n="delete" width="16" height="16" />
+                        <img src="style/images/control_play_blue.png" class="toggle" title="Start" i18n="btnStart" width="16" height="16" />
+                        <img src="style/images/information.png" class="info" title="Info" i18n="btnInfo" width="16" height="16" />
+                        <img src="style/images/arrow_refresh.png" class="reset" title="Reset" i18n="btnReset" width="16" height="16" />
+                        <img src="style/images/delete.png" class="delete" title="Delete" i18n="btnDelete" width="16" height="16" />
                     </div>
                 </td>
             </tr>
         </table>
         
         <div id="name-edit-template">
-            <input type="text" placeholder="Task Name" title="Task Name" i18n="taskName" />
+            <input type="text" placeholder="Task Name" title="Task Name" i18n="txtTaskName" />
             
-            <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" i18n="save" /></button>
-            <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" i18n="cancel" /></button>
+            <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" i18n="btnSave" /></button>
+            <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" i18n="btnCancel" /></button>
         </div>
         
         <div id="current-edit-template">
-            <input type="number" class="hrs" min="0" max="80" size="2" title="Hours" i18n="hours" /> : 
-            <input type="number" class="mins" min="0" max="59" size="2" title="Minutes" i18n="minutes" /> : 
-            <input type="number" class="secs" min="0" max="59" size="2" title="Seconds" i18n="seconds" /><br />
+            <input type="number" class="hrs" min="0" max="80" size="2" title="Hours" i18n="txtHours" /> : 
+            <input type="number" class="mins" min="0" max="59" size="2" title="Minutes" i18n="txtMinutes" /> : 
+            <input type="number" class="secs" min="0" max="59" size="2" title="Seconds" i18n="txtSeconds" /><br />
             
-            <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" i18n="save" /></button>
-            <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" i18n="cancel" /></button>
+            <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" i18n="btnSave" /></button>
+            <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" i18n="btnCancel" /></button>
         </div>
         
         <div id="goal-edit-template">
-            <input type="number" class="hrs" min="0" max="80" size="2" title="Goal Hours" i18n="goalHours" /> : 
-            <input type="number" class="mins" min="0" max="59" size="2" title="Goal Minutes" i18n="goalMinutes" /><br />
+            <input type="number" class="hrs" min="0" max="80" size="2" title="Goal Hours" i18n="txtGoalHours" /> : 
+            <input type="number" class="mins" min="0" max="59" size="2" title="Goal Minutes" i18n="txtGoalMinutes" /><br />
             <label i18n="indefinite"><input type="checkbox" class="indef" /> Indefinite</label>
             
-            <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" i18n="save" /></button>
-            <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" i18n="cancel" /></button>
+            <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" i18n="btnSave" /></button>
+            <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" i18n="btnCancel" /></button>
         </div>
     </div>
-    
-    
-    
-    <div id="success">Success</div>
-    <div id="error">Error</div>
 </body>
 </html>

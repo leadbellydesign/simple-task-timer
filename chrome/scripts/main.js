@@ -1,6 +1,6 @@
 var load, dragging = false, preview_sound = false, now = new Date(); // General variables
 var tasks = new Array(), task_running = new Array(), task_count = 0; // Task variables
-var alarm_open = false, task_open = false, tools_open = false; // Menu state variables
+var alarm_open = false, task_open = false, tools_open = false, dialog_open = false; // Menu state variables
 var js_error_shown = false, no_local_files_alerted = false; // Alert state variables
 var current_plot = false, total_plot = false; // Plot variables
 var save_timer, timer, timer_step = 0; // Timer variables
@@ -14,10 +14,12 @@ var settings_checkboxes = {
     'autostart-default': false,
     'save-fields': true,
     'use-icons': false,
+    'pretty-dialogs': true,
     'update-alert': true,
     
     'track-history': true,
     'stop-timer': true,
+    'no-overtime': true,
     'only-one': false,
     
     'show-popup': true,
@@ -40,7 +42,7 @@ window.onerror = function(msg, url, line) { js_error(msg, url, line); };
 
 // Document finished loading
 $(document).ready(function() {
-    try {        
+    try {
         // Set some variables
         load = $('#loading');
         
@@ -49,7 +51,7 @@ $(document).ready(function() {
         
         // Check the version, and show the changelog if necessary
         if(typeof localStorage['old-version'] != 'undefined') {
-            if(chrome.app.getDetails().version != localStorage['old-version'] && confirm(locale('updated', chrome.app.getDetails().version))) {
+            if(chrome.app.getDetails().version != localStorage['old-version'] && confirm(locale('confUpdated', chrome.app.getDetails().version))) {
                 window.open('about.html#changelog');
             }
         } else {
@@ -86,6 +88,9 @@ $(document).ready(function() {
                 
                 // Add the indefinite property to a task if it doesn't exist
                 if(typeof tasks[i].indefinite == 'undefined') tasks[i].indefinite = false;
+
+                // Add the description property to a task if it doesn't exist
+                if(typeof tasks[i].description == 'undefined') tasks[i].description = '';
                 
                 // Make sure goal times aren't null
                 if(tasks[i].goal_hours == null) tasks[i].goal_hours = 0;
@@ -128,7 +133,7 @@ $(document).ready(function() {
         localStorage['launches'] = typeof localStorage['launches'] == 'undefined' ? 1 : parseInt(localStorage['launches']) + 1;
         var launches = Setting(launches);
         
-        if(launches % 6 == 0 && typeof localStorage['rated'] == 'undefined' && confirm(locale('rating'))) {
+        if(launches % 6 == 0 && typeof localStorage['rated'] == 'undefined' && confirm(locale('confRating'))) {
             localStorage['rated'] = 'true';
             window.open('https://chrome.google.com/webstore/detail/aomfjmibjhhfdenfkpaodhnlhkolngif');
         }
@@ -220,15 +225,15 @@ function rebuild_totals() {
         // Fix things like 12:72:142
         if(current_secs > 59) {
             current_mins += Math.floor(current_secs / 60);
-            current_secs = current_secs % 60;
+            current_secs %= 60;
         }
         if(current_mins > 59) {
             current_hours += Math.floor(current_mins / 60);
-            current_mins = current_mins % 60;
+            current_mins %= 60;
         }
         if(goal_mins > 59) {
             goal_hours += Math.floor(goal_mins / 60);
-            goal_mins = goal_mins % 60;
+            goal_mins %= 60;
         }
         
         // Get the total progress done
@@ -311,7 +316,7 @@ function verify_custom_sound(from_btn) {
             return true;
         } else if(url.match(/^(file\:\/\/)?(([a-z]\:(\\|\/))|\/).+$/i) && (!no_local_files_alerted || from_btn)) {
             // Local files can't be used
-            alert(locale('noLocalFiles'));
+            alert(locale('noteNoLocalFiles'));
             no_local_files_alerted = true;
         } else {
             // No format recognised
@@ -328,7 +333,7 @@ function verify_custom_sound(from_btn) {
 // Check window width - if it's small, ask if they want to use icons
 function check_width() {
     if($(window).width() < 1440) {
-        if(!Setting('small-window-alerted', false, true) && !Setting('use-icons') && confirm(locale('smallWindow'))) {
+        if(!Setting('small-window-alerted', false, true) && !Setting('use-icons') && confirm(locale('confSmallWindow'))) {
             Setting('use-icons', true);
             LoadSettings();
         }
@@ -345,7 +350,7 @@ function tools_pulsate() {
     }
 }
 
-// Save the data in localStorage
+// Save the task data in localStorage
 function SaveTasks(timeout) {
     if(timeout) load.show();
     $('button.delete, #new-btn').attr('disabled', 'disabled');
