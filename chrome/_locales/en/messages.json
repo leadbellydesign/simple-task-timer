@@ -346,9 +346,9 @@
         "message": "Keep what you have in the new task fields when you relaunch the app",
         "description": "Setting - Keep new task field contents on relaunch"
     },
-    "optPrettyDialogs": {
-        "message": "Use pretty custom dialogs rather than Chrome's built-in ones",
-        "description": "Setting - Use pretty dialogs"
+    "optCustomDialogs": {
+        "message": "Use custom dialogs rather than Chrome's built-in ones",
+        "description": "Setting - Use custom dialogs"
     },
     "optUpdateAlert": {
         "message": "Open the app when it is updated",

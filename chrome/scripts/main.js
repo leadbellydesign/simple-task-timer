@@ -14,7 +14,7 @@ var settings_checkboxes = {
     'autostart-default': false,
     'save-fields': true,
     'use-icons': false,
-    'pretty-dialogs': true,
+    'custom-dialogs': true,
     'update-alert': true,
     
     'track-history': true,

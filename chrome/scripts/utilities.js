@@ -41,7 +41,7 @@ function dialog_display(dialog) {
             break;
     }
 
-    if(Setting('pretty-dialogs') && !dialog_queue[dialog].force_native) {
+    if(Setting('custom-dialogs') && !dialog_queue[dialog].force_native) {
         // Set the text
         $('#dialog-txt').html(word_wrap(text, 100).replace(/\n/, '<br />'));
 

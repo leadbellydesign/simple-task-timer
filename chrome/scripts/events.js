@@ -240,6 +240,12 @@ $(document).ready(function() {
             $(this).text(locale('txtLoading')).attr('disabled', 'disabled');
         }
     });
+
+    // User clicked the custom dialogs help button
+    $('#custom-dialogs-help').click(function() {
+        dialog(locale('notePrettyDialogsHelp'));
+        return false;
+    })
     
     
     /**************************************************
