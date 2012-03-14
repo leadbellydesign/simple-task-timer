@@ -4,6 +4,10 @@
 header, footer { text-align: center; }
 hr { border-color: #E9E9E9; }
 
+.right {
+    text-align: right;
+}
+
 button { margin: 2px 0px; }
 button.save, button.cancel { padding: 1px; }
 
@@ -198,7 +202,6 @@ tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress { font-weight:
 }
 
 #alarm-menu hr, #modal-dialog hr { margin: 15px 0 5px 0; }
-#alarm-menu button, #modal-dialog button { float: right; }
 
 /* Task info menu */
 #info-table { width: 100%; }
