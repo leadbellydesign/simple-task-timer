@@ -34,7 +34,7 @@ $(document).ready(function() {
     $('#preview').error(function() {
         if(preview_sound) {
             preview_sound = false;
-            $('#preview-sound').text(locale('error'));
+            $('#preview-sound').text(locale('errGeneric'));
             setTimeout(function() { $('#preview-sound').text(locale('optPreview')).removeAttr('disabled'); }, 2000);
         }
     });
@@ -74,7 +74,7 @@ $(document).ready(function() {
             if(Setting('autostart-default')) $('#new-start').attr('checked', 'checked');
             rebuild_charts();
         } else {
-            error('invalid');
+            error('errInvalidTask');
         }
     });
     
@@ -199,7 +199,7 @@ $(document).ready(function() {
     // User clicked the save description button in the task info menu
     $('#save-description').click(function() {
         tasks[parseInt($(this).attr('name'))].description = $('#info-description textarea').val();
-        success(locale('sucSavedDesc'));
+        success('sucSavedDesc');
     });
 
     // User clicked the toggle button in the task info menu
@@ -232,7 +232,7 @@ $(document).ready(function() {
     $('#preview-sound').click(function() {
         // Verify that the custom sound URL is valid
         if(!verify_custom_sound(true)) {
-            error(locale('txtInvalidURL'));
+            error('errInvalidURL');
             $('#custom-sound').focus();
             return false;
         }

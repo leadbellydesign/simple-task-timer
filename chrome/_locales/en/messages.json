@@ -346,6 +346,10 @@
         "message": "Keep what you have in the new task fields when you relaunch the app",
         "description": "Setting - Keep new task field contents on relaunch"
     },
+    "optPrettyDialogs": {
+        "message": "Use pretty custom dialogs rather than Chrome's built-in ones",
+        "description": "Setting - Use pretty dialogs"
+    },
     "optUpdateAlert": {
         "message": "Open the app when it is updated",
         "description": "Setting - Open app when updated"
@@ -359,9 +363,13 @@
         "message": "Track task history (so you can view statistics for each task)",
         "description": "Setting - Track task history"
     },
-    "optStopTimer": {
-        "message": "Don't allow task times to go over their goals",
+    "optNoOvertime": {
+        "message": "Don't allow tasks to go over their goals",
         "description": "Setting - Don't allow going over goals"
+    },
+    "optStopTimer": {
+        "message": "Stop a task when it reaches its goal",
+        "description": "Setting - Stop at goal"
     },
     "optOnlyOne": {
         "message": "Only allow one task to be running at a time",

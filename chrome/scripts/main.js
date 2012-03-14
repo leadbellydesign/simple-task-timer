@@ -58,7 +58,18 @@ $(document).ready(function() {
             localStorage['old-version'] = chrome.app.getDetails().version;
             window.location = 'installed.html';
         }
+
+        // If coming from a version older than 3.5, convert the stop-timer setting to no-overtime
+        if(parseFloat(localStorage['old-version']) < 3.5) {
+            if(Setting('stop-timer', true, true)) {
+                Setting('no-overtime', true);
+            } else {
+                Setting('no-overtime', false);
+                Setting('stop-timer', true);
+            }
+        }
         
+        // Set old-version to the current version
         localStorage['old-version'] = chrome.app.getDetails().version;
         
         // Retrieve any tasks they've previously added

@@ -68,11 +68,11 @@ function LoadSettings(reset_timer, from_save) {
     // Set the audio to loop if looping is enabled
     if(Setting('loop-sound', false, true) && Setting('play-sound')) {
         $('#sound').attr('loop', 'loop');
-        $('#close-alarm').text(locale('stopAlarm'));
+        $('#close-alarm').text(locale('btnStopAlarm'));
         $('#show-popup').attr('disabled', 'disabled');
     } else {
         $('#sound').removeAttr('loop');
-        $('#close-alarm').text(locale('close'));
+        $('#close-alarm').text(locale('btnClose'));
         $('#show-popup').removeAttr('disabled');
     }
     
@@ -123,7 +123,7 @@ function SaveSettings() {
     // Check for notification permissions
     if(Setting('notify')) {
         webkitNotifications.requestPermission(function() {
-            webkitNotifications.createNotification('/style/images/icon-64.png', locale('notificationsWork'), locale('notificationsWorkBody')).show();
+            webkitNotifications.createNotification('/style/images/icon-64.png', locale('noteNotificationsWork'), locale('noteNotificationsWorkBody')).show();
         });
     }
     
