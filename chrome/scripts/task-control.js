@@ -13,7 +13,7 @@ function add_task(data) {
 // Reset a task
 function reset_task(task, override) {
     try {
-        dialog(locale('confResetTask'), function(status, data) {
+        dialog(locale('confResetTask', tasks[task].text), function(status, data) {
             var task = data.task;
 
             if(status) {
@@ -34,7 +34,7 @@ function reset_task(task, override) {
 // Delete a task
 function delete_task(task, override) {
     try {
-        dialog(locale('confDeleteTask'), function(status, data) {
+        dialog(locale('confDeleteTask', tasks[task].text), function(status, data) {
             var task = data.task;
 
             if(status) {
@@ -78,6 +78,15 @@ function delete_task(task, override) {
     } catch(e) {
         js_error(e);
     }
+}
+
+// Clear a task's history
+function clear_history(task) {
+    dialog(locale('confClearHistory', tasks[task].text), function(status, data) {
+        if(status) {
+            tasks[data.task].history = {};
+        }
+    }, {'task': task}, 'question');
 }
 
 // Toggle whether a task is running or not

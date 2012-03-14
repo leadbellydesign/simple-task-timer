@@ -221,11 +221,7 @@ $(document).ready(function() {
     
     // User clicked the clear history button in the task info menu
     $('#task-clear-history').click(function() {
-        var task = parseInt($(this).attr('name'));
-        
-        if(confirm(locale('confClearHistory', tasks[task].text))) {
-            tasks[task].history = {};
-        }
+        clear_history(parseInt($(this).attr('name')));
     });
     
     // User clicked the preview button for the notification sound
