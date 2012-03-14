@@ -1,3 +1,35 @@
+// Settings checkboxes (ID: Default value)
+var settings_checkboxes = {
+    'enable-charts': true,
+    'hide-notice': false,
+    'confirm-reset': true,
+    'confirm-delete': true,
+    'autostart-default': false,
+    'save-fields': true,
+    'use-icons': false,
+    'custom-dialogs': true,
+    'update-alert': true,
+    
+    'track-history': true,
+    'stop-timer': true,
+    'no-overtime': true,
+    'only-one': false,
+    
+    'show-popup': true,
+    'notify': false,
+    'play-sound': true,
+    'loop-sound': false
+};
+
+// Other settings (ID: Default value)
+var settings_other = {
+    'sound-type': 1,
+    'custom-sound': '',
+    
+    'update-time': 1,
+    'chart-update-time': 3
+};
+
 // Load the settings
 function LoadSettings(reset_timer, from_save) {
     $('#sound-type').val(Setting('sound-type'));

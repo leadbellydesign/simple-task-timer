@@ -5,38 +5,6 @@ var js_error_shown = false, no_local_files_alerted = false; // Alert state varia
 var current_plot = false, total_plot = false; // Plot variables
 var save_timer, timer, timer_step = 0; // Timer variables
 
-// Settings checkboxes (ID: Default value)
-var settings_checkboxes = {
-    'enable-charts': true,
-    'hide-notice': false,
-    'confirm-reset': true,
-    'confirm-delete': true,
-    'autostart-default': false,
-    'save-fields': true,
-    'use-icons': false,
-    'custom-dialogs': true,
-    'update-alert': true,
-    
-    'track-history': true,
-    'stop-timer': true,
-    'no-overtime': true,
-    'only-one': false,
-    
-    'show-popup': true,
-    'notify': false,
-    'play-sound': true,
-    'loop-sound': false
-};
-
-// Other settings (ID: Default value)
-var settings_other = {
-    'sound-type': 1,
-    'custom-sound': '',
-    
-    'update-time': 1,
-    'chart-update-time': 3
-};
-
 // Set error event (most important event)
 window.onerror = function(msg, url, line) { js_error(msg, url, line); };
 
