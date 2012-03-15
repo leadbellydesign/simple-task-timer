@@ -516,10 +516,6 @@
         "description": "Confirmation notice on resetting settings"
     },
 
-    "confRating": {
-        "message": "Would you like to give this app a rating/review on the Chrome Web Store?\nIt really helps out!",
-        "description": "Rating reminder"
-    },
     "confUpdated": {
         "message": "Task Timer has been updated to version $version$!\nWould you like to see the changelog?\n\nBe aware that you will need to start your tasks again if Chrome auto-updated the app while any were running.",
         "description": "Task timer was updated",
@@ -529,6 +525,14 @@
                 "example": "1.7.2"
             }
         }
+    },
+    "confRating": {
+        "message": "Would you like to give this app a rating/review on the Chrome Web Store?\nIt really helps out!",
+        "description": "Rating reminder"
+    },
+    "confSmallWindow": {
+        "message": "You seem to be running Task Timer in a small window, small monitor, or at a low resolution. Would you like to switch to icons instead of buttons in the task list? This will help make sure that tasks don't take up more than one line each.\n\nThis setting can also be changed in the tools menu.",
+        "description": "Running Task Timer in a small window - use icons?"
     },
 
 
@@ -558,10 +562,6 @@
         "description": "Desktop notifications are enabled and working correctly"
     },
 
-    "noteSmallWindow": {
-        "message": "You seem to be running Task Timer in a small window, small monitor, or at a low resolution. Would you like to switch to icons instead of buttons in the task list? This will help make sure that tasks don't take up more than one line each.\n\nThis setting can also be changed in the tools menu.",
-        "description": "Running Task Timer in a small window - use icons?"
-    },
     "noteNoLocalFiles": {
         "message": "It looks like you're using a path to a local file on your machine for the custom sound URL.\nUnfortunately, local files cannot be used, as Chrome does not allow access to your local filesystem, even for a sound.\nOnly internet URLs (beginning with http, https, or ftp) can be used. This means that you need to find a sound online, or upload the sound that you want somewhere.",
         "description": "Can't use local file paths"
