@@ -26,7 +26,7 @@ $(document).ready(function() {
         if(preview_sound) {
             preview_sound = false;
             this.play();
-            $('#preview-sound').text(locale('optPreview')).removeAttr('disabled');
+            $('#preview-sound').text(locale('optBtnPreview')).removeAttr('disabled');
         }
     });
 
@@ -35,7 +35,7 @@ $(document).ready(function() {
         if(preview_sound) {
             preview_sound = false;
             $('#preview-sound').text(locale('errGeneric'));
-            setTimeout(function() { $('#preview-sound').text(locale('optPreview')).removeAttr('disabled'); }, 2000);
+            setTimeout(function() { $('#preview-sound').text(locale('optBtnPreview')).removeAttr('disabled'); }, 2000);
         }
     });
     
@@ -77,38 +77,7 @@ $(document).ready(function() {
             error('errInvalidTask');
         }
     });
-    
-    // User clicked the save button in the tools menu
-    $('#save-settings').click(function() {
-        SaveSettings();
-    });
-    
-    // User clicked the reset settings button
-    $('#reset-settings').click(function() {
-        if(confirm(locale('confResetSettings'))) {
-            // Reset checkbox settings
-            for(i in settings_checkboxes) {
-                Setting(i, settings_checkboxes[i]);
-            }
-            
-            // Reset other settings
-            for(i in settings_other) {
-                Setting(i, settings_other[i]);
-            }
-            
-            // Reload settings
-            LoadSettings(true, true);
-        }
-    });
-    
-    // User clicked the clear all history button
-    $('#clear-all-history').click(function() {
-        if(confirm(locale('confClearAllHistory'))) {
-            for(t = 0; t < task_count; t++) {
-                tasks[t].history = {};
-            }
-        }
-    });
+
     
     // User clicked one of the clear data buttons
     $('.clear-data').click(function() {
@@ -120,34 +89,9 @@ $(document).ready(function() {
             location.reload();
         }
     });
-    
-    // User clicked the totals help button
-    $('.totals-help').click(function() {
-        alert(locale('noteTotalsHelp'));
-    });
-    
-    // User clicked the reset all button
-    $('.reset-all').click(function() {
-        dialog(locale('confResetAll'), function(status) {
-            if(status) {
-                for(t = 0; t < task_count; t++) {
-                    reset_task(t, true);
-                }
-            }
-        }, {}, 'question');
-    });
-    
-    // User clicked the delete all button
-    $('.delete-all').click(function() {
-        dialog(locale('confDeleteAll'), function(status) {
-            if(status) {
-                for(t = task_count - 1; t >= 0; t--) {
-                    delete_task(t, true);
-                }
-            }
-        }, {}, 'question');
-    });
-    
+
+
+
     // User clicked the close button in one of the menus
     $('.close-menus').click(function() {
         LoadSettings();
@@ -179,23 +123,33 @@ $(document).ready(function() {
         $('#notice').fadeOut(600);
         Setting('hide-notice', true);
     });
-    
-    // User clicked the close button in the volunteer notice
-    /*$('#close-vol-notice').click(function() {
-        $('#volunteer-notice').fadeOut(600);
-        Setting('volunteer-hidden', true);
-    });*/
-    
-    // User clicked the tools button
-    $('#tools-button').click(function() {
-        LoadSettings();
-        tools_open = true;
-        Setting('new-tools', false);
-        
-        $('#modal').fadeIn(600, function() { $('#tools-pulsate').stop(true, true).fadeOut(400); });
-        $('#tools-menu').animate({left: ((($(window).width() - $('#tools-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
+
+
+
+    // User clicked the reset all button
+    $('.reset-all').click(function() {
+        dialog(locale('confResetAll'), function(status) {
+            if(status) {
+                for(t = 0; t < task_count; t++) {
+                    reset_task(t, true);
+                }
+            }
+        }, {}, 'question');
     });
     
+    // User clicked the delete all button
+    $('.delete-all').click(function() {
+        dialog(locale('confDeleteAll'), function(status) {
+            if(status) {
+                for(t = task_count - 1; t >= 0; t--) {
+                    delete_task(t, true);
+                }
+            }
+        }, {}, 'question');
+    });
+
+
+
     // User clicked the save description button in the task info menu
     $('#save-description').click(function() {
         tasks[parseInt($(this).attr('name'))].description = $('#info-description textarea').val();
@@ -223,12 +177,33 @@ $(document).ready(function() {
     $('#task-clear-history').click(function() {
         clear_history(parseInt($(this).attr('name')));
     });
-    
+
+
+
+    // User clicked the tools button
+    $('#tools-button').click(function() {
+        LoadSettings();
+        tools_open = true;
+        Setting('new-tools', false);
+        
+        $('#modal').fadeIn(600, function() { $('#tools-pulsate').stop(true, true).fadeOut(400); });
+        $('#tools-menu').animate({left: ((($(window).width() - $('#tools-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
+    });
+
+    // User clicked the clear all history button in the tools menu
+    $('#clear-all-history').click(function() {
+        if(confirm(locale('confClearAllHistory'))) {
+            for(t = 0; t < task_count; t++) {
+                tasks[t].history = {};
+            }
+        }
+    });
+
     // User clicked the preview button for the notification sound
     $('#preview-sound').click(function() {
         // Verify that the custom sound URL is valid
         if(!verify_custom_sound(true)) {
-            error('errInvalidURL');
+            error('errSoundURL');
             $('#custom-sound').focus();
             return false;
         }
@@ -241,13 +216,43 @@ $(document).ready(function() {
         }
     });
 
+    // User clicked the save button in the tools menu
+    $('#save-settings').click(function() {
+        SaveSettings();
+    });
+
+    // User clicked the reset settings button in the tools menu
+    $('#reset-settings').click(function() {
+        if(confirm(locale('confResetSettings'))) {
+            // Reset checkbox settings
+            for(i in settings_checkboxes) {
+                Setting(i, settings_checkboxes[i]);
+            }
+            
+            // Reset other settings
+            for(i in settings_other) {
+                Setting(i, settings_other[i]);
+            }
+            
+            // Reload settings
+            LoadSettings(true, true);
+        }
+    });
+
+
+
+    // User clicked the totals help button
+    $('.totals-help').click(function() {
+        alert(locale('infoTotals'));
+    });
+
     // User clicked the custom dialogs help button
     $('#custom-dialogs-help').click(function() {
-        dialog(locale('notePrettyDialogsHelp'));
+        dialog(locale('infoCustomDialogs'));
         return false;
-    })
-    
-    
+    });
+
+
     /**************************************************
      ********     I N P U T   E V E N T S      ********
      **************************************************/

@@ -40,15 +40,10 @@
     <div id="notice" class="container note">
         <button id="close-notice" class="close-note"><img src="style/images/cross.png" width="16" height="16" alt="Close Notice" i18n="btnCloseNotice" /></button>
         
-        <p i18n="txtInfoData">This only saves locally, on your computer, in your browser.<br />This data will <strong>not</strong> be cleared if you clear Chrome's cache and storage.</p>
-        <p i18n="txtInfoOpt">Make sure to check out the settings by clicking on the gear button in the top right corner of the app!<br />There are settings such as desktop notifications for when a task finishes.</p>
-        <p i18n="txtInfoPerf">Is the app running slowly for you? Try increasing the pie chart update time in the settings, or disabling pie charts completely.<br />Still running slowly? Increase the general update time.</p>
+        <p i18n="infoData">This only saves locally, on your computer, in your browser.<br />This data will <strong>not</strong> be cleared if you clear Chrome's cache and storage.</p>
+        <p i18n="infoSettings">Make sure to check out the settings by clicking on the gear button in the top right corner of the app!<br />There are settings such as desktop notifications for when a task finishes.</p>
+        <p i18n="infoPerformance">Is the app running slowly for you? Try increasing the pie chart update time in the settings, or disabling pie charts completely.<br />Still running slowly? Increase the general update time.</p>
     </div>
-    
-    <!--<div id="volunteer-notice" class="container note">
-        <button id="close-vol-notice" class="close-note"><img src="style/images/cross.png" width="16" height="16" alt="Close" i18n="btnClose" /></button>
-        <p i18n="txtInfoGFX">Looking for graphics volunteers!</p>
-    </div>-->
     
     <div id="tasks" class="container">
         <div id="no-tasks" i18n="txtNoTasks">You haven't created any tasks yet!</div>
@@ -101,8 +96,8 @@
             <tr>
                 <td><input type="text" id="new-txt" placeholder="Task Name" title="Task Name" i18n="lblTaskName" disabled /></td>
                 <td>
-                    <input type="number" id="new-goal-hours" value="4" min="0" max="80" size="2" title="Goal Hours" i18n="txtGoalHours" disabled /> :
-                    <input type="number" id="new-goal-mins" value="0" min="0" max="59" size="2" title="Goal Minutes" i18n="txtGoalMinutes" disabled /><br />
+                    <input type="number" id="new-goal-hours" value="4" min="0" max="80" size="2" title="Goal Hours" i18n="lblGoalHours" disabled /> :
+                    <input type="number" id="new-goal-mins" value="0" min="0" max="59" size="2" title="Goal Minutes" i18n="lblGoalMinutes" disabled /><br />
                     <label><input type="checkbox" id="new-goal-indef" disabled /> <span i18n="lblIndefinite">Indefinite</span></label>
                 </td>
                 <td><input type="checkbox" id="new-start" title="Start task immediately" i18n="lblStartNow" disabled /></td>
@@ -200,7 +195,7 @@
                     <table id="history">
                         <thead>
                             <tr>
-                                <td i18n="lblBeginningTime">Time</td>
+                                <td i18n="lblHour">Hour</td>
                                 <td i18n="lblTimeSpent">Time Spent</td>
                             </tr>
                         </thead>
@@ -251,7 +246,7 @@
             </div>
             
             <div class="menu-group">
-                <h2 i18n="txtNoteSettings">Notification Settings</h2>
+                <h2 i18n="txtNotifSettings">Notification Settings</h2>
                 
                 <label><input type="checkbox" id="show-popup" /><span i18n="optShowPopup">Show a popup on the page when a task reaches its goal</span></label><br />
                 <label><input type="checkbox" id="notify" /><span i18n="optShowNotification">Show a desktop notification when a task reaches its goal</span></label><br /><br />
@@ -263,7 +258,7 @@
                     <option value="2" i18n="optUseCustom">Use a custom sound</option>
                 </select>
                 <input type="text" id="custom-sound" placeholder="Custom Sound URL" i18n="optSoundURL" />
-                <button id="preview-sound" i18n="optPreview">Preview sound</button>
+                <button id="preview-sound" i18n="optBtnPreview">Preview sound</button>
             </div>
             
             <div class="menu-group">
@@ -277,7 +272,7 @@
                 <h2 i18n="txtSaveSettings">Save Settings</h2>
                 
                 <button id="save-settings" i18n="btnSave">Save</button>
-                <button id="reset-settings" i18n="btnResetSettings">Reset to Default</button>
+                <button id="reset-settings" i18n="toolResetSettings">Reset to Default</button>
             </div>
         </div>
         

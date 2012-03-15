@@ -1,5 +1,5 @@
 /* General Look and Feel */
-#loading, #notice, #volunteer-notice, #tasks, #charts, #task-list, #task-list tfoot, #nothing, #edit-tasks, #js-error, #modal, #history, #alarm-menu, #modal-dialog { display: none; }
+#loading, #notice, #tasks, #charts, #task-list, #task-list tfoot, #nothing, #edit-tasks, #js-error, #modal, #history, #alarm-menu, #modal-dialog { display: none; }
 
 header, footer { text-align: center; }
 hr { border-color: #E9E9E9; }
@@ -197,8 +197,13 @@ tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress { font-weight:
 
 /* Alarm menu & modal dialog */
 #alarm-menu, #modal-dialog {
+    min-width: 10%;
+    max-width: 30%;
+
     border-radius: 5px;
+
     text-align: center;
+    word-wrap: break-word;
 }
 
 #alarm-menu hr, #modal-dialog hr { margin: 15px 0 5px 0; }

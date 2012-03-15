@@ -130,7 +130,7 @@ function SaveSettings() {
     
     // Verify that the custom sound URL is valid
     if(!verify_custom_sound(true)) {
-        error(locale('errInvalidURL'));
+        error(locale('errSoundURL'));
         $('#custom-sound').focus();
         return false;
     }

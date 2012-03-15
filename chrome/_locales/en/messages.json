@@ -16,305 +16,294 @@
         "message": "Use this tool to keep track of time that you spend on work, studies, or any other type of task.",
         "description": "Shows right below the title"
     },
-    
-    "createdBy": {
+
+    "txtCreatedBy": {
         "message": "Created by",
         "description": "Created by"
     },
-    "reportBug": {
+    "txtReportBug": {
         "message": "Report a bug",
         "description": "Report a bug"
     },
-    "haveIdea": {
+    "txtHaveIdea": {
         "message": "Have an idea?",
         "description": "Have an idea?"
     },
-    "tellMe": {
+    "txtTellMe": {
         "message": "Tell me",
         "description": "Tell me"
     },
-    "about": {
+    "txtAbout": {
         "message": "About",
         "description": "About"
     },
-    "donate": {
+    "txtDonate": {
         "message": "Donate",
         "description": "Donate"
     },
-    
-    "loading": {
+    "txtLoading": {
         "message": "Loading...",
         "description": "Loading indicator"
     },
-    "close": {
-        "message": "Close",
-        "description": "Close buttons"
-    },
-    "save": {
-        "message": "Save",
-        "description": "Save"
-    },
-    "resetSettings": {
-        "message": "Reset to Default",
-        "description": "Reset to default"
-    },
-    "cancel": {
-        "message": "Cancel",
-        "description": "Cancel"
-    },
-    "invalid": {
-        "message": "Invalid task name or goal.",
-        "description": "Invalid task name/goal"
-    },
-    "invalidName": {
-        "message": "Invalid task name.",
-        "description": "Invalid task name"
-    },
-    "invalidTime": {
-        "message": "Invalid time.",
-        "description": "Invalid time"
-    },
-    "invalidGoalTime": {
-        "message": "Invalid goal time.",
-        "description": "Invalid goal time"
-    },
-    "invalidURL": {
-        "message": "Invalid custom sound URL.",
-        "description": "Invalid custom sound URL"
-    },
-    "saved": {
-        "message": "Settings saved!",
-        "description": "Settings saved success notice"
-    },
-    "error": {
-        "message": "Error!",
-        "description": "Error"
-    },
-    "errorOccurred": {
-        "message": "An error has occurred!",
-        "description": "An error has occurred"
-    },
-    "errorNotice": {
-        "message": "An error has occurred somewhere. Please report a bug with the following information, as well as what you did/what happened:",
-        "description": "Error notice"
-    },
-    "triedRefresh": {
-        "message": "Have you tried refreshing the app?",
-        "description": "Tried refreshing?"
-    },
-    "resetData": {
-        "message": "Reset all of the app's data",
-        "description": "Reset all data"
-    },
-    "usualFix": {
-        "message": "This will usually fix any errors, but will clear all of your tasks and settings.",
-        "description": "Usually fixes errors, clears data"
-    },
-    "hours": {
-        "message": "Hours",
-        "description": "Hours"
-    },
-    "minutes": {
-        "message": "Minutes",
-        "description": "Minutes"
-    },
-    "seconds": {
-        "message": "Seconds",
-        "description": "Seconds"
-    },
-    
-    "note": {
-        "message": "Note: This only saves locally, on your computer, in your browser.\nDon't worry, your tasks will <strong>not</strong> be deleted if you clear Chrome's cache/storage.",
-        "description": "Reminder that the data is only saved locally"
-    },
-    "noteOpt": {
-        "message": "Make sure to check out the settings by clicking on the gear button in the top right corner of the app!\nThere are settings such as desktop notifications for when a task finishes.",
-        "description": "Reminder to check out the settings menu"
-    },
-    "notePerf": {
-        "message": "Is the app running slowly for you? Try increasing the pie chart update time in the settings, or disabling pie charts completely.\nStill running slowly? Increase the general update time or disable task history tracking.",
-        "description": "Performance notice"
-    },
-    
-    "volunteerNoticeGFX": {
-        "message": "I'm useless at image design, so I'm looking for people who can design a couple of images for the app.\nWant to volunteer? Shoot me an Email at [Gawdl3y@gmail.com|mailto:Gawdl3y@gmail.com?subject=Task%20Timer%20Volunteer]!",
-        "description": "Graphics volunteer notice"
-    },
-    
-    "noTasks": {
-        "message": "You haven't created any tasks yet!",
-        "description": "No tasks have been created"
-    },
-    "editTasks": {
-        "message": "Double-click a task name, time, or goal to edit it.",
-        "description": "Double-click task name, time, or goal to edit"
-    },
-    
-    "totals": {
-        "message": "Totals",
-        "description": "Title for the totals row"
-    },
-    
-    "task": {
-        "message": "Task",
-        "description": "Column header - Task"
-    },
-    "timeSpent": {
-        "message": "Time Spent",
-        "description": "Column header - Time Spent"
-    },
-    "goal": {
-        "message": "Goal",
-        "description": "Column header - Goal"
-    },
-    "progress": {
-        "message": "Progress",
-        "description": "Column header - Progress"
-    },
-    "options": {
-        "message": "Options",
-        "description": "Column header - Options"
-    },
-    
-    "start": {
-        "message": "Start",
-        "description": "Start task's timer"
-    },
-    "stop": {
-        "message": "Stop",
-        "description": "Stop a task's timer"
-    },
-    "info": {
-        "message": "Info",
-        "description": "Show task info"
-    },
-    "reset": {
-        "message": "Reset",
-        "description": "Reset a task's timer"
-    },
-    "delete": {
-        "message": "Delete",
-        "description": "Delete a task"
-    },
-    "clearHistory": {
-        "message": "Clear history",
-        "description": "Clear task's history"
-    },
-    
-    "resetAll": {
-        "message": "Reset all",
-        "description": "Reset all tasks"
-    },
-    "deleteAll": {
-        "message": "Delete all",
-        "description": "Delete all tasks"
-    },
-    
-    "name": {
-        "message": "Name",
-        "description": "New task name label"
-    },
-    "taskName": {
-        "message": "Task Name",
-        "description": "Task Name"
-    },
-    "goalBoth": {
-        "message": "Goal (hours : minutes)",
-        "description": "New task goal label"
-    },
-    "goalHours": {
-        "message": "Goal Hours",
-        "description": "Goal Hours"
-    },
-    "goalMinutes": {
-        "message": "Goal Minutes",
-        "description": "Goal Minutes"
-    },
-    "indefinite": {
-        "message": "Indefinite",
-        "description": "Indefinite goal time"
-    },
-    "startImmediately": {
-        "message": "Start task immediately",
-        "description": "Start task immediately"
-    },
-    "addTask": {
-        "message": "Add Task",
-        "description": "Add Task"
-    },
-    "stopAlarm": {
-        "message": "Stop Alarm",
-        "description": "Stop alarm"
-    },
-    
-    "currentPieTitle": {
-        "message": "Time Spent on Tasks",
-        "description": "Title for the time spent pie chart"
-    },
-    
-    
-    "taskInfo": {
-        "message": "Task Information",
-        "description": "Header for the task info menu"
-    },
-    
-    "taskOptions": {
-        "message": "Task Options",
-        "description": "Header for the task options in the info menu"
-    },
-    
-    "history": {
-        "message": "History",
-        "description": "Header for the task info history"
-    },
-    
-    "historyDisabled": {
-        "message": "Task history tracking is disabled. You can enable it in the tools menu.",
-        "description": "Task history tracking disabled"
-    },
-    "selectDate": {
-        "message": "Please select a date.",
-        "description": "Select a date"
-    },
-    "noHistory": {
-        "message": "There is no saved history on that day.",
-        "description": "No history on that day"
-    },
-    "beginningTime": {
-        "message": "Beginning Hour",
-        "description": "Beginning hour"
-    },
-    
-    
-    "tools": {
-        "message": "Tools",
-        "description": "Tools menu header"
-    },
-    
-    "exportCSV": {
-        "message": "Export tasks as a CSV file",
-        "description": "Delete all tasks"
-    },
-    "comingSoon": {
+    "txtComingSoon": {
         "message": "Coming soon!",
         "description": "Coming soon"
     },
-    "clearAllHistory": {
+
+    "txtHours": {
+        "message": "Hours",
+        "description": "Hours"
+    },
+    "txtMinutes": {
+        "message": "Minutes",
+        "description": "Minutes"
+    },
+    "txtSeconds": {
+        "message": "Seconds",
+        "description": "Seconds"
+    },
+
+
+
+
+    "infoData": {
+        "message": "Note: This only saves locally, on your computer, in your browser.\nDon't worry, your tasks will <strong>not</strong> be deleted if you clear Chrome's cache/storage.",
+        "description": "Reminder that the data is only saved locally"
+    },
+    "infoSettings": {
+        "message": "Make sure to check out the settings by clicking on the gear button in the top right corner of the app!\nThere are settings such as desktop notifications for when a task finishes.",
+        "description": "Reminder to check out the settings menu"
+    },
+    "infoPerformance": {
+        "message": "Is the app running slowly for you? Try increasing the pie chart update time in the settings, or disabling pie charts completely.\nStill running slowly? Increase the general update time or disable task history tracking.",
+        "description": "Performance notice"
+    },
+
+    "infoTotals": {
+        "message": "This is the totals row. It only appears when you have more than one task.\n\nThe \"Time Spent\" column of this row totals the time spent on every single one of your tasks.\nThe \"Goal\" column of this row totals all of the goal times from all of your tasks, other than indefinite ones.\nThe \"Progress\" column of this row gives you the total progress towards finishing the goals of all of your tasks. This progress does not include time spent that went over a task's goal, or time spent on tasks with indefinite goals.",
+        "description": "Totals row help message"
+    },
+    "infoCustomDialogs": {
+        "message": "It is strongly recommended that you keep this setting turned on, as when Chrome's native dialogs are used, odd things happen such as things becoming very delayed or animations being skipped.",
+        "description": "Custom dialogs setting help message"
+    },
+
+
+
+
+    "txtNoTasks": {
+        "message": "You haven't created any tasks yet!",
+        "description": "No tasks have been created"
+    },
+    "txtEditTasks": {
+        "message": "Double-click a task name, time, or goal to edit it.",
+        "description": "Double-click task name, time, or goal to edit"
+    },
+
+    "lblTask": {
+        "message": "Task",
+        "description": "Column header - Task"
+    },
+    "lblTimeSpent": {
+        "message": "Time Spent",
+        "description": "Column header - Time Spent"
+    },
+    "lblGoal": {
+        "message": "Goal",
+        "description": "Column header - Goal"
+    },
+    "lblProgress": {
+        "message": "Progress",
+        "description": "Column header - Progress"
+    },
+    "lblOptions": {
+        "message": "Options",
+        "description": "Column header - Options"
+    },
+
+    "lblTotals": {
+        "message": "Totals",
+        "description": "Title for the totals row"
+    },
+
+    "btnStart": {
+        "message": "Start",
+        "description": "Start task's timer"
+    },
+    "btnStop": {
+        "message": "Stop",
+        "description": "Stop a task's timer"
+    },
+    "btnInfo": {
+        "message": "Info",
+        "description": "Show task info"
+    },
+    "btnReset": {
+        "message": "Reset",
+        "description": "Reset a task's timer"
+    },
+    "btnDelete": {
+        "message": "Delete",
+        "description": "Delete a task"
+    },
+    "btnClearHistory": {
+        "message": "Clear history",
+        "description": "Clear task's history"
+    },
+
+    "btnResetAll": {
+        "message": "Reset all",
+        "description": "Reset all tasks"
+    },
+    "btnDeleteAll": {
+        "message": "Delete all",
+        "description": "Delete all tasks"
+    },
+
+    "lblName": {
+        "message": "Name",
+        "description": "New task name label"
+    },
+    "lblTaskName": {
+        "message": "Task Name",
+        "description": "Task Name"
+    },
+    "lblGoalBoth": {
+        "message": "Goal (hours : minutes)",
+        "description": "New task goal label"
+    },
+    "lblGoalHours": {
+        "message": "Goal Hours",
+        "description": "Goal Hours"
+    },
+    "lblGoalMinutes": {
+        "message": "Goal Minutes",
+        "description": "Goal Minutes"
+    },
+    "lblIndefinite": {
+        "message": "Indefinite",
+        "description": "Indefinite goal time"
+    },
+    "lblStart": {
+        "message": "Start",
+        "description": "Start immediately checkbox label"
+    },
+    "lblStartNow": {
+        "message": "Start task immediately",
+        "description": "Start task immediately"
+    },
+
+    "btnAddTask": {
+        "message": "Add Task",
+        "description": "Add Task"
+    },
+
+
+
+
+    "txtCurrentPieTitle": {
+        "message": "Time Spent on Tasks",
+        "description": "Title for the time spent pie chart"
+    },
+    "txtTotalPieTitle": {
+        "message": "Total Time Spent Ever (History)",
+        "description": "Title for total time spent pie chart"
+    },
+
+
+
+
+    "txtErrorOccurred": {
+        "message": "An error has occurred!",
+        "description": "An error has occurred"
+    },
+    "txtErrorOccurredLong": {
+        "message": "An error has occurred somewhere. Please report a bug with the following information, as well as what you did/what happened:",
+        "description": "Error notice"
+    },
+    "txtTriedRefresh": {
+        "message": "Have you tried refreshing the app?",
+        "description": "Tried refreshing?"
+    },
+    "txtUsualFix": {
+        "message": "This will usually fix any errors, but will clear all of your tasks and settings.",
+        "description": "Usually fixes errors, clears data"
+    },
+
+
+
+
+    "txtTaskInfo": {
+        "message": "Task Information",
+        "description": "Header for the task info menu"
+    },
+
+    "txtTaskOptions": {
+        "message": "Task Options",
+        "description": "Header for the task options in the info menu"
+    },
+
+    "txtHistory": {
+        "message": "History",
+        "description": "Header for the task info history"
+    },
+
+    "txtHistDisabled": {
+        "message": "Task history tracking is disabled. You can enable it in the tools menu.",
+        "description": "Task history tracking disabled"
+    },
+    "txtSelectDate": {
+        "message": "Please select a date.",
+        "description": "Select a date"
+    },
+    "txtNoHistory": {
+        "message": "There is no saved history on that day.",
+        "description": "No history on that day"
+    },
+
+    "lblDescription": {
+        "message": "Description",
+        "description": "Description"
+    },
+    "lblHour": {
+        "message": "Hour",
+        "description": "Hour"
+    },
+
+
+
+
+    "txtTools": {
+        "message": "Tools",
+        "description": "Tools menu header"
+    },
+
+    "toolExportCSV": {
+        "message": "Export tasks as a CSV file",
+        "description": "Delete all tasks"
+    },
+    "toolClearAllHistory": {
         "message": "Clear all task history",
         "description": "Clear all task history"
     },
-    "clearData": {
+    "toolClearData": {
         "message": "Clear all of the app's data",
         "description": "Clear all data"
     },
-    
-    
-    "settings": {
+    "toolResetSettings": {
+        "message": "Reset to Default",
+        "description": "Reset to default"
+    },
+
+
+
+
+    "txtSettings": {
         "message": "Settings",
         "description": "Settings menu header"
     },
-    
-    "generalSettings": {
+
+    "txtGeneralSettings": {
         "message": "General Settings",
         "description": "General settings header"
     },
@@ -354,8 +343,8 @@
         "message": "Open the app when it is updated",
         "description": "Setting - Open app when updated"
     },
-    
-    "taskSettings": {
+
+    "txtTaskSettings": {
         "message": "Task Settings",
         "description": "Task settings header"
     },
@@ -375,8 +364,8 @@
         "message": "Only allow one task to be running at a time",
         "description": "Setting - Only allow one task to be running"
     },
-    
-    "notificationSettings": {
+
+    "txtNotifSettings": {
         "message": "Notification Settings",
         "description": "Notification settings header"
     },
@@ -404,7 +393,7 @@
         "message": "Custom Sound URL",
         "description": "Setting - Custom Sound URL"
     },
-    "optPreview": {
+    "optBtnPreview": {
         "message": "Preview sound",
         "description": "Setting - Preview the sound"
     },
@@ -412,8 +401,8 @@
         "message": "Loop the sound until you stop it",
         "description": "Setting - Loop the sound"
     },
-    
-    "performanceSettings": {
+
+    "txtPerfSettings": {
         "message": "Performance Settings",
         "description": "Performance settings header"
     },
@@ -429,27 +418,52 @@
         "message": "Update the pie charts every",
         "description": "Setting - Chart update time first label"
     },
-    
-    "saveSettings": {
+
+    "txtSaveSettings": {
         "message": "Save Settings",
         "description": "Save settings header"
     },
-    
-    "notificationsWork": {
-        "message": "Desktop Notifications Work!",
-        "description": "Desktop notifications work"
+
+
+
+
+    "btnOK": {
+        "message": "OK",
+        "description": "OK"
     },
-    "notificationsWorkBody": {
-        "message": "You seeing this means desktop notifications are enabled and working correctly! Woo!",
-        "description": "Desktop notifications are enabled and working correctly"
+    "btnCancel": {
+        "message": "Cancel",
+        "description": "Cancel"
     },
-    
-    "totalsHelp": {
-        "message": "This is the totals row. It only appears when you have more than one task.\n\nThe \"Time Spent\" column of this row totals the time spent on every single one of your tasks.\nThe \"Goal\" column of this row totals all of the goal times from all of your tasks, other than indefinite ones.\nThe \"Progress\" column of this row gives you the total progress towards finishing the goals of all of your tasks. This progress does not include time spent that went over a task's goal, or time spent on tasks with indefinite goals.",
-        "description": "Totals row help message"
+    "btnYes": {
+        "message": "Yes",
+        "description": "Yes"
     },
-    
-    "confirmReset": {
+    "btnNo": {
+        "message": "No",
+        "description": "No"
+    },
+    "btnClose": {
+        "message": "Close",
+        "description": "Close buttons"
+    },
+    "btnCloseNotice": {
+        "message": "Close notice",
+        "description": "Close notice button"
+    },
+    "btnStopAlarm": {
+        "message": "Stop Alarm",
+        "description": "Stop alarm"
+    },
+    "btnSave": {
+        "message": "Save",
+        "description": "Save"
+    },
+
+
+
+
+    "confResetTask": {
         "message": "Are you sure you want to reset task \"$taskName$\"?\nThis will not reset the task's history.",
         "description": "Confirmation notice on reset",
         "placeholders": {
@@ -459,7 +473,7 @@
             }
         }
     },
-    "confirmDelete": {
+    "confDeleteTask": {
         "message": "Are you sure you want to delete task \"$taskName$\"?\nThis will delete the task's history as well.",
         "description": "Confirmation notice on delete",
         "placeholders": {
@@ -469,7 +483,7 @@
             }
         }
     },
-    "confirmClearHistory": {
+    "confClearHistory": {
         "message": "Are you sure you want to clear the history of task \"$taskName$\"?",
         "description": "Confirmation notice on clearing a task's history",
         "placeholders": {
@@ -479,35 +493,38 @@
             }
         }
     },
-    
-    "confirmResetAll": {
+
+    "confResetAll": {
         "message": "Are you sure you want to reset the time spent on all of your tasks?",
         "description": "Confirmation notice on resetting all tasks"
     },
-    "confirmDeleteAll": {
+    "confDeleteAll": {
         "message": "Are you sure you want to delete all of your tasks?",
         "description": "Confirmation notice on deletion of all tasks"
     },
-    "confirmClearAllHistory": {
+    "confClearAllHistory": {
         "message": "Are you sure you want to clear the history of all tasks?",
         "description": "Confirmation notice on clearing of all tasks' history"
     },
-    "confirmResetData": {
+    "confResetData": {
         "message": "Are you sure you want to wipe all of Task Timer's data completely?\nThis will get rid of your tasks and settings.",
         "description": "Confirmation notice on deletion of all data"
     },
-    "confirmResetSettings": {
+    "confResetSettings": {
         "message": "Are you sure you want to reset all of your settings back to their default values?",
         "description": "Confirmation notice on resetting settings"
     },
-    
-    "taskFinished": {
+
+
+
+
+    "noteTaskFinished": {
         "message": "Task Finished!",
-        "description": "Task finished (desktop notification)"
+        "description": "Task finished"
     },
-    "taskFinishedLong": {
+    "noteTaskFinishedLong": {
         "message": "Task \"$taskName$\" has reached its goal!",
-        "description": "Task has reached its goal (desktop notification)",
+        "description": "Task has reached its goal",
         "placeholders": {
             "taskName": {
                 "content": "$1",
@@ -515,8 +532,8 @@
             }
         }
     },
-    
-    "finishEditing": {
+
+    "noteFinishEditing": {
         "message": "Finish editing task \"$taskName$\" first!",
         "description": "Finish editing task",
         "placeholders": {
@@ -526,8 +543,17 @@
             }
         }
     },
-    
-    "updated": {
+
+    "noteNotifWork": {
+        "message": "Desktop Notifications Work!",
+        "description": "Desktop notifications work"
+    },
+    "noteNotifWorkBody": {
+        "message": "You seeing this means desktop notifications are enabled and working correctly! Woo!",
+        "description": "Desktop notifications are enabled and working correctly"
+    },
+
+    "noteUpdated": {
         "message": "Task Timer has been updated to version $version$!\nWould you like to see the changelog?\n\nBe aware that you will need to start your tasks again if Chrome auto-updated the app while any were running.",
         "description": "Task timer was updated",
         "placeholders": {
@@ -537,16 +563,56 @@
             }
         }
     },
-    "rating": {
+    "noteRating": {
         "message": "Would you like to give this app a rating/review on the Chrome Web Store? It really helps out!",
         "description": "Rating reminder"
     },
-    "smallWindow": {
+    "noteSmallWindow": {
         "message": "You seem to be running Task Timer in a small window, small monitor, or at a low resolution. Would you like to switch to icons instead of buttons in the task list? This will help make sure that tasks don't take up more than one line each.\n\nThis setting can also be changed in the tools menu.",
         "description": "Running Task Timer in a small window - use icons?"
     },
-    "noLocalFiles": {
+    "noteNoLocalFiles": {
         "message": "It looks like you're using a path to a local file on your machine for the custom sound URL.\nUnfortunately, local files cannot be used, as Chrome does not allow access to your local filesystem, even for a sound.\nOnly internet URLs (beginning with http, https, or ftp) can be used. This means that you need to find a sound online, or upload the sound that you want somewhere.",
         "description": "Can't use local file paths"
+    },
+
+
+
+
+    "sucSavedDesc": {
+        "message": "Description saved!",
+        "description": "Description saved success notice"
+    },
+    "sucSavedSettings": {
+        "message": "Settings saved!",
+        "description": "Settings saved success notice"
+    },
+
+
+
+
+    "errGeneric": {
+        "message": "Error!",
+        "description": "Generic error"
+    },
+    "errTask": {
+        "message": "Invalid task name or goal.",
+        "description": "Invalid task name/goal"
+    },
+    "errTaskName": {
+        "message": "Invalid task name.",
+        "description": "Invalid task name"
+    },
+    "errTaskTime": {
+        "message": "Invalid time.",
+        "description": "Invalid time"
+    },
+    "errGoalTime": {
+        "message": "Invalid goal time.",
+        "description": "Invalid goal time"
+    },
+    "errSoundURL": {
+        "message": "Invalid custom sound URL.",
+        "description": "Invalid custom sound URL"
     }
 }

@@ -65,7 +65,7 @@ function dialog_display(dialog) {
 
     if(Setting('custom-dialogs') && !dialog_queue[dialog].force_native) {
         // Set the text
-        $('#dialog-txt').html(word_wrap(text, 100).replace(/\n/, '<br />'));
+        $('#dialog-txt').html(text.replace(/\n/, '<br />'));
 
         // Bind events to the buttons
         $('#dialog-ok').click({cb: callback, d: data}, function(e, d) { e.data.cb(true, e.data.d); });
@@ -150,18 +150,6 @@ function format_time(hours, mins, secs, indef) {
     if(secs == null) secs = 0;
     
     return hours.toString() +':'+ (mins < 10 ? '0' : '') + mins.toString() +':'+ (secs < 10 ? '0' : '') + secs.toString();
-}
-
-// Wrap long sentences to new lines
-function word_wrap(str, width, brk, cut) {
-    width = width || 75;
-    brk = brk || '\n';
-    cut = cut || false;
-
-    if(!str) { return str; }
-
-    var regex = '.{1,'+ width +'}(\\s|$)' + (cut ? '|.{'+ width +'}|.+$' : '|\\S+?(\\s|$)');
-    return str.match(RegExp(regex, 'g')).join(brk);
 }
 
 // Get a single locale string
