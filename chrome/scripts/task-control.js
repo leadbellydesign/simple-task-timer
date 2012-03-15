@@ -339,7 +339,7 @@ function update_time() {
                         tasks[i].notified = true;
 
                         // Stop the timer
-                        if(Setting('stop-timer')) toggle_task(i);
+                        if(Setting('no-overtime') || Setting('stop-timer')) toggle_task(i);
                         
                         // Play sound
                         if(Setting('play-sound')) document.getElementById('sound').play();
