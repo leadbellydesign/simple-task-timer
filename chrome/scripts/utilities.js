@@ -25,20 +25,25 @@ function dialog_display(dialog) {
     dialog_open = true;
 
     // Tweak the buttons for the type of dialog
-    switch(type) {
-        case 2: case 'confirm':
-            $('#dialog-ok').text(locale('btnOK'));
-            $('#dialog-cancel').text(locale('btnCancel')).show();
-            break;
-        case 3: case 'question': case 'yesno':
-            $('#dialog-ok').text(locale('btnYes'));
-            $('#dialog-cancel').text(locale('btnNo')).show();
-            break;
-        case 1: case 'alert': default:
-            $('#dialog-ok').text(locale('btnOK'));
-            $('#dialog-cancel').hide();
-            var type = 1;
-            break;
+    if(typeof type == 'array') {
+        $('#dialog-ok').text(type[0]).show();
+        if(typeof type[1] != 'undefined') $('#dialog-cancel').text(type[1]).show(); else $('#dialog-cancel').hide();
+    } else {
+        switch(type) {
+            case 2: case 'confirm':
+                $('#dialog-ok').text(locale('btnOK'));
+                $('#dialog-cancel').text(locale('btnCancel')).show();
+                break;
+            case 3: case 'question': case 'yesno':
+                $('#dialog-ok').text(locale('btnYes'));
+                $('#dialog-cancel').text(locale('btnNo')).show();
+                break;
+            case 1: case 'alert': default:
+                $('#dialog-ok').text(locale('btnOK'));
+                $('#dialog-cancel').hide();
+                var type = 1;
+                break;
+        }
     }
 
     if(Setting('custom-dialogs') && !dialog_queue[dialog].force_native) {
