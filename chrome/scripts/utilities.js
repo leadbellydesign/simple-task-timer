@@ -25,7 +25,7 @@ function dialog_display(dialog) {
     dialog_open = true;
 
     // Tweak the buttons for the type of dialog
-    if(typeof type == 'array') {
+    if(typeof type == 'object') {
         $('#dialog-ok').text(type[0]).show();
         if(typeof type[1] != 'undefined') $('#dialog-cancel').text(type[1]).show(); else $('#dialog-cancel').hide();
     } else {
@@ -55,21 +55,21 @@ function dialog_display(dialog) {
         $('#dialog-cancel').click({cb: callback, d: data}, function(e, d) { e.data.cb(false, e.data.d); });
         $('#modal-dialog button').click(function() {
             // Remove from the dialog queue and unbind events
-            dialog_queue.splice(0);
+            dialog_queue.splice(0, 1);
             $('#modal-dialog button').unbind();
 
             // Show the next dialog or fade out
             if(dialog_queue.length == 0) {
                 dialog_open = false;
-                $('#modal-dialog').fadeOut(600);
-                if(!alarm_open && !task_open && !tools_open) $('#modal').fadeOut(600);
+                $('#modal-dialog').fadeOut(400);
+                if(!alarm_open && !task_open && !tools_open) $('#modal').fadeOut(400);
             } else {
-                modal_dialog_display(0);
+                $('#modal-dialog').fadeOut(400, function() { dialog_display(0); });
             }
         });
 
         // Display the dialog
-        $('#modal, #modal-dialog').fadeIn(600).center();
+        $('#modal, #modal-dialog').fadeIn(400).center();
     } else {
         // Regular browser dialogs
         if(type == 1) {
