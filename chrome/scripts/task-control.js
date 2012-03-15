@@ -275,7 +275,7 @@ function show_history(y, m, d) {
             for(h = 0; h <= 23; h++) {
                 if(typeof tasks[displaying_task].history[y][m - 1][d][h] != 'undefined') {
                     $('<tr />')
-                        .append('<td>'+ format_time(h, 0, 0) +'</td>')
+                        .append('<td>'+ h +':00</td>')
                         .append('<td>'+ format_time(tasks[displaying_task].history[y][m - 1][d][h].hours, tasks[displaying_task].history[y][m - 1][d][h].mins, tasks[displaying_task].history[y][m - 1][d][h].secs) +'</td>')
                         .appendTo('#history tbody')
                     ;
