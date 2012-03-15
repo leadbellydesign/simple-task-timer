@@ -1,21 +1,38 @@
 var dialog_queue = new Array();
 
 // Trigger a dialog
-function dialog(text, callback, data, type, override, force_native) {
+function dialog(text, callback, data, type, override, check_queue, force_native) {
     // Default the argument values
     if(typeof text == 'undefined') text = 'dialog';
     if(typeof callback == 'undefined') callback = function() {};
     if(typeof data == 'undefined') data = {};
     if(typeof type == 'undefined') type = 1;
     if(typeof override == 'undefined') override = false;
+    if(typeof check_queue == 'undefined') check_queue = true;
     if(typeof force_native == 'undefined') force_native = false;
 
     if(override) {
         callback(true, data);
     } else {
-        // Add the dialog to the queue and display it if it's the only one
-        dialog_queue[dialog_queue.length] = {'text': text, 'type': type, 'callback': callback, 'data': data, 'force_native': force_native};
-        if(dialog_queue.length == 1) dialog_display(0);
+        // Set the queue data
+        var queue_item = {'text': text, 'type': type, 'callback': callback, 'data': data, 'force_native': force_native};
+
+        // Check if it's already in the queue
+        var in_queue = false;
+        if(check_queue) {
+            for(i = 0; i < dialog_queue.length; i++) {
+                if(JSON.stringify(dialog_queue[i]) === JSON.stringify(queue_item)) {
+                    in_queue = true;
+                    break;
+                }
+            }
+        }
+
+        // Add the dialog to the queue if it isn't already in the queue, and display it if it's the only one
+        if(!in_queue) {
+            dialog_queue[dialog_queue.length] = queue_item;
+            if(dialog_queue.length == 1) dialog_display(0);
+        }
     }
 }
 
