@@ -86,7 +86,8 @@ function dialog_display(dialog) {
         });
 
         // Display the dialog and focus on the confirm button
-        $('#modal, #modal-dialog').fadeIn(400).center();
+        $('#modal, #modal-dialog').fadeIn(400);
+        $('#modal-dialog').center();
         $('#dialog-confirm').focus();
     } else {
         // Regular browser dialogs

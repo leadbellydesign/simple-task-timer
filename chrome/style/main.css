@@ -72,9 +72,7 @@ h2 { font-size: 1em; font-weight: normal; }
     border: 1px solid #C8E1C8;
 }
 
-.close-note {
-    float: right;
-}
+.close-note { float: right; }
 
 /* Task List */
 #tasks {
@@ -93,9 +91,7 @@ h2 { font-size: 1em; font-weight: normal; }
     font-size: 1.5em;
 }
 
-#new-task {
-    margin-top: 20px;
-}
+#new-task { margin-top: 20px; }
 
 #new-start { margin: 0 30px; }
 
@@ -178,18 +174,14 @@ tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress { font-weight:
     background: linear-gradient(top, #e9f6fd 0%,#d3eefb 100%);
 }
 
-.menu-group {
-    margin-bottom: 30px;
-}
+.menu-group { margin-bottom: 30px; }
 
 .menu-group h2 {
     font-weight: bold;
     text-decoration: underline;
 }
 
-.close-menus {
-    float: right;
-}
+.close-menus { float: right; }
 
 /* Task info menu */
 #info-table { width: 100%; }
@@ -201,7 +193,7 @@ tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress { font-weight:
 /* History */
 #date-picker { margin-bottom: 10px; }
 #history thead { font-weight: bold; }
-#history td{ padding-right: 20px; }
+#history td { padding-right: 20px; }
 
 /* Modal Dialogs */
 #alarm-menu, #modal-dialog {
@@ -218,7 +210,6 @@ tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress { font-weight:
 .dialog-btns {
     position: relative;
     bottom: 0;
-
     margin-top: 30px;
     text-align: right;
 }
@@ -234,6 +225,4 @@ tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress { font-weight:
     font-weight: bold;
 }
 
-#error-info {
-    margin-bottom: 30px;
-}
+#error-info { margin-bottom: 30px; }
