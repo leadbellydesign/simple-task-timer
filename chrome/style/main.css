@@ -4,10 +4,6 @@
 header, footer { text-align: center; }
 hr { border-color: #E9E9E9; }
 
-.right {
-    text-align: right;
-}
-
 button { margin: 2px 0px; }
 button.save, button.cancel { padding: 1px; }
 
@@ -195,19 +191,6 @@ tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress { font-weight:
     float: right;
 }
 
-/* Alarm menu & modal dialog */
-#alarm-menu, #modal-dialog {
-    min-width: 10%;
-    max-width: 30%;
-
-    border-radius: 5px;
-
-    text-align: center;
-    word-wrap: break-word;
-}
-
-#alarm-menu hr, #modal-dialog hr { margin: 15px 0 5px 0; }
-
 /* Task info menu */
 #info-table { width: 100%; }
 #info-table td { padding: 3px; }
@@ -219,6 +202,28 @@ tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress { font-weight:
 #date-picker { margin-bottom: 10px; }
 #history thead { font-weight: bold; }
 #history td{ padding-right: 20px; }
+
+/* Modal Dialogs */
+#alarm-menu, #modal-dialog {
+    min-width: 10%;
+    max-width: 30%;
+
+    border: 1px solid black;
+    border-radius: 5px;
+
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.dialog-btns {
+    position: relative;
+    bottom: 0;
+
+    margin-top: 30px;
+    text-align: right;
+}
+
+#alarm-menu hr, #modal-dialog hr { margin: 15px 0 5px 0; }
 
 /* JS Error */
 #big-error-thang {
