@@ -107,12 +107,15 @@ $(document).ready(function() {
         save_timer = setTimeout('SaveTasks(true)', 60000);
         
         // Add to the launch count, and show a rating reminder if at a multiple of 6
-        localStorage['launches'] = typeof localStorage['launches'] == 'undefined' ? 1 : parseInt(localStorage['launches']) + 1;
-        var launches = Setting(launches);
+        var launches = Setting('launches', Setting('launches', 0, true) + 1);
         
-        if(launches % 6 == 0 && typeof localStorage['rated'] == 'undefined' && confirm(locale('confRating'))) {
-            localStorage['rated'] = 'true';
-            window.open('https://chrome.google.com/webstore/detail/aomfjmibjhhfdenfkpaodhnlhkolngif');
+        if(launches % 6 == 0 && typeof localStorage['rated'] == 'undefined') {
+            dialog(locale('confRating'), function(status) {
+                if(status) {
+                    localStorage['rated'] = 'true';
+                    window.open('https://chrome.google.com/webstore/detail/aomfjmibjhhfdenfkpaodhnlhkolngif');
+                }
+            }, {}, 'question');
         }
         
         // Make the table rows draggable
