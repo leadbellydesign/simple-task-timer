@@ -1,13 +1,14 @@
 var dialog_queue = new Array();
 
 // Trigger a dialog
-function dialog(text, callback, data, type, override, check_queue, force_native) {
+function dialog(text, callback, data, type, override, steal_focus, check_queue, force_native) {
     // Default the argument values
     if(typeof text == 'undefined') text = 'dialog';
     if(typeof callback == 'undefined') callback = function() {};
     if(typeof data == 'undefined') data = {};
     if(typeof type == 'undefined') type = 1;
     if(typeof override == 'undefined') override = false;
+    if(typeof steal_focus == 'undefined') steal_focus = false;
     if(typeof check_queue == 'undefined') check_queue = true;
     if(typeof force_native == 'undefined') force_native = false;
 
@@ -15,7 +16,7 @@ function dialog(text, callback, data, type, override, check_queue, force_native)
         callback(true, data);
     } else {
         // Set the queue data
-        var queue_item = {'text': text, 'type': type, 'callback': callback, 'data': data, 'force_native': force_native};
+        var queue_item = {'text': text, 'type': type, 'callback': callback, 'data': data, 'steal_focus': steal_focus, 'force_native': force_native};
 
         // Check if it's already in the queue
         var in_queue = false;
@@ -89,6 +90,9 @@ function dialog_display(dialog) {
         $('#modal, #modal-dialog').fadeIn(400);
         $('#modal-dialog').center();
         $('#dialog-confirm').focus();
+
+        // Focus this window
+        $(window).focus();
     } else {
         // Regular browser dialogs
         if(type == 1) {

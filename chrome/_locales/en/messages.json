@@ -520,6 +520,16 @@
         "message": "Would you like to give this app a rating/review on the Chrome Web Store?\nIt really helps out!",
         "description": "Rating reminder"
     },
+    "confUpdated": {
+        "message": "Task Timer has been updated to version $version$!\nWould you like to see the changelog?\n\nBe aware that you will need to start your tasks again if Chrome auto-updated the app while any were running.",
+        "description": "Task timer was updated",
+        "placeholders": {
+            "version": {
+                "content": "$1",
+                "example": "1.7.2"
+            }
+        }
+    },
 
 
 
@@ -548,16 +558,6 @@
         "description": "Desktop notifications are enabled and working correctly"
     },
 
-    "noteUpdated": {
-        "message": "Task Timer has been updated to version $version$!\nWould you like to see the changelog?\n\nBe aware that you will need to start your tasks again if Chrome auto-updated the app while any were running.",
-        "description": "Task timer was updated",
-        "placeholders": {
-            "version": {
-                "content": "$1",
-                "example": "1.7.2"
-            }
-        }
-    },
     "noteSmallWindow": {
         "message": "You seem to be running Task Timer in a small window, small monitor, or at a low resolution. Would you like to switch to icons instead of buttons in the task list? This will help make sure that tasks don't take up more than one line each.\n\nThis setting can also be changed in the tools menu.",
         "description": "Running Task Timer in a small window - use icons?"
