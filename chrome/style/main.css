@@ -203,7 +203,6 @@ tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress { font-weight:
     border: 1px solid black;
     border-radius: 5px;
 
-    text-align: center;
     word-wrap: break-word;
 }
 
@@ -215,6 +214,7 @@ tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress { font-weight:
 }
 
 #alarm-menu hr, #modal-dialog hr { margin: 15px 0 5px 0; }
+#alarm-txt { font-size: 1.2em; }
 
 /* JS Error */
 #big-error-thang {
