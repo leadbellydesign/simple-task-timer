@@ -66,7 +66,7 @@ function dialog_display(dialog) {
 
     if(Setting('custom-dialogs') && !dialog_queue[dialog].force_native) {
         // Set the text
-        $('#dialog-txt').html(text.replace(/\n/, '<br />'));
+        $('#dialog-txt').html(text.replace(/\n/g, '<br />'));
 
         // Bind events to the buttons
         $('#dialog-confirm').click({cb: callback, d: data}, function(e, d) { e.data.cb(true, e.data.d); });
