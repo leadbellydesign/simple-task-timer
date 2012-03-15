@@ -43,20 +43,20 @@ function dialog_display(dialog) {
 
     // Tweak the buttons for the type of dialog
     if(typeof type == 'object') {
-        $('#dialog-ok').text(type[0]).show();
+        $('#dialog-confirm').text(type[0]).show();
         if(typeof type[1] != 'undefined') $('#dialog-cancel').text(type[1]).show(); else $('#dialog-cancel').hide();
     } else {
         switch(type) {
             case 2: case 'confirm':
-                $('#dialog-ok').text(locale('btnOK'));
+                $('#dialog-confirm').text(locale('btnOK'));
                 $('#dialog-cancel').text(locale('btnCancel')).show();
                 break;
             case 3: case 'question': case 'yesno':
-                $('#dialog-ok').text(locale('btnYes'));
+                $('#dialog-confirm').text(locale('btnYes'));
                 $('#dialog-cancel').text(locale('btnNo')).show();
                 break;
             case 1: case 'alert': default:
-                $('#dialog-ok').text(locale('btnOK'));
+                $('#dialog-confirm').text(locale('btnOK'));
                 $('#dialog-cancel').hide();
                 var type = 1;
                 break;
@@ -68,7 +68,7 @@ function dialog_display(dialog) {
         $('#dialog-txt').html(text.replace(/\n/, '<br />'));
 
         // Bind events to the buttons
-        $('#dialog-ok').click({cb: callback, d: data}, function(e, d) { e.data.cb(true, e.data.d); });
+        $('#dialog-confirm').click({cb: callback, d: data}, function(e, d) { e.data.cb(true, e.data.d); });
         $('#dialog-cancel').click({cb: callback, d: data}, function(e, d) { e.data.cb(false, e.data.d); });
         $('#modal-dialog button').click(function() {
             // Remove from the dialog queue and unbind events
@@ -85,8 +85,9 @@ function dialog_display(dialog) {
             }
         });
 
-        // Display the dialog
+        // Display the dialog and focus on the confirm button
         $('#modal, #modal-dialog').fadeIn(400).center();
+        $('#dialog-confirm').focus();
     } else {
         // Regular browser dialogs
         if(type == 1) {

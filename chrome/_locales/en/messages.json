@@ -213,26 +213,6 @@
 
 
 
-    "txtErrorOccurred": {
-        "message": "An error has occurred!",
-        "description": "An error has occurred"
-    },
-    "txtErrorOccurredLong": {
-        "message": "An error has occurred somewhere. Please report a bug with the following information, as well as what you did/what happened:",
-        "description": "Error notice"
-    },
-    "txtTriedRefresh": {
-        "message": "Have you tried refreshing the app?",
-        "description": "Tried refreshing?"
-    },
-    "txtUsualFix": {
-        "message": "This will usually fix any errors, but will clear all of your tasks and settings.",
-        "description": "Usually fixes errors, clears data"
-    },
-
-
-
-
     "txtTaskInfo": {
         "message": "Task Information",
         "description": "Header for the task info menu"
@@ -427,6 +407,23 @@
 
 
 
+
+    "txtJSError": {
+        "message": "An error has occurred somewhere with the script. Please report a bug with the following information, as well as what you did/what happened:",
+        "description": "JavaScript Error notice"
+    },
+    "txtTriedRefresh": {
+        "message": "Have you tried refreshing the app?",
+        "description": "Tried refreshing?"
+    },
+    "txtUsualFix": {
+        "message": "This will usually fix any errors, but will clear all of your tasks and settings.",
+        "description": "Usually fixes errors, clears data"
+    },
+
+
+
+
     "btnOK": {
         "message": "OK",
         "description": "OK"
@@ -533,22 +530,11 @@
         }
     },
 
-    "noteFinishEditing": {
-        "message": "Finish editing task \"$taskName$\" first!",
-        "description": "Finish editing task",
-        "placeholders": {
-            "taskName": {
-                "content": "$1",
-                "example": "Task Name"
-            }
-        }
-    },
-
-    "noteNotifWork": {
+    "noteNotifsWork": {
         "message": "Desktop Notifications Work!",
         "description": "Desktop notifications work"
     },
-    "noteNotifWorkBody": {
+    "noteNotifsWorkBody": {
         "message": "You seeing this means desktop notifications are enabled and working correctly! Woo!",
         "description": "Desktop notifications are enabled and working correctly"
     },
@@ -574,6 +560,11 @@
     "noteNoLocalFiles": {
         "message": "It looks like you're using a path to a local file on your machine for the custom sound URL.\nUnfortunately, local files cannot be used, as Chrome does not allow access to your local filesystem, even for a sound.\nOnly internet URLs (beginning with http, https, or ftp) can be used. This means that you need to find a sound online, or upload the sound that you want somewhere.",
         "description": "Can't use local file paths"
+    },
+
+    "noteErrorOccurred": {
+        "message": "An error has occurred!",
+        "description": "An error has occurred"
     },
 
 
@@ -614,5 +605,15 @@
     "errSoundURL": {
         "message": "Invalid custom sound URL.",
         "description": "Invalid custom sound URL"
+    },
+    "errFinishEditing": {
+        "message": "Finish editing task \"$taskName$\" first!",
+        "description": "Finish editing task",
+        "placeholders": {
+            "taskName": {
+                "content": "$1",
+                "example": "Task Name"
+            }
+        }
     }
 }

@@ -28,7 +28,7 @@ function edit_name(task) {
                 cancel_edit();
             });
         } else {
-            if(task != editing_task) alert(locale('noteFinishEditing', tasks[editing_task].text));
+            if(task != editing_task) error(locale('errFinishEditing', tasks[editing_task].text));
         }
     } catch(e) {
         js_error(e);
@@ -47,7 +47,7 @@ function save_name(task) {
             SaveTasks();
             editing_task = -1;
         } else {
-            error('invalidName');
+            error('errTaskName');
         }
     } catch(e) {
         js_error(e);
@@ -91,7 +91,7 @@ function edit_current(task) {
             $('#current-edit-'+ task +' .mins').val(tasks[task].current_mins);
             $('#current-edit-'+ task +' .secs').val(tasks[task].current_secs);
         } else {
-            if(task != editing_task) alert(locale('noteFinishEditing', tasks[editing_task].text));
+            if(task != editing_task) error(locale('errFinishEditing', tasks[editing_task].text));
         }
     } catch(e) {
         js_error(e);
@@ -171,7 +171,7 @@ function edit_goal(task) {
                 $('#goal-edit-'+ task +' .hrs, #goal-edit-'+ task +' .mins').attr('disabled', 'disabled');
             }
         } else {
-            if(task != editing_task) alert(locale('noteFinishEditing', tasks[editing_task].text));
+            if(task != editing_task) error(locale('errFinishEditing', tasks[editing_task].text));
         }
     } catch(e) {
         js_error(e);
@@ -200,7 +200,7 @@ function save_goal(task) {
             editing_task = -1;
             if(was_running) toggle_task(task);
         } else {
-            error('invalidGoalTime');
+            error('errGoalTime');
         }
     } catch(e) {
         js_error(e);
