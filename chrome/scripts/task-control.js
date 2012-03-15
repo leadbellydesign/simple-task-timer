@@ -355,7 +355,14 @@ function update_time() {
                         
                         // Show Desktop Notification
                         if(Setting('notify') && webkitNotifications.checkPermission() == 0) {
-                            webkitNotifications.createNotification('/style/images/icon-64.png', locale('noteTaskFinished'), locale('noteTaskFinishedLong', tasks[i].text)).show();
+                            var notification = webkitNotifications.createNotification('style/images/icon-64.png', locale('noteTaskFinished', tasks[i].text), locale('noteTaskFinishedLong', tasks[i].text));
+                            notification.onclick = function() {
+                                $('#close-alarm').click();
+                                window.focus();
+                                this.cancel();
+                            };
+
+                            notification.show();
                         }
                     }
                 }

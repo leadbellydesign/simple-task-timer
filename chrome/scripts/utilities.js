@@ -92,7 +92,7 @@ function dialog_display(dialog) {
         $('#dialog-confirm').focus();
 
         // Focus this window
-        $(window).focus();
+        window.focus();
     } else {
         // Regular browser dialogs
         if(type == 1) {
