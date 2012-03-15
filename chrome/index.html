@@ -220,6 +220,13 @@
             
             <h1 i18n="txtSettings">Settings</h1>
             <hr />
+
+            <div class="menu-group">
+                <h2 i18n="txtSaveSettings">Save Settings</h2>
+                
+                <button id="save-settings" i18n="btnSave">Save</button>
+                <button id="reset-settings" i18n="toolResetSettings">Reset to Default</button>
+            </div>
             
             <div class="menu-group">
                 <h2 i18n="txtGeneralSettings">General Settings</h2>
@@ -231,6 +238,7 @@
                 <label><input type="checkbox" id="autostart-default" /><span i18n="optStartDefault">Check the start checkbox by default</span></label><br />
                 <label><input type="checkbox" id="save-fields" /><span i18n="optSaveFields">Keep what you have in the new task fields when you relaunch the app</span></label><br />
                 <label><input type="checkbox" id="use-icons" /><span i18n="optUseIcons">Use icons in place of buttons for the task options (good for small screens)</span></label><br />
+                <label><input type="checkbox" id="12-hour"/><span i18n="opt12Hour">Use 12-hour format where applicable</span></label></br />
                 <label><input type="checkbox" id="custom-dialogs" /><span i18n="optCustomDialogs">Use custom dialogs rather than Chrome's built-in ones</span></label> <a href="#" id="custom-dialogs-help">?</a><br />
                 <label><input type="checkbox" id="update-alert" /><span i18n="optUpdateAlert">Open the app when it is updated</span></label>
             </div>
@@ -265,13 +273,6 @@
                 
                 <label><span i18n="optUpdateTime1">Update the time of tasks every</span> <input type="number" min="1" max="60" value="1" size="4" id="update-time" /> <span i18n="optUpdateTime2">second(s)</span></label><br />
                 <label><span i18n="optChartUpdateTime1">Update the pie charts every</span> <input type="number" min="1" max="60" value="3" size="4" id="chart-update-time" /> <span i18n="optUpdateTime2">second(s)</span></label>
-            </div>
-            
-            <div class="menu-group">
-                <h2 i18n="txtSaveSettings">Save Settings</h2>
-                
-                <button id="save-settings" i18n="btnSave">Save</button>
-                <button id="reset-settings" i18n="toolResetSettings">Reset to Default</button>
             </div>
         </div>
         

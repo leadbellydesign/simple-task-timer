@@ -7,6 +7,7 @@ var settings_checkboxes = {
     'autostart-default': false,
     'save-fields': true,
     'use-icons': false,
+    '12-hour': false,
     'custom-dialogs': true,
     'update-alert': true,
     

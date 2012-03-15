@@ -295,10 +295,6 @@
         "message": "Hide the notice box",
         "description": "Setting - Hide the notice box"
     },
-    "optUseIcons": {
-        "message": "Use icons in place of buttons for the task options (good for small screens)",
-        "description": "Setting - Use icons instead of buttons"
-    },
     "optConfirmReset": {
         "message": "Ask to confirm when you attempt to reset a task",
         "description": "Setting - Confirm on reset"
@@ -314,6 +310,14 @@
     "optSaveFields": {
         "message": "Keep what you have in the new task fields when you relaunch the app",
         "description": "Setting - Keep new task field contents on relaunch"
+    },
+    "optUseIcons": {
+        "message": "Use icons in place of buttons for the task options (good for small screens)",
+        "description": "Setting - Use icons instead of buttons"
+    },
+    "opt12Hour": {
+        "message": "Use 12-hour format for times where applicable",
+        "description": "Setting - Use 12-hour format times"
     },
     "optCustomDialogs": {
         "message": "Use custom dialogs rather than Chrome's built-in ones",
