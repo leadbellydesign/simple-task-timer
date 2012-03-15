@@ -174,7 +174,7 @@ tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress { font-weight:
     background: linear-gradient(top, #e9f6fd 0%,#d3eefb 100%);
 }
 
-.menu-group { margin-bottom: 30px; }
+#task-menu .menu-group:not(#history-group), .menu-group:not(:last-child) { margin-bottom: 30px; }
 
 .menu-group h2 {
     font-weight: bold;
