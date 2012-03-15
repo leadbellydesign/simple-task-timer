@@ -192,11 +192,13 @@ $(document).ready(function() {
 
     // User clicked the clear all history button in the tools menu
     $('#clear-all-history').click(function() {
-        if(confirm(locale('confClearAllHistory'))) {
-            for(t = 0; t < task_count; t++) {
-                tasks[t].history = {};
+        dialog(locale('confClearAllHistory'), function(status) {
+            if(status) {
+                for(t = 0; t < task_count; t++) {
+                    tasks[t].history = {};
+                }
             }
-        }
+        }, {}, 'question');
     });
 
     // User clicked the preview button for the notification sound
@@ -223,27 +225,29 @@ $(document).ready(function() {
 
     // User clicked the reset settings button in the tools menu
     $('#reset-settings').click(function() {
-        if(confirm(locale('confResetSettings'))) {
-            // Reset checkbox settings
-            for(i in settings_checkboxes) {
-                Setting(i, settings_checkboxes[i]);
+        dialog(locale('confResetSettings'), function(status) {
+            if(status) {
+                // Reset checkbox settings
+                for(i in settings_checkboxes) {
+                    Setting(i, settings_checkboxes[i]);
+                }
+                
+                // Reset other settings
+                for(i in settings_other) {
+                    Setting(i, settings_other[i]);
+                }
+                
+                // Reload settings
+                LoadSettings(true, true);
             }
-            
-            // Reset other settings
-            for(i in settings_other) {
-                Setting(i, settings_other[i]);
-            }
-            
-            // Reload settings
-            LoadSettings(true, true);
-        }
+        }, {}, 'question');
     });
 
 
 
     // User clicked the totals help button
     $('.totals-help').click(function() {
-        alert(locale('infoTotals'));
+        dialog(locale('infoTotals'));
     });
 
     // User clicked the custom dialogs help button

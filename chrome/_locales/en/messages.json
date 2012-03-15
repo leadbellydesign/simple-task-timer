@@ -512,7 +512,7 @@
         "description": "Confirmation notice on deletion of all data"
     },
     "confResetSettings": {
-        "message": "Are you sure you want to reset all of your settings back to their default values?",
+        "message": "Are you sure you want to reset all of the settings back to their default values?",
         "description": "Confirmation notice on resetting settings"
     },
 
