@@ -84,7 +84,7 @@
         "description": "Totals row help message"
     },
     "infoCustomDialogs": {
-        "message": "It is strongly recommended that you keep this setting turned on, as when Chrome's native dialogs are used, odd things happen such as things becoming very delayed or animations being skipped.",
+        "message": "It is strongly recommended that you keep this setting turned on, as when Chrome's native dialogs are used, odd things happen; large pauses after closing them are often introduced, and animations get skipped often.",
         "description": "Custom dialogs setting help message"
     },
 
