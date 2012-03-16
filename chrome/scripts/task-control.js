@@ -108,7 +108,7 @@ function toggle_task(task) {
             
             task_running[task] = true;
             $('#task-'+ task +' button.toggle').text(locale('btnStop'));
-            $('#task-'+ task +' img.toggle').attr('title', locale('btnStop')).attr('src', 'style/images/control_stop_blue.png');
+            $('#task-'+ task +' img.toggle').attr('title', locale('btnStop')).attr('src', 'style/images/control_pause_blue.png');
             if(displaying_task == task) $('#task-toggle').text(locale('btnStop'));
             $('#task-'+ task).addClass('running');
         }
@@ -134,7 +134,7 @@ function list_task(task, anim) {
         $('#task-'+ task +' td.current').text(format_time(tasks[task].current_hours, tasks[task].current_mins, tasks[task].current_secs));
         $('#task-'+ task +' td.goal').text(format_time(tasks[task].goal_hours, tasks[task].goal_mins, 0, tasks[i].indefinite));
         $('#task-'+ task +' button.toggle').text(task_running[task] ? locale('btnStop') : locale('btnStart'));
-        $('#task-'+ task +' img.toggle').attr('title', task_running[task] ? locale('btnStop') : locale('btnStart')).attr('src', 'style/images/control_'+ (task_running[task] ? 'stop' : 'play') +'_blue.png');
+        $('#task-'+ task +' img.toggle').attr('title', task_running[task] ? locale('btnStop') : locale('btnStart')).attr('src', 'style/images/control_'+ (task_running[task] ? 'pause' : 'play') +'_blue.png');
         
         // Progress bar
         if(!tasks[task].indefinite) {
