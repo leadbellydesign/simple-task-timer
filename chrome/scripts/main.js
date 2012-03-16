@@ -1,4 +1,4 @@
-var load, dragging = false, preview_sound = false, now = new Date(); // General variables
+var version, load,  dragging = false, preview_sound = false, now = new Date(); // General variables
 var tasks = new Array(), task_running = new Array(), task_count = 0; // Task variables
 var alarm_open = false, task_open = false, tools_open = false, dialog_open = false; // Menu state variables
 var js_error_shown = false, no_local_files_alerted = false; // Alert state variables
@@ -13,36 +13,10 @@ $(document).ready(function() {
     try {
         // Set some variables
         load = $('#loading');
+        version = chrome.app.getDetails().version;
         
         // Localise the page
         localisePage();
-        
-        // Check the version, and show the changelog if necessary
-        if(typeof localStorage['old-version'] != 'undefined') {
-            /*if(chrome.app.getDetails().version != localStorage['old-version'] && confirm(locale('confUpdated', chrome.app.getDetails().version))) {
-                window.open('about.html#changelog');
-            }*/
-
-            if(chrome.app.getDetails().version != localStorage['old-version']) {
-                dialog(locale('confUpdated', chrome.app.getDetails().version), function(status) {
-                    if(status) window.open('about.html#changelog');
-                }, {}, 'question', false, true);
-            }
-        } else {
-            localStorage['old-version'] = chrome.app.getDetails().version;
-            window.location = 'installed.html';
-        }
-
-        // If coming from a version older than 3.5, convert the stop-timer setting to no-overtime
-        if(parseFloat(localStorage['old-version']) < 3.5) {
-            if(!Setting('stop-timer', true, true)) {
-                Setting('no-overtime', false);
-                Setting('stop-timer', true);
-            }
-        }
-        
-        // Set old-version to the current version
-        localStorage['old-version'] = chrome.app.getDetails().version;
         
         // Retrieve any tasks they've previously added
         if(localStorage['tasks']) {
@@ -83,9 +57,32 @@ $(document).ready(function() {
                 task_running[i] = false;
             }
         }
+
+        // If coming from a version older than 3.6, convert the stop-timer setting to no-overtime
+        if(parseFloat(localStorage['old-version']) < 3.6) {
+            if(!Setting('stop-timer', true, true)) {
+                Setting('no-overtime', false);
+                Setting('stop-timer', true);
+            }
+        }
         
         // Load settings
         LoadSettings();
+
+        // Check the version, and show the changelog if necessary
+        if(typeof localStorage['old-version'] != 'undefined') {
+            if(version != localStorage['old-version']) {
+                dialog(locale('confUpdated', version), function(status) {
+                    if(status) window.open('about.html#changelog');
+                }, {}, 'question', false, true);
+            }
+        } else {
+            localStorage['old-version'] = version;
+            window.location = 'installed.html';
+        }
+
+        // Set old-version to the current version
+        localStorage['old-version'] = version;
         
         // Enable the add task fields
         $('#new-task input, #new-task button').removeAttr('disabled');

@@ -153,18 +153,6 @@ tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress { font-weight:
 }
 
 /* Menus */
-#task-menu, #tools-menu {
-    top: 0;
-    left: 100%;
-    
-    width: 450px;
-    height: 100%;
-    margin: 0;
-    overflow: auto;
-    
-    border-left: 1px solid black;
-}
-
 #task-menu, #tools-menu, #alarm-menu, #modal-dialog {
     position: fixed;
     padding: 10px;
@@ -172,6 +160,20 @@ tfoot td.text, tfoot td.current, tfoot td.goal, tfoot td.progress { font-weight:
     background: #e9f6fd;
     background: -webkit-linear-gradient(top, #e9f6fd 0%,#d3eefb 100%);
     background: linear-gradient(top, #e9f6fd 0%,#d3eefb 100%);
+}
+
+#task-menu, #tools-menu {
+    top: 0;
+    left: 100%;
+    
+    width: 450px;
+    height: 100%;
+    margin: 0;
+    padding-bottom: 0;
+    padding-top: 0;
+    overflow: auto;
+    
+    border-left: 1px solid black;
 }
 
 #task-menu .menu-group:not(#history-group), .menu-group:not(:last-child) { margin-bottom: 30px; }

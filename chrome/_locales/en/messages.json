@@ -62,6 +62,10 @@
         "message": "Seconds",
         "description": "Seconds"
     },
+    "txtIndefinite": {
+        "message": "Indefinite",
+        "description": "Indefinite goal time"
+    },
 
 
 
@@ -182,7 +186,7 @@
     },
     "lblIndefinite": {
         "message": "Indefinite",
-        "description": "Indefinite goal time"
+        "description": "Indefinite goal time (checkbox)"
     },
     "lblStart": {
         "message": "Start",
@@ -216,6 +220,11 @@
     "txtTaskInfo": {
         "message": "Task Information",
         "description": "Header for the task info menu"
+    },
+
+    "txtNoDescription": {
+        "message": "Enter information/comments about the task",
+        "description": "No task description"
     },
 
     "txtTaskOptions": {
@@ -517,7 +526,7 @@
     },
 
     "confUpdated": {
-        "message": "Task Timer has been updated to version $version$!\nWould you like to see the changelog?\n\nBe aware that you will need to start your tasks again if Chrome auto-updated the app while any were running.",
+        "message": "Task Timer has been updated to version $version$!\nWould you like to see the changelog?\nBe aware that you will need to start your tasks again if Chrome auto-updated the app while any were running.",
         "description": "Task timer was updated",
         "placeholders": {
             "version": {

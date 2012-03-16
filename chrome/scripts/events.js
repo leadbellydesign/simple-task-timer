@@ -74,7 +74,7 @@ $(document).ready(function() {
             if(Setting('autostart-default')) $('#new-start').attr('checked', 'checked');
             rebuild_charts();
         } else {
-            error('errInvalidTask');
+            error('errTask');
         }
     });
 

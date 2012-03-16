@@ -163,7 +163,7 @@
                         <tr>
                             <td i18n="lblDescription">Description</td>
                             <td id="info-description">
-                                <textarea rows="6" cols="38">Nothing to see here.</textarea><br />
+                                <textarea rows="6" cols="38" placeholder="Nothing to see here." i18n="txtNoDescription">Nothing to see here.</textarea><br />
                                 <button id="save-description" i18n="btnSave">Save</button>
                             </td>
                         </tr>
@@ -228,51 +228,53 @@
                 <button id="reset-settings" i18n="toolResetSettings">Reset to Default</button>
             </div>
             
-            <div class="menu-group">
-                <h2 i18n="txtGeneralSettings">General Settings</h2>
+            <div id="settings-group">
+                <div class="menu-group">
+                    <h2 i18n="txtGeneralSettings">General Settings</h2>
+                    
+                    <label><input type="checkbox" id="enable-charts" /><span i18n="optEnableCharts">Enable pie charts</span></label><br />
+                    <label><input type="checkbox" id="hide-notice" /><span i18n="optHideNotice">Hide the notice box</span></label><br />
+                    <label><input type="checkbox" id="confirm-reset" /><span i18n="optConfirmReset">Ask to confirm when you attempt to reset a task</span></label><br />
+                    <label><input type="checkbox" id="confirm-delete" /><span i18n="optConfirmDelete">Ask to confirm when you attempt to delete a task</span></label><br />
+                    <label><input type="checkbox" id="autostart-default" /><span i18n="optStartDefault">Check the start checkbox by default</span></label><br />
+                    <label><input type="checkbox" id="save-fields" /><span i18n="optSaveFields">Keep what you have in the new task fields when you relaunch the app</span></label><br />
+                    <label><input type="checkbox" id="use-icons" /><span i18n="optUseIcons">Use icons in place of buttons for the task options (good for small screens)</span></label><br />
+                    <label><input type="checkbox" id="12-hour"/><span i18n="opt12Hour">Use 12-hour format where applicable</span></label></br />
+                    <label><input type="checkbox" id="custom-dialogs" /><span i18n="optCustomDialogs">Use custom dialogs rather than Chrome's built-in ones</span></label> <a href="#" id="custom-dialogs-help">?</a><br />
+                    <label><input type="checkbox" id="update-alert" /><span i18n="optUpdateAlert">Open the app when it is updated</span></label>
+                </div>
                 
-                <label><input type="checkbox" id="enable-charts" /><span i18n="optEnableCharts">Enable pie charts</span></label><br />
-                <label><input type="checkbox" id="hide-notice" /><span i18n="optHideNotice">Hide the notice box</span></label><br />
-                <label><input type="checkbox" id="confirm-reset" /><span i18n="optConfirmReset">Ask to confirm when you attempt to reset a task</span></label><br />
-                <label><input type="checkbox" id="confirm-delete" /><span i18n="optConfirmDelete">Ask to confirm when you attempt to delete a task</span></label><br />
-                <label><input type="checkbox" id="autostart-default" /><span i18n="optStartDefault">Check the start checkbox by default</span></label><br />
-                <label><input type="checkbox" id="save-fields" /><span i18n="optSaveFields">Keep what you have in the new task fields when you relaunch the app</span></label><br />
-                <label><input type="checkbox" id="use-icons" /><span i18n="optUseIcons">Use icons in place of buttons for the task options (good for small screens)</span></label><br />
-                <label><input type="checkbox" id="12-hour"/><span i18n="opt12Hour">Use 12-hour format where applicable</span></label></br />
-                <label><input type="checkbox" id="custom-dialogs" /><span i18n="optCustomDialogs">Use custom dialogs rather than Chrome's built-in ones</span></label> <a href="#" id="custom-dialogs-help">?</a><br />
-                <label><input type="checkbox" id="update-alert" /><span i18n="optUpdateAlert">Open the app when it is updated</span></label>
-            </div>
-            
-            <div class="menu-group">
-                <h2 i18n="txtTaskSettings">Task Settings</h2>
+                <div class="menu-group">
+                    <h2 i18n="txtTaskSettings">Task Settings</h2>
+                    
+                    <label><input type="checkbox" id="track-history" /><span i18n="optTrackHistory">Track task history (so you can view statistics for each task)</span></label><br />
+                    <label><input type="checkbox" id="no-overtime" /><span i18n="optNoOvertime">Don't allow task times to go over their goals</span></label><br />
+                    <label><input type="checkbox" id="stop-timer" /><span i18n="optStopTimer">Stop a task when it reaches its goal</span></label><br />
+                    <label><input type="checkbox" id="only-one" /><span i18n="optOnlyOne">Only allow one task to be running at a time</span></label>
+                </div>
                 
-                <label><input type="checkbox" id="track-history" /><span i18n="optTrackHistory">Track task history (so you can view statistics for each task)</span></label><br />
-                <label><input type="checkbox" id="no-overtime" /><span i18n="optNoOvertime">Don't allow task times to go over their goals</span></label><br />
-                <label><input type="checkbox" id="stop-timer" /><span i18n="optStopTimer">Stop a task when it reaches its goal</span></label><br />
-                <label><input type="checkbox" id="only-one" /><span i18n="optOnlyOne">Only allow one task to be running at a time</span></label>
-            </div>
-            
-            <div class="menu-group">
-                <h2 i18n="txtNotifSettings">Notification Settings</h2>
+                <div class="menu-group">
+                    <h2 i18n="txtNotifSettings">Notification Settings</h2>
+                    
+                    <label><input type="checkbox" id="show-popup" /><span i18n="optShowPopup">Show a popup on the page when a task reaches its goal</span></label><br />
+                    <label><input type="checkbox" id="notify" /><span i18n="optShowNotification">Show a desktop notification when a task reaches its goal</span></label><br /><br />
+                    
+                    <label><input type="checkbox" id="play-sound" /><span i18n="optPlaySound">Play a sound when a task reaches its goal</span></label><br />
+                    <label><input type="checkbox" id="loop-sound" /><span i18n="optLoopSound">Loop the sound until you stop it</span></label><br />
+                    <select id="sound-type">
+                        <option value="1" i18n="optUseDefault">Use the default sound</option>
+                        <option value="2" i18n="optUseCustom">Use a custom sound</option>
+                    </select>
+                    <input type="text" id="custom-sound" placeholder="Custom Sound URL" i18n="optSoundURL" />
+                    <button id="preview-sound" i18n="optBtnPreview">Preview sound</button>
+                </div>
                 
-                <label><input type="checkbox" id="show-popup" /><span i18n="optShowPopup">Show a popup on the page when a task reaches its goal</span></label><br />
-                <label><input type="checkbox" id="notify" /><span i18n="optShowNotification">Show a desktop notification when a task reaches its goal</span></label><br /><br />
-                
-                <label><input type="checkbox" id="play-sound" /><span i18n="optPlaySound">Play a sound when a task reaches its goal</span></label><br />
-                <label><input type="checkbox" id="loop-sound" /><span i18n="optLoopSound">Loop the sound until you stop it</span></label><br />
-                <select id="sound-type">
-                    <option value="1" i18n="optUseDefault">Use the default sound</option>
-                    <option value="2" i18n="optUseCustom">Use a custom sound</option>
-                </select>
-                <input type="text" id="custom-sound" placeholder="Custom Sound URL" i18n="optSoundURL" />
-                <button id="preview-sound" i18n="optBtnPreview">Preview sound</button>
-            </div>
-            
-            <div class="menu-group">
-                <h2 i18n="txtPerfSettings">Performance Settings</h2>
-                
-                <label><span i18n="optUpdateTime1">Update the time of tasks every</span> <input type="number" min="1" max="60" value="1" size="4" id="update-time" /> <span i18n="optUpdateTime2">second(s)</span></label><br />
-                <label><span i18n="optChartUpdateTime1">Update the pie charts every</span> <input type="number" min="1" max="60" value="3" size="4" id="chart-update-time" /> <span i18n="optUpdateTime2">second(s)</span></label>
+                <div class="menu-group">
+                    <h2 i18n="txtPerfSettings">Performance Settings</h2>
+                    
+                    <label><span i18n="optUpdateTime1">Update the time of tasks every</span> <input type="number" min="1" max="60" value="1" size="4" id="update-time" /> <span i18n="optUpdateTime2">second(s)</span></label><br />
+                    <label><span i18n="optChartUpdateTime1">Update the pie charts every</span> <input type="number" min="1" max="60" value="3" size="4" id="chart-update-time" /> <span i18n="optUpdateTime2">second(s)</span></label>
+                </div>
             </div>
         </div>
         
