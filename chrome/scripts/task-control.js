@@ -1,3 +1,4 @@
+var tasks = new Array(), task_running = new Array(), task_count = 0;
 var displaying_task = -1;
 
 // Add a task
@@ -148,7 +149,7 @@ function list_task(task, anim) {
             if(!$(this).hasClass('disabled')) toggle_task(parseInt($(this).attr('name')));
         });
         $('#task-'+ task +' .info').attr('name', task).click(function() {
-            if(!$(this).hasClass('disabled')) task_info(parseInt($(this).attr('name')));
+            if(!$(this).hasClass('disabled')) task_info(parseInt($(this).attr('name')), true, true, false);
         });
         $('#task-'+ task +' .reset').attr('name', task).click(function() {
             if(!$(this).hasClass('disabled')) reset_task(parseInt($(this).attr('name')));
@@ -188,7 +189,7 @@ function list_task(task, anim) {
         }
         
         // Update task menu if it's shown for this task
-        if(displaying_task == task) task_info(task, false, progress);
+        if(displaying_task == task) task_info(task, false, false, progress);
         
         // Animation
         if(anim == 0) {
@@ -211,7 +212,7 @@ function list_task(task, anim) {
 }
 
 // Display information about a specific task in a menu
-function task_info(task, anim, progress) {
+function task_info(task, user_triggered, anim, progress) {
     try {
         displaying_task = task;
         task_open = true;
@@ -220,9 +221,10 @@ function task_info(task, anim, progress) {
         $('td#info-name').text(tasks[task].text);
         $('td#info-current').text(format_time(tasks[task].current_hours, tasks[task].current_mins, tasks[task].current_secs));
         $('td#info-goal').text(format_time(tasks[task].goal_hours, tasks[task].goal_mins, 0, tasks[task].indefinite));
+        if(user_triggered) $('#info-description textarea').val(tasks[task].description);
         
         // Progress done
-        if(typeof progress == 'undefined') {
+        if(typeof progress == 'undefined' || !progress) {
             var progress = Math.floor((tasks[task].current_hours + (tasks[task].current_mins / 60) + (tasks[task].current_secs / 3600)) / (tasks[task].goal_hours + (tasks[task].goal_mins / 60)) * 100);
             if(tasks[task].indefinite == true) progress = 0;
             if(progress == Infinity) progress = 100;
@@ -234,13 +236,10 @@ function task_info(task, anim, progress) {
         } else {
             $('td#info-progress progress').removeAttr('value').removeAttr('max').text('...');
         }
-
-        // Description
-        $('#info-description textarea').val(tasks[task].description);
-        $('#save-description').attr('name', task);
         
         // Option Buttons
-        $('button#task-toggle, button#task-reset, button#task-delete, button#task-clear-history').attr('name', task);
+        $('button#save-description, button#task-toggle, button#task-reset, button#task-delete, button#task-clear-history').attr('name', task);
+        if(task_running[task]) $('button#task-toggle').text(locale('btnStop')); else $('button#task-toggle').text(locale('btnStart'));
         if($('tr#task-'+ task +' button.toggle').attr('disabled')) $('#task-toggle').attr('disabled', 'disabled'); else $('#task-toggle').removeAttr('disabled');
         
         // Disable the toggle button if task is at its goal, and change the bg colour
