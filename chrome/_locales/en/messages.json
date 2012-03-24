@@ -269,6 +269,16 @@
     },
 
 
+    "tskExcludeTotals": {
+        "message": "Exclude this task from the totals row",
+        "description": "Task Setting - Exclude from totals row"
+    },
+    "tskExcludeCharts": {
+        "message": "Exclude this task from the pie charts",
+        "description": "Task Setting - Exclude from pie charts"
+    },
+
+
 
 
     "txtTools": {

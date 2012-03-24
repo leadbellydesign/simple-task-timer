@@ -125,7 +125,7 @@ function error(s) {
 function fix_time(hours_field, mins_field, secs_field) {
     // Get value of fields
     var hours = parseInt($(hours_field).val()), mins = parseInt($(mins_field).val()), secs = (secs_field ? parseInt($(secs_field).val()) : 0);
-    
+
     // Verify numbers
     if(hours < 0 || hours > Number.MAX_VALUE) hours = 0;
     if(mins < 0 || mins > Number.MAX_VALUE) mins = 0;
@@ -150,21 +150,21 @@ function fix_time(hours_field, mins_field, secs_field) {
 // Format time to the format h:mm:ss
 function format_time(hours, mins, secs, indef) {
     if(indef) return locale('txtIndefinite');
-    
+
     if(hours == null) hours = 0;
     if(mins == null) mins = 0;
     if(secs == null) secs = 0;
-    
+
     return hours.toString() +':'+ (mins < 10 ? '0' : '') + mins.toString() +':'+ (secs < 10 ? '0' : '') + secs.toString();
 }
 
 // Get a single locale string
 function locale(messageID, args) {
     var i18n = chrome.i18n.getMessage(messageID, args);
-    
+
     // Replace URLs in the format of [Text|URL]
     i18n = i18n.replace(/\[(.+)\|(.+)\]/gi, '<a href="$2">$1</a>');
-    
+
     // Return locale string
     return i18n != '' ? i18n : messageID;
 }
@@ -173,17 +173,17 @@ function locale(messageID, args) {
 function localisePage() {
     var text_tags = ['OPTION', 'A', 'BUTTON', 'H1', 'H2', 'H3', 'TITLE'];
     var html_tags = ['DIV', 'P', 'TD', 'TH', 'SPAN'];
-    
+
     $('[i18n]').each(function(i, v) {
         var i18n = locale($(this).attr('i18n')), type;
-        
+
         // Text or HTML tag? 1 = text, 2 = HTML, 3 = N/A
         type = $.inArray($(this)[0].tagName, text_tags) != -1 ? 1 : ($.inArray($(this)[0].tagName, html_tags) != -1 ? 2 : 3);
-        
+
         // Set the text or HTML
         if(type == 1) $(this).text(i18n);
         else if(type == 2) $(this).html(i18n.replace(/\n/g, '<br />'));
-        
+
         // Set attributes
         if($(this).attr('title')) $(this).attr('title', i18n);
         if($(this).attr('alt')) $(this).attr('alt', i18n);
@@ -195,7 +195,7 @@ function localisePage() {
 function js_error(error, url, line) {
     if(!js_error_shown) {
         var trace = false;
-        
+
         // See if we're coming from try...catch or window.onerror
         if(typeof error.message != 'undefined') {
             msg = error.message;
@@ -205,23 +205,23 @@ function js_error(error, url, line) {
         } else {
             msg = error;
         }
-        
+
         // Stop timers
         clearTimeout(timer);
         clearTimeout(save_timer);
-        
+
         // Print error
-        $('#error-info').html('<strong>App Version:</strong> '+ chrome.app.getDetails().version +'<br />');
+        $('#error-info').html('<strong>App Version:</strong> '+ version +'<br />');
         $('#error-info').append('<strong>Error Message:</strong> '+ msg +'<br />');
         if(!trace) $('#error-info').append('<strong>URL:</strong> '+ url +'<br />');
         if(!trace) $('#error-info').append('<strong>Line number:</strong> '+ line +'<br />');
         if(trace) $('#error-info').append('<strong>Stack trace:</strong><br />'+ printStackTrace({e: error}).join('<br />') +'<br />');
         $('#error-info').append('<strong>localStorage:</strong><br />'+ JSON.stringify(localStorage));
-        
+
         // Make sure the error message is visible
-        $('#tasks, #charts, #modal').hide();
+        $('#tasks, #charts, #modal, #notice, #translate-notice, #loading, #tools-button, #tools-pulsate').hide();
         $('#js-error').show();
-        
+
         // Alert only once
         if(!js_error_shown) {
             js_error_shown = true;

@@ -61,7 +61,8 @@ $(document).ready(function() {
                 'goal_hours': hours,
                 'goal_mins': mins,
                 'indefinite': indef,
-                'notified': false
+                'notified': false,
+                'settings': task_settings_checkboxes
             });
 
             // Start the task if the start checkbox is checked and save the tasks
@@ -282,6 +283,12 @@ $(document).ready(function() {
         } else {
             $('.clear-data').first().attr('disabled', 'disabled');
         }
+    });
+
+    // User toggled a task setting checkbox
+    $('.task-setting').change(function() {
+        TaskSetting(this.id.replace('task-', ''), displaying_task, $(this).is(':checked'));
+        rebuild_list();
     });
 
     // User toggled the no overtime checkbox

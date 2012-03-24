@@ -1,4 +1,4 @@
-var version, load,  dragging = false, preview_sound = false, now = new Date(); // General variables
+var app, version, lang, load,  dragging = false, preview_sound = false, now = new Date(); // General variables
 var alarm_open = false, task_open = false, tools_open = false, dialog_open = false; // Menu state variables
 var js_error_shown = false, no_local_files_alerted = false; // Alert state variables
 var current_plot = false, total_plot = false; // Plot variables
@@ -11,14 +11,16 @@ window.onerror = function(msg, url, line) { js_error(msg, url, line); };
 $(document).ready(function() {
     try {
         // Set some variables
+        app = chrome.app.getDetails();
+        version = app.version;
+        lang = window.navigator.language;
         load = $('#loading');
-        version = chrome.app.getDetails().version;
 
         // Localise the page
         localisePage();
 
         // Show translations text
-        if(window.navigator.language != 'en' && window.navigator.language != 'en-GB' && window.navigator.language != 'en-CA' && window.navigator.language != 'en-US') $('#translations').show();
+        if(lang != 'en' && lang != 'en-CA' && lang != 'en-GB' && lang != 'en-US') $('#translations').show();
 
         // Retrieve any tasks they've previously added
         if(localStorage['tasks']) {
@@ -50,6 +52,10 @@ $(document).ready(function() {
 
                 // Add the description property to a task if it doesn't exist
                 if(typeof tasks[i].description == 'undefined') tasks[i].description = '';
+
+                // Add the settings property to a task if it doesn't exist
+                if(typeof tasks[i].settings == 'undefined') tasks[i].settings = task_settings_checkboxes;
+                LoadTaskSettings(i);
 
                 // Make sure goal times aren't null
                 if(tasks[i].goal_hours == null) tasks[i].goal_hours = 0;
@@ -193,19 +199,21 @@ function rebuild_totals() {
         var current_hours = 0, current_mins = 0, current_secs = 0, goal_hours = 0, goal_mins = 0, dec_current = 0, dec_this_current, dec_this_goal, progress, i;
 
         // Get the total hours, minutes, and seconds
-        for(i = 0; i < task_count; i++) {
-            current_hours += tasks[i].current_hours;
-            current_mins += tasks[i].current_mins;
-            current_secs += tasks[i].current_secs;
+        for(t = 0; t < task_count; t++) {
+            if(!TaskSetting('exclude-totals', t)) {
+                current_hours += tasks[t].current_hours;
+                current_mins += tasks[t].current_mins;
+                current_secs += tasks[t].current_secs;
 
-            if(!tasks[i].indefinite) {
-                goal_hours += tasks[i].goal_hours;
-                goal_mins += tasks[i].goal_mins;
+                if(!tasks[t].indefinite) {
+                    goal_hours += tasks[t].goal_hours;
+                    goal_mins += tasks[t].goal_mins;
 
-                // Don't add excess time spent
-                dec_this_current = tasks[i].current_hours + (tasks[i].current_mins / 60) + (tasks[i].current_secs / 3600);
-                dec_this_goal = tasks[i].goal_hours + (tasks[i].goal_mins / 60);
-                dec_current += dec_this_current > dec_this_goal ? dec_this_goal : dec_this_current;
+                    // Don't add excess time spent
+                    dec_this_current = tasks[t].current_hours + (tasks[t].current_mins / 60) + (tasks[t].current_secs / 3600);
+                    dec_this_goal = tasks[t].goal_hours + (tasks[t].goal_mins / 60);
+                    dec_current += dec_this_current > dec_this_goal ? dec_this_goal : dec_this_current;
+                }
             }
         }
 
@@ -239,22 +247,27 @@ function rebuild_totals() {
 // Update the pie charts
 function rebuild_charts() {
     if(Setting('enable-charts') && typeof tasks[0] != 'undefined') {
-        var plot_data = new Array(), total_time = 0, i;
+        var plot_data = new Array(), total_time = 0, t, i;
 
         // Get the total of all times
-        for(i = 0; i < task_count; i++) {
-            total_time += (tasks[i].current_hours) + (tasks[i].current_mins / 60) + (tasks[i].current_secs / 3600);
+        for(t = 0; t < task_count; t++) {
+            if(!TaskSetting('exclude-charts', t)) total_time += (tasks[t].current_hours) + (tasks[t].current_mins / 60) + (tasks[t].current_secs / 3600);
         }
 
         // Display charts container
         if(total_time > 0) $('#charts').fadeIn(); else $('#charts').fadeOut();
 
         // Build the time spent chart
-        for(i = 0; i < task_count; i++) {
-            plot_data[i] = {
-                label: tasks[i].text,
-                data: ((tasks[i].current_hours) + (tasks[i].current_mins / 60) + (tasks[i].current_secs / 3600)) / total_time * 100
-            };
+        var i = 0;
+        for(t = 0; t < task_count; t++) {
+            if(!TaskSetting('exclude-charts', t)) {
+                plot_data[i] = {
+                    label: tasks[t].text,
+                    data: ((tasks[t].current_hours) + (tasks[t].current_mins / 60) + (tasks[t].current_secs / 3600)) / total_time * 100
+                };
+
+                i++;
+            }
         }
 
 
