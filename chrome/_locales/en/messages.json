@@ -17,6 +17,11 @@
         "description": "Shows right below the title"
     },
 
+    "txtTranslations": {
+        "message": "Translations may not be 100% accurate.",
+        "description": "Reminder that translations are not always accurate"
+    },
+
     "txtCreatedBy": {
         "message": "Created by",
         "description": "Created by"
@@ -83,7 +88,7 @@
         "description": "Performance notice"
     },
     "infoTranslate": {
-        "message": "Want to help translate Task Timer to other languages? Click here.",
+        "message": "Want to help translate Task Timer to other languages? Click [here|http://interpr.it/extension/16].",
         "description": "Translation help request"
     },
 
@@ -105,7 +110,7 @@
     },
     "txtEditTasks": {
         "message": "Double-click a task name, time, or goal to edit it.",
-        "description": "Double-click task name, time, or goal to edit"
+        "description": "Editing hint"
     },
 
     "lblTask": {

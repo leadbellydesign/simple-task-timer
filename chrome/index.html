@@ -11,7 +11,7 @@
     <script type="text/javascript" src="scripts/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="scripts/jquery-ui-1.8.17.custom.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.tablednd-0.5.min.js"></script>
-    <script type="text/javascript" src="scripts/jquery.center-1.0.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery.center-2.0.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.flot.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.flot.pie.min.js"></script>
     <script type="text/javascript" src="scripts/stacktrace-0.3.min.js"></script>
@@ -43,6 +43,12 @@
         <p i18n="infoData">This only saves locally, on your computer, in your browser.<br />This data will <strong>not</strong> be cleared if you clear Chrome's cache and storage.</p>
         <p i18n="infoSettings">Make sure to check out the settings by clicking on the gear button in the top right corner of the app!<br />There are settings such as desktop notifications for when a task finishes.</p>
         <p i18n="infoPerformance">Is the app running slowly for you? Try increasing the pie chart update time in the settings, or disabling pie charts completely.<br />Still running slowly? Increase the general update time.</p>
+    </div>
+
+    <div id="translate-notice" class="container note">
+        <button id="close-translate" class="close-note"><img src="style/images/cross.png" width="16" height="16" alt="Close Notice" i18n="btnCloseNotice" /></button>
+
+        <p i18n="infoTranslate">Want to help translate Task Timer to other languages? Click <a href="http://interpr.it/extension/16" target="_blank">here</a>.
     </div>
 
     <div id="tasks" class="container">
@@ -130,6 +136,7 @@
         <a href="report-bug.html" target="_blank" i18n="txtReportBug">Report a bug</a><br />
         <span i18n="txtHaveIdea">Have an idea?</span> <a href="suggestion.html" target="_blank" i18n="txtTellMe">Tell me</a> |
         <a href="about.html" target="_blank" i18n="txtAbout">About</a> | <a href="about.html#me" target="_blank" i18n="txtDonate">Donate</a>
+        <div id="translations" i18n="txtTranslations">Translations may not be 100% accurate.</div>
     </footer>
 
 

@@ -6,21 +6,21 @@ $(document).ready(function() {
     $('#new-goal-hours, #new-goal-mins').blur(function() {
         if($(this).val() == '' || parseInt($(this).val()) < 0) $(this).val('0');
     });
-    
+
     // User resized window
     $(window).resize(function() {
         $('#error, #saved, #alarm-menu, #modal-dialog').center();
         if(task_open) $('#task-menu').css({left: ((($(window).width() - $('#task-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'});
         if(tools_open) $('#tools-menu').css({left: ((($(window).width() - $('#tools-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'});
-        
+
         check_width();
     });
-    
+
     // User is leaving the page... Save the data.
     $(window).unload(function() {
         SaveTasks();
     });
-    
+
     // Preview sound is ready
     $('#preview').bind('canplay', function() {
         if(preview_sound) {
@@ -38,8 +38,8 @@ $(document).ready(function() {
             setTimeout(function() { $('#preview-sound').text(locale('optBtnPreview')).removeAttr('disabled'); }, 2000);
         }
     });
-    
-    
+
+
     /**************************************************
      *******     B U T T O N   E V E N T S      *******
      **************************************************/
@@ -48,7 +48,7 @@ $(document).ready(function() {
         // Validate time
         fix_time('#new-goal-hours', '#new-goal-mins')
         var hours = parseInt($('#new-goal-hours').val()), mins = parseInt($('#new-goal-mins').val()), indef = $('#new-goal-indef').is(':checked');
-        
+
         if($('#new-txt').val() != '' && (hours > 0 || mins > 0 || indef)) {
             // Add the task to the array
             cancel_edit();
@@ -63,11 +63,11 @@ $(document).ready(function() {
                 'indefinite': indef,
                 'notified': false
             });
-            
+
             // Start the task if the start checkbox is checked and save the tasks
             if($('#new-start').is(':checked')) toggle_task(task_count - 1);
             SaveTasks();
-            
+
             // Update table, text fields, etc.
             $('#new-txt').val('');
             $('table#task-list').tableDnDUpdate();
@@ -78,7 +78,7 @@ $(document).ready(function() {
         }
     });
 
-    
+
     // User clicked one of the clear data buttons
     $('.clear-data').click(function() {
         if(confirm(locale('confResetData'))) {
@@ -98,30 +98,36 @@ $(document).ready(function() {
         tools_open = false;
         task_open = false;
         displaying_task = -1;
-        
+
         if(!alarm_open && !task_open && !tools_open && !dialog_open) $('#modal').fadeOut(600);
         $('#task-menu, #tools-menu').animate({left: '100%'}, 600);
     });
-    
+
     // User clicked the close alarm button
     $('#close-alarm').click(function() {
         alarm_open = false;
-        
+
         // Stop the sound
         if(Setting('play-sound')) {
             document.getElementById('sound').pause();
             document.getElementById('sound').currentTime = 0;
         }
-        
+
         // Hide the popup
         $('#alarm-menu').fadeOut(600);
         if(!task_open && !tools_open && !dialog_open) $('#modal').fadeOut(600);
     });
-    
+
     // User clicked the close button in the notice
     $('#close-notice').click(function() {
         $('#notice').fadeOut(600);
         Setting('hide-notice', true);
+    });
+
+    // User clicked the close button in the translate notice
+    $('#close-translate').click(function() {
+        $('#translate-notice').fadeOut(600);
+        Setting('translate-hidden', true);
     });
 
 
@@ -136,7 +142,7 @@ $(document).ready(function() {
             }
         }, {}, 'question');
     });
-    
+
     // User clicked the delete all button
     $('.delete-all').click(function() {
         dialog(locale('confDeleteAll'), function(status) {
@@ -160,19 +166,19 @@ $(document).ready(function() {
     $('#task-toggle').click(function() {
         toggle_task(parseInt($(this).attr('name')));
     });
-    
+
     // User clicked the reset button in the task info menu
     $('#task-reset').click(function() {
         reset_task(parseInt($(this).attr('name')));
     });
-    
+
     // User clicked the delete button in the task info menu
     $('#task-delete').click(function() {
         cancel_edit();
         delete_task(parseInt($(this).attr('name')));
         $('.close-menus').click();
     });
-    
+
     // User clicked the clear history button in the task info menu
     $('#task-clear-history').click(function() {
         clear_history(parseInt($(this).attr('name')));
@@ -185,7 +191,7 @@ $(document).ready(function() {
         LoadSettings();
         tools_open = true;
         Setting('new-tools', false);
-        
+
         $('#modal').fadeIn(600, function() { $('#tools-pulsate').stop(true, true).fadeOut(400); });
         $('#tools-menu').animate({left: ((($(window).width() - $('#tools-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
     });
@@ -209,7 +215,7 @@ $(document).ready(function() {
             $('#custom-sound').focus();
             return false;
         }
-        
+
         // Play preview sound
         if($('#sound-type').val() == 1 || $('#custom-sound').val() != '') {
             preview_sound = true;
@@ -231,12 +237,12 @@ $(document).ready(function() {
                 for(i in settings_checkboxes) {
                     Setting(i, settings_checkboxes[i]);
                 }
-                
+
                 // Reset other settings
                 for(i in settings_other) {
                     Setting(i, settings_other[i]);
                 }
-                
+
                 // Reload settings
                 LoadSettings(true, true);
             }
@@ -263,12 +269,12 @@ $(document).ready(function() {
     // User toggled the new task indefinite checkbox
     $('#new-goal-indef').change(function() {
         if($(this).is(':checked')) {
-            $('#new-goal-hours, #new-goal-mins').attr('disabled', 'disabled') 
+            $('#new-goal-hours, #new-goal-mins').attr('disabled', 'disabled')
         } else {
             $('#new-goal-hours, #new-goal-mins').removeAttr('disabled');
         }
     });
-    
+
     // User toggled the refreshed checkbox
     $('#refreshed').change(function() {
         if($('#refreshed').is(':checked')) {
@@ -286,7 +292,7 @@ $(document).ready(function() {
             $('#stop-timer').removeAttr('disabled');
         }
     });
-    
+
     // User toggled the play sound checkbox
     $('#play-sound').change(function() {
         if($('#play-sound').is(':checked')) {
@@ -313,15 +319,15 @@ $(document).ready(function() {
         } else {
             $('#custom-sound').attr('disabled', 'disabled');
         }
-        
+
         verify_custom_sound();
     });
-    
+
     // User changed the custom sound URL field
     $('#custom-sound').keyup(function() {
         verify_custom_sound();
     });
-    
+
     // User pressed enter in one of the new task fields
     $('#new-task input').keypress(function (e) {
         if(e.keyCode == 13 && !$('#new-btn').attr('disabled')) {
