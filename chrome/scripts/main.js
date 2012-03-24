@@ -173,6 +173,7 @@ $(document).ready(function() {
 
 // Rebuild the task list
 function rebuild_list() {
+    var scroll = $(window).scrollTop();
     editing_task = -1;
     $('table#task-list tbody').empty().removeClass('editing-name editing-current editing-goal');
 
@@ -180,6 +181,7 @@ function rebuild_list() {
         list_task(i, 0);
     }
 
+    $(window).scrollTop(scroll);
     $('table#task-list').tableDnDUpdate();
     rebuild_totals();
     rebuild_charts();
