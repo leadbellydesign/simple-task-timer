@@ -3,19 +3,19 @@
 <head>
     <title i18n="txtTitle">Task Timer</title>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    
+
     <link rel="stylesheet" type="text/css" href="style/global.css" />
     <link rel="stylesheet" type="text/css" href="style/main.css" />
     <link rel="stylesheet" type="text/css" href="style/redmond/jquery-ui-1.8.17.custom.css" />
-    
-    <script type="text/javascript" src="scripts/jquery-1.7.1.min.js"></script>
+
+    <script type="text/javascript" src="scripts/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="scripts/jquery-ui-1.8.17.custom.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.tablednd-0.5.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.center-1.0.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.flot.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.flot.pie.min.js"></script>
     <script type="text/javascript" src="scripts/stacktrace-0.3.min.js"></script>
-    
+
     <script type="text/javascript" src="scripts/utilities.js"></script>
     <script type="text/javascript" src="scripts/settings.js"></script>
     <script type="text/javascript" src="scripts/task-control.js"></script>
@@ -27,28 +27,28 @@
     <div id="tools-pulsate"></div>
     <img src="style/images/ajax-loader.gif" id="loading" width="32" height="32" alt="Loading..." i18n="txtLoading" />
     <button id="tools-button"><img src="style/images/gear.png" width="25" height="25" alt="Tools" i18n="btnTools" /></button>
-    
+
     <audio src="Deneb.ogg" id="sound" preload></audio>
     <audio src="Deneb.ogg" id="preview" preload></audio>
-    
+
     <header>
         <h1 i18n="txtTitle">Task Timer</h1>
         <h2 i18n="txtDescription">Use this tool to keep track of time that you spend on work, studies, or any other type of task.</h2>
         <a href="https://chrome.google.com/webstore/detail/aomfjmibjhhfdenfkpaodhnlhkolngif" target="_blank"><img src="style/images/icon-64.png" id="logo" width="64" height="64" alt="Task Timer" i18n="appName" /></a>
     </header>
-    
+
     <div id="notice" class="container note">
         <button id="close-notice" class="close-note"><img src="style/images/cross.png" width="16" height="16" alt="Close Notice" i18n="btnCloseNotice" /></button>
-        
+
         <p i18n="infoData">This only saves locally, on your computer, in your browser.<br />This data will <strong>not</strong> be cleared if you clear Chrome's cache and storage.</p>
         <p i18n="infoSettings">Make sure to check out the settings by clicking on the gear button in the top right corner of the app!<br />There are settings such as desktop notifications for when a task finishes.</p>
         <p i18n="infoPerformance">Is the app running slowly for you? Try increasing the pie chart update time in the settings, or disabling pie charts completely.<br />Still running slowly? Increase the general update time.</p>
     </div>
-    
+
     <div id="tasks" class="container">
         <div id="no-tasks" i18n="txtNoTasks">You haven't created any tasks yet!</div>
         <div id="edit-tasks" i18n="txtEditTasks">Double-click a task name or goal to edit it.</div>
-            
+
         <table id="task-list">
             <thead>
                 <tr class="nodrag nodrop">
@@ -85,7 +85,7 @@
                 </tr>
             </tfoot>
         </table>
-        
+
         <table id="new-task">
             <tr>
                 <td i18n="lblName">Name</td>
@@ -105,7 +105,7 @@
             </tr>
         </table>
     </div>
-    
+
     <div id="charts" class="container">
         <div id="current-pie">
             <div id="current-pie-title" i18n="txtCurrentPieTitle">Current Time Usage</div>
@@ -116,32 +116,32 @@
             <div id="total-pie-chart"></div>
         </div>-->
     </div>
-    
+
     <div id="js-error" class="container">
         <div id="big-error-thang" i18n="txtJSError">SUPER ULTRA MEGA ERROR THING</div> <div id="error-info"></div>
-        
+
         <label><input type="checkbox" id="refreshed" /> <span i18n="txtTriedRefresh">Have you tried refreshing the app?</span></label><br />
         <button class="clear-data" i18n="toolClearData" disabled>Clear all of the app's data</button>
         <div i18n="txtUsualFix">This will usually fix any errors, but will clear all of your tasks and settings.</div>
     </div>
-    
+
     <footer>
-        <span i18n="txtCreatedBy">Created by</span> <a href="http://gawdl3y.com/">Schuyler Cebulskie</a> | 
-        <a href="http://code.google.com/p/simple-task-timer/issues/list" target="_blank" i18n="txtReportBug">Report a bug</a><br />
-        <span i18n="txtHaveIdea">Have an idea?</span> <a href="http://gawdl3y.com/suggest" target="_blank" i18n="txtTellMe">Tell me</a> | 
+        <span i18n="txtCreatedBy">Created by</span> <a href="http://gawdl3y.com/" target="_blank">Schuyler Cebulskie</a> |
+        <a href="report-bug.html" target="_blank" i18n="txtReportBug">Report a bug</a><br />
+        <span i18n="txtHaveIdea">Have an idea?</span> <a href="suggestion.html" target="_blank" i18n="txtTellMe">Tell me</a> |
         <a href="about.html" target="_blank" i18n="txtAbout">About</a> | <a href="about.html#me" target="_blank" i18n="txtDonate">Donate</a>
     </footer>
-    
-    
-    
+
+
+
     <div id="modal">
         <div id="task-menu">
             <button class="close-menus"><img src="style/images/cross.png" width="16" height="16" alt="Close" i18n="btnClose" /></button>
-            
+
             <div id="task-info">
                 <h1 i18n="txtTaskInfo">Task Information</h1>
                 <hr />
-                
+
                 <div class="menu-group">
                     <table id="info-table">
                         <tr>
@@ -170,11 +170,11 @@
                     </table>
                 </div>
             </div>
-            
+
             <div id="task-options">
                 <h1 i18n="txtTaskOptions">Task Options</h1>
                 <hr />
-                
+
                 <div class="menu-group">
                     <button id="task-toggle" i18n="btnStart">Start</button>
                     <button id="task-reset" i18n="btnReset">Reset</button>
@@ -182,12 +182,12 @@
                     <button id="task-clear-history" i18n="btnClearHistory">Clear History</button>
                 </div>
             </div>
-            
-            
+
+
             <div id="task-history">
                 <h1 i18n="txtHistory">History</h1>
                 <hr />
-                
+
                 <div id="history-group" class="menu-group">
                     <div id="date-picker"></div>
                     <div id="history-info" i18n="txtSelectDate">Please select a date to view the task's history for that day.</div>
@@ -202,36 +202,36 @@
                     </table>
                 </div>
             </div>
-            
+
             <div id="history-disabled" i18n="txtHistoryDisabled">History is disabled.</div>
         </div>
-        
+
         <div id="tools-menu">
             <button class="close-menus"><img src="style/images/cross.png" width="16" height="16" alt="Close" i18n="btnClose" /></button>
-            
+
             <h1 i18n="txtTools">Tools</h1>
             <hr />
-            
+
             <div class="menu-group">
                 <button class="csv-export" i18n="toolExportCSV" disabled>Export tasks as a CSV file</button> <span i18n="txtComingSoon">Coming soon!</span><br />
                 <button id="clear-all-history" i18n="toolClearAllHistory">Clear all task history</button><br />
                 <button class="clear-data" i18n="toolClearData">Clear all of the app's data</button>
             </div>
-            
+
             <h1 i18n="txtSettings">Settings</h1>
             <hr />
 
             <div class="menu-group">
                 <h2 i18n="txtSaveSettings">Save Settings</h2>
-                
+
                 <button id="save-settings" i18n="btnSave">Save</button>
                 <button id="reset-settings" i18n="toolResetSettings">Reset to Default</button>
             </div>
-            
+
             <div id="settings-group">
                 <div class="menu-group">
                     <h2 i18n="txtGeneralSettings">General Settings</h2>
-                    
+
                     <label><input type="checkbox" id="enable-charts" /><span i18n="optEnableCharts">Enable pie charts</span></label><br />
                     <label><input type="checkbox" id="hide-notice" /><span i18n="optHideNotice">Hide the notice box</span></label><br />
                     <label><input type="checkbox" id="confirm-reset" /><span i18n="optConfirmReset">Ask to confirm when you attempt to reset a task</span></label><br />
@@ -243,22 +243,22 @@
                     <label><input type="checkbox" id="custom-dialogs" /><span i18n="optCustomDialogs">Use custom dialogs rather than Chrome's built-in ones</span></label> <a href="#" id="custom-dialogs-help">?</a><br />
                     <label><input type="checkbox" id="update-alert" /><span i18n="optUpdateAlert">Open the app when it is updated</span></label>
                 </div>
-                
+
                 <div class="menu-group">
                     <h2 i18n="txtTaskSettings">Task Settings</h2>
-                    
+
                     <label><input type="checkbox" id="track-history" /><span i18n="optTrackHistory">Track task history (so you can view statistics for each task)</span></label><br />
                     <label><input type="checkbox" id="no-overtime" /><span i18n="optNoOvertime">Don't allow task times to go over their goals</span></label><br />
                     <label><input type="checkbox" id="stop-timer" /><span i18n="optStopTimer">Stop a task when it reaches its goal</span></label><br />
                     <label><input type="checkbox" id="only-one" /><span i18n="optOnlyOne">Only allow one task to be running at a time</span></label>
                 </div>
-                
+
                 <div class="menu-group">
                     <h2 i18n="txtNotifSettings">Notification Settings</h2>
-                    
+
                     <label><input type="checkbox" id="show-popup" /><span i18n="optShowPopup">Show a popup on the page when a task reaches its goal</span></label><br />
                     <label><input type="checkbox" id="notify" /><span i18n="optShowNotification">Show a desktop notification when a task reaches its goal</span></label><br /><br />
-                    
+
                     <label><input type="checkbox" id="play-sound" /><span i18n="optPlaySound">Play a sound when a task reaches its goal</span></label><br />
                     <label><input type="checkbox" id="loop-sound" /><span i18n="optLoopSound">Loop the sound until you stop it</span></label><br />
                     <select id="sound-type">
@@ -268,16 +268,16 @@
                     <input type="text" id="custom-sound" placeholder="Custom Sound URL" i18n="optSoundURL" />
                     <button id="preview-sound" i18n="optBtnPreview">Preview sound</button>
                 </div>
-                
+
                 <div class="menu-group">
                     <h2 i18n="txtPerfSettings">Performance Settings</h2>
-                    
+
                     <label><span i18n="optUpdateTime1">Update the time of tasks every</span> <input type="number" min="1" max="60" value="1" size="4" id="update-time" /> <span i18n="optUpdateTime2">second(s)</span></label><br />
                     <label><span i18n="optChartUpdateTime1">Update the pie charts every</span> <input type="number" min="1" max="60" value="3" size="4" id="chart-update-time" /> <span i18n="optUpdateTime2">second(s)</span></label>
                 </div>
             </div>
         </div>
-        
+
         <div id="modal-dialog">
             <div id="dialog-txt">Dialog text</div>
 
@@ -290,21 +290,21 @@
 
         <div id="alarm-menu">
             <div id="alarm-txt">Task "YOURFACE" has completed!</div>
-            
+
             <div class="dialog-btns">
                 <hr />
                 <button id="close-alarm" i18n="btnClose">Close</button>
             </div>
         </div>
     </div>
-    
+
 
 
     <div id="success">Success</div>
     <div id="error">Error</div>
-    
 
-    
+
+
     <div id="nothing">
         <table id="template">
             <tr id="row-template" style="display: none;">
@@ -329,28 +329,28 @@
                 </td>
             </tr>
         </table>
-        
+
         <div id="name-edit-template">
             <input type="text" placeholder="Task Name" title="Task Name" i18n="lblTaskName" />
-            
+
             <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" i18n="btnSave" /></button>
             <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" i18n="btnCancel" /></button>
         </div>
-        
+
         <div id="current-edit-template">
-            <input type="number" class="hrs" min="0" max="80" size="2" title="Hours" i18n="txtHours" /> : 
-            <input type="number" class="mins" min="0" max="59" size="2" title="Minutes" i18n="txtMinutes" /> : 
+            <input type="number" class="hrs" min="0" max="80" size="2" title="Hours" i18n="txtHours" /> :
+            <input type="number" class="mins" min="0" max="59" size="2" title="Minutes" i18n="txtMinutes" /> :
             <input type="number" class="secs" min="0" max="59" size="2" title="Seconds" i18n="txtSeconds" /><br />
-            
+
             <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" i18n="btnSave" /></button>
             <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" i18n="btnCancel" /></button>
         </div>
-        
+
         <div id="goal-edit-template">
-            <input type="number" class="hrs" min="0" max="80" size="2" title="Goal Hours" i18n="lblGoalHours" /> : 
+            <input type="number" class="hrs" min="0" max="80" size="2" title="Goal Hours" i18n="lblGoalHours" /> :
             <input type="number" class="mins" min="0" max="59" size="2" title="Goal Minutes" i18n="lblGoalMinutes" /><br />
             <label i18n="indefinite"><input type="checkbox" class="indef" /> Indefinite</label>
-            
+
             <button class="save"><img src="style/images/tick.png" width="16" height="16" alt="Save" i18n="btnSave" /></button>
             <button class="cancel"><img src="style/images/cross.png" width="16" height="16" alt="Cancel" i18n="btnCancel" /></button>
         </div>

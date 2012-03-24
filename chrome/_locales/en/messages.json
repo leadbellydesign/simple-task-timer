@@ -7,7 +7,7 @@
         "message": "A simple tool to help keep track of time spent on tasks such as work, studies, or other things.",
         "description": "The short description of the app"
     },
-    
+
     "txtTitle": {
         "message": "Task Timer",
         "description": "Title of the main page"
@@ -81,6 +81,10 @@
     "infoPerformance": {
         "message": "Is the app running slowly for you? Try increasing the pie chart update time in the settings, or disabling pie charts completely.\nStill running slowly? Increase the general update time or disable task history tracking.",
         "description": "Performance notice"
+    },
+    "infoTranslate": {
+        "message": "Want to help translate Task Timer to other languages? Click here.",
+        "description": "Translation help request"
     },
 
     "infoTotals": {
@@ -629,5 +633,24 @@
                 "example": "Task Name"
             }
         }
+    },
+
+
+
+    "txtSuggestionTitle": {
+        "message": "Make a suggestion",
+        "description": "Suggestion page title"
+    },
+    "txtSuggestionInfo": {
+        "message": "To make a suggestion, please click [here|http://code.google.com/p/simple-task-timer/issues/list].\nIf nobody has already suggested the same idea, click \"New issue\". Make sure to select \"Enhancement Request\" for the template, and title it descriptively!\nIf you have multiple ideas, please create a separate issue for each one.",
+        "description": "Suggestion page text"
+    },
+    "txtBugTitle": {
+        "message": "Report a bug",
+        "description": "Bug report page title"
+    },
+    "txtBugInfo": {
+        "message": "To report a bug, please click [here|http://code.google.com/p/simple-task-timer/issues/list].\nIf nobody has already reported the same bug, click \"New Issue\". Make sure to title the issue descriptively!\nIf you have found multiple bugs, please create a separate issue for each one.\nBe sure to include the below data in your bug report:",
+        "description": "Bug report page text"
     }
 }
