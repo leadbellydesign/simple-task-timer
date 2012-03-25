@@ -81,6 +81,7 @@ $(document).ready(function() {
     });
 
 
+
     // User clicked one of the clear data buttons
     $('.clear-data').click(function() {
         if(confirm(locale('confResetData'))) {
