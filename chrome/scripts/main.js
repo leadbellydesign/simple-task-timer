@@ -50,6 +50,7 @@ $(document).ready(function() {
                 }, {}, 'question', false, true);
             }
         } else {
+            background.opened = false;
             window.location = 'installed.html';
         }
 
