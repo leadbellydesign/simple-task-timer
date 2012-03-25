@@ -649,6 +649,10 @@
             }
         }
     },
+    "errAlreadyOpen": {
+        "message": "The app is already open. If this appears to be incorrect, try closing all Chrome windows and restarting it.",
+        "description": "App already open"
+    },
 
 
 

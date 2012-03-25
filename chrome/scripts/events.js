@@ -19,6 +19,7 @@ $(document).ready(function() {
     // User is leaving the page... Save the data.
     $(window).unload(function() {
         SaveTasks();
+        background.opened = false;
     });
 
     // Preview sound is ready

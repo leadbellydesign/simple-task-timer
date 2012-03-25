@@ -1,4 +1,4 @@
-var app, version, lang, load,  dragging = false, preview_sound = false, now = new Date(); // General variables
+var app, version, lang, background, load,  dragging = false, preview_sound = false, now = new Date(); // General variables
 var alarm_open = false, task_open = false, tools_open = false, dialog_open = false; // Menu state variables
 var js_error_shown = false, no_local_files_alerted = false; // Alert state variables
 var current_plot = false, total_plot = false; // Plot variables
@@ -14,13 +14,63 @@ $(document).ready(function() {
         app = chrome.app.getDetails();
         version = app.version;
         lang = window.navigator.language;
+        background = chrome.extension.getBackgroundPage();
         load = $('#loading');
 
-        // Localise the page
+        // Localise ALL the things!
         localisePage();
 
         // Show translations text
         if(lang != 'en' && lang != 'en-CA' && lang != 'en-GB' && lang != 'en-US') $('#translations').show();
+
+        // Check to see if the app is already opened
+        if(background.opened) {
+            throw 'open';
+        }
+
+        // Tell the background page that the app is open
+        background.opened = true;
+
+        // Load settings
+        LoadSettings();
+
+        // If coming from a version older than 3.6, convert the stop-timer setting to no-overtime
+        if(parseFloat(localStorage['old-version']) < 3.6) {
+            if(!Setting('stop-timer', true, true)) {
+                Setting('no-overtime', false);
+                Setting('stop-timer', true);
+            }
+        }
+
+        // Check the version, and show the changelog if necessary
+        if(typeof localStorage['old-version'] != 'undefined') {
+            if(version != localStorage['old-version']) {
+                dialog(locale('confUpdated', version), function(status) {
+                    if(status) window.open('about.html#changelog');
+                }, {}, 'question', false, true);
+            }
+        } else {
+            window.location = 'installed.html';
+        }
+
+        // Set old-version to the current version
+        localStorage['old-version'] = version;
+
+        // Add to the launch count
+        var launches = Setting('launches', Setting('launches', 0, true) + 1);
+
+        // Show a rating reminder if at a multiple of 6 launches
+        if(launches % 6 == 0 && typeof localStorage['rated'] == 'undefined') {
+            dialog(locale('confRating'), function(status) {
+                if(status) {
+                    localStorage['rated'] = 'true';
+                    window.open('https://chrome.google.com/webstore/detail/aomfjmibjhhfdenfkpaodhnlhkolngif');
+                }
+            }, {}, 'question');
+        }
+
+
+
 
         // Retrieve any tasks they've previously added
         if(localStorage['tasks']) {
@@ -66,31 +116,12 @@ $(document).ready(function() {
             }
         }
 
-        // If coming from a version older than 3.6, convert the stop-timer setting to no-overtime
-        if(parseFloat(localStorage['old-version']) < 3.6) {
-            if(!Setting('stop-timer', true, true)) {
-                Setting('no-overtime', false);
-                Setting('stop-timer', true);
-            }
-        }
+        // Start the timers
+        timer = setTimeout('update_time()', Setting('update-time') * 1000);
+        save_timer = setTimeout('SaveTasks(true)', 60000);
 
-        // Load settings
-        LoadSettings();
 
-        // Check the version, and show the changelog if necessary
-        if(typeof localStorage['old-version'] != 'undefined') {
-            if(version != localStorage['old-version']) {
-                dialog(locale('confUpdated', version), function(status) {
-                    if(status) window.open('about.html#changelog');
-                }, {}, 'question', false, true);
-            }
-        } else {
-            localStorage['old-version'] = version;
-            window.location = 'installed.html';
-        }
 
-        // Set old-version to the current version
-        localStorage['old-version'] = version;
 
         // Enable the add task fields
         $('#new-task input, #new-task button').removeAttr('disabled');
@@ -112,22 +143,6 @@ $(document).ready(function() {
 
         // Set focus on the new task name field
         setTimeout(function() { $('#new-txt').focus(); }, 100);
-
-        // Start the timers
-        timer = setTimeout('update_time()', Setting('update-time') * 1000);
-        save_timer = setTimeout('SaveTasks(true)', 60000);
-
-        // Add to the launch count, and show a rating reminder if at a multiple of 6
-        var launches = Setting('launches', Setting('launches', 0, true) + 1);
-
-        if(launches % 6 == 0 && typeof localStorage['rated'] == 'undefined') {
-            dialog(locale('confRating'), function(status) {
-                if(status) {
-                    localStorage['rated'] = 'true';
-                    window.open('https://chrome.google.com/webstore/detail/aomfjmibjhhfdenfkpaodhnlhkolngif');
-                }
-            }, {}, 'question');
-        }
 
         // Make the table rows draggable
         $('table#task-list').tableDnD({

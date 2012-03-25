@@ -124,11 +124,14 @@
     </div>
 
     <div id="js-error" class="container">
-        <div id="big-error-thang" i18n="txtJSError">SUPER ULTRA MEGA ERROR THING</div> <div id="error-info"></div>
+        <div id="big-error-thang" i18n="txtJSError">SUPER ULTRA MEGA ERROR THING</div>
+        <div id="error-info"></div>
 
-        <label><input type="checkbox" id="refreshed" /> <span i18n="txtTriedRefresh">Have you tried refreshing the app?</span></label><br />
-        <button class="clear-data" i18n="toolClearData" disabled>Clear all of the app's data</button>
-        <div i18n="txtUsualFix">This will usually fix any errors, but will clear all of your tasks and settings.</div>
+        <div id="error-clear-data">
+            <label><input type="checkbox" id="refreshed" /> <span i18n="txtTriedRefresh">Have you tried refreshing the app?</span></label><br />
+            <button class="clear-data" i18n="toolClearData" disabled>Clear all of the app's data</button>
+            <div i18n="txtUsualFix">This will usually fix any errors, but will clear all of your tasks and settings.</div>
+        </div>
     </div>
 
     <footer>

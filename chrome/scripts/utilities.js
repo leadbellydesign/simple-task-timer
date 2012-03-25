@@ -211,12 +211,18 @@ function js_error(error, url, line) {
         clearTimeout(save_timer);
 
         // Print error
-        $('#error-info').html('<strong>App Version:</strong> '+ version +'<br />');
-        $('#error-info').append('<strong>Error Message:</strong> '+ msg +'<br />');
-        if(!trace) $('#error-info').append('<strong>URL:</strong> '+ url +'<br />');
-        if(!trace) $('#error-info').append('<strong>Line number:</strong> '+ line +'<br />');
-        if(trace) $('#error-info').append('<strong>Stack trace:</strong><br />'+ printStackTrace({e: error}).join('<br />') +'<br />');
-        $('#error-info').append('<strong>localStorage:</strong><br />'+ JSON.stringify(localStorage));
+        if(msg != 'open') {
+            $('#error-info').html('<strong>App Version:</strong> '+ version +'<br />');
+            $('#error-info').append('<strong>Error Message:</strong> '+ msg +'<br />');
+            if(!trace) $('#error-info').append('<strong>URL:</strong> '+ url +'<br />');
+            if(!trace) $('#error-info').append('<strong>Line number:</strong> '+ line +'<br />');
+            if(trace) $('#error-info').append('<strong>Stack trace:</strong><br />'+ printStackTrace({e: error}).join('<br />') +'<br />');
+            $('#error-info').append('<strong>localStorage:</strong><br />'+ JSON.stringify(localStorage));
+        } else {
+            $('#big-error-thang').text(locale('errAlreadyOpen')).css({'text-align': 'center', 'font-size': '2em'});
+            $('#error-info, #error-clear-data').hide();
+            $(window).unbind();
+        }
 
         // Make sure the error message is visible
         $('#tasks, #charts, #modal, #notice, #translate-notice, #loading, #tools-button, #tools-pulsate').hide();
@@ -225,7 +231,7 @@ function js_error(error, url, line) {
         // Alert only once
         if(!js_error_shown) {
             js_error_shown = true;
-            alert(locale('noteErrorOccurred'));
+            if(msg != 'open') alert(locale('noteErrorOccurred'));
         }
     }
 }
