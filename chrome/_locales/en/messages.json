@@ -572,7 +572,7 @@
         "placeholders": {
             "taskName": {
                 "content": "$1",
-                "example": "Task Name"
+                "example": "Chores"
             }
         }
     },
@@ -641,7 +641,7 @@
         "placeholders": {
             "taskName": {
                 "content": "$1",
-                "example": "Task Name"
+                "example": "Chores"
             }
         }
     },
