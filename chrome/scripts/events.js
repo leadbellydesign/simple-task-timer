@@ -89,6 +89,7 @@ $(document).ready(function() {
             clearTimeout(save_timer);
             clearTimeout(timer);
             localStorage.clear();
+            background.opened = false;
             location.reload();
         }
     });
