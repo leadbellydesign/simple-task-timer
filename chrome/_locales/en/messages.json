@@ -24,7 +24,7 @@
 
     "txtCreatedBy": {
         "message": "Created by [Schuyler Cebulskie](http://gawdl3y.com/){_blank}",
-        "description": "Created by Schuyler Cebulskie (linked to website)"
+        "description": "Creator text (linked to website)"
     },
     "txtReportBug": {
         "message": "Report a bug",
