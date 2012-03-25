@@ -3,7 +3,7 @@
 <head>
     <title>About Task Timer</title>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    
+
     <link rel="stylesheet" type="text/css" href="style/global.css" />
     <link rel="stylesheet" type="text/css" href="style/about.css" />
 </head>
@@ -12,17 +12,17 @@
         <h1>About Task Timer</h1>
         <a href="https://chrome.google.com/webstore/detail/aomfjmibjhhfdenfkpaodhnlhkolngif" target="_blank"><img src="style/images/icon-64.png" id="logo" width="64" height="64" alt="Task Timer" /></a>
     </header>
-    
+
     <div class="container">
         <h2>About Task Timer</h2>
         <p>Task Timer is an HTML5/JavaScript project I (Schuyler Cebulskie) created in order to fulfill my needs in keeping track of the time that I spent working for a company that I was an intern at. It has quickly become something with a wider range of uses, and has gained features very quickly in the past months. I began this project in August (or maybe September), and have continuously been working on it since. It started out as a boring old thing with absolutely no styles to it at all. I added styles a few days after the first release. After adding a link to make a suggestion for me, the most popular suggestion was to offer finer granularity in your goal time - it used to only be in hours. Since then, it's evolved into the version you're looking at.</p>
         <p>Task Timer is an open source project. <a href="http://code.google.com/p/simple-task-timer/" target="_blank">Check it out on Google Code!</a></p>
-        
+
         <h2 id="me">About me (Schuyler Cebulskie)</h2>
         <p>My usual alias is Gawdl3y. I'm an 11th grade student in high school, and my favourite areas of study are the computer sciences. I've dumped a fair amount of time into many different coding languages, but I primarily work with PHP, HTML, CSS, and JavaScript. I just finished a C++ class in school, and I have done two years of Visual Basic 6.0. I enjoy working on projects such as these in my free time (I have loads of it).</p>
         <p>I enjoy playing computer and video games. I own a PS3, but it just died recently. I plan on getting a new one very soon. You can add me to your friends list with the username SneakymodeEngage. I also enjoy playing games on the computer (modding!). You can add me on Steam via <a href="http://steamcommunity.com/id/Gawdl3y" target="_blank">my Steam profile</a>. I'm currently playing mostly Skyrim, Team Fortress 2, Minecraft, Terraria, and Dungeon Defenders on the computer, and LittleBigPlanet 2 and Battlefield 3 on the PS3. I just built a new computer, but I still need to get a video card. The Sandy Bridge's integrated Intel HD 3000 graphics are holding me over just fine, though.</p>
         <p>I have a website! <a href="http://gawdl3y.com/" target="_blank">Gawdl3y.com</a> There's not much on it currently, though. I am an administrator of the gaming community and Minecraft server <a href="http://titankingdoms.com/" target="_blank">Titan Kingdoms</a>.</p>
-        
+
         <h2 id="support">Support Task Timer</h2>
         <p>Enjoying the app? Consider donating to help maintain it and keep it going (and get me a decent video card! :P ).</p>
         <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -37,11 +37,27 @@
             <li>The huge amount of people who volunteered to help with the images!</li>
         </ul>
     </div>
-    
+
     <h1 id="changelog">Changelog</h1>
-    
+
     <div class="container">
         <a href="installed.html">Installation page</a>
+
+        <div class="version">
+            <h2>Version 3.7.0</h2>
+            <ul>
+                <li class="new">Added "Exclude task from totals row" task setting</li>
+                <li class="new">Added "Exclude task from pie charts" task setting</li>
+                <li class="new">Added page for reporting a bug (with debug info)</li>
+                <li class="new">Added page for suggesting something</li>
+                <li class="new">Added translation notice</li>
+                <li class="new">Added error if you try to open multiple instances of the app</li>
+                <li class="change">Made the app delay before opening when it's updated (will maybe fix locale string errors on update)</li>
+                <li class="change">Updated to jQuery 1.7.2</li>
+                <li class="fix">Fixed dialogs showing off-centre when opened while scrolled down</li>
+                <li class="fix">Fixed scroll position resetting whenever the task list is rebuilt</li>
+            </ul>
+        </div>
 
         <div class="version">
             <h2>Version 3.6.3</h2>
@@ -92,7 +108,7 @@
                 <li>Tons of other behind-the-scenes code changes</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 3.3.1</h2>
             <ul>
@@ -100,7 +116,7 @@
                 <li>Added URL format for locale strings</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 3.3.0</h2>
             <ul>
@@ -108,7 +124,7 @@
                 <li>Added setting to turn opening on update off</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 3.2.2</h2>
             <ul>
@@ -116,7 +132,7 @@
                 <li>Made the small window notice re-enable when resetting the use icons settings back to off</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 3.2.1</h2>
             Blast off!
@@ -124,7 +140,7 @@
                 <li>Changed the window width check to use the actual width, not the inner width</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 3.2.0</h2>
             <ul>
@@ -135,7 +151,7 @@
                 <li>Lots of code tidying and prettifying</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 3.1.0</h2>
             <ul>
@@ -144,7 +160,7 @@
                 <li>Made the icon buttons not make the task rows uglier</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 3.0.2</h2>
             <ul>
@@ -153,14 +169,14 @@
                 <li>Fixed error when play sound is off</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 3.0.1</h2>
             <ul>
                 <li>Fixed the modal overlay not fading away when closing the popup after opening the task info menu</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 3.0.0</h2>
             Already? Yup!
@@ -176,56 +192,56 @@
                 <li>Fixed show popup setting not actually disabling the popup</li>
                 <li>Lots of code prettifying and optimisations</li>
             </ul>
-        
+
         <div class="version">
             <h2>Version 2.1.7</h2>
             <ul>
                 <li>Fixed error when closing the popup without the tools menu being open</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 2.1.6</h2>
             <ul>
                 <li>Made the popup fade out when closing it while the tools menu is open, rather than it all fading out</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 2.1.5</h2>
             <ul>
                 <li>Made the notice fade in/out when the settings are saved rather than waiting until the tools menu is closed</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 2.1.4</h2>
             <ul>
                 <li>Fixed the "Hide notice" option not saving in the settings</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 2.1.3</h2>
             <ul>
                 <li>Fixed the fade on the pulsating ring</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 2.1.2</h2>
             <ul>
                 <li>Fixed side effects of excessive queuing of the pulsate animation</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 2.1.1</h2>
             <ul>
                 <li>Fixed display of the close button in the task finished popup</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 2.1.0</h2>
             <ul>
@@ -236,7 +252,7 @@
                 <li>Made code slightly more pretty</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 2.0.0</h2>
             Version 2.0 just happened to come after 1.9... That's neat. :P
@@ -252,7 +268,7 @@
                 <li>Fixed the repetition of the animation for the error notice (slightly less pretty now, but less obnoxious for multiple clicks)</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.9.3</h2>
             <ul>
@@ -261,7 +277,7 @@
                 <li>Added a scrollbar to the settings menu when the contents overflow (for those who have large default font sizes)</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.9.2</h2>
             <ul>
@@ -269,7 +285,7 @@
                 <li>Changed the "Stop a task when it reaches its goal" setting to "Don't allow tasks to go over their goals"</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.9.1</h2>
             <ul>
@@ -278,7 +294,7 @@
                 <li>Fixed desktop notification locale</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.9.0</h2>
             <ul>
@@ -291,7 +307,7 @@
                 <li>Fixed enter key in time spent edit fields</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.8.3</h2>
             <ul>
@@ -299,21 +315,21 @@
                 <li>Added version 1.0.0 to the changelog (lol)</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.8.2</h2>
             <ul>
                 <li>Updated the about page</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.8.1</h2>
             <ul>
                 <li>Fixed task reordering</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.8.0</h2>
             <ul>
@@ -325,7 +341,7 @@
                 <li>Fixed bug where the task list disappeared when adding a task during deletion</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.7.2</h2>
             <ul>
@@ -333,14 +349,14 @@
                 <li>Fixed time spent editing</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.7.1</h2>
             <ul>
                 <li>Fixed update locale message</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.7.0</h2>
             <ul>
@@ -356,7 +372,7 @@
                 <li>Tweaked styles</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.6.0</h2>
             <ul>
@@ -368,7 +384,7 @@
                 <li>Some code rehaul</li>
             </il>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.5.0</h2>
             <ul>
@@ -383,7 +399,7 @@
                 <li>Fixed error when the the progress done is infinity (should never happen anyways)</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.4.1</h2>
             <ul>
@@ -391,7 +407,7 @@
                 <li>Changed JS error message</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.4.0</h2>
             <ul>
@@ -406,7 +422,7 @@
                 <li>Fixed bug when you are editing a task and add a new task, then editing would become non-functional</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.3.2</h2>
             <ul>
@@ -415,7 +431,7 @@
                 <li>Changed width of changelog container to match app main page</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.3.1</h2>
             <ul>
@@ -426,7 +442,7 @@
                 <li>Reduced width of the goal time fields slightly</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.3.0</h2>
             <ul>
@@ -436,21 +452,21 @@
                 <li>Removed the period in the footer</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.2.2</h2>
             <ul>
                 <li>Fixed going over the task goal when using an update time of a non-multiple of 60 with stop a task when goal is reached enabled... Semi-obscure bug.</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.2.1</h2>
             <ul>
                 <li>Slowed down the running task spinner</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.2.0</h2>
             <ul>
@@ -461,14 +477,14 @@
                 <li>Added a loading indicator to tasks that are running</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.1.5</h2>
             <ul>
                 <li>Added a rating reminder every 6 app launches (clicking OK will make it not show again)</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.1.4</h2>
             <ul>
@@ -476,28 +492,28 @@
                 <li>Switched the comma in the label for the new task goal fields to a colon</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.1.3</h2>
             <ul>
                 <li>Improved the new version detection</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.1.2</h2>
             <ul>
                 <li>Fixed conversion for real this time</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.1.1</h2>
             <ul>
                 <li>Fixed conversion from old format to new format for times</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.1.0</h2>
             <p>This update may cause some oddities with your current tasks, due to the the format change. New tasks you make will not have any problems, but the old ones might. I have attempted to have the old format convert to the new format as accurately as possible, but there may be some problems. Please tell me if you have any major issues. <a href="http://code.google.com/p/simple-task-timer/issues/list" target="_blank">Report a bug</a></p>
@@ -509,35 +525,35 @@
                 <li>Added an alert when the app is updated</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.0.8</h2>
             <ul>
                 <li>Added this beautiful changelog</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.0.7</h2>
             <ul>
                 <li>Added check for the existence of every option in localStorage</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.0.6</h2>
             <ul>
                 <li>If coming from an older version, the reset button confirmation option will default to on</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.0.5</h2>
             <ul>
                 <li>Added a reset button to tasks</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.0.4</h2>
             <ul>
@@ -545,14 +561,14 @@
                 <li>The options modal box now has a fixed width</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.0.3</h2>
             <ul>
                 <li>Switched the Custom File Path option to a Custom File URL option for the custom sound</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.0.2</h2>
             <ul>
@@ -560,14 +576,14 @@
                 <li>Added a link to report bugs</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.0.1</h2>
             <ul>
                 <li>Switched to a local copy of jQuery rather than the Google API's jQuery</li>
             </ul>
         </div>
-        
+
         <div class="version">
             <h2>Version 1.0.0</h2>
             <ul>
