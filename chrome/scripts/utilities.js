@@ -163,20 +163,11 @@ function locale(messageID, args, html) {
     var i18n = chrome.i18n.getMessage(messageID, args);
 
     if(html) {
-        // Replace URLs in the format of [Text](URL)
-        i18n = i18n.replace(/\[(.+)\]\((.+)\)/gi, '<a href="$2">$1</a>');
-
-        // Make text bold with **Text**
-        i18n = i18n.replace(/\*\*(.+)\*\*/gi, '<strong>$1</strong>');
-
-        // Underline text with __Text__
-        //i18n = i18n.replace(/__(.+)__/gi, '<span style="text-decoration: underline;">$1</span>');
-
-        // Italicise text with //Text//
-        //i18n = i18n.replace(/\/\/(.+)\/\//gi);
-
-        // Replace newlines with breaks
-        i18n = i18n.replace(/\n/gi, '<br />');
+        i18n = i18n.replace(/\[(.+)\]\((.+)\)/gi, '<a href="$2">$1</a>'); // URLs - [Text](URL)
+        i18n = i18n.replace(/\*\*(.+)\*\*/gi, '<strong>$1</strong>'); // Bold - **Text**
+        //i18n = i18n.replace(/__(.+)__/gi, '<span style="text-decoration: underline;">$1</span>'); // Underline - __Text__
+        //i18n = i18n.replace(/\/\/(.+)\/\//gi); // Italic - //Text//
+        i18n = i18n.replace(/\n/gi, '<br />'); // Newlines to breaks
     }
 
     // Return locale string
