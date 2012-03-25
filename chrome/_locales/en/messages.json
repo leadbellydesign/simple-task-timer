@@ -23,24 +23,24 @@
     },
 
     "txtCreatedBy": {
-        "message": "Created by",
-        "description": "Created by"
+        "message": "Created by [Schuyler Cebulskie](http://gawdl3y.com/){_blank}",
+        "description": "Created by Schuyler Cebulskie (linked to website)"
     },
     "txtReportBug": {
         "message": "Report a bug",
-        "description": "Report a bug"
+        "description": "Report a bug link"
     },
     "txtSuggest": {
-        "message": "Have an idea? [Tell me](suggestion.html)",
+        "message": "Have an idea? [Tell me](suggestion.html){_blank}",
         "description": "Suggestion link"
     },
     "txtAbout": {
         "message": "About",
-        "description": "About"
+        "description": "About link"
     },
     "txtDonate": {
         "message": "Donate",
-        "description": "Donate"
+        "description": "Donate link"
     },
     "txtLoading": {
         "message": "Loading...",
@@ -84,7 +84,7 @@
         "description": "Performance notice"
     },
     "infoTranslate": {
-        "message": "Want to help translate Task Timer to other languages? Click [here](http://interpr.it/extension/16).",
+        "message": "Want to help translate Task Timer to other languages? Click [here](http://interpr.it/extension/16){_blank}.",
         "description": "Translation help request"
     },
 
