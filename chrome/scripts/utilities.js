@@ -21,7 +21,7 @@ function dialog(text, callback, data, type, override, steal_focus, check_queue, 
         // Check if it's already in the queue
         var in_queue = false;
         if(check_queue) {
-            for(i = 0; i < dialog_queue.length; i++) {
+            for(var i = 0; i < dialog_queue.length; i++) {
                 if(JSON.stringify(dialog_queue[i]) === JSON.stringify(queue_item)) {
                     in_queue = true;
                     break;

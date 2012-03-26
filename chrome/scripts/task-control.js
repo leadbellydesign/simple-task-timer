@@ -216,7 +216,7 @@ function toggle_task(task) {
         } else {
             // Disable other tasks if they have it set to allow only one running at a time
             if(Setting('only-one')) {
-                for(i = 0; i < task_count; i++) {
+                for(var i = 0; i < task_count; i++) {
                     if(task_running[i]) toggle_task(i);
                 }
             }
@@ -247,7 +247,7 @@ function list_task(task, anim) {
         // Text
         $('#task-'+ task +' td.text').text(tasks[task].text);
         $('#task-'+ task +' td.current').text(format_time(tasks[task].current_hours, tasks[task].current_mins, tasks[task].current_secs));
-        $('#task-'+ task +' td.goal').text(format_time(tasks[task].goal_hours, tasks[task].goal_mins, 0, tasks[i].indefinite));
+        $('#task-'+ task +' td.goal').text(format_time(tasks[task].goal_hours, tasks[task].goal_mins, 0, tasks[task].indefinite));
         $('#task-'+ task +' button.toggle').text(task_running[task] ? locale('btnStop') : locale('btnStart'));
         $('#task-'+ task +' img.toggle').attr('title', task_running[task] ? locale('btnStop') : locale('btnStart')).attr('src', 'style/images/control_'+ (task_running[task] ? 'pause' : 'play') +'_blue.png');
 

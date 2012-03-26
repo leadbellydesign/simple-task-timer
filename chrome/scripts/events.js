@@ -140,7 +140,7 @@ $(document).ready(function() {
     $('.reset-all').click(function() {
         dialog(locale('confResetAll'), function(status) {
             if(status) {
-                for(t = 0; t < task_count; t++) {
+                for(var t = 0; t < task_count; t++) {
                     reset_task(t, true);
                 }
             }
@@ -151,7 +151,7 @@ $(document).ready(function() {
     $('.delete-all').click(function() {
         dialog(locale('confDeleteAll'), function(status) {
             if(status) {
-                for(t = task_count - 1; t >= 0; t--) {
+                for(var t = task_count - 1; t >= 0; t--) {
                     delete_task(t, true);
                 }
             }
@@ -204,7 +204,7 @@ $(document).ready(function() {
     $('#clear-all-history').click(function() {
         dialog(locale('confClearAllHistory'), function(status) {
             if(status) {
-                for(t = 0; t < task_count; t++) {
+                for(var t = 0; t < task_count; t++) {
                     tasks[t].history = {};
                 }
             }
@@ -238,12 +238,12 @@ $(document).ready(function() {
         dialog(locale('confResetSettings'), function(status) {
             if(status) {
                 // Reset checkbox settings
-                for(i in settings_checkboxes) {
+                for(var i in settings_checkboxes) {
                     Setting(i, settings_checkboxes[i]);
                 }
 
                 // Reset other settings
-                for(i in settings_other) {
+                for(var i in settings_other) {
                     Setting(i, settings_other[i]);
                 }
 

@@ -137,7 +137,7 @@ function SaveSettings() {
     }
 
     // Save the state of the checkboxes
-    for(i in settings_checkboxes) {
+    for(var i in settings_checkboxes) {
         Setting(i, $('#'+ i).is(':checked'));
     }
 

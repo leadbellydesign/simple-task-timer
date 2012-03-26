@@ -78,7 +78,7 @@ $(document).ready(function() {
             tasks = JSON.parse(localStorage['tasks']);
             task_count = tasks.length;
 
-            for(i = 0; i < task_count; i++) {
+            for(var i = 0; i < task_count; i++) {
                 // Convert from the old method of storing times to the new one
                 if(typeof tasks[i].current_hours == 'undefined') {
                     tasks[i].current_hours = Math.floor(tasks[i].current);
@@ -199,7 +199,7 @@ function rebuild_list() {
     editing_task = -1;
     $('table#task-list tbody').empty().removeClass('editing-name editing-current editing-goal');
 
-    for(i = 0; i < task_count; i++) {
+    for(var i = 0; i < task_count; i++) {
         list_task(i, 0);
     }
 
@@ -215,7 +215,7 @@ function rebuild_totals() {
         var current_hours = 0, current_mins = 0, current_secs = 0, goal_hours = 0, goal_mins = 0, dec_current = 0, dec_this_current, dec_this_goal, progress, i;
 
         // Get the total hours, minutes, and seconds
-        for(t = 0; t < task_count; t++) {
+        for(var t = 0; t < task_count; t++) {
             if(!TaskSetting('exclude-totals', t)) {
                 current_hours += tasks[t].current_hours;
                 current_mins += tasks[t].current_mins;
@@ -266,7 +266,7 @@ function rebuild_charts() {
         var plot_data = new Array(), total_time = 0, t, i;
 
         // Get the total of all times
-        for(t = 0; t < task_count; t++) {
+        for(var t = 0; t < task_count; t++) {
             if(!TaskSetting('exclude-charts', t)) total_time += (tasks[t].current_hours) + (tasks[t].current_mins / 60) + (tasks[t].current_secs / 3600);
         }
 
@@ -275,7 +275,7 @@ function rebuild_charts() {
 
         // Build the time spent chart
         var i = 0;
-        for(t = 0; t < task_count; t++) {
+        for(var t = 0; t < task_count; t++) {
             if(!TaskSetting('exclude-charts', t)) {
                 plot_data[i] = {
                     label: tasks[t].text,
