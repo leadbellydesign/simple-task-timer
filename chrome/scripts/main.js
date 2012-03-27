@@ -24,9 +24,7 @@ $(document).ready(function() {
         if(lang != 'en' && lang != 'en-CA' && lang != 'en-GB' && lang != 'en-US') $('#translations').show();
 
         // Check to see if the app is already opened
-        if(background.opened) {
-            throw 'open';
-        }
+        if(background.opened) throw 'open';
 
         // Tell the background page that the app is open
         background.opened = true;
@@ -65,7 +63,7 @@ $(document).ready(function() {
             dialog(locale('confRating'), function(status) {
                 if(status) {
                     localStorage['rated'] = 'true';
-                    window.open('https://chrome.google.com/webstore/detail/aomfjmibjhhfdenfkpaodhnlhkolngif');
+                    window.open('https://chrome.google.com/webstore/detail/aomfjmibjhhfdenfkpaodhnlhkolngif/reviews');
                 }
             }, {}, 'question');
         }
