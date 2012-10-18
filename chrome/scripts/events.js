@@ -209,7 +209,7 @@ $(function() {
             csv += '\n"'+ tasks[i].text.replace('"', '""') +'"';
             csv += ',"'+ format_time(tasks[i].current_hours, tasks[i].current_mins, tasks[i].current_secs) +'"';
             csv += ',"'+ format_time(tasks[i].goal_hours, tasks[i].goal_mins, 0, tasks[i].indefinite) +'"';
-            csv += ',"'+ (tasks[i].indefinite ? '-' : task_progress(i)) +'"';
+            csv += ',"'+ (tasks[i].indefinite ? '-' : task_progress(i)) +'%"';
             csv += ',"'+ tasks[i].description.replace('"', '""') +'"';
         }
 
