@@ -127,9 +127,9 @@ function fix_time(hours_field, mins_field, secs_field) {
     var hours = parseInt($(hours_field).val()), mins = parseInt($(mins_field).val()), secs = (secs_field ? parseInt($(secs_field).val()) : 0);
 
     // Verify numbers
-    if(hours < 0 || hours > Number.MAX_VALUE) hours = 0;
-    if(mins < 0 || mins > Number.MAX_VALUE) mins = 0;
-    if(secs < 0 || secs > Number.MAX_VALUE) secs = 0;
+    if(isNaN(hours) || hours < 0 || hours > Number.MAX_VALUE) hours = 0;
+    if(isNaN(mins) || mins < 0 || mins > Number.MAX_VALUE) mins = 0;
+    if(isNaN(secs) || secs < 0 || secs > Number.MAX_VALUE) secs = 0;
 
     // Fix mins and secs greater than 59
     if(secs > 59) {
@@ -176,14 +176,12 @@ function locale(messageID, args, html) {
 
 // Localise page
 function localisePage() {
-    var text_tags = ['OPTION', 'A', 'BUTTON', 'H1', 'H2', 'H3', 'TITLE'];
+    var text_tags = ['OPTION', 'A', 'BUTTON', 'H1', 'H2', 'H3', 'TITLE', 'TEXTAREA']; // We do textareas as a workaround to get their placeholders to update properly
     var html_tags = ['DIV', 'P', 'TD', 'TH', 'SPAN'];
 
     $('[i18n]').each(function(i, v) {
-        var type;
-
         // Text or HTML tag? 1 = text, 2 = HTML, 3 = N/A
-        type = $.inArray($(this)[0].tagName, text_tags) != -1 ? 1 : ($.inArray($(this)[0].tagName, html_tags) != -1 ? 2 : 3);
+        var type = $.inArray($(this)[0].tagName, text_tags) != -1 ? 1 : ($.inArray($(this)[0].tagName, html_tags) != -1 ? 2 : 3);
 
         // Set the text or HTML
         if(type == 1) {
@@ -191,10 +189,7 @@ function localisePage() {
             $(this).text(i18n);
         } else if(type == 2) {
             var i18n = locale($(this).attr('i18n'), '', true);
-
-            // Handle URLs
-            if($(this).attr('i18n-url')) i18n = i18n.replace(/\[(.+)\]/gi, '<a href="'+ $(this).attr('i18n-url') +'"'+ ($(this).attr('i18n-target') ? ' target="'+ $(this).attr('i18n-target') +'"' : '') +'>$1</a>');
-
+            if($(this).attr('i18n-url')) i18n = i18n.replace(/\[(.+)\]/gi, '<a href="'+ $(this).attr('i18n-url') +'"'+ ($(this).attr('i18n-target') ? ' target="'+ $(this).attr('i18n-target') +'"' : '') +'>$1</a>'); // Handle URLs
             $(this).html(i18n);
         }
 

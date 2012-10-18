@@ -11,6 +11,7 @@ var settings_checkboxes = {
     'custom-dialogs': true,
     'update-alert': true,
 
+    'enable-sync': false,
     'track-history': true,
     'stop-timer': true,
     'no-overtime': true,
@@ -119,10 +120,16 @@ function LoadSettings(reset_timer, from_save) {
     // Verify custom sound URL
     verify_custom_sound();
 
+    // Sync!
+    if(Setting('enable-sync')) {
+        RetrieveTasks();
+        SendTasks();
+    }
+
     // Reset timer
     if(reset_timer) {
         clearTimeout(timer);
-        timer = setTimeout('update_time()', Setting('update-time') * 1000);
+        timer = setTimeout(update_time, Setting('update-time') * 1000);
     }
 }
 

@@ -6,10 +6,10 @@
 
     <link rel="stylesheet" type="text/css" href="style/global.css" />
     <link rel="stylesheet" type="text/css" href="style/main.css" />
-    <link rel="stylesheet" type="text/css" href="style/redmond/jquery-ui-1.8.17.custom.css" />
+    <link rel="stylesheet" type="text/css" href="style/redmond/jquery-ui-1.9.0.custom.css" />
 
-    <script type="text/javascript" src="scripts/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="scripts/jquery-ui-1.8.17.custom.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery-ui-1.9.0.custom.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.tablednd-0.5.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.center-2.0.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.flot.min.js"></script>
@@ -20,12 +20,12 @@
     <script type="text/javascript" src="scripts/settings.js"></script>
     <script type="text/javascript" src="scripts/task-control.js"></script>
     <script type="text/javascript" src="scripts/edit.js"></script>
+    <script type="text/javascript" src="scripts/sync.js"></script>
     <script type="text/javascript" src="scripts/events.js"></script>
     <script type="text/javascript" src="scripts/main.js"></script>
 </head>
 <body>
     <div id="tools-pulsate"></div>
-    <img src="style/images/ajax-loader.gif" id="loading" width="32" height="32" alt="Loading..." i18n="txtLoading" />
     <button id="tools-button"><img src="style/images/gear.png" width="25" height="25" alt="Tools" i18n="btnTools" /></button>
 
     <audio src="Deneb.ogg" id="sound" preload></audio>
@@ -139,7 +139,7 @@
         <a href="report-bug.html" target="_blank" i18n="txtReportBug">Report a bug</a><br />
         <span i18n="txtSuggest" i18n-url="suggestion.html" i18n-target="_blank">Have an idea? <a href="suggestion.html" target="_blank">Tell me</a></span> |
         <a href="about.html" target="_blank" i18n="txtAbout">About</a> | <a href="about.html#me" target="_blank" i18n="txtDonate">Donate</a>
-        <div id="translations" i18n="txtTranslations">Translations may not be 100% accurate.</div>
+        <div id="translations-accuracy" i18n="txtTranslationsAccuracy">Translations may not be 100% accurate.</div>
     </footer>
 
 
@@ -226,7 +226,7 @@
             <hr />
 
             <div class="menu-group">
-                <button class="csv-export" i18n="toolExportCSV" disabled>Export tasks as a CSV file</button> <span i18n="txtComingSoon">Coming soon!</span><br />
+                <button id="csv-export" i18n="toolExportCSV">Export tasks as a CSV file</button><br />
                 <button id="clear-all-history" i18n="toolClearAllHistory">Clear all task history</button><br />
                 <button class="clear-data" i18n="toolClearData">Clear all of the app's data</button>
             </div>
@@ -260,6 +260,7 @@
                 <div class="menu-group">
                     <h2 i18n="txtTaskSettings">Task Settings</h2>
 
+                    <label><input type="checkbox" id="enable-sync" /><span i18n="optEnableSync">Enable sync (EXPERIMENTAL, may mess with your tasks)</span></label><br />
                     <label><input type="checkbox" id="track-history" /><span i18n="optTrackHistory">Track task history (so you can view statistics for each task)</span></label><br />
                     <label><input type="checkbox" id="no-overtime" /><span i18n="optNoOvertime">Don't allow task times to go over their goals</span></label><br />
                     <label><input type="checkbox" id="stop-timer" /><span i18n="optStopTimer">Stop a task when it reaches its goal</span></label><br />
@@ -315,6 +316,7 @@
 
     <div id="success">Success</div>
     <div id="error">Error</div>
+    <img src="style/images/ajax-loader.gif" id="loading" width="32" height="32" alt="Loading..." i18n="txtLoading" />
 
 
 

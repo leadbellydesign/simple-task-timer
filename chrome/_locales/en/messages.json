@@ -17,8 +17,8 @@
         "description": "Shows right below the title"
     },
 
-    "txtTranslations": {
-        "message": "Translations may not be 100% accurate.",
+    "txtTranslationsAccuracy": {
+        "message": "Translations may not be accurate.",
         "description": "Reminder that translations are not always accurate"
     },
 
@@ -242,7 +242,7 @@
         "description": "Header for the task info history"
     },
 
-    "txtHistDisabled": {
+    "txtHistoryDisabled": {
         "message": "Task history tracking is disabled. You can enable it in the tools menu.",
         "description": "Task history tracking disabled"
     },
@@ -355,6 +355,10 @@
     "txtTaskSettings": {
         "message": "Task Settings",
         "description": "Task settings header"
+    },
+    "optEnableSync": {
+        "message": "Enable sync (EXPERIMENTAL, may mess with your tasks)",
+        "description": "Setting - Enable sync"
     },
     "optTrackHistory": {
         "message": "Track task history (so you can view statistics for each task)",
@@ -606,6 +610,15 @@
     "sucSavedSettings": {
         "message": "Settings saved!",
         "description": "Settings saved success notice"
+    },
+
+    "sucSyncReceived": {
+        "message": "Received task data for syncing!",
+        "description": "Sync received success notice"
+    },
+    "sucSyncSent": {
+        "message": "Sent the task data for syncing!",
+        "description": "Sync sent success notice"
     },
 
 

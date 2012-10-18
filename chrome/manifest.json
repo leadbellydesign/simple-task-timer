@@ -1,20 +1,25 @@
 {
     "name": "__MSG_appName__",
     "description": "__MSG_appDesc__",
-    "version": "3.7.3",
+    "version": "3.8.0",
     "default_locale": "en",
     "offline_enabled": true,
+    "manifest_version": 2,
+    "permissions": ["storage"],
 
-    "background_page": "background.html",
-
-    "app": {
-      "launch": {
-          "local_path": "main.html"
-      }
-    },
     "icons": {
         "16": "style/images/icon-16.png",
         "64": "style/images/icon-64.png",
         "128": "style/images/icon-128.png"
+    },
+
+    "app": {
+        "launch": {
+            "local_path": "main.html"
+        }
+    },
+    "background": {
+        "page": "background.html",
+        "persistent": true
     }
 }

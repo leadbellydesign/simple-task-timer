@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
     /**************************************************
      ******     G E N E R A L   E V E N T S      ******
      **************************************************/
@@ -89,6 +89,7 @@ $(document).ready(function() {
             clearTimeout(save_timer);
             clearTimeout(timer);
             localStorage.clear();
+            chrome.storage.sync.clear();
             background.opened = false;
             location.reload();
         }
@@ -198,6 +199,22 @@ $(document).ready(function() {
 
         $('#modal').fadeIn(600, function() { $('#tools-pulsate').stop(true, true).fadeOut(400); });
         $('#tools-menu').animate({left: ((($(window).width() - $('#tools-menu').outerWidth(true)) / $(window).width()) * 100).toString() + '%'}, 600);
+    });
+
+    // User clicked the CSV export button in the tools menu
+    $('#csv-export').click(function() {
+        // Build the CSV file
+        var csv = '"'+ locale('lblTask').replace('"', '""') +'","'+ locale('lblTimeSpent').replace('"', '""') +'","'+ locale('lblGoal').replace('"', '""') +'","'+ locale('lblProgress').replace('"', '""') +'","'+ locale('lblDescription').replace('"', '""') +'"';
+        for(var i in tasks) {
+            csv += '\n"'+ tasks[i].text.replace('"', '""') +'"';
+            csv += ',"'+ format_time(tasks[i].current_hours, tasks[i].current_mins, tasks[i].current_secs) +'"';
+            csv += ',"'+ format_time(tasks[i].goal_hours, tasks[i].goal_mins, 0, tasks[i].indefinite) +'"';
+            csv += ',"'+ (tasks[i].indefinite ? '-' : task_progress(i)) +'"';
+            csv += ',"'+ tasks[i].description.replace('"', '""') +'"';
+        }
+
+        // Open CSV file
+        window.open('data:text/csv;charset=utf-8,'+ encodeURIComponent(csv));
     });
 
     // User clicked the clear all history button in the tools menu

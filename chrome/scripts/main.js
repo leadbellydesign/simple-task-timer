@@ -1,4 +1,4 @@
-var app, version, lang, background, load,  dragging = false, preview_sound = false, now = new Date(); // General variables
+var app, version, lang, background, load, autosaves = 0,  dragging = false, preview_sound = false, now = new Date(); // General variables
 var alarm_open = false, task_open = false, tools_open = false, dialog_open = false; // Menu state variables
 var js_error_shown = false, no_local_files_alerted = false; // Alert state variables
 var current_plot = false, total_plot = false; // Plot variables
@@ -8,7 +8,7 @@ var save_timer, timer, timer_step = 0; // Timer variables
 window.onerror = function(msg, url, line) { js_error(msg, url, line); };
 
 // Document finished loading
-$(document).ready(function() {
+$(function() {
     try {
         // Set some variables
         app = chrome.app.getDetails();
@@ -21,7 +21,7 @@ $(document).ready(function() {
         localisePage();
 
         // Show translations text
-        if(lang != 'en' && lang != 'en-CA' && lang != 'en-GB' && lang != 'en-US') $('#translations').show();
+        //if(lang != 'en' && lang != 'en-CA' && lang != 'en-GB' && lang != 'en-US') $('#translations-accuracy').show();
 
         // Check to see if the app is already opened
         if(background.opened) throw 'open';
@@ -71,7 +71,7 @@ $(document).ready(function() {
 
 
 
-        // Retrieve any tasks they've previously added
+        // Retrieve tasks from localStorage
         if(localStorage['tasks']) {
             tasks = JSON.parse(localStorage['tasks']);
             task_count = tasks.length;
@@ -115,9 +115,12 @@ $(document).ready(function() {
             }
         }
 
+        // Retrieve tasks from Chrome's storage
+        RetrieveTasks();
+
         // Start the timers
-        timer = setTimeout('update_time()', Setting('update-time') * 1000);
-        save_timer = setTimeout('SaveTasks(true)', 60000);
+        timer = setTimeout(update_time, Setting('update-time') * 1000);
+        save_timer = setTimeout(function() { SaveTasks(true) }, 60000);
 
 
 
@@ -360,7 +363,7 @@ function check_width() {
 function tools_pulsate() {
     if(Setting('new-tools', true, true)) {
         $('#tools-pulsate').animate({width: '150px', height: '150px'}, 800).animate({width: '75px', height: '75px'}, 800);
-        setTimeout('tools_pulsate()', 1600);
+        setTimeout(tools_pulsate, 1600);
     }
 }
 
@@ -381,9 +384,18 @@ function SaveTasks(timeout) {
         Setting('field-start', $('#new-start').is(':checked'));
     }
 
+    // Increment the autosave counter
+    if(timeout) { autosaves++; }
+
+    // Sync every 10 autosaves
+    if(autosaves % 10 == 0 || !synced) {
+        SendTasks();
+        synced = true;
+    }
+
     // Timeout
     clearTimeout(save_timer);
-    save_timer = setTimeout('SaveTasks(true)', 60000);
+    save_timer = setTimeout(function() { SaveTasks(true) }, 60000);
 
     $('button.delete, #new-btn').removeAttr('disabled');
     if(timeout) load.hide();

@@ -57,7 +57,7 @@ function update_time() {
                         if(Setting('no-overtime') || Setting('stop-timer')) toggle_task(i);
 
                         // Play sound
-                        if(Setting('play-sound')) document.getElementById('sound').play();
+                        if(Setting('play-sound')) $('#sound')[0].play();
 
                         // Show popup
                         if(Setting('show-popup') || (Setting('loop-sound') && Setting('play-sound'))) {
@@ -83,9 +83,7 @@ function update_time() {
                 }
 
                 // Progress done
-                var progress = Math.floor((tasks[i].current_hours + (tasks[i].current_mins / 60) + (tasks[i].current_secs / 3600)) / (tasks[i].goal_hours + (tasks[i].goal_mins / 60)) * 100);
-                if(tasks[i].indefinite) progress = 0;
-                if(progress == Infinity) progress = 100;
+                var progress = task_progress(i);
 
                 // Update list
                 $('tr#task-'+ i +' td.current').text(format_time(tasks[i].current_hours, tasks[i].current_mins, tasks[i].current_secs));
@@ -108,7 +106,7 @@ function update_time() {
         }
 
         // Do it again in a second
-        timer = setTimeout('update_time()', Setting('update-time') * 1000);
+        timer = setTimeout(update_time, Setting('update-time') * 1000);
         timer_step++;
     } catch(e) {
         js_error(e);
@@ -236,9 +234,7 @@ function toggle_task(task) {
 function list_task(task, anim) {
     try {
         // Progress done
-        var progress = Math.floor((tasks[task].current_hours + (tasks[task].current_mins / 60) + (tasks[task].current_secs / 3600)) / (tasks[task].goal_hours + (tasks[task].goal_mins / 60)) * 100);
-        if(tasks[task].indefinite == true) progress = 0;
-        if(progress == Infinity) progress = 100;
+        var progress = task_progress(task);
 
         // Create the row
         $('#row-template').clone().attr('id', 'task-'+ task).appendTo('table#task-list tbody');
@@ -338,11 +334,7 @@ function task_info(task, user_triggered, anim, progress) {
         if(user_triggered) $('#info-description textarea').val(tasks[task].description);
 
         // Progress done
-        if(typeof progress == 'undefined' || !progress) {
-            var progress = Math.floor((tasks[task].current_hours + (tasks[task].current_mins / 60) + (tasks[task].current_secs / 3600)) / (tasks[task].goal_hours + (tasks[task].goal_mins / 60)) * 100);
-            if(tasks[task].indefinite == true) progress = 0;
-            if(progress == Infinity) progress = 100;
-        }
+        if(typeof progress == 'undefined' || !progress) var progress = task_progress(task);
 
         // Progress bar
         if(!tasks[task].indefinite) {
@@ -443,4 +435,13 @@ function TaskSetting(id, task, value, only_not_exists) {
         // Return the value
         return tasks[task].settings[id];
     }
+}
+
+// Get the progress of a task
+function task_progress(task) {
+    var progress = Math.floor((tasks[task].current_hours + (tasks[task].current_mins / 60) + (tasks[task].current_secs / 3600)) / (tasks[task].goal_hours + (tasks[task].goal_mins / 60)) * 100);
+    if(tasks[task].indefinite == true) progress = 0;
+    if(progress == Infinity) progress = 100;
+
+    return progress;
 }

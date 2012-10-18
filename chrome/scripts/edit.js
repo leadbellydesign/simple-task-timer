@@ -102,7 +102,7 @@ function edit_current(task) {
 function save_current(task) {
     try {
         // Fix time
-        fix_time('#current-edit-'+ task +' .hrs', '#current-edit-'+ task +' .mins', '#current-edit-'+ task +' .secs')
+        fix_time('#current-edit-'+ task +' .hrs', '#current-edit-'+ task +' .mins', '#current-edit-'+ task +' .secs');
         var hours = parseInt($('#current-edit-'+ task +' .hrs').val()), mins = parseInt($('#current-edit-'+ task +' .mins').val()), secs = parseInt($('#current-edit-'+ task +' .secs').val());
         
         // Set the goal
