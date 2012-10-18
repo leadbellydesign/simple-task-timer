@@ -89,7 +89,6 @@ $(function() {
             clearTimeout(save_timer);
             clearTimeout(timer);
             localStorage.clear();
-            chrome.storage.sync.clear();
             background.opened = false;
             location.reload();
         }
