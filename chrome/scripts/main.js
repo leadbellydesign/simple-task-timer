@@ -264,7 +264,7 @@ function rebuild_totals() {
 // Update the pie charts
 function rebuild_charts() {
     if(Setting('enable-charts') && typeof tasks[0] != 'undefined') {
-        var plot_data = new Array(), total_time = 0, t, i;
+        var plot_data = [], total_time = 0, t, i;
 
         // Get the total of all times
         for(var t = 0; t < task_count; t++) {

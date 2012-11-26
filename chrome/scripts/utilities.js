@@ -1,4 +1,4 @@
-var dialog_queue = new Array();
+var dialog_queue = [];
 
 // Trigger a dialog
 function dialog(text, callback, data, type, override, steal_focus, check_queue, force_native) {

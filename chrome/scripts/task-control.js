@@ -1,4 +1,4 @@
-var tasks = new Array(), task_running = new Array(), task_count = 0;
+var tasks = [], task_running = [], task_count = 0;
 var displaying_task = -1;
 
 // The task settings checkboxes (ID: default value)
