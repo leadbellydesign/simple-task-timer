@@ -40,31 +40,32 @@ function dialog(text, callback, data, type, override, steal_focus, check_queue, 
 // Create and display a modal dialog
 function dialog_display(dialog) {
     var text = dialog_queue[dialog].text, type = dialog_queue[dialog].type, callback = dialog_queue[dialog].callback, data = dialog_queue[dialog].data;
-    dialog_open = true;
-
-    // Tweak the buttons for the type of dialog
-    if(typeof type == 'object') {
-        $('#dialog-confirm').text(type[0]).show();
-        if(typeof type[1] != 'undefined') $('#dialog-cancel').text(type[1]).show(); else $('#dialog-cancel').hide();
-    } else {
-        switch(type) {
-            case 2: case 'confirm':
-                $('#dialog-confirm').text(locale('btnOK'));
-                $('#dialog-cancel').text(locale('btnCancel')).show();
-                break;
-            case 3: case 'question': case 'yesno':
-                $('#dialog-confirm').text(locale('btnYes'));
-                $('#dialog-cancel').text(locale('btnNo')).show();
-                break;
-            case 1: case 'alert': default:
-                $('#dialog-confirm').text(locale('btnOK'));
-                $('#dialog-cancel').hide();
-                var type = 1;
-                break;
-        }
-    }
 
     if(Setting('custom-dialogs') && !dialog_queue[dialog].force_native) {
+        dialog_open = true;
+
+        // Tweak the buttons for the type of dialog
+        if(typeof type == 'object') {
+            $('#dialog-confirm').text(type[0]).show();
+            if(typeof type[1] != 'undefined') $('#dialog-cancel').text(type[1]).show(); else $('#dialog-cancel').hide();
+        } else {
+            switch(type) {
+                case 2: case 'confirm':
+                    $('#dialog-confirm').text(locale('btnOK'));
+                    $('#dialog-cancel').text(locale('btnCancel')).show();
+                    break;
+                case 3: case 'question': case 'yesno':
+                    $('#dialog-confirm').text(locale('btnYes'));
+                    $('#dialog-cancel').text(locale('btnNo')).show();
+                    break;
+                case 1: case 'alert': default:
+                    $('#dialog-confirm').text(locale('btnOK'));
+                    $('#dialog-cancel').hide();
+                    var type = 1;
+                    break;
+            }
+        }
+
         // Set the text
         $('#dialog-txt').html(text.replace(/\n/g, '<br />'));
 
