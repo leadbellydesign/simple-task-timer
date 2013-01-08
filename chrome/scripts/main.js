@@ -63,7 +63,7 @@ $(function() {
             dialog(locale('confRating'), function(status) {
                 if(status) {
                     localStorage['rated'] = 'true';
-                    window.open('https://chrome.google.com/webstore/detail/aomfjmibjhhfdenfkpaodhnlhkolngif/reviews');
+                    window.open('https://chrome.google.com/webstore/detail/task-timer/aomfjmibjhhfdenfkpaodhnlhkolngif/reviews');
                 }
             }, {}, 'question');
         }
