@@ -120,12 +120,6 @@ function LoadSettings(reset_timer, from_save) {
     // Verify custom sound URL
     verify_custom_sound();
 
-    // Sync!
-    if(Setting('enable-sync')) {
-        RetrieveTasks();
-        SendTasks();
-    }
-
     // Reset timer
     if(reset_timer) {
         clearTimeout(timer);
@@ -141,6 +135,11 @@ function SaveSettings() {
         error(locale('errSoundURL'));
         $('#custom-sound').focus();
         return false;
+    }
+
+    // Sync if the setting was changed
+    if(Setting('enable-sync') != $('#enable-sync').is(':checked') && $('#enable-sync').is(':checked')) {
+        RetrieveTasks();
     }
 
     // Save the state of the checkboxes

@@ -7,7 +7,7 @@ $(document).ready(function() {
 		.append('<strong>localStorage:</strong><br />'+ JSON.stringify(localStorage))
 	;
 
-	// Resolution debug info
+	// Resolution debug info - http://code.google.com/p/chromium/issues/detail?id=35980
 	setTimeout(function() {
 		$('#debug-info')
 			.append('<br /><strong>Outer Resolution:</strong> '+ window.outerWidth +'x'+ window.outerHeight +'<br />')

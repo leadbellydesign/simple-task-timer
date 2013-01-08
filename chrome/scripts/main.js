@@ -388,7 +388,7 @@ function SaveTasks(timeout) {
     if(timeout) { autosaves++; }
 
     // Sync every 10 autosaves
-    if(autosaves % 10 == 0 || !synced) {
+    if(!timeout || autosaves % 10 == 0 || !synced) {
         SendTasks();
         synced = true;
     }
