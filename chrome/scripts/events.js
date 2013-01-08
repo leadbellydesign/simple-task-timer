@@ -276,12 +276,6 @@ $(function() {
         dialog(locale('infoTotals'));
     });
 
-    // User clicked the custom dialogs help button
-    $('#custom-dialogs-help').click(function() {
-        dialog(locale('infoCustomDialogs'));
-        return false;
-    });
-
 
     /**************************************************
      ********     I N P U T   E V E N T S      ********

@@ -92,10 +92,6 @@
         "message": "This is the totals row. It only appears when you have more than one task.\n\nThe \"Time Spent\" column of this row totals the time spent on every single one of your tasks.\nThe \"Goal\" column of this row totals all of the goal times from all of your tasks, other than indefinite ones.\nThe \"Progress\" column of this row gives you the total progress towards finishing the goals of all of your tasks. This progress does not include time spent that went over a task's goal, or time spent on tasks with indefinite goals.",
         "description": "Totals row help message"
     },
-    "infoCustomDialogs": {
-        "message": "It is strongly recommended that you keep this setting turned on, as when Chrome's native dialogs are used, odd things happen; large pauses after closing them are often introduced, and animations get skipped often.",
-        "description": "Custom dialogs setting help message"
-    },
 
 
 
