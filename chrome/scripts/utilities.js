@@ -177,7 +177,7 @@ function locale(messageID, args, html) {
 
 // Localise page
 function localisePage() {
-    var text_tags = ['OPTION', 'A', 'BUTTON', 'H1', 'H2', 'H3', 'TITLE', 'TEXTAREA']; // We do textareas as a workaround to get their placeholders to update properly
+    var text_tags = ['OPTION', 'A', 'BUTTON', 'IMG', 'H1', 'H2', 'H3', 'TITLE', 'TEXTAREA']; // We do textareas as a workaround to get their placeholders to update properly
     var html_tags = ['DIV', 'P', 'TD', 'TH', 'SPAN'];
 
     $('[i18n]').each(function(i, v) {
