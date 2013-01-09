@@ -21,7 +21,7 @@ $(function() {
         localisePage();
 
         // Show translations text
-        //if(lang != 'en' && lang != 'en-CA' && lang != 'en-GB' && lang != 'en-US') $('#translations-accuracy').show();
+        if(lang != 'en' && lang != 'en-CA' && lang != 'en-GB' && lang != 'en-US') $('#translations-accuracy').show();
 
         // Check to see if the app is already opened
         if(background.opened) throw 'open';
