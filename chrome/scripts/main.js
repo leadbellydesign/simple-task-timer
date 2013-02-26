@@ -297,34 +297,17 @@ function rebuild_charts() {
 
 
         // Display the time spent chart
-        if(current_plot) {
-            /*current_plot.setData(plot_data);
-            current_plot.setupGrid();
-            current_plot.draw();*/
-            current_plot = $.plot($('#current-pie-chart'), plot_data, {
-                series: {
-                    pie: {
-                        show: true
-                    }
-                },
-
-                legend: {
-                    show: false
+        current_plot = $.plot($('#current-pie-chart'), plot_data, {
+            series: {
+                pie: {
+                    show: true
                 }
-            });
-        } else {
-            current_plot = $.plot($('#current-pie-chart'), plot_data, {
-                series: {
-                    pie: {
-                        show: true
-                    }
-                },
+            },
 
-                legend: {
-                    show: false
-                }
-            });
-        }
+            legend: {
+                show: task_count > 8 ? true : false
+            }
+        });
     } else {
         $('#charts').fadeOut();
     }
