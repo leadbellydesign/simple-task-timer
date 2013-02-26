@@ -3,7 +3,7 @@ var alarm_open = false, task_open = false, tools_open = false, dialog_open = fal
 var js_error_shown = false, no_local_files_alerted = false; // Alert state variables
 var current_plot = false, total_plot = false; // Plot variables
 var save_timer, timer, timer_step = 0; // Timer variables
-var DEBUG = true; // Debug mode
+var DEBUG = false; // Debug mode
 
 // Set error event (most important event)
 window.onerror = function(msg, url, line) { js_error(msg, url, line); };
@@ -300,12 +300,33 @@ function rebuild_charts() {
         current_plot = $.plot($('#current-pie-chart'), plot_data, {
             series: {
                 pie: {
-                    show: true
+                    show: true,
+                    combine: Setting('chart-combine', false, true) ? {
+                        label: locale('txtOther'),
+                        color: '#999',
+                        threshold: 0.03
+                    } : {},
+                    label: {
+                        show: true,
+                        radius: 3 / 4,
+                        formatter: function(label, series) {
+                            return '<div style="font-size: 8pt; text-align: center; padding: 2px; color: white;">' + label + (Setting('chart-show-percent', true, true) ? '<br />' + Math.round(series.percent) + '%' : '') + '</div>';
+                        },
+                        background: { 
+                            opacity: 0.5,
+                            color: '#000'
+                        },
+                        threshold: 0.05
+                    }
                 }
             },
 
             legend: {
-                show: task_count > 8 ? true : false
+                show: false
+            },
+
+            grid: {
+                hoverable: true
             }
         });
     } else {
