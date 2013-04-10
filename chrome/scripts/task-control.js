@@ -420,6 +420,9 @@ function LoadTaskSettings(task) {
 function TaskSetting(id, task, value, only_not_exists) {
     if(typeof only_not_exists == 'undefined') only_not_exists = false;
 
+    // Make sure the task itself exists
+    if(typeof tasks[task] == 'undefined') tasks[task] = {};
+
     // Check if the setting exists
     if(typeof tasks[task].settings[id] == 'undefined') {
         var exists = false;
