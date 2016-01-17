@@ -1,0 +1,1 @@
+This is a tool written purely in HTML5 and JavaScript, that helps keep track of time that is spent on things like work or studies. You can create a task with a goal time, and start/stop the timer as needed.
